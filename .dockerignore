@@ -1,0 +1,12 @@
+node_modules
+.next
+data
+data-docker
+.git
+.gitignore
+*.md
+docker-compose.yml
+Dockerfile
+.dockerignore
+*.mp4
+.env*

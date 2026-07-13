@@ -1,0 +1,121 @@
+# ============================================================================
+#  GameHub — docker-compose
+# ============================================================================
+#
+#   docker compose up -d          -> build + start on http://localhost:3000
+#   docker compose up -d --build  -> rebuild after a git pull / code change
+#   docker compose logs -f        -> follow server logs
+#   docker compose down           -> stop (data volumes are kept)
+#
+# GameHub is configured almost entirely INSIDE the app (Settings → …) and
+# stores everything in /app/data — the environment section below is small on
+# purpose. Paths inside the container are Linux paths: point the setup
+# wizard / Settings → Library at /roms (the 📁 folder picker browses the
+# container's mounts).
+
+services:
+  gamehub:
+    image: shadowtek5/gamehub:latest
+    # ...or build from source instead of pulling the published image:
+    # build: .
+    container_name: gamehub
+
+    ports:
+      # host:container — change ONLY the left side to move GameHub to
+      # another port (e.g. "8080:3000" -> http://localhost:8080)
+      - "3000:3000"
+
+    volumes:
+      # ------------------------------------------------------------------
+      # 1) GameHub's own data: SQLite database, scraped media (box art,
+      #    videos, manuals), save states, battery saves, firmware/BIOS,
+      #    LaunchBox metadata mirror. BACK THIS FOLDER UP. ROMs are never
+      #    stored in here.
+      #    (Fresh installs normally use ./data:/app/data — this machine
+      #    keeps ./data for the native Windows install, so the container
+      #    gets its own folder.)
+      # ------------------------------------------------------------------
+      - ./data-docker:/app/data
+
+      # ------------------------------------------------------------------
+      # 2) Your ROM library — mount it read-write if you want the admin
+      #    upload/rename/delete tools to work, or :ro for belt-and-braces
+      #    (scans only ever read). Mount as many as you like; each shows up
+      #    in the folder picker.
+      # ------------------------------------------------------------------
+      # - /path/to/your/roms:/roms
+      # - D:\Emulation\ROMs:/roms          # Docker Desktop on Windows
+      # - /mnt/nas/roms:/roms:ro           # read-only example
+      # - /srv/more-roms:/roms2            # second library root
+
+      # ------------------------------------------------------------------
+      # 3) SMB/CIFS network share (NAS) — \\nas\share paths do NOT exist
+      #    inside a Linux container. Mount the share as the named volume
+      #    defined at the bottom of this file and it appears at /roms:
+      # ------------------------------------------------------------------
+      # - roms-smb:/roms
+
+    environment:
+      # ---- container basics ------------------------------------------------
+      # Timezone for logs and "added N days ago" style dates
+      - TZ=America/New_York
+
+      # ---- file ownership (NAS hosts: Synology, unRAID, TrueNAS…) ----------
+      # GameHub runs as this uid:gid and takes ownership of /app/data on
+      # start. Set them to the user that owns the mounted folders — on
+      # Synology, SSH in and run `id yourusername` (often 1026:100).
+      # Defaults to 1000:1000.
+      # - PUID=1026
+      # - PGID=100
+
+      # ---- ScreenScraper app credentials (OPTIONAL override) ---------------
+      # GameHub ships with its own encrypted app credentials built into the
+      # build, so users only enter their personal ScreenScraper account in
+      # Settings. Set these ONLY to override the built-in identity (e.g. a
+      # source build without an embedded key — see scripts/embed-ss-dev.mjs):
+      # - SCREENSCRAPER_DEVID=your_dev_id
+      # - SCREENSCRAPER_DEVPASSWORD=your_dev_password
+
+      # ---- advanced (defaults baked into the image) -------------------------
+      # - PORT=3000                  # internal listen port (change the ports:
+      #                              # mapping instead, not this)
+      # - HOSTNAME=0.0.0.0           # internal bind address
+      # - NEXT_TELEMETRY_DISABLED=1  # already disabled in the image
+
+      # Everything else — library folders, metadata provider accounts
+      # (ScreenScraper/EmuMovies/IGDB/MobyGames/SteamGridDB/
+      # RetroAchievements), scraper options, OIDC single sign-on, user
+      # registration/invites, auto-clean/watcher — is configured in the app
+      # under Settings and persists in /app/data.
+
+    restart: unless-stopped
+
+    # A healthcheck is built into the image (GET /api/heartbeat every 60s).
+    # Optional resource caps:
+    # mem_limit: 2g
+    # cpus: "2.0"
+
+# ============================================================================
+#  Named volumes — network shares
+# ============================================================================
+# SMB/CIFS (most NAS boxes — Synology, TrueNAS, Windows shares).
+# Fill in your credentials, uncomment, and also uncomment "- roms-smb:/roms"
+# in the service above. Add ",ro" to `o:` for read-only.
+#
+# volumes:
+#   roms-smb:
+#     driver: local
+#     driver_opts:
+#       type: cifs
+#       o: "addr=10.69.2.10,username=YOUR_USER,password=YOUR_PASS,iocharset=utf8,vers=3.0"
+#       device: "//10.69.2.10/emulation/roms"
+#
+# NFS variant:
+#
+# volumes:
+#   roms-nfs:
+#     driver: local
+#     driver_opts:
+#       type: nfs
+#       o: "addr=10.69.2.10,ro,nfsvers=4"
+#       device: ":/volume1/roms"

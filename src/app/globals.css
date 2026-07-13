@@ -1,0 +1,834 @@
+@import "tailwindcss";
+
+:root {
+  /* SteamOS (Deck Gaming Mode) palette — exact values extracted from
+     Steam's gamepad UI stylesheet; see docs/steamos-reference.md */
+  --bg: #0e141b;
+  --bg-raised: #23262e;
+  --bg-panel: #23262e;
+  --bg-hover: #3d4450;
+  --accent: #1a9fff;
+  --accent-strong: #1a9fff;
+  --play-from: #59bf40;
+  --play-to: #3f9e2b;
+  --text: #dcdedf;
+  --text-dim: #8b929a;
+  --text-bright: #ffffff;
+  --danger: #de3618;
+
+  /* Valve's signature easing curve */
+  --gpEase: cubic-bezier(0.16, 0.86, 0.43, 0.99);
+
+  /* Steam gamepad-UI design tokens (the names its CSS consumes and that
+     deckthemes.com themes reference). Values = the compiled literals. */
+  --gpColor-White: #ffffff;
+  --gpColor-Blue: #1a9fff;
+  --gpColor-Green: #59bf40;
+  --gpColor-Red: #de3618;
+  --gpColor-Yellow: #ffc82c;
+  --gpColor-Orange: #f37d07;
+  --gpSystemLightestGrey: #dcdedf;
+  --gpSystemLighterGrey: #b8bcbf;
+  --gpSystemGrey: #8b929a;
+  --gpSystemDarkerGrey: #67707b;
+  --gpSystemDarkestGrey: #0e141b;
+  --gpBackground-LightSoft: #3d4450;
+  --gpBackground-LightMedium: #383a41;
+  --gpBackground-DarkSoft: #23262e;
+  --gpBackground-DarkMedium: #0e141b;
+  --gpStoreLightestGrey: #dcdedf;
+  --gpStoreLighterGrey: #b8bcbf;
+  --gpCorner-Small: 2px;
+  --gpCorner-Medium: 4px;
+  --gpCorner-Large: 8px;
+  --gpSpace-Gutter: 2.8vw;
+  --gpShadow-Medium: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  --gpShadow-XLarge: 0 12px 32px rgba(0, 0, 0, 0.7);
+  --gpText-HeadingLarge: 26px;
+  --gpText-HeadingMedium: 22px;
+  --gpText-HeadingSmall: 18px;
+  --gpText-BodyLarge: 16px;
+  --gpText-BodyMedium: 14px;
+  --gpText-BodySmall: 12px;
+  --basicui-header-height: 40px;
+  --gamepadui-current-footer-height: 40px;
+  --gamepad-page-content-max-width: 1100px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-panel: var(--bg-panel);
+  --color-hover: var(--bg-hover);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-body: var(--text);
+  --color-dim: var(--text-dim);
+  --color-bright: var(--text-bright);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  /* measured from the live BPM capture: radial gradient anchored top-left,
+     near-black into the dark blue-gray base */
+  background-color: var(--bg);
+  background-image: radial-gradient(155.42% 100% at 0% 0%, #060a0e 0%, #0e141b 100%);
+  background-attachment: fixed;
+  color: var(--text);
+  /* Motiva Sans first (Steam's face, for users who have it locally) —
+     it's Valve-proprietary so we never bundle it */
+  font-family: "Motiva Sans", var(--font-geist-sans), "Segoe UI", Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* BPM never scrolls the window: panes scroll their own overflow regions.
+   The viewport spans from the very top (UNDER the transparent 40px header,
+   so content scrolls faintly beneath it) down to the 42px footer. Height
+   accounts for the body zoom factor set by SteamosShim. Panes clear the
+   header via their own top padding (measured: 64px). */
+.bpm-viewport {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(100vh / var(--gh-zoom, 1) - 42px);
+  overflow: hidden;
+}
+
+/* Accessibility → Reduce motion: kill card scaling + transitions */
+:root[data-reduce-motion="on"] .deck-card,
+:root[data-reduce-motion="on"] .deck-capsule,
+:root[data-reduce-motion="on"] .game-card,
+:root[data-reduce-motion="on"] [class*="transition"] {
+  transition: none !important;
+  animation: none !important;
+}
+:root[data-reduce-motion="on"] .deck-card:hover,
+:root[data-reduce-motion="on"] .deck-card:focus,
+:root[data-reduce-motion="on"] .deck-capsule:hover,
+:root[data-reduce-motion="on"] .deck-capsule:focus {
+  transform: none !important;
+}
+/* No glass shimmer under reduce-motion */
+:root[data-reduce-motion="on"] .deck-shimmer:hover::after,
+:root[data-reduce-motion="on"] .deck-shimmer:focus::after,
+:root[data-reduce-motion="on"] .deck-shimmer:focus-visible::after {
+  display: none !important;
+}
+
+/* Big Picture shows no scrollbars anywhere — scrolling is positional */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Steam-green play button */
+.btn-play {
+  background: linear-gradient(to right, var(--play-from), var(--play-to));
+  color: #d2efa9;
+  font-weight: 600;
+  border-radius: 2px;
+  transition: filter 0.15s ease;
+}
+.btn-play:hover {
+  filter: brightness(1.2);
+  color: #fff;
+}
+
+.btn-blue {
+  background: linear-gradient(to right, #47bfff, #1a44c2);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 2px;
+  transition: filter 0.15s ease;
+}
+.btn-blue:hover {
+  filter: brightness(1.15);
+}
+
+/* Exact Steam gamepad-UI DialogButton: #3d4450 / #dcdedf / 2px radius,
+   150ms ease-in background fade; controller focus inverts to white */
+.btn-gray {
+  background: #3d4450;
+  color: #dcdedf;
+  border-radius: 2px;
+  transition: background-color 150ms ease-in, color 150ms ease-in;
+}
+.btn-gray:hover {
+  background: #464d58;
+  color: #fff;
+}
+
+/* SteamOS focus inversion — focused controls go solid white. Applies via
+   the shim's .gpfocus (controller/keyboard nav) and :focus-visible. */
+.btn-gray.gpfocus,
+.btn-gray:focus-visible,
+.btn-blue.gpfocus,
+.btn-blue:focus-visible,
+.btn-play.gpfocus,
+.btn-play:focus-visible {
+  background: #fff;
+  color: #0e141b;
+  outline: none;
+  filter: none;
+}
+.menu-item.gpfocus,
+.pill-tab.gpfocus {
+  background: #3d4450;
+  color: #fff;
+  outline: none;
+}
+
+/* BPM settings have no card-style panels — sections sit directly on the
+   page; the measured row style below carries the visual weight instead */
+.panel {
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Measured BPM settings row: #23262e, radius 2, 12px padding, 64px min
+   height; 16px label + 12px description; control on the right */
+.settings-row,
+.bpm-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 64px;
+  /* bible (live DOM capture): row padding is exactly 12px; it renders
+     larger at fullscreen because the whole UI zooms (~1.8x at 1440p) */
+  padding: 12px;
+  border-bottom: none;
+  background: #23262e;
+  border-radius: 2px;
+  margin-bottom: 6px; /* measured: 5-6px between rows in a section */
+}
+
+/* Mobile settings treatment: the desktop settings panels are reused inside the
+   /mobile settings screens (wrapped in .gh-msettings). On phones, stack each
+   row so full-width touch controls fit, and force inputs/dropdowns to fill the
+   width instead of overflowing off-screen. Desktop is unaffected. */
+@media (max-width: 767px) {
+  /* Let a row wrap and its control shrink instead of overflowing — but DON'T
+     force a column (that would drop tiny controls like a › chevron or a toggle
+     onto their own line). Wide controls (dropdowns/inputs) can't exceed the
+     row. */
+  .gh-msettings .settings-row,
+  .gh-msettings .bpm-row {
+    flex-wrap: wrap;
+  }
+  .gh-msettings .gamepaddialog_FieldChildrenWithIcon_gh,
+  .gh-msettings .gamepaddialog_FieldChildrenInner_gh {
+    min-width: 0;
+    flex-shrink: 1;
+  }
+  .gh-msettings .gh-dropdown {
+    width: 100% !important;
+    max-width: 100%;
+  }
+  .gh-msettings input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  .gh-msettings textarea,
+  .gh-msettings select {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Measured BPM settings section subheader: 36px line box, 16px/500, #dcdedf */
+.bpm-subheader {
+  height: 36px;
+  line-height: 36px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #dcdedf;
+}
+
+.input-dark {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: var(--text-bright);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.input-dark:focus {
+  border-color: var(--accent);
+}
+.input-dark::placeholder {
+  color: var(--text-dim);
+}
+
+/* Hide scrollbars in carousels but keep them scrollable */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Card hover lift, Steam library style */
+.game-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.game-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(102, 192, 244, 0.4);
+  z-index: 10;
+}
+
+/* SteamOS (Deck) style focus: white glowing outline + lift, always visible.
+   .32s ease-in-out transform is Steam's exact tile-scale timing. */
+.deck-card {
+  transition: transform 0.32s ease-in-out, box-shadow 0.32s ease-in-out;
+  outline: none;
+  border-radius: 6px;
+}
+.deck-card:hover {
+  transform: scale(1.04);
+  z-index: 10;
+}
+.deck-card:focus,
+.deck-card:focus-visible {
+  transform: scale(1.08);
+  z-index: 10;
+  box-shadow:
+    0 0 0 3px #fff,
+    0 0 24px rgba(255, 255, 255, 0.45),
+    0 12px 32px rgba(0, 0, 0, 0.7);
+}
+
+/* Library/grid capsule focus — measured 1:1 from Big Picture's
+   appportrait_LibraryItemBox. A 2px white outline snaps in from 12px, then
+   PULSES for ~24s (1.2s x20, dimming to 24% mid-cycle) over a drop shadow;
+   plus a one-shot diagonal "glass" shimmer sweeps across on selection. */
+.deck-capsule {
+  border-radius: 3px;
+  transition: transform 0.32s ease-in-out;
+  outline: none;
+}
+.deck-capsule:hover,
+.deck-capsule:focus,
+.deck-capsule:focus-visible {
+  transform: scale(1.05);
+  z-index: 10;
+  outline: 2px solid rgba(255, 255, 255, 0.6);
+  outline-offset: 2px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.5);
+  animation:
+    deck-cap-ringin 0.4s ease,
+    deck-cap-colorin 0.4s ease,
+    deck-cap-pulse 1.2s ease-in-out 20;
+}
+/* Per-art color glow (measured: a blurred saturate(3)/brightness duplicate of
+   the game's own cover behind the capsule, opacity 0 -> 0.5 on focus). Applied
+   to any card carrying a .deck-glow child. */
+.deck-glow {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.deck-capsule:hover > .deck-glow,
+.deck-capsule:focus > .deck-glow,
+.deck-capsule:focus-visible > .deck-glow {
+  opacity: 0.5;
+}
+
+/* Glass shimmer — a one-shot diagonal light sweep on selection. Split out as
+   its own class so it's GLOBAL across every game card (library, home, shelves),
+   exactly as Big Picture does it. */
+.deck-shimmer:hover::after,
+.deck-shimmer:focus::after,
+.deck-shimmer:focus-visible::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 3px;
+  pointer-events: none;
+  overflow: hidden;
+  /* a bright diagonal glass streak (transparent everywhere else) that stays
+     inside the card bounds */
+  background-image: linear-gradient(
+    -60deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.45) 46%,
+    rgba(255, 255, 255, 0.85) 50%,
+    rgba(255, 255, 255, 0.45) 54%,
+    transparent 62%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: deck-cap-shimmer 0.9s ease;
+}
+@keyframes deck-cap-ringin {
+  0% {
+    outline-width: 12px;
+  }
+  100% {
+    outline-width: 2px;
+  }
+}
+@keyframes deck-cap-colorin {
+  0% {
+    outline-color: rgba(255, 255, 255, 0);
+  }
+  100% {
+    outline-color: rgba(255, 255, 255, 0.6);
+  }
+}
+@keyframes deck-cap-pulse {
+  50% {
+    outline-color: rgba(255, 255, 255, 0.24);
+  }
+}
+@keyframes deck-cap-shimmer {
+  0% {
+    background-position: 130% 0%;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    background-position: -30% 0%;
+    opacity: 0;
+  }
+}
+
+/* Generic focus for elements without their own gpfocus treatment while
+   navigating with a controller — Steam's ring is `outline: outset #fff 2px` */
+body[data-gamepad="on"] :focus {
+  outline: outset #fff 2px;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+body[data-gamepad="on"] .deck-card:focus,
+body[data-gamepad="on"] .deck-capsule:focus,
+body[data-gamepad="on"] .btn-gray:focus,
+body[data-gamepad="on"] .btn-blue:focus,
+body[data-gamepad="on"] .btn-play:focus,
+body[data-gamepad="on"] .menu-item:focus,
+body[data-gamepad="on"] .contextMenuItem:focus,
+body[data-gamepad="on"] .pill-tab:focus {
+  outline: none;
+}
+body[data-gamepad="on"] .btn-gray:focus,
+body[data-gamepad="on"] .btn-blue:focus,
+body[data-gamepad="on"] .btn-play:focus {
+  background: #fff;
+  color: #0e141b;
+  filter: none;
+}
+
+/* Library filter header — the "N APPS HIDDEN DUE TO FILTER" rule Steam draws
+   above the grid when a filter is active. EXACT Big Picture class names +
+   structure (gamepadlibrary_AppGridFilterHeader / _AppGridFilterText) so
+   deckthemes CSS targeting them applies. ::before/::after are the flanking
+   hairlines (measured rgba(139,146,154,0.4), 1px). */
+.gamepadlibrary_AppGridFilterHeader_gh {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 4px 0;
+  margin: 0 8px;
+}
+.gamepadlibrary_AppGridFilterHeader_gh::before,
+.gamepadlibrary_AppGridFilterHeader_gh::after {
+  content: "";
+  flex: 1 1 0;
+  height: 1px;
+  background: rgba(139, 146, 154, 0.4);
+}
+.gamepadlibrary_AppGridFilterText_gh {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+/* Footer FILTER value pill (measured appgrid_CompatFooterIcons/_Advanced): the
+   "ADVANCED" chip shown on the Filter footer action when filters are active. */
+.appgrid_CompatFooterDescription_gh {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: #fff;
+}
+.appgrid_CompatFooterIcons_gh.appgrid_Advanced_gh {
+  margin-left: 4px;
+  padding: 0 8px;
+  border-radius: 12px;
+  background: #23262e;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #fff;
+}
+
+/* ── Library Filters dialog — 1:1 with Big Picture's FILTER panel ──────────
+   Measured live: the dialog is #0e141b with a 1.58px #23262e border and
+   29px/38px padding; each section (appfilterpane FilterBucket) is a #23262e
+   card; checkboxes are 16px/2px-radius boxes; the Show group uses hollow
+   radio rings. Steam class names carried verbatim (+_gh) so deckthemes CSS
+   for these hooks applies. */
+.gh-filter-dialog {
+  background: #0e141b;
+  border: 1.58px solid #23262e;
+  border-radius: 3px;
+  padding: 29px 38px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+.gh-filter-bucket {
+  background: #23262e;
+  border-radius: 3px;
+  padding: 12px 16px 16px;
+}
+/* Checkbox box: dark fill by default, accent fill + check when on */
+.gh-checkbox {
+  background: rgba(0, 0, 0, 0.27);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  transition:
+    background-color 0.12s ease,
+    border-color 0.12s ease;
+}
+.gh-checkbox-on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+/* Radio ring: hollow by default, accent ring + inner dot when selected */
+.gh-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.27);
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease;
+}
+.gh-radio-on {
+  border-color: var(--accent);
+  background: radial-gradient(circle at center, var(--accent) 0 6px, transparent 7px);
+}
+:root[data-reduce-motion="on"] .gh-checkbox,
+:root[data-reduce-motion="on"] .gh-radio {
+  transition: none;
+}
+
+
+/* Crossfade for the home-screen backdrop */
+@keyframes deck-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.deck-backdrop {
+  animation: deck-fade 0.45s ease both;
+}
+
+/* Steam's home backdrop slowly zooms in while shown (measured live: scale
+   1 -> 1.2 over 25s ease, origin left-bottom, one pass). Replays whenever the
+   img remounts on focus change. Carries the 0.45s crossfade too, since a
+   single element can't stack `animation` across classes. */
+@keyframes deck-hero-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+.deck-hero-zoom {
+  transform-origin: left bottom;
+  animation:
+    deck-fade 0.45s ease both,
+    deck-hero-zoom 25s ease;
+  will-change: transform, opacity;
+}
+:root[data-reduce-motion="on"] .deck-hero-zoom {
+  animation: deck-fade 0.45s ease both;
+  transform: none;
+}
+
+/* Steam's BASELINE home-hero darkening (verified on the Deck: the home hero
+   libraryassetimage_Image is filter:brightness(0.5); covers stay full bright).
+   Scoped to the home-hero image class only, and set as a plain rule so a theme
+   (loaded after, unlayered) can override it — matching Steam so themes work. */
+.gamepadhomerecentgames_RecentGamesBackgroundImage_gh {
+  filter: brightness(0.5);
+}
+
+/* Controller glyph chips (A/B) in the bottom bar — white circle, black letter */
+.glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 9999px;
+  background: #fff;
+  color: #000;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* Centered pill tabs (WHAT'S NEW / ACTIVITY / …) — measured from BPM:
+   6px/16px padding, radius 64, 12px/700 uppercase, 0.5px tracking */
+.pill-tab {
+  border-radius: 64px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: color 0.12s ease, background 0.12s ease;
+}
+.pill-tab:hover,
+.pill-tab:focus-visible {
+  color: #fff;
+  outline: none;
+}
+.pill-tab[data-active="true"] {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* Blue "NEW TO LIBRARY" chip */
+.chip-new {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20; /* stay above the hovered/focused card (z-index 10) */
+  background: #2f8fdd;
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+  border-radius: 2px;
+}
+
+/* SteamOS slide-in overlays (main menu left, quick access right) */
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+/* downloads activity graph: two copies side-by-side scroll left seamlessly */
+@keyframes gh-graph-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.overlay-left {
+  animation: slide-in-left 0.18s ease-out both;
+}
+.overlay-right {
+  animation: slide-in-right 0.18s ease-out both;
+}
+
+/* Big SteamOS menu rows */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 0.8rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+.menu-item:hover,
+.menu-item:focus,
+.menu-item:focus-visible {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  outline: none;
+}
+.menu-item[data-active="true"] {
+  color: #fff;
+  /* the active page is marked by the mainmenu_ActiveDot_ (which the theme
+     reshapes), NOT an edge stripe — an inset box-shadow bar here stayed a
+     hardcoded blue under themes, so it's gone. */
+}
+
+/* Steam slider (GpSlider) — div structure so themes can restyle it: the
+   track's ::before is the fill layer, sized by --normalized-slider-value
+   (Steam's variable contract); the handle rides the same variable. */
+.gh-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 32px;
+  cursor: pointer;
+  touch-action: none;
+}
+.gh-slider-track {
+  position: relative;
+  height: 4px;
+  width: 100%;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.14);
+}
+.gh-slider-track::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: calc(var(--normalized-slider-value, 0) * 100%);
+  border-radius: 2px;
+  background: #fff;
+}
+.gh-slider-handles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.gh-slider-handle {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--normalized-slider-value, 0) * 100%);
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.55);
+}
+.gh-slider-notches {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1px;
+  margin-top: -4px;
+}
+.gh-slider-notch {
+  width: 2px;
+  height: 6px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+.gh-slider-notch-active {
+  background: #fff;
+}
+
+/* Deck-style toggle switch — Steam structure: .switch = Toggle container,
+   .switch-rail = ToggleRail track, .switch-knob = the knob. Real child
+   elements (not pseudo-elements) so CSS themes can restyle each part. */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 2.7rem;
+  height: 1.45rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.switch-rail {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+/* Steam structure: the ON fill is the rail's ::before layer, revealed by
+   opacity — themes (e.g. Colored Toggles) recolor exactly this layer */
+.switch-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--accent-strong);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.switch[data-on="true"] .switch-rail::before {
+  opacity: 1;
+}
+.switch-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(1.45rem - 4px);
+  height: calc(1.45rem - 4px);
+  border-radius: 9999px;
+  background: #fff;
+  transition: transform 0.15s ease;
+}
+.switch[data-on="true"] .switch-knob {
+  transform: translateX(1.25rem);
+}
+
+
+/* Variant chip (hack / translation / digital / cia …) on game cards */
+.chip-variant {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 20;
+  background: #8055d4;
+  color: #fff;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0.22rem 0.6rem;
+  border-radius: 2px;
+}
+
+/* Deck-style horizontal shelf */
+.shelf {
+  display: flex;
+  gap: 0.9rem;
+  overflow-x: auto;
+  padding: 0.9rem 0.5rem;
+  scroll-padding-left: 0.5rem;
+}
+
+/* Subtle top gradient like Steam's store header */
+.app-gradient {
+  background: linear-gradient(180deg, rgba(42, 71, 94, 0.6) 0%, rgba(14, 20, 27, 0) 300px);
+}
