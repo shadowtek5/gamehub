@@ -15,6 +15,9 @@ import MobileArtPicker, {
 } from "./MobileArtPicker";
 import { MobileSheet, SheetRow, SheetSection, SheetCloseButton, SheetBack } from "./primitives";
 import { useTranslations } from "next-intl";
+import RomUploadModal from "@/components/RomUploadModal";
+import FirmwareModal from "@/components/FirmwareModal";
+import ControllerLayout from "@/components/ControllerLayout";
 
 type Layout = "auto" | "wide" | "square" | "portrait";
 
@@ -47,8 +50,12 @@ export default function MobileSystemOptions({
   const [artMsg, setArtMsg] = useState("");
   const [picking, setPicking] = useState(false);
   const pickingRef = useRef(false); // synchronous guard against double-taps
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [firmwareOpen, setFirmwareOpen] = useState(false);
+  const [ctrlLayoutOpen, setCtrlLayoutOpen] = useState(false);
   const router = useRouter();
   const t = useTranslations("mobileSystemOptions");
+  const ts = useTranslations("systemTools"); // reuse the desktop system-tools labels
   const artLabel = (kind: ArtKind) => t(`artLabel.${kind}`);
 
   const show = () => {
@@ -256,6 +263,29 @@ export default function MobileSystemOptions({
     }
   }
 
+  // Export this system for another launcher (blob download, same endpoint as desktop).
+  async function exportDownload(format: "gamelist" | "retroarch" | "m3u", fallbackName: string) {
+    setOpen(false);
+    playSound("activate");
+    try {
+      const res = await fetch(`/api/export/${format}/${slug}`);
+      if (!res.ok) return;
+      const blob = await res.blob();
+      const cd = res.headers.get("Content-Disposition") ?? "";
+      const name = cd.match(/filename="?([^"]+)"?/)?.[1] ?? fallbackName;
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      /* ignore — a failed export just doesn't download */
+    }
+  }
+
   const LAYOUTS: Layout[] = ["auto", "wide", "square", "portrait"];
 
   return (
@@ -302,6 +332,25 @@ export default function MobileSystemOptions({
                   <button onClick={runCleanup} disabled={busy} className="rounded-[6px] bg-[#a33a3a] px-3 py-1.5 text-[13px] font-semibold text-white">{t("remove")}</button>
                 </div>
               )}
+              <SheetRow onClick={() => { setOpen(false); setUploadOpen(true); }}>
+                <span className="text-dim">⇧</span> {ts("uploadRoms")}
+              </SheetRow>
+              <SheetRow onClick={() => { setOpen(false); setFirmwareOpen(true); }}>
+                <span className="text-dim">▣</span> {ts("manageFirmware")}
+              </SheetRow>
+              <SheetRow onClick={() => { setOpen(false); setCtrlLayoutOpen(true); }}>
+                <span className="text-dim">🎮</span> {ts("controllerLayout")}
+              </SheetRow>
+              <SheetSection>{ts("exportToFrontend")}</SheetSection>
+              <SheetRow onClick={() => exportDownload("gamelist", "gamelist.xml")}>
+                <span className="text-dim">▤</span> {ts("gamelistLabel")}
+              </SheetRow>
+              <SheetRow onClick={() => exportDownload("retroarch", `${shortName}.lpl`)}>
+                <span className="text-dim">▤</span> {ts("retroarchLabel")}
+              </SheetRow>
+              <SheetRow onClick={() => exportDownload("m3u", `${shortName}.zip`)}>
+                <span className="text-dim">▤</span> {ts("m3uLabel")}
+              </SheetRow>
               {msg && <div className="px-5 py-2 text-[13px] text-dim">{msg}</div>}
               <SheetCloseButton onClick={() => setOpen(false)} />
             </div>
@@ -339,6 +388,16 @@ export default function MobileSystemOptions({
             />
           )}
         </MobileSheet>
+      )}
+
+      {uploadOpen && <RomUploadModal slug={slug} name={shortName} onClose={() => setUploadOpen(false)} />}
+      {firmwareOpen && <FirmwareModal slug={slug} name={shortName} onClose={() => setFirmwareOpen(false)} />}
+      {ctrlLayoutOpen && (
+        <ControllerLayout
+          scope={{ kind: "system", slug }}
+          title={ts("controllerLayoutTitle", { name: shortName })}
+          onClose={() => setCtrlLayoutOpen(false)}
+        />
       )}
     </>
   );

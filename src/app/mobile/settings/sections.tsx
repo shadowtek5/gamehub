@@ -6,8 +6,10 @@ import {
   getHiddenSystems,
   getSetting,
   listUsersAdmin,
+  listRestrictionProfiles,
+  presentSystemSlugs,
 } from "@/lib/db";
-import { PLATFORMS } from "@/lib/platforms";
+import { PLATFORMS, platformBySlug } from "@/lib/platforms";
 import {
   getScraperOptions,
   screenscraperConfigured,
@@ -40,6 +42,7 @@ import SettingsLaunchBox from "@/components/bpm/SettingsLaunchBox";
 import SettingsDatDb from "@/components/bpm/SettingsDatDb";
 import SettingsAutomation from "@/components/bpm/SettingsAutomation";
 import SettingsUsers from "@/components/bpm/SettingsUsers";
+import SettingsAgeRestrictions from "@/components/bpm/SettingsAgeRestrictions";
 import SystemMetaScrape from "@/components/SystemMetaScrape";
 import ScraperOptionsPanel from "@/components/ScraperOptions";
 import BulkScrape from "@/components/BulkScrape";
@@ -194,10 +197,28 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
       blurb: t("sections.users.blurb"),
       content: (
         <>
-          <SettingsUsers initialUsers={listUsersAdmin()} currentUserId={user.id} />
+          <SettingsUsers
+            initialUsers={listUsersAdmin()}
+            currentUserId={user.id}
+            profiles={listRestrictionProfiles().map((p) => ({ id: p.id, name: p.name }))}
+          />
           <InvitesPanel />
           <OidcSettings initial={getOidcConfig()} />
         </>
+      ),
+    },
+    {
+      key: "age-restrictions",
+      label: "Age Restrictions",
+      icon: "🔞",
+      blurb: "Restriction profiles & per-system age gating",
+      content: (
+        <SettingsAgeRestrictions
+          initialProfiles={listRestrictionProfiles()}
+          systems={presentSystemSlugs()
+            .map((slug) => ({ slug, name: platformBySlug(slug)?.name ?? slug }))
+            .sort((a, b) => a.name.localeCompare(b.name))}
+        />
       ),
     },
   ];

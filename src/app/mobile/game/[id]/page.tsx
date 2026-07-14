@@ -195,6 +195,7 @@ export default async function MobileGamePage({
           <MobileGameOptions
             romId={rom.id}
             title={rom.title}
+            filename={rom.filename}
             favorite={rom.favorite === 1}
             hidden={rom.hidden === 1}
             isAdmin={user.isEditor}

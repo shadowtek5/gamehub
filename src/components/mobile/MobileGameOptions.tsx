@@ -15,6 +15,7 @@ import MobileArtPicker, {
   type ArtAspect,
 } from "./MobileArtPicker";
 import { MobileSheet, SheetRow, SheetSection, SheetCloseButton, SheetBack } from "./primitives";
+import RomPatcherModal from "@/components/RomPatcherModal";
 
 interface CollectionOpt {
   id: number;
@@ -37,6 +38,7 @@ export default function MobileGameOptions({
   isAdmin,
   collections: initialCollections,
   hasManual = false,
+  filename,
 }: {
   romId: number;
   title: string;
@@ -45,6 +47,7 @@ export default function MobileGameOptions({
   isAdmin: boolean;
   collections: CollectionOpt[];
   hasManual?: boolean;
+  filename: string;
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState<"menu" | "collections" | "art">("menu");
@@ -52,6 +55,8 @@ export default function MobileGameOptions({
   const [hidden, setHidden] = useState(initialHidden);
   const [collections, setCollections] = useState(initialCollections);
   const [msg, setMsg] = useState("");
+  const [mediaMsg, setMediaMsg] = useState("");
+  const [patcherOpen, setPatcherOpen] = useState(false);
   const [artKind, setArtKind] = useState<ArtKind>("boxart");
   const [artCands, setArtCands] = useState<ArtCandidate[] | null>(null);
   const [artMsg, setArtMsg] = useState("");
@@ -59,6 +64,7 @@ export default function MobileGameOptions({
   const pickingRef = useRef(false); // synchronous guard against double-taps
   const router = useRouter();
   const t = useTranslations("mobileGameOptions");
+  const tg = useTranslations("gameOptions"); // reuse the desktop action labels
 
   const show = () => {
     playSound("modalOpen");
@@ -161,6 +167,19 @@ export default function MobileGameOptions({
     if (o.ok) router.refresh();
   }
 
+  // On-demand FTP fetch of a video snap / manual (same endpoint as desktop).
+  async function fetchMedia(kind: "video" | "manual") {
+    setMediaMsg(`${tg(`fetchLabels.${kind}.title`)}…`);
+    try {
+      const res = await fetch(`/api/roms/${romId}/fetch-${kind}`, { method: "POST" });
+      const o = await res.json();
+      setMediaMsg(o.ok ? `✓ ${tg(`fetchLabels.${kind}.added`)}` : `✗ ${o.error ?? tg(`fetchLabels.${kind}.notFound`)}`);
+      if (o.ok) router.refresh();
+    } catch (e) {
+      setMediaMsg(`✗ ${e instanceof Error ? e.message : ""}`);
+    }
+  }
+
   return (
     <>
       <button
@@ -228,6 +247,22 @@ export default function MobileGameOptions({
                   <SheetRow onClick={() => openArtPicker("logo")}>
                     <span className="text-dim">✎</span> {t("chooseLogo")}
                   </SheetRow>
+                  <SheetRow onClick={() => fetchMedia("video")}>
+                    <span className="text-dim">🎬</span> {tg("fetchVideoSnap")}
+                  </SheetRow>
+                  <SheetRow onClick={() => fetchMedia("manual")}>
+                    <span className="text-dim">📖</span> {tg("fetchManual")}
+                  </SheetRow>
+                  {mediaMsg && <div className="px-5 py-1 text-[12px] text-dim">{mediaMsg}</div>}
+                  <SheetRow
+                    onClick={() => {
+                      close();
+                      playSound("modalOpen");
+                      setPatcherOpen(true);
+                    }}
+                  >
+                    <span className="text-dim">🩹</span> {tg("patchRom")}
+                  </SheetRow>
                   <SheetRow href={`/mobile/game/${romId}/properties`}>
                     <span className="text-dim">⚙</span> {t("properties")}
                   </SheetRow>
@@ -273,6 +308,10 @@ export default function MobileGameOptions({
             />
           )}
         </MobileSheet>
+      )}
+
+      {patcherOpen && (
+        <RomPatcherModal romId={romId} title={title} filename={filename} onClose={() => setPatcherOpen(false)} />
       )}
     </>
   );
