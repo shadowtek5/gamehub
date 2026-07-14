@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-14",
+    title: "The mobile app catches up: save states, achievements, filters, collections",
+    body: "A big batch of desktop features came to the mobile app. On a game's page you now get its cloud save states (browse, resume, delete), your RetroAchievements progress and badges, and the per-game controller-layout editor — all previously desktop-only. The mobile library gains the play-status filters (Favorites, Playing, Backlog, Beaten, Hidden), the player-mode and region-variant filters, and the % Achievements and Size sorts. And Collections are no longer read-only on your phone: create standard or smart collections, and delete your own, right from the mobile app.",
+    art: "mobile",
+  },
+  {
     date: "2026-07-13",
     title: "Collections now have a list view too",
     body: "Just like the Systems page, the Collections page now has a Grid / List toggle in the top-right (your choice is remembered per device). The list view is a compact one-line-per-collection layout — name, smart/public badges, and game count — that's much quicker to scan when you have a lot of collections. On desktop/TV the same toggle also switches the auto-generated Genres, Developers and Publishers groupings between tiles and lists. Available on the mobile app too.",

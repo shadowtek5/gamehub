@@ -8,11 +8,11 @@ export const dynamic = "force-dynamic";
 export default async function MobileLibraryPage() {
   await requireUser();
   const t = await getTranslations("mobilePagesA.library");
-  const { platforms, genres, languages } = browseFacets();
+  const { platforms, variants, genres, languages } = browseFacets();
   return (
     <div>
       <h1 className="mb-4 mt-1 text-[22px] font-black text-bright">{t("title")}</h1>
-      <MobileLibrary platforms={platforms} genres={genres} languages={languages} />
+      <MobileLibrary platforms={platforms} variants={variants} genres={genres} languages={languages} />
     </div>
   );
 }

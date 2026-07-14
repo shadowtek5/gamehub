@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { getDb, CollectionRow, browseFacets } from "@/lib/db";
 import MobileLibrary from "@/components/mobile/MobileLibrary";
+import DeleteCollectionButton from "@/components/DeleteCollectionButton";
 
 export const dynamic = "force-dynamic";
 
@@ -29,7 +30,10 @@ export default async function MobileCollectionPage({
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 5l-7 7 7 7" />
           </svg>
         </Link>
-        <h1 className="text-[22px] font-black text-bright">{collection.name}</h1>
+        <h1 className="min-w-0 flex-1 truncate text-[22px] font-black text-bright">{collection.name}</h1>
+        {collection.user_id === user.id && (
+          <DeleteCollectionButton collectionId={collection.id} redirectTo="/mobile/collections" />
+        )}
       </div>
       <MobileLibrary collectionLock={String(collection.id)} platforms={platforms} genres={genres} languages={languages} />
     </div>

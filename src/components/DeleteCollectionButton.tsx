@@ -7,8 +7,11 @@ import { useTranslations } from "next-intl";
 
 export default function DeleteCollectionButton({
   collectionId,
+  redirectTo = "/collections",
 }: {
   collectionId: number;
+  /** Where to go after deleting (mobile passes /mobile/collections). */
+  redirectTo?: string;
 }) {
   const t = useTranslations("collectionsComps.deleteButton");
   const [confirming, setConfirming] = useState(false);
@@ -17,7 +20,7 @@ export default function DeleteCollectionButton({
   async function remove() {
     const res = await fetch(`/api/collections/${collectionId}`, { method: "DELETE" });
     if (res.ok) {
-      router.push("/collections");
+      router.push(redirectTo);
       router.refresh();
     }
   }

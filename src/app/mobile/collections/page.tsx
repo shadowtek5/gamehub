@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import MobileCollectionsView from "@/components/mobile/MobileCollectionsView";
+import NewCollectionForm from "@/components/NewCollectionForm";
 import {
   getDb,
   CollectionRow,
@@ -9,6 +10,7 @@ import {
   parseSmartFilters,
   listSmartCollectionRoms,
   listVirtualCollections,
+  browseFacets,
   VirtualDimension,
 } from "@/lib/db";
 
@@ -52,10 +54,14 @@ export default async function MobileCollectionsPage() {
   });
 
   const virtual = listVirtualCollections(user.id);
+  const { platforms, variants, genres, languages } = browseFacets();
 
   return (
     <div>
-      <h1 className="mb-4 mt-1 text-[22px] font-black text-bright">{t("collections.title")}</h1>
+      <div className="mb-4 mt-1 flex items-center justify-between gap-3">
+        <h1 className="text-[22px] font-black text-bright">{t("collections.title")}</h1>
+        <NewCollectionForm platforms={platforms} variants={variants} genres={genres} languages={languages} />
+      </div>
 
       <MobileCollectionsView
         collections={meta.map(({ c, smart, count, covers }) => ({

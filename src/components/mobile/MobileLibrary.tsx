@@ -11,14 +11,13 @@ import type { BrowseRomRow } from "@/lib/db";
 
 const CHUNK = 60;
 
-const SORTS = [
-  { key: "name", label: "Alphabetical" },
-  { key: "added", label: "Recently added" },
-  { key: "played", label: "Last played" },
-  { key: "playtime", label: "Most played" },
-  { key: "release", label: "Release date" },
-  { key: "rating", label: "Rating" },
-] as const;
+// Labels for all of these are reused from the desktop `library` namespace
+// (already translated in every locale), so no mobile-only keys are needed.
+const SORTS = ["name", "added", "played", "playtime", "release", "rating", "achievements", "size"] as const;
+// Play-status "tab" (single-select). Matches the desktop STATUS set.
+const STATUS = ["all", "favorites", "playing", "backlog", "beaten", "hidden"] as const;
+// Player-mode facet values written by the scraper (used as raw labels).
+const MODES = ["Single player", "Multiplayer", "Co-operative"] as const;
 
 const MISSING = [
   { key: "meta", label: "Metadata" },
@@ -39,6 +38,7 @@ export default function MobileLibrary({
   platforms = [],
   genres = [],
   languages = [],
+  variants = [],
 }: {
   platformLock?: string;
   collectionLock?: string;
@@ -47,15 +47,20 @@ export default function MobileLibrary({
   platforms?: string[];
   genres?: string[];
   languages?: string[];
+  variants?: string[];
 }) {
   const t = useTranslations("mobileLibrary");
+  const tl = useTranslations("library"); // reused desktop filter labels
   const search = useSearchParams();
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [sort, setSort] = useState("name");
+  const [status, setStatus] = useState("all");
   const [platformSel, setPlatformSel] = useState<string[]>([]);
   const [genreSel, setGenreSel] = useState<string[]>([]);
   const [langSel, setLangSel] = useState<string[]>([]);
+  const [modeSel, setModeSel] = useState<string[]>([]);
+  const [variantSel, setVariantSel] = useState<string[]>([]);
   const [missingSel, setMissingSel] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -79,6 +84,7 @@ export default function MobileLibrary({
       const p = new URLSearchParams();
       if (debounced) p.set("q", debounced);
       if (sort !== "name") p.set("sort", sort);
+      if (status !== "all") p.set("tab", status);
       if (platformLock) p.set("platform", platformLock);
       else if (platformSel.length) p.set("platform", platformSel.join(","));
       if (collectionLock) p.set("collection", collectionLock);
@@ -88,12 +94,14 @@ export default function MobileLibrary({
       }
       if (genreSel.length) p.set("genre", genreSel.join(","));
       if (langSel.length) p.set("language", langSel.join(","));
+      if (modeSel.length) p.set("modes", modeSel.join(","));
+      if (variantSel.length) p.set("variant", variantSel.join(","));
       if (missingSel.length) p.set("missing", missingSel.join(","));
       p.set("offset", String(offset));
       p.set("limit", String(CHUNK));
       return p.toString();
     },
-    [debounced, sort, platformLock, collectionLock, virtualDim, virtualValue, platformSel, genreSel, langSel, missingSel]
+    [debounced, sort, status, platformLock, collectionLock, virtualDim, virtualValue, platformSel, genreSel, langSel, modeSel, variantSel, missingSel]
   );
 
   // Reload from the top whenever a filter changes
@@ -136,13 +144,17 @@ export default function MobileLibrary({
   }, [loadMore]);
 
   const activeFilters =
-    platformSel.length + genreSel.length + langSel.length + missingSel.length;
+    platformSel.length + genreSel.length + langSel.length + modeSel.length +
+    variantSel.length + missingSel.length + (status !== "all" ? 1 : 0);
   const toggle = (set: React.Dispatch<React.SetStateAction<string[]>>, v: string) =>
     set((c) => (c.includes(v) ? c.filter((x) => x !== v) : [...c, v]));
   const clearAll = () => {
+    setStatus("all");
     setPlatformSel([]);
     setGenreSel([]);
     setLangSel([]);
+    setModeSel([]);
+    setVariantSel([]);
     setMissingSel([]);
     setSort("name");
   };
@@ -214,10 +226,18 @@ export default function MobileLibrary({
             )}
           </div>
 
+          <FilterGroup label={tl("sectionShow")}>
+            {STATUS.map((s) => (
+              <Chip key={s} active={status === s} onClick={() => setStatus(s)}>
+                {tl(`status.${s}`)}
+              </Chip>
+            ))}
+          </FilterGroup>
+
           <FilterGroup label={t("sortBy")}>
             {SORTS.map((s) => (
-              <Chip key={s.key} active={sort === s.key} onClick={() => setSort(s.key)}>
-                {t(`sortOptions.${s.key}`)}
+              <Chip key={s} active={sort === s} onClick={() => setSort(s)}>
+                {tl(`sort.${s}`)}
               </Chip>
             ))}
           </FilterGroup>
@@ -247,6 +267,24 @@ export default function MobileLibrary({
               {languages.map((l) => (
                 <Chip key={l} active={langSel.includes(l)} onClick={() => toggle(setLangSel, l)}>
                   {LANGUAGE_NAMES[l] ?? l}
+                </Chip>
+              ))}
+            </FilterGroup>
+          )}
+
+          <FilterGroup label={tl("sectionPlayers")}>
+            {MODES.map((m) => (
+              <Chip key={m} active={modeSel.includes(m)} onClick={() => toggle(setModeSel, m)}>
+                {m}
+              </Chip>
+            ))}
+          </FilterGroup>
+
+          {variants.length > 0 && (
+            <FilterGroup label={tl("sectionVariant")}>
+              {variants.map((v) => (
+                <Chip key={v} active={variantSel.includes(v)} onClick={() => toggle(setVariantSel, v)}>
+                  {v}
                 </Chip>
               ))}
             </FilterGroup>

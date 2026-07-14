@@ -16,6 +16,11 @@ import MediaGallery, { MediaItem } from "@/components/MediaGallery";
 import ManualViewer from "@/components/ManualViewer";
 import MobileGameOptions from "@/components/mobile/MobileGameOptions";
 import RelatedContent from "@/components/RelatedContent";
+import SaveStatesPanel, { SaveStateInfo } from "@/components/SaveStatesPanel";
+import AchievementCarousel from "@/components/AchievementCarousel";
+import ControllerLayoutButton from "@/components/ControllerLayoutButton";
+import { RA_CONSOLE_IDS, raLookup, raProgress, RaProgress } from "@/lib/providers/retroachievements";
+import { getRaCreds } from "@/lib/userRa";
 import type { IgdbRelated, IgdbRelatedResolved } from "@/lib/providers/igdb";
 
 export const dynamic = "force-dynamic";
@@ -46,6 +51,7 @@ export default async function MobileGamePage({
 }) {
   const user = await requireUser();
   const t = await getTranslations("mobileGamePage.detail");
+  const tg = await getTranslations("gamePage"); // reuse the desktop game-page labels
   const { id } = await params;
   const rom = getLibraryRom(user.id, Number(id));
   if (!rom) notFound();
@@ -109,6 +115,42 @@ export default async function MobileGamePage({
        FROM collections c WHERE c.user_id = ? AND c.is_smart = 0 ORDER BY c.name`
     )
     .all(rom.id, user.id) as (CollectionRow & { has_rom: number })[];
+
+  // RetroAchievements: the viewer's own unlock progress (only shows if they've
+  // linked an RA account). Same match-once-then-progress flow as the desktop.
+  const raCreds = getRaCreds(user.id);
+  let progress: RaProgress | null = null;
+  if (raCreds && RA_CONSOLE_IDS[rom.platform_slug]) {
+    if (rom.ra_game_id === null) {
+      try {
+        const match = await raLookup(raCreds, rom.title, rom.platform_slug);
+        getDb().prepare("UPDATE roms SET ra_game_id = ?, ra_achievements = ? WHERE id = ?").run(match.id, match.achievements, rom.id);
+        rom.ra_game_id = match.id;
+        rom.ra_achievements = match.achievements;
+      } catch {}
+    }
+    if (rom.ra_game_id) {
+      try {
+        progress = await raProgress(raCreds, rom.ra_game_id);
+      } catch {}
+    }
+  }
+  const raUrl = rom.ra_game_id ? `https://retroachievements.org/game/${rom.ra_game_id}` : null;
+  const sortedAchievements = progress
+    ? [...progress.achievements].sort((a, b) => Number(b.earned) - Number(a.earned))
+    : [];
+  const raPct = progress ? Math.round((progress.earned / Math.max(1, progress.total)) * 100) : 0;
+
+  // Cloud save states + battery save for this user/game.
+  const saveStates = getDb()
+    .prepare(
+      `SELECT id, size_bytes, has_screenshot, created_at, label FROM save_states
+       WHERE user_id = ? AND rom_id = ? ORDER BY created_at DESC, id DESC`
+    )
+    .all(user.id, rom.id) as SaveStateInfo[];
+  const batterySave = getDb()
+    .prepare("SELECT size_bytes, updated_at FROM battery_saves WHERE user_id = ? AND rom_id = ?")
+    .get(user.id, rom.id) as { size_bytes: number; updated_at: string } | undefined;
 
   return (
     <div className="-mx-4">
@@ -227,6 +269,27 @@ export default async function MobileGamePage({
           </Section>
         )}
 
+        {progress && (
+          <Section title={progress.earned < progress.total ? tg("achievements") : tg("allUnlocked")}>
+            <div className="mb-2 text-[12px] text-dim">
+              {tg("unlockedProgress", { earned: progress.earned, total: progress.total, pct: raPct })}
+            </div>
+            <div className="mb-3 h-2 overflow-hidden rounded bg-white/[0.15]">
+              <div className="h-full rounded bg-[#59bf40]" style={{ width: `${raPct}%` }} />
+            </div>
+            <AchievementCarousel
+              raUrl={raUrl}
+              achievements={sortedAchievements.map((a) => ({
+                badgeUrl: a.badgeUrl,
+                title: a.title,
+                description: a.description,
+                points: a.points,
+                earned: a.earned,
+              }))}
+            />
+          </Section>
+        )}
+
         {mediaItems.length > 0 && (
           <Section title={t("sectionMedia")}>
             <MediaGallery title={rom.title} romId={rom.id} canManage={user.isEditor} items={mediaItems} />
@@ -242,6 +305,24 @@ export default async function MobileGamePage({
               relations={relationRows}
             />
           </Section>
+        )}
+
+        {(playable || saveStates.length > 0 || batterySave) && (
+          <Section title={tg("savesAndStates")}>
+            <SaveStatesPanel
+              romId={rom.id}
+              playable={playable}
+              initialStates={saveStates}
+              batterySave={batterySave ?? null}
+              gameImage={rom.screenshot_url ?? rom.boxart_url ?? rom.hero_url ?? null}
+            />
+          </Section>
+        )}
+
+        {playable && (
+          <div className="mt-6">
+            <ControllerLayoutButton romId={rom.id} title={rom.title} />
+          </div>
         )}
 
         <Section title={t("sectionDetails")}>
