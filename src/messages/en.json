@@ -2346,8 +2346,6 @@
       "importFailed": "Import failed"
     },
     "system": {
-      "selectLanguage": "Select preferred language",
-      "langEnglish": "English",
       "updatesHeader": "Updates",
       "softwareUpdates": "Software Updates",
       "softwareUpdatesDesc": "GameHub {version} — running on Node {nodeVersion}",
@@ -2699,4 +2697,3 @@
     }
   }
 }
-

@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "仅在连接测试因证书错误（例如 <c>CERT_HAS_EXPIRED</c>）而失败，但 screenscraper.fr 其他方面可访问时启用。仅适用于 <c>api.screenscraper.fr</c>，并为其禁用证书检查，这会削弱对窃听的保护。当 ScreenScraper 修复其证书后请再次关闭。"
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "正在重新扫描 {name} —— ",
     "scrapeRunning": "正在执行抓取 —— ",
@@ -2346,8 +2345,6 @@
       "importFailed": "导入失败"
     },
     "system": {
-      "selectLanguage": "选择首选语言",
-      "langEnglish": "英语",
       "updatesHeader": "更新",
       "softwareUpdates": "软件更新",
       "softwareUpdatesDesc": "GameHub {version} —— 运行在 Node {nodeVersion}",

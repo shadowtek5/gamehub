@@ -81,17 +81,6 @@ export default function SettingsSystem() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* reference: the language row sits ABOVE the Updates header */}
-      <div>
-        <GpRow label={t("selectLanguage")}>
-          <GpDropdown
-            value={prefs["language"] ?? "en"}
-            options={[{ value: "en", label: t("langEnglish") }]}
-            onChange={(v) => setPref("language", v)}
-          />
-        </GpRow>
-      </div>
-
       <div>
         <GpSubHeader>{t("updatesHeader")}</GpSubHeader>
         <GpRow

@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "screenscraper.fr이 정상적으로 작동하는 데도 연결 테스트가 인증서 오류 (예: <c>CERT_HAS_EXPIRED</c>)로 실패할 때만 활성화하세요. <c>api.screenscraper.fr</c>에만 적용되며 인증서 검증을 비활성화하여 가로채기 방지가 약해집니다. ScreenScraper가 인증서를 수정하면 다시 끄세요."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "{name} 재스캔 중 — ",
     "scrapeRunning": "스크래핑 실행 중 — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "가져오기 실패"
     },
     "system": {
-      "selectLanguage": "선호 언어 선택",
-      "langEnglish": "영어",
       "updatesHeader": "업데이트",
       "softwareUpdates": "소프트웨어 업데이트",
       "softwareUpdatesDesc": "GameHub {version} — Node {nodeVersion}에서 실행 중",
@@ -2547,7 +2544,8 @@
       "alwaysOnDesc1": "(파일명으로 박스 아트 매치) ·",
       "alwaysOnDesc2": "(파일 해시로 게임 식별) ·",
       "alwaysOnDesc3": "(클리어 시간) ·",
-      "alwaysOnDesc4": "(Flash 게임 메타데이터) — 이들은 키나 계정 없이 자동으로 작동합니다."
+      "alwaysOnDesc4": "(Flash 게임 메타데이터) — 이들은 키나 계정 없이 자동으로 작동합니다.",
+      "emHowtoPost": "계정 — FTP 다운로드에는 서포터 구독이 필요합니다."
     },
     "firstScan": {
       "desc": "매핑된 각 폴더를 읽고 라이브러리를 구축합니다. 네트워크를 통한 대규모 컬렉션은 몇 분 정도 걸릴 수 있습니다.",

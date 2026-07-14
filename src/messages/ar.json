@@ -2214,7 +2214,6 @@
   },
   "mobileHome": {
     "greeting": "مرحبًا {userName} 👋",
-    "emptyLibrary": "مكتبتك فارغة. أضِف ملفات ROM وافحص من تطبيق سطح المكتب للبدء.",
     "jumpBackIn": "العودة إلى اللعب",
     "tabNew": "ما الجديد",
     "tabFriends": "الأصدقاء",
@@ -2228,7 +2227,6 @@
     "played": "لُعبت"
   },
   "mobileMisc": {
-    "loading": "جارٍ التحميل…",
     "common": {
       "back": "رجوع"
     },
@@ -2242,7 +2240,6 @@
     }
   },
   "mobileNav": {
-    "menuTitle": "القائمة",
     "bottomNav": {
       "primary": "الأساسي",
       "home": "الرئيسية",
@@ -2261,7 +2258,6 @@
     }
   },
   "mobileSettings": {
-    "heading": "الإعدادات",
     "section": {
       "back": "الرجوع إلى الإعدادات"
     },
@@ -2336,10 +2332,6 @@
       "users": {
         "label": "المستخدمون",
         "blurb": "الحسابات والأدوار"
-      },
-      "ageRestrictions": {
-        "label": "قيود العمر",
-        "blurb": "ملفات التقييد والتصفية"
       }
     }
   },
@@ -2458,37 +2450,7 @@
     "themeRemoved": "✓ تمت إزالة السمة المرفوعة"
   },
   "scraperOptions": {
-    "heading": "خيارات المجلب",
     "intro": "اختر المزوّد الذي يفوز عندما يكون لديهما نفس العنصر، والعناصر التي سيتم جلبها. يتم حفظ التغييرات تلقائيًا وتنطبق على جلب اللعبة الواحدة والمكتبة.",
-    "sourceAll": "جميع المصادر",
-    "sourceRa": "RetroAchievements",
-    "sourceIgdb": "IGDB",
-    "sourceHltb": "HowLongToBeat",
-    "sourceScreenScraper": "ScreenScraper",
-    "sourceSgdb": "SteamGridDB",
-    "sourceTheGamesDb": "TheGamesDB",
-    "sourceMoby": "MobyGames",
-    "sourceEmuMovies": "EmuMovies",
-    "scrapingScope": "نطاق الجلب",
-    "scopeBoxart": "صور الأغلفة",
-    "scopeHero": "صور البطل",
-    "scopeLogo": "الشعارات",
-    "scopeIcon": "الأيقونات",
-    "scopeVideo": "مقاطع الفيديو",
-    "scopeManual": "الأدلة",
-    "scopeDescription": "الأوصاف",
-    "scopeMetadata": "البيانات الوصفية (الأنواع، المطورون، إلخ)",
-    "scrapeThemes": "جلب موسيقى السمات من YouTube",
-    "priority": "الأولوية",
-    "priorityDesc": "عند تكوين مزوّدين متعددين، استخدم هذا الترتيب — الأعلى أولاً.",
-    "firstMatch": "استخدم أول نتيجة",
-    "firstMatchDesc": "تحميل البيانات والصور من أول مزوّد عندما يكون لديه نتيجة.",
-    "userBrowse": "دع المستخدم يتصفح",
-    "userBrowseDesc": "عندما توجد نتائج متعددة، عرض الخيارات للاختيار من بينها.",
-    "manualOnly": "يدويًا فقط",
-    "manualOnlyDesc": "لا تجلب تلقائيًا — اجعل المستخدم يختار من قائمة اللعبة.",
-    "parentheses": "الأسماء في الأقواس",
-    "parenthesesDesc": "المطابقة بأسماء مثل \"Game (USA)\" و\"Game (Europe)\" لكل إصدار",
     "title": "خيارات المجلب",
     "saved": "تم الحفظ",
     "providerPriority": "أولوية المزوّد",
@@ -2569,34 +2531,10 @@
       "badges": {
         "label": "شارات الاستوديو والتقييم",
         "desc": "شارات ESRB و PEGI."
-      },
-      "related": {
-        "label": "المحتوى ذو الصلة",
-        "desc": "الألعاب ذات الصلة والتوسعات والدعم."
-      },
-      "trailers": {
-        "label": "المقاطع الدعائية",
-        "desc": "مقاطع IGDB الدعائية الرسمية."
       }
     }
   },
   "settingsSysKb": {
-    "general": "عام",
-    "settingsLabel": "الإعدادات",
-    "heading": "لوحة المفاتيح",
-    "desc": "تهيئة مفاتيح لوحة المفاتيح لتنقل الواجهة والإجراءات السريعة. يمكنك إعادة تخصيص كل واحد.",
-    "note": "ملاحظة: المتصفحات الحديثة لا تسمح بإعادة تخصيص مفاتيح النظام (Ctrl/Cmd + Tab، Ctrl/Cmd + W، إلخ).",
-    "keybinds": {
-      "back": "رجوع",
-      "up": "أعلى",
-      "down": "أسفل",
-      "left": "يسار",
-      "right": "يمين",
-      "open": "فتح",
-      "quickAccess": "الوصول السريع",
-      "toggleFullscreen": "تبديل ملء الشاشة",
-      "search": "بحث"
-    },
     "keyboard": {
       "shortcutsHeader": "الاختصارات",
       "moveFocus": "نقل التركيز",
@@ -2629,8 +2567,6 @@
       "importFailed": "فشل الاستيراد"
     },
     "system": {
-      "selectLanguage": "اختر اللغة المفضلة",
-      "langEnglish": "الإنجليزية",
       "updatesHeader": "التحديثات",
       "softwareUpdates": "تحديثات البرامج",
       "softwareUpdatesDesc": "GameHub {version} — يعمل على Node {nodeVersion}",
@@ -2666,30 +2602,15 @@
     }
   },
   "systemTools": {
-    "title": "أدوات {name}",
     "hero": "البطل",
     "logo": "الشعار",
     "icon": "الأيقونة",
-    "fetchArt": "جلب الصور",
     "fetchingArtwork": "جارٍ جلب صور النظام من المزوّدين…",
-    "updated": "✓ تم تحديث النظام {items}",
     "noNewArt": "لم يُعثر على صور نظام جديدة.",
-    "failedToFetchArt": "تعذّر جلب صور النظام",
-    "scanLibrary": "فحص المكتبة",
     "scanning": "جارٍ فحص {name}…",
-    "failedToScan": "✗ تعذّر بدء الفحص",
     "scrapeMetadata": "جلب البيانات الوصفية",
-    "scraping": "جارٍ الجلب…",
-    "failedToScrape": "✗ تعذّر بدء الجلب",
-    "fetchMetadata": "جلب معلومات النظام",
-    "fetchingMetadata": "جارٍ جلب معلومات النظام…",
-    "metadataUpdated": "✓ تم تحديث معلومات النظام",
-    "noMetadataFound": "لم يُعثر على معلومات",
-    "cleanup": "تنظيف",
-    "checkingCleanup": "جارٍ فحص التنظيف…",
     "nothingToClean": "لا شيء للتنظيف — لا توجد ألعاب {name} محددة كمفقودة.",
     "cleanupCheckFailed": "فشل فحص التنظيف",
-    "removedGames": "{count, plural, zero {✓ تمت إزالة # لعبة} one {✓ تمت إزالة لعبة واحدة} two {✓ تمت إزالة لعبتين} few {✓ تمت إزالة # ألعاب} many {✓ تمت إزالة # لعبة} other {✓ تمت إزالة # لعبة}}",
     "cleanupFailed": "فشل التنظيف",
     "artLabel": {
       "hero": "صورة البطل",
@@ -2770,10 +2691,8 @@
     "cleanUpMissing": "تنظيف المفقود…",
     "cancel": "إلغاء",
     "removeMissingTitle": "إزالة الألعاب المفقودة؟",
-    "removeMissingGames": "{count, plural, one {إزالة # لعبة مفقودة؟} other {إزالة # ألعاب مفقودة؟}}",
     "remove": "إزالة",
     "cleanupConfirm": "حذف <b>{count}</b> {count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}} مفقودة من {name} ووسائطها؟ لا يمكن التراجع عن هذا.",
     "ok": "موافق"
-  },
-  "settingsShell": {}
+  }
 }

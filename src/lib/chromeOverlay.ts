@@ -9,18 +9,44 @@
 // two are independent; the chrome reads "is EITHER open?". A window event lets
 // the chrome react without prop-drilling through the layout.
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const EVENT = "gh-chrome-overlay";
+// Exclusivity signal: carries the source that just took over (or null for a
+// "close everything" request). Panels close themselves when another source
+// opens, so only one chrome overlay is ever up at a time.
+const EXCLUSIVE = "gh-overlay-exclusive";
 const SOURCES = ["mainmenu", "quickaccess"] as const;
 type OverlaySource = (typeof SOURCES)[number];
 
-/** Set/clear a panel's open flag and notify the chrome. */
+/** Set/clear a panel's open flag and notify the chrome. Opening a panel also
+ *  asks every OTHER tracked panel to close (mutual exclusion). */
 export function setChromeOverlay(source: OverlaySource, open: boolean) {
   if (typeof document === "undefined") return;
   if (open) document.body.dataset[source] = "open";
   else delete document.body.dataset[source];
   window.dispatchEvent(new Event(EVENT));
+  if (open) window.dispatchEvent(new CustomEvent(EXCLUSIVE, { detail: source }));
+}
+
+/** Close every tracked chrome overlay — e.g. when tapping the profile avatar. */
+export function closeChromeOverlays() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent(EXCLUSIVE, { detail: null }));
+}
+
+/** Close `self` whenever a different panel opens (or a close-all is requested). */
+export function useExclusiveOverlay(self: OverlaySource, close: () => void) {
+  const closeRef = useRef(close);
+  closeRef.current = close;
+  useEffect(() => {
+    const on = (e: Event) => {
+      const src = (e as CustomEvent<OverlaySource | null>).detail;
+      if (src !== self) closeRef.current();
+    };
+    window.addEventListener(EXCLUSIVE, on);
+    return () => window.removeEventListener(EXCLUSIVE, on);
+  }, [self]);
 }
 
 /** True when any tracked panel is currently open. */

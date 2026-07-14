@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
+import MobileCollectionsView from "@/components/mobile/MobileCollectionsView";
 import {
   getDb,
   CollectionRow,
@@ -18,55 +19,6 @@ const DIM_LABEL: Record<VirtualDimension, string> = {
   developer: "collections.byDeveloper",
   publisher: "collections.byPublisher",
 };
-
-async function CollageTile({
-  href,
-  name,
-  count,
-  smart,
-  covers,
-}: {
-  href: string;
-  name: string;
-  count: number;
-  smart?: boolean;
-  covers: string[];
-}) {
-  const t = await getTranslations("mobilePagesB");
-  const cells = covers.slice(0, 4);
-  return (
-    <Link
-      href={href}
-      className="overflow-hidden rounded-[12px] bg-[#1a1f27] ring-1 ring-white/5 active:ring-accent/40"
-    >
-      <div className="grid aspect-[4/3] grid-cols-2 grid-rows-2 gap-px bg-black/30">
-        {cells.length > 0 ? (
-          Array.from({ length: 4 }).map((_, i) =>
-            cells[i] ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img key={i} src={cells[i]} alt="" className="h-full w-full object-cover" />
-            ) : (
-              <div key={i} className="h-full w-full bg-[#12161c]" />
-            )
-          )
-        ) : (
-          <div className="col-span-2 row-span-2 flex items-center justify-center bg-gradient-to-br from-[#1b2531] to-[#23262e] text-3xl text-white/20">
-            ▤
-          </div>
-        )}
-      </div>
-      <div className="flex items-center justify-between gap-2 p-3">
-        <div className="min-w-0">
-          <div className="flex items-center gap-1.5">
-            <span className="truncate text-[14px] font-semibold text-bright">{name}</span>
-            {smart && <span className="shrink-0 text-[11px] text-accent">⚡</span>}
-          </div>
-          <div className="text-[12px] text-dim">{t("collections.gamesCount", { count })}</div>
-        </div>
-      </div>
-    </Link>
-  );
-}
 
 export default async function MobileCollectionsPage() {
   const t = await getTranslations("mobilePagesB");
@@ -105,20 +57,15 @@ export default async function MobileCollectionsPage() {
     <div>
       <h1 className="mb-4 mt-1 text-[22px] font-black text-bright">{t("collections.title")}</h1>
 
-      {meta.length > 0 && (
-        <div className="mb-7 grid grid-cols-2 gap-3">
-          {meta.map(({ c, smart, count, covers }) => (
-            <CollageTile
-              key={c.id}
-              href={`/mobile/collections/${c.id}`}
-              name={c.name}
-              count={count}
-              smart={smart}
-              covers={covers}
-            />
-          ))}
-        </div>
-      )}
+      <MobileCollectionsView
+        collections={meta.map(({ c, smart, count, covers }) => ({
+          id: c.id,
+          name: c.name,
+          count,
+          smart,
+          covers,
+        }))}
+      />
 
       {(Object.keys(virtual) as VirtualDimension[]).map((dim) =>
         virtual[dim].length > 0 ? (

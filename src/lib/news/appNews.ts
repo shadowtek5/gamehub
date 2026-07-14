@@ -16,6 +16,24 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-07-13",
+    title: "Collections now have a list view too",
+    body: "Just like the Systems page, the Collections page now has a Grid / List toggle in the top-right (your choice is remembered per device). The list view is a compact one-line-per-collection layout — name, smart/public badges, and game count — that's much quicker to scan when you have a lot of collections. On desktop/TV the same toggle also switches the auto-generated Genres, Developers and Publishers groupings between tiles and lists. Available on the mobile app too.",
+    art: "recommendations",
+  },
+  {
+    date: "2026-07-13",
+    title: "Read the whole story in What's New",
+    body: "The What's New cards on the home page clamp long updates to a few lines. Now, on the desktop/TV interface, tapping a GameHub update or announcement opens it in a modal so you can read the entire message — no more getting cut off mid-sentence. Cards with somewhere to go (a system, a game, an external link) still take you there as before. (On the mobile app, the What's New page already shows the full text.)",
+    art: "news",
+  },
+  {
+    date: "2026-07-13",
+    title: "Switch language from the profile menu, and a handier profile button",
+    body: "You no longer need admin Settings to change your language. The profile menu (the ··· Quick Access panel's account section) now has a Language picker right next to Account and Friends, and on the mobile app it's on your Profile screen — so every user can switch the interface language, not just admins. While we were there: tapping your profile picture in the header now toggles — it takes you to your profile, and tapping it again (once you're there) sends you back to wherever you came from instead of stranding you. Opening the Main Menu or Quick Access (or tapping your avatar) now also closes whatever panel was already open, so you never end up with two overlapping. Works on desktop/TV and mobile.",
+    art: "recommendations",
+  },
+  {
+    date: "2026-07-13",
     title: "The home page refreshes itself after a scan or scrape",
     body: "The Home carousels now update on their own the moment a background scan or metadata scrape finishes — newly added games and freshly downloaded artwork appear without a manual reload. If you kick off a scan on an empty library, the welcome screen flips straight to your populated home as soon as it completes. It watches for job completion quietly in the background and only refreshes when something actually finished (and pauses while the tab is hidden). Works on both the desktop/TV interface and the mobile app.",
     art: "automation",

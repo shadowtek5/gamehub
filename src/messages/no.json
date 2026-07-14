@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "Slå bare på hvis tilkoblingstesten mislykkes med et sertifikatfeil (f.eks. <c>CERT_HAS_EXPIRED</c>) mens screenscraper.fr ellers er tilgjengelig. Gjelder bare <c>api.screenscraper.fr</c> og deaktiverer sertifikatsjekken for den, noe som svekker beskyttelsen mot avlytting. Slå av igjen når ScreenScraper har fikset sertifikatet sitt."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "Skanner {name} på nytt — ",
     "scrapeRunning": "En scrape kjører — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "Importering mislyktes"
     },
     "system": {
-      "selectLanguage": "Velg foretrukket språk",
-      "langEnglish": "Engelsk",
       "updatesHeader": "Oppdateringer",
       "softwareUpdates": "Programvareoppdateringer",
       "softwareUpdatesDesc": "GameHub {version} — kjører på Node {nodeVersion}",

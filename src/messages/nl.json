@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "Alleen inschakelen als de verbindingstest mislukt met een certificaatfout (bijv. <c>CERT_HAS_EXPIRED</c>) terwijl screenscraper.fr verder bereikbaar is. Geldt alleen voor <c>api.screenscraper.fr</c> en schakelt de certificaatcontrole daarvoor uit, wat bescherming tegen onderschepping verzwakt. Schakel weer uit zodra ScreenScraper zijn certificaat heeft gerepareerd."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "{name} opnieuw scannen — ",
     "scrapeRunning": "Een scrape draait — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "Importeren mislukt"
     },
     "system": {
-      "selectLanguage": "Voorkeurstaal selecteren",
-      "langEnglish": "Engels",
       "updatesHeader": "Updates",
       "softwareUpdates": "Software-updates",
       "softwareUpdatesDesc": "GameHub {version} — draait op Node {nodeVersion}",

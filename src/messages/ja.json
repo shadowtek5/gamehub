@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "screenscraper.frが正常に稼働しているにもかかわらず接続テストが証明書エラー（例: <c>CERT_HAS_EXPIRED</c>）で失敗する場合のみ有効化してください。<c>api.screenscraper.fr</c>のみに適用され、証明書検証を無効化するため傍受に対する保護が弱まります。ScreenScraperが証明書を修正したらオフに戻してください。"
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "{name}を再スキャン中 — ",
     "scrapeRunning": "スクレイピング実行中 — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "インポートに失敗しました"
     },
     "system": {
-      "selectLanguage": "優先言語を選択",
-      "langEnglish": "英語",
       "updatesHeader": "更新",
       "softwareUpdates": "ソフトウェア更新",
       "softwareUpdatesDesc": "GameHub {version} — Node {nodeVersion}で実行中",
@@ -2547,7 +2544,8 @@
       "alwaysOnDesc1": "（ファイル名でボックスアートをマッチ） ·",
       "alwaysOnDesc2": "（ファイルハッシュでゲームを識別） ·",
       "alwaysOnDesc3": "（クリア時間） ·",
-      "alwaysOnDesc4": "（Flashゲームメタデータ） — これらはキーやアカウントなしで自動動作します。"
+      "alwaysOnDesc4": "（Flashゲームメタデータ） — これらはキーやアカウントなしで自動動作します。",
+      "emHowtoPost": "アカウント — FTP ダウンロードにはサポーター登録が必要です。"
     },
     "firstScan": {
       "desc": "マッピングされた各フォルダーを読み取り、ライブラリを構築します。ネットワーク経由の大規模コレクションは数分かかる場合があります。",

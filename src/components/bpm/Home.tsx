@@ -16,6 +16,7 @@ import { useTranslations } from "next-intl";
 import { animated, useSpring } from "@react-spring/web";
 import GameCover from "@/components/GameCover";
 import GameCardCog from "@/components/GameCardCog";
+import NewsModal from "@/components/NewsModal";
 import { GpPill } from "@/components/bpm/primitives";
 import { platformBySlug } from "@/lib/platforms";
 import { formatPlaytime } from "@/lib/format";
@@ -207,8 +208,12 @@ function RecommendedShelf({ shelf }: { shelf: HomeShelf }) {
  *  the category so they still read as event cards. */
 function NewsCard({ item }: { item: NewsItem }) {
   const t = useTranslations("home");
+  const [showModal, setShowModal] = useState(false);
   const accent = item.accent ?? "#1a9fff";
   const external = !!item.url;
+  // Text-only entries (app changelog / announcements) link nowhere — open the
+  // full message in a modal instead of leaving it clamped on the card.
+  const openable = !item.href && !external && !!item.body;
   const date = item.date ? item.date.slice(0, 10) : "";
   const inner = (
     <>
@@ -249,7 +254,7 @@ function NewsCard({ item }: { item: NewsItem }) {
         {item.body && (
           <div className="mt-1 line-clamp-3 text-[12px] leading-[17px] text-body/80">{item.body}</div>
         )}
-        {external && (
+        {(external || openable) && (
           <div className="mt-auto pt-2 text-[12px] font-semibold text-accent">{t("readMore")}</div>
         )}
       </div>
@@ -264,13 +269,24 @@ function NewsCard({ item }: { item: NewsItem }) {
       </Link>
     );
   }
-  return external ? (
-    <a href={item.url!} target="_blank" rel="noopener noreferrer" className={cls} title={item.title}>
-      {inner}
-    </a>
-  ) : (
-    <div className={cls}>{inner}</div>
-  );
+  if (external) {
+    return (
+      <a href={item.url!} target="_blank" rel="noopener noreferrer" className={cls} title={item.title}>
+        {inner}
+      </a>
+    );
+  }
+  if (openable) {
+    return (
+      <>
+        <button type="button" onClick={() => setShowModal(true)} className={`${cls} Focusable cursor-pointer text-left`} title={item.title}>
+          {inner}
+        </button>
+        {showModal && <NewsModal item={item} onClose={() => setShowModal(false)} />}
+      </>
+    );
+  }
+  return <div className={cls}>{inner}</div>;
 }
 
 /** A titled horizontal shelf of news cards (What's New tab). When `moreHref` is

@@ -1,6 +1,6 @@
 "use client";
 
-import { GpSlider, GpSwitch } from "@/components/bpm/primitives";
+import { GpSlider, GpSwitch, GpDropdown } from "@/components/bpm/primitives";
 
 // SteamOS Quick Access menu (the "···" menu): slides in from the right.
 // Open: ··· button in the top bar or controller Select/Back.
@@ -8,10 +8,11 @@ import { GpSlider, GpSwitch } from "@/components/bpm/primitives";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import GameCover from "./GameCover";
+import { LOCALES, LOCALE_COOKIE, LOCALE_LABELS, type Locale } from "@/i18n/locales";
 import { platformBySlug } from "@/lib/platforms";
-import { setChromeOverlay } from "@/lib/chromeOverlay";
+import { setChromeOverlay, useExclusiveOverlay } from "@/lib/chromeOverlay";
 import {
   playSound,
   soundsEnabled,
@@ -56,6 +57,13 @@ export default function QuickAccess({
   recent: QuickResume[];
 }) {
   const t = useTranslations("quickAccess");
+  const tLang = useTranslations("settings.language");
+  const activeLocale = useLocale() as Locale;
+  const [lang, setLang] = useState<Locale>(activeLocale);
+  const langOptions = LOCALES.map((code) => ({
+    value: code,
+    label: `${LOCALE_LABELS[code].flag}  ${LOCALE_LABELS[code].label}`,
+  }));
   const [open, setOpen] = useState(false);
   const openRef = useRef(open);
   const [fullscreen, setFullscreen] = useState(false);
@@ -130,6 +138,9 @@ export default function QuickAccess({
     return () => setChromeOverlay("quickaccess", false);
   }, [open]);
 
+  // Close when the Main Menu opens or the profile avatar is tapped.
+  useExclusiveOverlay("quickaccess", () => setOpen(false));
+
   async function toggleFullscreen() {
     if (document.fullscreenElement) await document.exitFullscreen();
     else await document.documentElement.requestFullscreen();
@@ -180,6 +191,25 @@ export default function QuickAccess({
     await fetch("/api/auth/logout", { method: "POST" });
     setOpen(false);
     router.push("/login");
+    router.refresh();
+  }
+
+  // Language switch from the profile menu — reachable by every user (the full
+  // Settings shell is admin-only). Writes the durable per-user preference and
+  // the gh-locale cookie, then refreshes so the UI re-renders in the language.
+  async function changeLang(next: string) {
+    const locale = next as Locale;
+    setLang(locale);
+    document.cookie = `${LOCALE_COOKIE}=${locale}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+    try {
+      await fetch("/api/user-settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ language: locale }),
+      });
+    } catch {
+      /* cookie already set — the choice still applies for this device */
+    }
     router.refresh();
   }
 
@@ -400,6 +430,13 @@ export default function QuickAccess({
             <span className="w-5 text-center opacity-70">🤝</span>
             {t("friends")}
           </Link>
+          <div className="flex items-center justify-between gap-2 py-1 pl-5 pr-3">
+            <span className="flex items-center gap-3 text-sm text-body">
+              <span className="w-5 text-center opacity-70">🌐</span>
+              {tLang("rowLabel")}
+            </span>
+            <GpDropdown value={lang} options={langOptions} onChange={changeLang} width={150} />
+          </div>
           <button onClick={signOut} className="menu-item text-[#e0685f]">
             <span className="w-5 text-center opacity-70">⇥</span>
             {t("signOut")}

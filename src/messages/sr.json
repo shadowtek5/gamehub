@@ -69,8 +69,7 @@
     "justNow": "управо сада",
     "minutesAgo": "пре {count} мин",
     "hoursAgo": "пре {count} ч",
-    "daysAgo": "пре {count} д",
-    "batterySave": "Батерија-снимак"
+    "daysAgo": "пре {count} д"
   },
   "login": {
     "firstRun": "Добродошли! Креирајте први налог — он ће бити администратор.",
@@ -2248,7 +2247,6 @@
       "ignoreTlsNote": "Укључите само ако тест везе пада због грешке сертификата (нпр. <c>CERT_HAS_EXPIRED</c>) док је screenscraper.fr иначе доступан. Примењује се само на <c>api.screenscraper.fr</c> и искључује проверу сертификата за њу, што слаби заштиту од прислушкивања. Искључите поново када ScreenScraper исправи свој сертификат."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "Поновно скенирање {name} — ",
     "scrapeRunning": "Скрепинг је у току — ",
@@ -2347,8 +2345,6 @@
       "importFailed": "Увоз није успео"
     },
     "system": {
-      "selectLanguage": "Изаберите жељени језик",
-      "langEnglish": "Енглески",
       "updatesHeader": "Ажурирања",
       "softwareUpdates": "Ажурирања софтвера",
       "softwareUpdatesDesc": "GameHub {version} — ради на Node {nodeVersion}",

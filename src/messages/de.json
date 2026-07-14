@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "Nur aktivieren, wenn der Verbindungstest mit einem Zertifikatsfehler fehlschlägt (z. B. <c>CERT_HAS_EXPIRED</c>), während screenscraper.fr sonst erreichbar ist. Gilt nur für <c>api.screenscraper.fr</c> und deaktiviert die Zertifikatsprüfung dafür, was den Schutz vor Abfangen schwächt. Danach wieder deaktivieren, sobald ScreenScraper sein Zertifikat repariert hat."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "Scanne {name} neu — ",
     "scrapeRunning": "Ein Scraping läuft — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "Import fehlgeschlagen"
     },
     "system": {
-      "selectLanguage": "Bevorzugte Sprache auswählen",
-      "langEnglish": "Englisch",
       "updatesHeader": "Updates",
       "softwareUpdates": "Software-Updates",
       "softwareUpdatesDesc": "GameHub {version} — läuft auf Node {nodeVersion}",

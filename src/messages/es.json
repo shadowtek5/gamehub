@@ -1868,7 +1868,6 @@
       "ignoreTlsNote": "Actívalo solo si la prueba de conexión falla con un error de certificado (p. ej. <c>CERT_HAS_EXPIRED</c>) mientras screenscraper.fr está disponible. Se aplica solo a <c>api.screenscraper.fr</c> e desactiva la verificación de certificados para él, lo que debilita la protección contra interceptación. Desactívalo de nuevo cuando ScreenScraper corrija su certificado."
     }
   },
-  "settingsShell": {},
   "setup": {
     "steps": {
       "welcome": "Bienvenida",
@@ -2568,8 +2567,6 @@
       "importFailed": "Error en la importación"
     },
     "system": {
-      "selectLanguage": "Selecciona el idioma preferido",
-      "langEnglish": "Inglés",
       "updatesHeader": "Actualizaciones",
       "softwareUpdates": "Actualizaciones de software",
       "softwareUpdatesDesc": "GameHub {version} — ejecutándose en Node {nodeVersion}",

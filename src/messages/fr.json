@@ -1984,7 +1984,6 @@
     "accountPageLink": "Account page",
     "authorizeOutro": "(click Authorize â†’ bearerAuth), or just use your current browser session."
   },
-  "settingsShell": {},
   "collectionsComps": {
     "shelves": {
       "emptyTitle": "Aucune collection pour l'instant.",
@@ -2568,8 +2567,6 @@
       "importFailed": "Échec de l'importation"
     },
     "system": {
-      "selectLanguage": "Sélectionner la langue préférée",
-      "langEnglish": "Anglais",
       "updatesHeader": "Mises à jour",
       "softwareUpdates": "Mises à jour logicielles",
       "softwareUpdatesDesc": "GameHub {version} — exécution sur Node {nodeVersion}",

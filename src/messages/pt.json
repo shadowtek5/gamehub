@@ -1376,7 +1376,6 @@
       "addComment": "Adicionar comentário"
     }
   },
-  "settingsShell": {},
   "apiDocs": {
     "accountPageLink": "Página de conta",
     "authorizeIntro": "Autorize com um token de API pessoal de seu",
@@ -2226,8 +2225,6 @@
       "importFailed": "Import failed"
     },
     "system": {
-      "selectLanguage": "Select preferred language",
-      "langEnglish": "English",
       "updatesHeader": "Updates",
       "softwareUpdates": "Software Updates",
       "softwareUpdatesDesc": "GameHub {version} — running on Node {nodeVersion}",

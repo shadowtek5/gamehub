@@ -1829,7 +1829,6 @@
       "exit": "Poistu"
     }
   },
-  "settingsShell": {},
   "library": {
     "status": {
       "all": "Kaikki pelit",
@@ -2454,8 +2453,6 @@
       "importFailed": "Tuonti epäonnistui"
     },
     "system": {
-      "selectLanguage": "Valitse kieli",
-      "langEnglish": "Englanti",
       "updatesHeader": "Päivitykset",
       "softwareUpdates": "Ohjelmistopäivitykset",
       "softwareUpdatesDesc": "GameHub {version} — käynnissä Node {nodeVersion}",

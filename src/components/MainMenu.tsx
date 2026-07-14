@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
-import { setChromeOverlay } from "@/lib/chromeOverlay";
+import { setChromeOverlay, useExclusiveOverlay } from "@/lib/chromeOverlay";
 
 const ICON = "h-5 w-5";
 
@@ -137,6 +137,9 @@ export default function MainMenu({
     setChromeOverlay("mainmenu", open);
     return () => setChromeOverlay("mainmenu", false);
   }, [open]);
+
+  // Close when Quick Access opens or the profile avatar is tapped.
+  useExclusiveOverlay("mainmenu", () => setOpen(false));
 
   async function signOut() {
     await fetch("/api/auth/logout", { method: "POST" });

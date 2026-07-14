@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
+import ProfileNavLink from "@/components/ProfileNavLink";
 import DesktopSiteLink from "./DesktopSiteLink";
 import MobileJobIndicator from "./MobileJobIndicator";
 import MobileNotifications from "./MobileNotifications";
@@ -29,7 +30,7 @@ export default async function MobileTopBar({ avatarUrl }: { avatarUrl?: string |
           </svg>
         </Link>
         <DesktopSiteLink className="rounded-full px-3 py-1.5 text-[11px] font-semibold text-dim active:bg-white/10" />
-        <Link href="/mobile/profile" aria-label={t("profile")} className="ml-1 block">
+        <ProfileNavLink href="/mobile/profile" fallback="/mobile" ariaLabel={t("profile")} className="ml-1 block">
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={avatarUrl} alt="" className="h-8 w-8 rounded-full object-cover ring-1 ring-white/15" />
@@ -40,7 +41,7 @@ export default async function MobileTopBar({ avatarUrl }: { avatarUrl?: string |
               </svg>
             </span>
           )}
-        </Link>
+        </ProfileNavLink>
       </div>
     </header>
   );

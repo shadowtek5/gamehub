@@ -240,8 +240,6 @@
       "importFailed": "Importazione non riuscita"
     },
     "system": {
-      "selectLanguage": "Seleziona la lingua preferita",
-      "langEnglish": "Inglese",
       "updatesHeader": "Aggiornamenti",
       "softwareUpdates": "Aggiornamenti software",
       "softwareUpdatesDesc": "GameHub {version} — in esecuzione su Node {nodeVersion}",
@@ -2159,7 +2157,6 @@
       "ignoreTlsNote": "Abilita solo se il test della connessione fallisce con un errore di certificato (ad es. <c>CERT_HAS_EXPIRED</c>) mentre screenscraper.fr è altrimenti raggiungibile. Si applica solo a <c>api.screenscraper.fr</c> e disabilita la verifica del certificato per essa, il che indebolisce la protezione contro l'intercettazione. Disattivalo quando ScreenScraper risolve il loro cert."
     }
   },
-  "settingsShell": {},
   "gameOptions": {
     "gameOptionsAria": "Opzioni del gioco",
     "optionsTitle": "Opzioni",

@@ -2247,7 +2247,6 @@
       "ignoreTlsNote": "Włączaj tylko wtedy, gdy test połączenia kończy się błędem certyfikatu (np. <c>CERT_HAS_EXPIRED</c>), mimo że screenscraper.fr jest dostępny. Dotyczy tylko <c>api.screenscraper.fr</c> i wyłącza weryfikację certyfikatu dla niego, co osłabia ochronę przed podsłuchem. Wyłącz ponownie, gdy ScreenScraper naprawi certyfikat."
     }
   },
-  "settingsShell": {},
   "settingsStorage": {
     "rescanning": "Ponowne skanowanie {name} — ",
     "scrapeRunning": "Trwa scraping — ",
@@ -2346,8 +2345,6 @@
       "importFailed": "Importowanie nie powiodło się"
     },
     "system": {
-      "selectLanguage": "Wybierz preferowany język",
-      "langEnglish": "Angielski",
       "updatesHeader": "Aktualizacje",
       "softwareUpdates": "Aktualizacje oprogramowania",
       "softwareUpdatesDesc": "GameHub {version} — działa na Node {nodeVersion}",

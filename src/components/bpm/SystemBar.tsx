@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import JobIndicator from "@/components/bpm/JobIndicator";
 import NotificationBell from "@/components/bpm/NotificationBell";
+import ProfileNavLink from "@/components/ProfileNavLink";
 import { useChromeOverlayOpen } from "@/lib/chromeOverlay";
 
 function Clock() {
@@ -147,11 +148,11 @@ export default function SystemBar({
         <Clock />
       </div>
       <div className="header_HeaderItem_gh flex h-10 items-center px-[10px]">
-        <Link
+        <ProfileNavLink
           href="/account"
           className="steamavatar_avatarHolder_gh Focusable relative block h-8 w-8 cursor-pointer"
           title={username}
-          aria-label={t("account")}
+          ariaLabel={t("account")}
         >
           {avatarUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -166,7 +167,7 @@ export default function SystemBar({
             </span>
           )}
           <span className="absolute -right-[3px] top-0 h-full w-[3px] bg-[#4cb4ff]" aria-hidden />
-        </Link>
+        </ProfileNavLink>
       </div>
     </header>
   );

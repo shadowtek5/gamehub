@@ -1984,7 +1984,6 @@
     "accountPageLink": "σελίδα λογαριασμού",
     "authorizeOutro": "(κάντε κλικ Authorize › bearerAuth), ή χρησιμοποιήστε απλώς την τρέχουσα συνεδρία προγράμματος περιήγησης."
   },
-  "settingsShell": {},
   "romProperties": {
     "categories": {
       "general": "Γενικά",
@@ -2662,8 +2661,6 @@
       "importFailed": "Η εισαγωγή απέτυχε"
     },
     "system": {
-      "selectLanguage": "Επιλογή προτιμώμενης γλώσσας",
-      "langEnglish": "English",
       "updatesHeader": "Ενημερώσεις",
       "softwareUpdates": "Ενημερώσεις λογισμικού",
       "softwareUpdatesDesc": "GameHub {version} — εκτέλεση στο Node {nodeVersion}",
