@@ -17,7 +17,7 @@ const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-07-14",
     title: "Even more desktop tools reach the mobile app",
-    body: "A second round of mobile parity, this time for admins and editors. A system's tools sheet (⚙) now lets you Upload ROMs, Manage firmware, edit the per-system controller layout, and export the system for other launchers (gamelist.xml, RetroArch .lpl, and multi-disc .m3u). A game's options sheet gains Fetch video snap, Fetch manual, and Patch ROM. And mobile Settings now includes the Age Restrictions panel — restriction profiles and per-system age gating — and lets you assign a restriction profile to a user.",
+    body: "A second round of mobile parity, this time for admins and editors. A system's tools sheet (⚙) now lets you Upload ROMs, Manage firmware, edit the per-system controller layout, and export the system for other launchers (gamelist.xml, RetroArch .lpl, and multi-disc .m3u). A game's options sheet gains Fix metadata match, Fetch video snap, Fetch manual, and Patch ROM — and the game page now shows its full activity timeline, where you can post and read comments. And mobile Settings now includes the Age Restrictions panel — restriction profiles and per-system age gating — and lets you assign a restriction profile to a user.",
     art: "mobile",
   },
   {

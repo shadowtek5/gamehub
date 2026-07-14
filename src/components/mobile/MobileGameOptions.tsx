@@ -50,7 +50,13 @@ export default function MobileGameOptions({
   filename: string;
 }) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<"menu" | "collections" | "art">("menu");
+  const [view, setView] = useState<"menu" | "collections" | "art" | "match">("menu");
+  const [matchQuery, setMatchQuery] = useState("");
+  const [matchResults, setMatchResults] = useState<
+    { provider: string; id: number; title: string; system?: string; year?: string }[] | null
+  >(null);
+  const [matchMsg, setMatchMsg] = useState("");
+  const [matchBusy, setMatchBusy] = useState(false);
   const [favorite, setFavorite] = useState(initialFav);
   const [hidden, setHidden] = useState(initialHidden);
   const [collections, setCollections] = useState(initialCollections);
@@ -167,6 +173,54 @@ export default function MobileGameOptions({
     if (o.ok) router.refresh();
   }
 
+  // Fix metadata match: search providers and re-scrape as the chosen game.
+  async function searchMatches(q: string) {
+    setMatchBusy(true);
+    setMatchMsg(tg("searchingScreenscraper"));
+    setMatchResults(null);
+    try {
+      const res = await fetch(`/api/roms/${romId}/match-candidates?q=${encodeURIComponent(q)}`);
+      const data = await res.json();
+      const cands = data.candidates ?? [];
+      setMatchResults(cands);
+      setMatchMsg(cands.length === 0 ? tg("nothingForMatch") : "");
+    } catch (e) {
+      setMatchMsg(`✗ ${e instanceof Error ? e.message : e}`);
+    } finally {
+      setMatchBusy(false);
+    }
+  }
+  function openMatchView() {
+    setView("match");
+    setMatchQuery(title);
+    setMatchResults(null);
+    setMatchMsg("");
+    void searchMatches(title);
+  }
+  async function applyMatch(provider: string, gameId: number, name: string) {
+    setMatchBusy(true);
+    setMatchMsg(tg("scrapingAs", { name }));
+    try {
+      const res = await fetch(`/api/roms/${romId}/rematch`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ provider, gameId }),
+      });
+      const outcome = await res.json();
+      if (outcome.ok) {
+        playSound("toast");
+        close();
+        router.refresh();
+      } else {
+        setMatchMsg(`✗ ${outcome.error ?? tg("nothingForMatch")}`);
+      }
+    } catch (e) {
+      setMatchMsg(`✗ ${e instanceof Error ? e.message : e}`);
+    } finally {
+      setMatchBusy(false);
+    }
+  }
+
   // On-demand FTP fetch of a video snap / manual (same endpoint as desktop).
   async function fetchMedia(kind: "video" | "manual") {
     setMediaMsg(`${tg(`fetchLabels.${kind}.title`)}…`);
@@ -238,6 +292,9 @@ export default function MobileGameOptions({
                   <SheetRow onClick={() => scrape(true)}>
                     <span className="text-dim">⤓</span> {t("backfillMetadata")}
                   </SheetRow>
+                  <SheetRow onClick={openMatchView}>
+                    <span className="text-dim">⌖</span> {tg("fixMatch")}
+                  </SheetRow>
                   <SheetRow onClick={() => openArtPicker("boxart")}>
                     <span className="text-dim">▦</span> {t("chooseBoxArt")}
                   </SheetRow>
@@ -291,6 +348,40 @@ export default function MobileGameOptions({
                   {t("manageCollections")}
                 </Link>
               </div>
+            </div>
+          ) : view === "match" ? (
+            <div className="flex flex-col">
+              <SheetBack onClick={() => setView("menu")} />
+              <div className="flex items-center gap-2 px-4 pb-2">
+                <input
+                  value={matchQuery}
+                  onChange={(e) => setMatchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && matchQuery.trim()) searchMatches(matchQuery.trim());
+                  }}
+                  placeholder={tg("gameNamePlaceholder")}
+                  className="min-w-0 flex-1 rounded-[8px] bg-[#12161c] px-3 py-2 text-sm text-body ring-1 ring-white/10 focus:outline-none focus:ring-accent/50"
+                />
+                <button
+                  onClick={() => matchQuery.trim() && searchMatches(matchQuery.trim())}
+                  disabled={matchBusy}
+                  className="shrink-0 rounded-[8px] bg-accent px-4 py-2 text-sm font-bold text-black disabled:opacity-50"
+                >
+                  {tg("search")}
+                </button>
+              </div>
+              <p className="px-4 pb-2 text-[12px] text-dim">{tg("matchHelp")}</p>
+              {matchMsg && <p className="px-4 pb-2 text-[13px] text-dim">{matchMsg}</p>}
+              {matchResults?.map((m) => (
+                <SheetRow key={`${m.provider}-${m.id}`} onClick={() => applyMatch(m.provider, m.id, m.title)} disabled={matchBusy}>
+                  <span className="min-w-0 flex-1 truncate">{m.title}</span>
+                  {m.system && <span className="shrink-0 text-[12px] text-dim">{m.system}</span>}
+                  {m.year && <span className="shrink-0 text-[12px] text-dim">{m.year}</span>}
+                  <span className="shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-dim">
+                    {m.provider === "screenscraper" ? "SS" : m.provider === "launchbox" ? "LB" : "IGDB"}
+                  </span>
+                </SheetRow>
+              ))}
             </div>
           ) : (
             <MobileArtPicker

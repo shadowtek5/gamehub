@@ -19,6 +19,9 @@ import RelatedContent from "@/components/RelatedContent";
 import SaveStatesPanel, { SaveStateInfo } from "@/components/SaveStatesPanel";
 import AchievementCarousel from "@/components/AchievementCarousel";
 import ControllerLayoutButton from "@/components/ControllerLayoutButton";
+import ActivityComposer from "@/components/ActivityComposer";
+import ActivityFeed, { ActivityEntry } from "@/components/ActivityFeed";
+import { getRomActivity, activityImageUrl } from "@/lib/activity";
 import { RA_CONSOLE_IDS, raLookup, raProgress, RaProgress } from "@/lib/providers/retroachievements";
 import { getRaCreds } from "@/lib/userRa";
 import type { IgdbRelated, IgdbRelatedResolved } from "@/lib/providers/igdb";
@@ -52,6 +55,7 @@ export default async function MobileGamePage({
   const user = await requireUser();
   const t = await getTranslations("mobileGamePage.detail");
   const tg = await getTranslations("gamePage"); // reuse the desktop game-page labels
+  const tn = await getTranslations("nav"); // for the Activity section title
   const { id } = await params;
   const rom = getLibraryRom(user.id, Number(id));
   if (!rom) notFound();
@@ -151,6 +155,38 @@ export default async function MobileGamePage({
   const batterySave = getDb()
     .prepare("SELECT size_bytes, updated_at FROM battery_saves WHERE user_id = ? AND rom_id = ?")
     .get(user.id, rom.id) as { size_bytes: number; updated_at: string } | undefined;
+
+  // Per-game activity timeline (comments + events), same feed as the desktop.
+  const activity = getRomActivity(rom.id);
+  const feedEntries: ActivityEntry[] = [
+    ...activity.map((a) => ({
+      id: a.id,
+      type: a.type,
+      summary: a.summary,
+      detail: a.detail,
+      image: activityImageUrl(a),
+      created_at: a.created_at,
+      canDelete: a.type === "comment" && a.user_id === user.id,
+      actorId: a.user_id,
+      actorName: a.actor_name ?? tg("actorSomeone"),
+      actorAvatar: a.actor_avatar,
+    })),
+    {
+      id: -1,
+      type: "added",
+      summary: tg("addedActivity", { title: rom.title }),
+      detail: tg("joinedLibrary", {
+        system: platform?.name ?? rom.platform_slug,
+        variant: rom.variant ? ` (${rom.variant})` : "",
+      }),
+      image: activity.length === 0 ? (rom.hero_url ?? rom.screenshot_url) : null,
+      created_at: rom.added_at,
+      canDelete: false,
+      actorId: 0,
+      actorName: tg("actorLibrary"),
+      actorAvatar: null,
+    },
+  ];
 
   return (
     <div className="-mx-4">
@@ -357,6 +393,13 @@ export default async function MobileGamePage({
 
         <Section title={t("sectionNotes")}>
           <GameNotes romId={rom.id} initial={rom.notes} />
+        </Section>
+
+        <Section title={tn("activity")}>
+          <div className="flex flex-col gap-4">
+            <ActivityComposer romId={rom.id} />
+            <ActivityFeed entries={feedEntries} />
+          </div>
         </Section>
       </div>
 
