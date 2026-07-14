@@ -2328,6 +2328,10 @@
       "users": {
         "label": "Utilisateurs",
         "blurb": "Comptes, invitations, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Restrictions dâ€™Ã¢ge",
+        "blurb": "Profils de restriction et filtrage par âge par système"
       }
     }
   },

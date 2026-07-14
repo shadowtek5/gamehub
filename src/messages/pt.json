@@ -2533,6 +2533,10 @@
       "users": {
         "label": "Users",
         "blurb": "Accounts, invites, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Restrições de Idade",
+        "blurb": "Perfis de restrição e controle de idade por sistema"
       }
     }
   },

@@ -548,6 +548,10 @@
       "users": {
         "label": "Utenti",
         "blurb": "Account, inviti e SSO"
+      },
+      "ageRestrictions": {
+        "label": "Restrizioni di età",
+        "blurb": "Profili di restrizione e blocco per età per sistema"
       }
     }
   },

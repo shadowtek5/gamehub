@@ -1529,6 +1529,10 @@
       "users": {
         "label": "Brugere",
         "blurb": "Konti, invitationer, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Aldersbegrænsninger",
+        "blurb": "Begrænsningsprofiler og aldersspærring pr. system"
       }
     }
   },

@@ -1529,6 +1529,10 @@
       "users": {
         "label": "Användare",
         "blurb": "Konton, inbjudningar, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Åldersbegränsningar",
+        "blurb": "Begränsningsprofiler och åldersgräns per system"
       }
     }
   },

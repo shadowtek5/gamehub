@@ -1529,6 +1529,10 @@
       "users": {
         "label": "Users",
         "blurb": "Accounts, invites, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Age Restrictions",
+        "blurb": "Restriction profiles & per-system age gating"
       }
     }
   },

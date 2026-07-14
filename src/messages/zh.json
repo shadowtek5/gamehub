@@ -1529,6 +1529,10 @@
       "users": {
         "label": "用户",
         "blurb": "账户、邀请与 SSO"
+      },
+      "ageRestrictions": {
+        "label": "年龄限制",
+        "blurb": "限制配置文件和各系统的年龄限制"
       }
     }
   },

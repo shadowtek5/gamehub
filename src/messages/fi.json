@@ -2177,6 +2177,10 @@
       "users": {
         "label": "Käyttäjät",
         "blurb": "Tilit, kutsut, kertakirjautuminen"
+      },
+      "ageRestrictions": {
+        "label": "Ikärajoitukset",
+        "blurb": "Rajoitusprofiilit ja järjestelmäkohtaiset ikärajat"
       }
     }
   },

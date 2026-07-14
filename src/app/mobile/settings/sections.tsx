@@ -209,9 +209,9 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
     },
     {
       key: "age-restrictions",
-      label: "Age Restrictions",
+      label: t("sections.ageRestrictions.label"),
       icon: "🔞",
-      blurb: "Restriction profiles & per-system age gating",
+      blurb: t("sections.ageRestrictions.blurb"),
       content: (
         <SettingsAgeRestrictions
           initialProfiles={listRestrictionProfiles()}

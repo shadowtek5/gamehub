@@ -2328,6 +2328,10 @@
       "users": {
         "label": "Usuarios",
         "blurb": "Cuentas, invitaciones, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Restricciones por edad",
+        "blurb": "Perfiles de restricción y control de edad por sistema"
       }
     }
   },

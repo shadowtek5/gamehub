@@ -1529,6 +1529,10 @@
       "users": {
         "label": "Gebruikers",
         "blurb": "Accounts, uitnodigingen, SSO"
+      },
+      "ageRestrictions": {
+        "label": "Leeftijdsbeperkingen",
+        "blurb": "Beperkingsprofielen en leeftijdsvergrendeling per systeem"
       }
     }
   },
