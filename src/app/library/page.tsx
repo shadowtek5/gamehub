@@ -11,8 +11,8 @@ export default async function LibraryPage() {
   const collections = listLibraryCollections(user.id);
   // Stable "All Games" count for the tab (respects hidden/missing); one cheap
   // COUNT via the browse query with a 1-row window.
-  const totalGames = searchLibraryBrowse(user.id, { limit: 1 }).total;
-  const favoritesCount = searchLibraryBrowse(user.id, { tab: "favorites", limit: 1 }).total;
+  const totalGames = searchLibraryBrowse(user.id, { countOnly: true }).total;
+  const favoritesCount = searchLibraryBrowse(user.id, { tab: "favorites", countOnly: true }).total;
   const systemIcons = getSystemIconMap();
   return (
     // Steam library has no page heading — the collection tab strip is the top

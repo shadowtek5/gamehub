@@ -25,7 +25,8 @@
     "downloads": "Λήψεις",
     "activity": "Δραστηριότητα",
     "settings": "Ρυθμίσεις",
-    "power": "Απενεργοποίηση"
+    "power": "Απενεργοποίηση",
+    "messages": "Μηνύματα"
   },
   "legend": {
     "menu": "Μενού",
@@ -184,7 +185,16 @@
       "bind": "Αντιστοίχιση {label}",
       "scopeNoteGlobal": "Προεπιλεγμένη διάταξη για αυτόν τον τύπο χειριστηρίου. Οι διατάξεις ανά σύστημα και ανά παιχνίδι την αντικαθιστούν.",
       "scopeNoteSystem": "Ισχύει για κάθε παιχνίδι σε αυτό το σύστημα, αντικαθιστώντας την καθολική προεπιλογή. Οι διατάξεις ανά παιχνίδι εξακολουθούν να υπερισχύουν.",
-      "scopeNoteGame": "Ισχύει μόνο για αυτό το παιχνίδι, αντικαθιστώντας τις διατάξεις του συστήματος και τις καθολικές."
+      "scopeNoteGame": "Ισχύει μόνο για αυτό το παιχνίδι, αντικαθιστώντας τις διατάξεις του συστήματος και τις καθολικές.",
+      "share": "Κοινή χρήση",
+      "exportHeading": "Εξαγωγή αυτής της διάταξης",
+      "copyCode": "Αντιγραφή κώδικα",
+      "copied": "✓ Αντιγράφηκε",
+      "importHeading": "Εισαγωγή διάταξης",
+      "pastePlaceholder": "Επικόλλησε ένα κώδικα διάταξης…",
+      "applyCode": "Εφαρμογή",
+      "importInvalid": "Αυτό δεν φαίνεται να είναι ένας έγκυρος κώδικας διάταξης.",
+      "importNote": "Η εφαρμογή φορτώνει τον κώδικα στον επεξεργαστή — πατήστε Αποθήκευση διάταξης για να το διατηρήσετε."
     },
     "button": {
       "controllerLayout": "Διάταξη χειριστηρίου",
@@ -230,7 +240,15 @@
       "tagQueued": "Σε ουρά",
       "scheduled": "Προγραμματισμένα",
       "noRecurring": "Δεν υπάρχουν ενεργές επαναλαμβανόμενες εργασίες.",
-      "tagAuto": "Αυτόματο"
+      "tagAuto": "Αυτόματο",
+      "statusOptimizing": "Βελτιστοποίηση εξωφύλλων…",
+      "optimizingArt": "Βελτιστοποίηση εξωφύλλων",
+      "statusHashing": "Υπολογισμός κατακερματισμών…",
+      "statusArt": "Επανάληψη λήψης εικόνων συστήματος…",
+      "statusThumbs": "Ανανέωση εικόνων…",
+      "hashingFiles": "Υπολογισμός κατακερματισμών",
+      "scrapingArt": "Επανάληψη λήψης εικόνων",
+      "refreshingImages": "Ανανέωση εικόνων"
     },
     "quota": {
       "providerRequestLimits": "Όρια αιτημάτων παρόχων",
@@ -355,7 +373,13 @@
     "tabYourStuff": "ΤΑ ΔΙΚΑ ΣΑΣ",
     "tabVariants": "ΠΑΡΑΛΛΑΓΕΣ",
     "tabRelated": "ΣΧΕΤΙΚΑ",
-    "tabGameInfo": "ΠΛΗΡΟΦΟΡΙΕΣ ΠΑΙΧΝΙΔΙΟΥ"
+    "tabGameInfo": "ΠΛΗΡΟΦΟΡΙΕΣ ΠΑΙΧΝΙΔΙΟΥ",
+    "screenshotsSection": "Τα στιγμιότυπά σας",
+    "tabReviews": "ΚΡΙΤΙΚΕΣ",
+    "compatSection": "Συμβατότητα",
+    "tabGuides": "ΟΔΗΓΟΙ",
+    "videoSection": "Φίλτρο βίντεο",
+    "cheatsSection": "Κωδικοί"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -378,6 +402,10 @@
       "rescrapeArt": "Επανάληψη λήψης εικαστικών συστήματος",
       "rescrapeArtDesc": "Επανάληψη λήψης των εικαστικών hero, logo, εικονιδίου και ribbon για κάθε σύστημα στη βιβλιοθήκη σας, με τη διαμορφωμένη σειρά παρόχων. Χρησιμοποιήστε το μετά την αλλαγή παρόχων ή της αντιστοίχισης εικαστικών. Εκτελείται στο παρασκήνιο.",
       "rescrapeAll": "Επανάληψη λήψης όλων",
+      "localizeArt": "Βελτιστοποίηση εξωφύλλων",
+      "localizeArtDesc": "Κατεβάστε τοπικά ως WebP κάθε εξώφυλλο που εξακολουθεί να συνδέεται απευθείας από το libretro και ξαναχτίστε τις μικρές γρήγορες μικρογραφίες για τα εξώφυλλα που είναι ήδη αποθηκευμένα τοπικά — ώστε η βιβλιοθήκη να φορτώνει γρήγορα και να μην εξαρτάται ποτέ από εξωτερικό ιστότοπο. Τα εξώφυλλα χωρίς αντιστοίχιση στο libretro καθαρίζονται σε σύμβολο κράτησης θέσης. Εκτελείται στο παρασκήνιο.",
+      "localizeStart": "Βελτιστοποίηση όλων",
+      "localizeResult": "✓ Λήφθηκαν {localized}, βελτιστοποιήθηκαν {optimized}, διαγράφηκαν {cleared} νεκροί σύνδεσμοι{failed, plural, =0 {} other {, # για επανάληψη}}",
       "updated": "{count} ενημερώθηκαν",
       "cancelledPrefix": "Ακυρώθηκε — ",
       "updatedSystems": "Ενημερώθηκαν {updated} από {done} συστήματα",
@@ -396,7 +424,16 @@
       "confirmBody": "Αφαιρεί {missing, plural, one {# ελλείπον παιχνίδι} other {# ελλείποντα παιχνίδια}} και {orphan, plural, one {# ορφανό φάκελο πολυμέσων} other {# ορφανούς φακέλους πολυμέσων}}. Τα αγαπημένα και οι καταχωρίσεις συλλογών για αυτά τα παιχνίδια αφαιρούνται επίσης. Τα αρχεία ROM δεν θίγονται ποτέ.",
       "failedToStart": "Η εκκίνηση απέτυχε",
       "removedSummary": "✓ Αφαιρέθηκαν {games} παιχνίδια και {folders} φάκελοι πολυμέσων",
-      "failed": "Απέτυχε"
+      "failed": "Απέτυχε",
+      "localizeQueued": "Σε ουρά — θα εκτελεστεί μετά την τρέχουσα εργασία. Παρακολουθήστε το στη σελίδα Λήψεις.",
+      "jobQueued": "Σε ουρά — θα εκτελεστεί μετά την τρέχουσα εργασία. Παρακολουθήστε το στη σελίδα Λήψεις.",
+      "chooseSystems": "Επιλογή συστημάτων…",
+      "runSelected": "Εκτέλεση επιλεγμένων",
+      "runAll": "Εκτέλεση όλων",
+      "selectedCount": "{count} επιλεγμένα",
+      "noneSelected": "Κανένα επιλεγμένο",
+      "pickSystemsHint": "Επιλέξτε ένα ή περισσότερα συστήματα ή εκτελέστε σε όλη τη βιβλιοθήκη.",
+      "noConfiguredSystems": "Δεν υπάρχουν ρυθμισμένα συστήματα ακόμη."
     },
     "backupPanel": {
       "parts": {
@@ -603,7 +640,8 @@
       "hero": "εικόνα hero",
       "logo": "λογότυπο",
       "icon": "εικονίδιο"
-    }
+    },
+    "sectionMaintenance": "Συντήρηση"
   },
   "settingsStorage": {
     "rescanning": "Επανασάρωση {name} — ",
@@ -735,16 +773,19 @@
       "hideUnratedLabel": "Απόκρυψη επίσης παιχνιδιών χωρίς διαβάθμιση (αυστηρό — τα περισσότερα παιχνίδια δεν έχουν διαβάθμιση ακόμη)",
       "deleteWarning": "Αυτό αφαιρεί το προφίλ από {count, plural, one {# αντιστοιχισμένο χρήστη} other {# αντιστοιχισμένους χρήστες}} — θα επιστρέψουν σε πλήρη, απεριόριστη πρόσβαση.",
       "noUsersAssigned": "Κανένας χρήστης δεν έχει αντιστοιχιστεί σε αυτό το προφίλ.",
-      "deleteProfile": "Διαγραφή προφίλ"
+      "deleteProfile": "Διαγραφή προφίλ",
+      "playTimeHeading": "Ώρα παιχνιδιού",
+      "dailyLimitLabel": "Ημερήσιο όριο παιχνιδιού",
+      "noLimit": "Χωρίς όριο",
+      "minutesPerDay": "λεπτά / ημέρα",
+      "scheduleLabel": "Να επιτρέπεται το παιχνίδι μόνο σε ορισμένες ώρες",
+      "allowedFrom": "Από",
+      "allowedTo": "έως"
     }
   },
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# παιχνίδι} other {# παιχνίδια}}"
-    },
-    "carousel": {
-      "scrollLeft": "Κύλιση αριστερά",
-      "scrollRight": "Κύλιση δεξιά"
     }
   },
   "systemsPages": {
@@ -1091,7 +1132,11 @@
       "usedDate": "χρησιμοποιήθηκε {date}",
       "neverUsed": "δεν χρησιμοποιήθηκε ποτέ",
       "revoke": "Ανάκληση",
-      "noTokensYet": "Δεν υπάρχουν tokens ακόμη."
+      "noTokensYet": "Δεν υπάρχουν tokens ακόμη.",
+      "expiryNever": "Δεν λήγει ποτέ",
+      "expiry30": "Λήγει σε 30 ημέρες",
+      "expiry90": "Λήγει σε 90 ημέρες",
+      "expiry365": "Λήγει σε 1 χρόνο"
     },
     "retroAchievements": {
       "raIntro1": "Συνδέστε τον λογαριασμό σας",
@@ -1143,7 +1188,9 @@
       "optPort": "Μεταφορά",
       "optDlc": "DLC & πρόσθετο",
       "optExpansion": "Επέκταση",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Προσθήκη σχετικού παιχνιδιού",
+      "kindAria": "Τύπος σχέσης"
     },
     "playSummary": {
       "title": "Σύνοψη παιχνιδιού",
@@ -1231,7 +1278,9 @@
       "metaLanguage": "Γλώσσα",
       "metaFranchise": "Σειρά",
       "metaAgeRating": "Διαβάθμιση ηλικίας",
-      "metaFile": "Αρχείο"
+      "metaFile": "Αρχείο",
+      "sectionReviews": "Κριτικές",
+      "sectionGuides": "Οδηγοί"
     },
     "properties": {
       "back": "Πίσω στο παιχνίδι",
@@ -1749,7 +1798,9 @@
       "requestsSent": "Requests sent",
       "cancel": "Άκυρο",
       "removeConfirmTitle": "Αφαίρεση {name}?",
-      "removeConfirmBody": "They'll be removed from your friends. You can send a new request anytime."
+      "removeConfirmBody": "They'll be removed from your friends. You can send a new request anytime.",
+      "playingGame": "Παίζει {title}",
+      "message": "Μήνυμα"
     },
     "summary": {
       "title": "Friends",
@@ -2362,7 +2413,15 @@
     "loading": "Φόρτωση…",
     "scheduled": "Προγραμματισμένα",
     "noRecurringTasks": "Δεν υπάρχουν ενεργές επαναλαμβανόμενες εργασίες.",
-    "auto": "Αυτόματο"
+    "auto": "Αυτόματο",
+    "statusOptimizing": "Βελτιστοποίηση εξωφύλλων…",
+    "optimizingArtBar": "Βελτιστοποίηση εξωφύλλων",
+    "statusHashing": "Υπολογισμός κατακερματισμών…",
+    "statusArt": "Επανάληψη λήψης εικόνων συστήματος…",
+    "statusThumbs": "Ανανέωση εικόνων…",
+    "hashingFilesBar": "Υπολογισμός κατακερματισμών",
+    "scrapingArtBar": "Επανάληψη λήψης εικόνων",
+    "refreshingImagesBar": "Ανανέωση εικόνων"
   },
   "emulator": {
     "stateSaved": "Κατάσταση αποθηκεύτηκε στο GameHub",
@@ -2383,7 +2442,50 @@
     "retry": "Προσπάθεια ξανά",
     "exit": "Έξοδος",
     "dismiss": "Απόρριψη",
-    "controllerLayoutTitle": "Διάταξη χειριστηρίου — {title}"
+    "controllerLayoutTitle": "Διάταξη χειριστηρίου — {title}",
+    "screenshot": "Στιγμιότυπο (F2)",
+    "screenshotSaved": "Το στιγμιότυπο αποθηκεύτηκε",
+    "screenshotFailed": "Το στιγμιότυπο απέτυχε",
+    "playTimeUp": "Τέλος της ημέρας — αποθήκευση και έξοδος.",
+    "playOutsideHours": "Τέλος της ώρας παιχνιδιού — αποθήκευση και έξοδος.",
+    "quickMenu": "Γρήγορο Μενού",
+    "quickMenuHint": "D-pad για κίνηση · A για επιλογή · B για πίσω · Select+Start για εναλλαγή",
+    "resume": "Συνέχεια",
+    "saveState": "Αποθήκευση κατάστασης",
+    "loadState": "Φόρτωση κατάστασης",
+    "restart": "Επανεκκίνηση παιχνιδιού",
+    "restarted": "Το παιχνίδι επανεκκινήθηκε",
+    "restartUnavailable": "Η επανεκκίνηση δεν είναι διαθέσιμη για αυτόν τον πυρήνα",
+    "exitGame": "Έξοδος παιχνιδιού",
+    "back": "Πίσω",
+    "loadingStates": "Φόρτωση κατάστασεων…",
+    "stateSlot": "Αποθήκευση από {date}",
+    "recordClip": "Εγγραφή κλιπ",
+    "stopRecording": "Διακοπή εγγραφής",
+    "recording": "ΕΓΓ",
+    "clipSaved": "Το κλιπ αποθηκεύτηκε",
+    "recordUnavailable": "Η εγγραφή δεν υποστηρίζεται σε αυτό το πρόγραμμα περιήγησης",
+    "pause": "Παύση / συνέχιση παιχνιδιού",
+    "fastForward": "Γρήγορη μετάβαση",
+    "mute": "Σίγαση / Ενεργοποίηση ήχου",
+    "fullscreen": "Εναλλαγή πλήρης οθόνης",
+    "cheats": "Cheats",
+    "netplay": "Netplay",
+    "videoFilter": "Φίλτρο βίντεο",
+    "videoFilterSaved": "Το φίλτρο βίντεο αποθηκεύτηκε",
+    "actionUnavailable": "Μη διαθέσιμο για αυτό το παιχνίδι",
+    "loadingCheats": "Φόρτωση κωδικών…",
+    "noCheats": "Κανένας κωδικός ακόμα. Προσθέστε κωδικούς από τη σελίδα του παιχνιδιού ή επιλέξτε από την παρακάτω λίστα.",
+    "cheatOn": "Ενεργό",
+    "cheatOff": "Απενεργό",
+    "cheatsFromList": "Προσθήκη από λίστα",
+    "menuLabel": "Μενού",
+    "selectLabel": "Επιλογή",
+    "navHome": "Αρχική",
+    "navLibrary": "Βιβλιοθήκη",
+    "navFriends": "Φίλοι",
+    "navSettings": "Ρυθμίσεις",
+    "navPower": "Έξοδος παιχνιδιού"
   },
   "home": {
     "readMore": "Διαβάστε περισσότερα ↗",
@@ -2430,7 +2532,8 @@
     },
     "topBar": {
       "search": "Αναζήτηση",
-      "profile": "Προφίλ"
+      "profile": "Προφίλ",
+      "messages": "Μηνύματα"
     },
     "desktopSiteLink": {
       "desktopSite": "Ιστοσελίδα Desktop"
@@ -2549,6 +2652,7 @@
       "auto": "Αυτόματο",
       "wide": "Ευρεία",
       "square": "Τετράγωνη",
+      "cart": "Κασέτα",
       "portrait": "Πορτρέτο"
     },
     "scanning": "Σάρωση {name}…",
@@ -2698,5 +2802,107 @@
       "legalNoticesDesc": "Open-source λογισμικό, emulation, παρόχοι δεδομένων και σύνολα δεδομένων που εξαρτάται το GameHub.",
       "view": "Προβολή"
     }
+  },
+  "screenshots": {
+    "title": "Τα στιγμιότυπά σας",
+    "viewCapture": "Προβολή στιγμιότυπου",
+    "previous": "Προηγούμενο",
+    "next": "Επόμενο",
+    "download": "Λήψη",
+    "delete": "Διαγραφή",
+    "close": "Κλείσιμο"
+  },
+  "reviews": {
+    "noneYet": "Δεν υπάρχουν κριτικές ακόμα — να είστε ο πρώτος.",
+    "recommendedPct": "Συνιστάται κατά {pct}%",
+    "basedOn": "{recommended} από {count} συνιστούν αυτό",
+    "yourReview": "Η κριτική σας",
+    "writeReview": "Γράψτε μια κριτική",
+    "recommend": "Συνιστώ",
+    "notRecommend": "Όχι για μένα",
+    "bodyPlaceholder": "Μοιραστείτε τη γνώμη σας… (προαιρετικό)",
+    "post": "Δημοσίευση κριτικής",
+    "update": "Ενημέρωση κριτικής",
+    "delete": "Διαγραφή",
+    "communityReviews": "{count, plural, one {# κριτική} other {# κριτικές}}"
+  },
+  "search": {
+    "placeholder": "Αναζήτηση παιχνιδιών, συστημάτων, συλλογών, φίλων…",
+    "hint": "Ξεκινήστε να γράφετε για αναζήτηση σε όλα.",
+    "noResults": "Δεν υπάρχουν αποτελέσματα.",
+    "groupPages": "Σελίδες",
+    "groupGames": "Παιχνίδια",
+    "groupSystems": "Συστήματα",
+    "groupCollections": "Συλλογές",
+    "groupFriends": "Φίλοι",
+    "gamesCount": "{count, plural, one {# παιχνίδι} other {# παιχνίδια}}"
+  },
+  "compat": {
+    "title": "Συμβατότητα προσομοίωσης",
+    "labelPlayable": "Παίξιμο",
+    "labelRuns": "Τρέχει με προβλήματα",
+    "labelBroken": "Χαλασμένο",
+    "labelUnknown": "Δεν δοκιμάστηκε",
+    "yourReport": "Πώς τρέχει για εσένα;",
+    "notePlaceholder": "Προσθέστε σημείωση (προαιρετικό) — προβλήματα, ρυθμίσεις που βοήθησαν…",
+    "save": "Αποθήκευση",
+    "update": "Ενημέρωση",
+    "clear": "Σαφή",
+    "reportsCount": "{count, plural, one {# αναφορά} other {# αναφορές}}",
+    "officialBadge": "Επίσημη αξιολόγηση",
+    "untestedHint": "Δεν έχει δοκιμαστεί ακόμα — προσθέστε την πρώτη αναφορά.",
+    "officialLabel": "Επίσημη αξιολόγηση (διαχειριστής)",
+    "clearOfficial": "Καμία επίσημη αξιολόγηση"
+  },
+  "guides": {
+    "writeGuide": "Γράψε έναν οδηγό",
+    "noneYet": "Δεν υπάρχουν ακόμη οδηγοί — γράψε τον πρώτο.",
+    "by": "από {name}",
+    "back": "Όλοι οι οδηγοί",
+    "edit": "Επεξεργασία",
+    "delete": "Διαγραφή",
+    "deleteConfirm": "Διαγραφή αυτού του οδηγού;",
+    "save": "Αποθήκευση οδηγού",
+    "cancel": "Ακύρωση",
+    "titlePlaceholder": "Τίτλος οδηγού",
+    "bodyPlaceholder": "Γράψε τη διαδρομή παιχνιδιού, συμβουλές ή στρατηγική…",
+    "newGuide": "Νέος οδηγός",
+    "editGuide": "Επεξεργασία οδηγού"
+  },
+  "playLimit": {
+    "title": "Τέλος της ώρας",
+    "limitReached": "Έχεις φτάσει το ημερήσιο όριο παιχνιδιού σου {minutes} λεπτών. Σε λίγο!",
+    "outsideHours": "Το παιχνίδι επιτρέπεται μόνο μεταξύ {start} και {end}.",
+    "back": "Επιστροφή στο παιχνίδι"
+  },
+  "messages": {
+    "title": "Μηνύματα",
+    "noFriends": "Προσθέστε φίλους για να ξεκινήσετε ένα chat.",
+    "you": "Εσύ",
+    "noMessagesYet": "Δεν υπάρχουν μηνύματα ακόμα",
+    "pickConversation": "Επιλέξτε μια συνομιλία για να ξεκινήσετε ένα chat.",
+    "sayHi": "Πες γεια 👋",
+    "messagePlaceholder": "Πληκτρολογήστε ένα μήνυμα…",
+    "send": "Αποστολή",
+    "back": "Πίσω"
+  },
+  "emuVideo": {
+    "videoFilter": "Φίλτρο βίντεο",
+    "filterOff": "Κανένα (αιχμηρά εικονοστοιχεία)",
+    "filterSmooth": "Ομαλό (bilinear)",
+    "appliesNextLaunch": "Ισχύει την επόμενη φορά που θα ξεκινήσετε",
+    "saving": "Αποθήκευση…"
+  },
+  "cheats": {
+    "loading": "Φόρτωση κωδικών…",
+    "empty": "Δεν έχουν προστεθεί κωδικοί ακόμα.",
+    "remove": "Κατάργηση",
+    "suggested": "Προτεινόμενο για αυτό το παιχνίδι",
+    "addTitle": "Προσθήκη κωδικού",
+    "namePlaceholder": "Όνομα (π.χ. Άπειρες ζωές)",
+    "codePlaceholder": "Game Genie ή πρώτος κωδικός — ένας ανά γραμμή",
+    "appliesHint": "Ισχύει την επόμενη φορά που θα παίξετε",
+    "add": "Προσθήκη",
+    "searchPlaceholder": "Αναζήτηση cheats…"
   }
 }

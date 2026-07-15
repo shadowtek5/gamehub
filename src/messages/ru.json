@@ -25,7 +25,8 @@
     "downloads": "Загрузки",
     "activity": "Активность",
     "settings": "Настройки",
-    "power": "Питание"
+    "power": "Питание",
+    "messages": "Сообщения"
   },
   "legend": {
     "menu": "Меню",
@@ -217,7 +218,9 @@
       "requestsSent": "Отправленные запросы",
       "cancel": "Отмена",
       "removeConfirmTitle": "Удалить {name}?",
-      "removeConfirmBody": "Человек будет удалён из списка друзей. Вы всегда можете отправить новый запрос."
+      "removeConfirmBody": "Человек будет удалён из списка друзей. Вы всегда можете отправить новый запрос.",
+      "playingGame": "Играет в {title}",
+      "message": "Сообщение"
     },
     "summary": {
       "title": "Друзья",
@@ -556,7 +559,16 @@
       "bind": "Назначить {label}",
       "scopeNoteGlobal": "Стандартная раскладка для этого типа контроллера. Раскладки на систему и на игру переопределяют её.",
       "scopeNoteSystem": "Применяется ко всем играм на этой системе и переопределяет глобальную стандартную. Раскладки на игру имеют приоритет.",
-      "scopeNoteGame": "Применяется только к этой игре и переопределяет раскладки системы и глобальные."
+      "scopeNoteGame": "Применяется только к этой игре и переопределяет раскладки системы и глобальные.",
+      "share": "Поделиться",
+      "exportHeading": "Экспортировать этот макет",
+      "copyCode": "Скопировать код",
+      "copied": "✓ Скопировано",
+      "importHeading": "Импортировать макет",
+      "pastePlaceholder": "Вставьте код макета…",
+      "applyCode": "Применить",
+      "importInvalid": "Это не похоже на действительный код макета.",
+      "importNote": "Применение загружает код в редактор — нажмите Сохранить макет, чтобы сохранить его."
     },
     "button": {
       "controllerLayout": "Ракладка контроллера",
@@ -602,7 +614,15 @@
       "tagQueued": "В очереди",
       "scheduled": "Запланировано",
       "noRecurring": "Нет включённых повторяющихся задач.",
-      "tagAuto": "Авто"
+      "tagAuto": "Авто",
+      "statusOptimizing": "Оптимизация обложек…",
+      "optimizingArt": "Оптимизация обложек",
+      "statusHashing": "Вычисление хешей…",
+      "statusArt": "Повторный сбор обложек систем…",
+      "statusThumbs": "Обновление изображений…",
+      "hashingFiles": "Вычисление хешей",
+      "scrapingArt": "Повторный сбор обложек",
+      "refreshingImages": "Обновление изображений"
     },
     "quota": {
       "providerRequestLimits": "Лимиты запросов провайдера",
@@ -640,7 +660,50 @@
     "retry": "Повторить",
     "exit": "Выход",
     "dismiss": "Закрыть",
-    "controllerLayoutTitle": "Ракладка контроллера — {title}"
+    "controllerLayoutTitle": "Ракладка контроллера — {title}",
+    "screenshot": "Снимок экрана (F2)",
+    "screenshotSaved": "Снимок экрана сохранен",
+    "screenshotFailed": "Ошибка при сохранении снимка",
+    "playTimeUp": "Время закончилось на сегодня — сохранение и выход.",
+    "playOutsideHours": "Время игры закончилось на данный момент — сохранение и выход.",
+    "quickMenu": "Быстрое меню",
+    "quickMenuHint": "D-pad для движения · A выбрать · B назад · Select+Start переключает",
+    "resume": "Продолжить",
+    "saveState": "Сохранить состояние",
+    "loadState": "Загрузить состояние",
+    "restart": "Перезапустить игру",
+    "restarted": "Игра перезапущена",
+    "restartUnavailable": "Перезапуск недоступен для этого ядра",
+    "exitGame": "Выйти из игры",
+    "back": "Назад",
+    "loadingStates": "Загрузка состояний…",
+    "stateSlot": "Сохранено {date}",
+    "recordClip": "Записать клип",
+    "stopRecording": "Остановить запись",
+    "recording": "REC",
+    "clipSaved": "Клип сохранён",
+    "recordUnavailable": "Запись не поддерживается в этом браузере",
+    "pause": "Пауза / Возобновить",
+    "fastForward": "Ускорение",
+    "mute": "Отключить / Включить звук",
+    "fullscreen": "Полноэкран",
+    "cheats": "Чит-коды",
+    "netplay": "Сетевая игра",
+    "videoFilter": "Видеофильтр",
+    "videoFilterSaved": "Видеофильтр сохранён",
+    "actionUnavailable": "Действие недоступно",
+    "loadingCheats": "Загрузка кодов…",
+    "noCheats": "Коды еще не добавлены. Добавьте коды со страницы игры или выберите из списка ниже.",
+    "cheatOn": "Включено",
+    "cheatOff": "Отключено",
+    "cheatsFromList": "Добавить из списка",
+    "menuLabel": "Меню",
+    "selectLabel": "Выбрать",
+    "navHome": "Главная",
+    "navLibrary": "Библиотека",
+    "navFriends": "Друзья",
+    "navSettings": "Параметры",
+    "navPower": "Выход из игры"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "ВАШЕ",
     "tabVariants": "ВАРИАНТЫ",
     "tabRelated": "СВЯЗАННОЕ",
-    "tabGameInfo": "ИНФОРМАЦИЯ ОБ ИГРЕ"
+    "tabGameInfo": "ИНФОРМАЦИЯ ОБ ИГРЕ",
+    "screenshotsSection": "Ваши снимки экрана",
+    "tabReviews": "ОТЗЫВЫ",
+    "compatSection": "Совместимость",
+    "tabGuides": "РУКОВОДСТВА",
+    "videoSection": "Видеофильтр",
+    "cheatsSection": "Коды"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Перескрейпить арт системы",
       "rescrapeArtDesc": "Повторно получить hero, логотип, иконку и ribbon-арт для каждой системы в вашей библиотеке в порядке настроенных провайдеров. Используйте после изменения провайдеров или маппинга арта. Работает в фоне.",
       "rescrapeAll": "Перескрейпить всё",
+      "localizeArt": "Оптимизировать обложки",
+      "localizeArtDesc": "Загрузите в локальное хранилище в формате WebP каждую обложку, которая всё ещё берётся напрямую с libretro, и пересоберите маленькие быстрые эскизы для обложек, уже сохранённых локально, — чтобы библиотека загружалась быстро и не зависела от внешнего сайта. Обложки без совпадения на libretro очищаются до заглушки. Выполняется в фоне.",
+      "localizeStart": "Оптимизировать все",
+      "localizeResult": "✓ Загружено {localized}, оптимизировано {optimized}, очищено {cleared} нерабочих ссылок{failed, plural, =0 {} other {, # для повтора}}",
       "updated": "Обновлено {count}",
       "cancelledPrefix": "Отменено — ",
       "updatedSystems": "Обновлено {updated} из {done} систем",
@@ -1064,7 +1137,16 @@
       "confirmBody": "Удалить {missing, plural, one {# отсутствующую игру} other {# отсутствующих игр}} и {orphan, plural, one {# осиротевшую папку медиа} other {# осиротевших папок медиа}}? Избранное и элементы коллекции этих игр также будут удалены. Файлы ROM не трогаются.",
       "failedToStart": "Не удалось запустить",
       "removedSummary": "✓ Удалено {games} игр и {folders} папок медиа",
-      "failed": "Ошибка"
+      "failed": "Ошибка",
+      "localizeQueued": "В очереди — запустится после текущей задачи. Следите за ним на странице загрузок.",
+      "jobQueued": "В очереди — запустится после текущей задачи. Следите за ним на странице загрузок.",
+      "chooseSystems": "Выбрать системы…",
+      "runSelected": "Запустить выбранные",
+      "runAll": "Запустить все",
+      "selectedCount": "Выбрано: {count}",
+      "noneSelected": "Ничего не выбрано",
+      "pickSystemsHint": "Выберите одну или несколько систем или запустите для всей библиотеки.",
+      "noConfiguredSystems": "Пока нет настроенных систем."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "использован {date}",
       "neverUsed": "никогда не использовался",
       "revoke": "Отозвать",
-      "noTokensYet": "Пока нет токенов."
+      "noTokensYet": "Пока нет токенов.",
+      "expiryNever": "Никогда не истекает",
+      "expiry30": "Истекает через 30 дней",
+      "expiry90": "Истекает через 90 дней",
+      "expiry365": "Истекает через 1 год"
     },
     "retroAchievements": {
       "raIntro1": "Свяжите аккаунт",
@@ -1235,7 +1321,15 @@
     "loading": "Загрузка…",
     "scheduled": "Запланировано",
     "noRecurringTasks": "Нет включённых повторяющихся задач.",
-    "auto": "Авто"
+    "auto": "Авто",
+    "statusOptimizing": "Оптимизация обложек…",
+    "optimizingArtBar": "Оптимизация обложек",
+    "statusHashing": "Вычисление хешей…",
+    "statusArt": "Повторный сбор обложек систем…",
+    "statusThumbs": "Обновление изображений…",
+    "hashingFilesBar": "Вычисление хешей",
+    "scrapingArtBar": "Повторный сбор обложек",
+    "refreshingImagesBar": "Обновление изображений"
   },
   "mobileGameOptions": {
     "gameOptions": "Параметры игры",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Язык",
       "metaFranchise": "Франшиза",
       "metaAgeRating": "Возрастной рейтинг",
-      "metaFile": "Файл"
+      "metaFile": "Файл",
+      "sectionReviews": "Отзывы",
+      "sectionGuides": "Руководства"
     },
     "properties": {
       "back": "Вернуться в игру",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Поиск",
-      "profile": "Профиль"
+      "profile": "Профиль",
+      "messages": "Сообщения"
     },
     "desktopSiteLink": {
       "desktopSite": "Версия для компьютера"
@@ -1589,7 +1686,8 @@
       "hero": "Hero-изображение",
       "logo": "Логотип",
       "icon": "Иконка"
-    }
+    },
+    "sectionMaintenance": "Обслуживание"
   },
   "primitives": {
     "cancel": "Отмена",
@@ -1684,7 +1782,9 @@
       "optPort": "Порт",
       "optDlc": "DLC и дополнение",
       "optExpansion": "Расширение",
-      "optMod": "Мод"
+      "optMod": "Мод",
+      "addHeading": "Добавить связанную игру",
+      "kindAria": "Тип связи"
     },
     "playSummary": {
       "title": "Сводка игры",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Скрывать также игры без рейтинга (строго — у большинства игр пока нет рейтинга)",
       "deleteWarning": "Это удалит профиль у {count, plural, one {# назначенного пользователя} other {# назначенных пользователей}} — они снова получат полный неограниченный доступ.",
       "noUsersAssigned": "К этому профилю не назначено ни одного пользователя.",
-      "deleteProfile": "Удалить профиль"
+      "deleteProfile": "Удалить профиль",
+      "playTimeHeading": "Время игры",
+      "dailyLimitLabel": "Дневной лимит игры",
+      "noLimit": "Без ограничений",
+      "minutesPerDay": "минут / день",
+      "scheduleLabel": "Разрешить игру только в определённые часы",
+      "allowedFrom": "С",
+      "allowedTo": "до"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# игра} other {# игр}}"
-    },
-    "carousel": {
-      "scrollLeft": "Прокрутить влево",
-      "scrollRight": "Прокрутить вправо"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Авто",
       "wide": "Широкий",
       "square": "Квадратный",
+      "cart": "Картридж",
       "portrait": "Портретный"
     },
     "scanning": "Сканирование {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Играбельна в браузере",
       "downloadToPlay": "{name} — скачайте, чтобы играть"
     }
+  },
+  "screenshots": {
+    "title": "Ваши снимки экрана",
+    "viewCapture": "Просмотреть снимок экрана",
+    "previous": "Предыдущий",
+    "next": "Следующий",
+    "download": "Скачать",
+    "delete": "Удалить",
+    "close": "Закрыть"
+  },
+  "reviews": {
+    "noneYet": "Отзывов еще нет — будьте первым.",
+    "recommendedPct": "{pct}% рекомендуют",
+    "basedOn": "{recommended} из {count} рекомендуют это",
+    "yourReview": "Ваш отзыв",
+    "writeReview": "Написать отзыв",
+    "recommend": "Рекомендую",
+    "notRecommend": "Не для меня",
+    "bodyPlaceholder": "Поделитесь своим мнением… (необязательно)",
+    "post": "Опубликовать отзыв",
+    "update": "Обновить отзыв",
+    "delete": "Удалить",
+    "communityReviews": "{count, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}"
+  },
+  "search": {
+    "placeholder": "Поиск игр, систем, коллекций, друзей…",
+    "hint": "Начните вводить для поиска везде.",
+    "noResults": "Нет совпадений.",
+    "groupPages": "Страницы",
+    "groupGames": "Игры",
+    "groupSystems": "Системы",
+    "groupCollections": "Коллекции",
+    "groupFriends": "Друзья",
+    "gamesCount": "{count, plural, one {# игра} few {# игры} many {# игр} other {# игр}}"
+  },
+  "compat": {
+    "title": "Совместимость эмуляции",
+    "labelPlayable": "Играбельно",
+    "labelRuns": "Работает с ошибками",
+    "labelBroken": "Сломано",
+    "labelUnknown": "Не тестировалось",
+    "yourReport": "Как это работает у вас?",
+    "notePlaceholder": "Добавьте заметку (опционально) — ошибки, параметры, которые помогли…",
+    "save": "Сохранить",
+    "update": "Обновить",
+    "clear": "Очистить",
+    "reportsCount": "{count, plural, one {# отчет} few {# отчета} many {# отчетов} other {# отчета}}",
+    "officialBadge": "Официальная оценка",
+    "untestedHint": "Еще не протестировано — добавьте первый отчет.",
+    "officialLabel": "Официальная оценка (администратор)",
+    "clearOfficial": "Нет официальной оценки"
+  },
+  "guides": {
+    "writeGuide": "Написать руководство",
+    "noneYet": "Руководств нет — напишите первое.",
+    "by": "от {name}",
+    "back": "Все руководства",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "deleteConfirm": "Удалить это руководство?",
+    "save": "Сохранить руководство",
+    "cancel": "Отмена",
+    "titlePlaceholder": "Название руководства",
+    "bodyPlaceholder": "Напишите прохождение, советы или стратегию…",
+    "newGuide": "Новое руководство",
+    "editGuide": "Редактировать руководство"
+  },
+  "playLimit": {
+    "title": "Время закончилось",
+    "limitReached": "Вы достигли своего дневного лимита игры в {minutes} минут. Приходите завтра!",
+    "outsideHours": "Игра разрешена только между {start} и {end}.",
+    "back": "Вернуться к игре"
+  },
+  "messages": {
+    "title": "Сообщения",
+    "noFriends": "Добавьте друзей, чтобы начать чат.",
+    "you": "Вы",
+    "noMessagesYet": "Нет сообщений",
+    "pickConversation": "Выберите беседу, чтобы начать чат.",
+    "sayHi": "Привет 👋",
+    "messagePlaceholder": "Введите сообщение…",
+    "send": "Отправить",
+    "back": "Назад"
+  },
+  "emuVideo": {
+    "videoFilter": "Видеофильтр",
+    "filterOff": "Нет (резкие пиксели)",
+    "filterSmooth": "Плавный (билинейный)",
+    "appliesNextLaunch": "Применится при следующем запуске",
+    "saving": "Сохранение…"
+  },
+  "cheats": {
+    "loading": "Загрузка кодов…",
+    "empty": "Коды еще не добавлены.",
+    "remove": "Удалить",
+    "suggested": "Рекомендуется для этой игры",
+    "addTitle": "Добавить код",
+    "namePlaceholder": "Название (напр., Бесконечные жизни)",
+    "codePlaceholder": "Game Genie или прямой код — один на строку",
+    "appliesHint": "Будет применено при следующем запуске игры",
+    "add": "Добавить",
+    "searchPlaceholder": "Поиск читов…"
   }
 }

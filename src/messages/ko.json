@@ -25,7 +25,8 @@
     "downloads": "다운로드",
     "activity": "활동",
     "settings": "설정",
-    "power": "전원"
+    "power": "전원",
+    "messages": "메시지"
   },
   "legend": {
     "menu": "메뉴",
@@ -217,7 +218,9 @@
       "requestsSent": "보낸 요청",
       "cancel": "취소",
       "removeConfirmTitle": "{name}을(를) 삭제하시겠습니까?",
-      "removeConfirmBody": "친구 목록에서 삭제됩니다. 언제든 새 요청을 보낼 수 있습니다."
+      "removeConfirmBody": "친구 목록에서 삭제됩니다. 언제든 새 요청을 보낼 수 있습니다.",
+      "playingGame": "{title}를 플레이 중",
+      "message": "메시지"
     },
     "summary": {
       "title": "친구",
@@ -556,7 +559,16 @@
       "bind": "{label} 할당",
       "scopeNoteGlobal": "이 컨트롤러 유형의 기본 레이아웃. 시스템별 및 게임별 레이아웃이 이를 덮어씁니다.",
       "scopeNoteSystem": "이 시스템의 모든 게임에 적용되며 글로벌 기본값을 덮어씁니다. 게임별 레이아웃이 우선합니다.",
-      "scopeNoteGame": "이 게임에만 적용되며 시스템 및 글로벌 레이아웃을 덮어씁니다."
+      "scopeNoteGame": "이 게임에만 적용되며 시스템 및 글로벌 레이아웃을 덮어씁니다.",
+      "share": "공유",
+      "exportHeading": "이 레이아웃 내보내기",
+      "copyCode": "코드 복사",
+      "copied": "✓ 복사됨",
+      "importHeading": "레이아웃 가져오기",
+      "pastePlaceholder": "레이아웃 코드 붙여넣기…",
+      "applyCode": "적용",
+      "importInvalid": "유효한 레이아웃 코드로 보이지 않습니다.",
+      "importNote": "적용하면 코드가 편집기로 로드됩니다 — 유지하려면 레이아웃 저장을 누릅니다."
     },
     "button": {
       "controllerLayout": "컨트롤러 레이아웃",
@@ -602,7 +614,15 @@
       "tagQueued": "대기 중",
       "scheduled": "예약됨",
       "noRecurring": "반복 작업이 활성화되어 있지 않습니다.",
-      "tagAuto": "자동"
+      "tagAuto": "자동",
+      "statusOptimizing": "박스아트 최적화 중…",
+      "optimizingArt": "박스아트 최적화 중",
+      "statusHashing": "해시 계산 중…",
+      "statusArt": "시스템 아트 다시 스크래핑 중…",
+      "statusThumbs": "이미지 새로 고침 중…",
+      "hashingFiles": "해시 계산",
+      "scrapingArt": "아트 다시 스크래핑",
+      "refreshingImages": "이미지 새로 고침"
     },
     "quota": {
       "providerRequestLimits": "제공자 요청 제한",
@@ -640,7 +660,50 @@
     "retry": "다시 시도",
     "exit": "종료",
     "dismiss": "닫기",
-    "controllerLayoutTitle": "컨트롤러 레이아웃 — {title}"
+    "controllerLayoutTitle": "컨트롤러 레이아웃 — {title}",
+    "screenshot": "스크린샷 (F2)",
+    "screenshotSaved": "스크린샷이 저장되었습니다",
+    "screenshotFailed": "스크린샷 실패",
+    "playTimeUp": "오늘의 시간이 종료되었습니다 — 저장 중 및 종료 중입니다.",
+    "playOutsideHours": "플레이 시간이 종료되었습니다 — 저장 중 및 종료 중입니다.",
+    "quickMenu": "빠른 메뉴",
+    "quickMenuHint": "D-pad 이동 · A 선택 · B 뒤로 · Select+Start 전환",
+    "resume": "재개",
+    "saveState": "게임 저장",
+    "loadState": "게임 불러오기",
+    "restart": "게임 재시작",
+    "restarted": "게임이 재시작되었습니다",
+    "restartUnavailable": "이 코어에서는 재시작이 불가능합니다",
+    "exitGame": "게임 종료",
+    "back": "뒤로",
+    "loadingStates": "게임 저장 목록 불러오는 중…",
+    "stateSlot": "{date}에서 저장",
+    "recordClip": "클립 녹화",
+    "stopRecording": "녹화 중지",
+    "recording": "REC",
+    "clipSaved": "클립 저장됨",
+    "recordUnavailable": "이 브라우저에서는 녹화가 지원되지 않습니다",
+    "pause": "게임 일시 정지/재개",
+    "fastForward": "빠른 재생",
+    "mute": "음소거/음소거 해제",
+    "fullscreen": "전체 화면 전환",
+    "cheats": "치트",
+    "netplay": "넷플레이",
+    "videoFilter": "비디오 필터",
+    "videoFilterSaved": "비디오 필터 저장됨",
+    "actionUnavailable": "이 게임에서는 사용할 수 없습니다",
+    "loadingCheats": "치트 로딩 중…",
+    "noCheats": "아직 치트가 없습니다. 게임 페이지에서 코드를 추가하거나 아래 목록에서 선택하세요.",
+    "cheatOn": "활성화",
+    "cheatOff": "비활성화",
+    "cheatsFromList": "목록에서 추가",
+    "menuLabel": "메뉴",
+    "selectLabel": "선택",
+    "navHome": "홈",
+    "navLibrary": "라이브러리",
+    "navFriends": "친구",
+    "navSettings": "설정",
+    "navPower": "게임 종료"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "내 것",
     "tabVariants": "변형",
     "tabRelated": "관련",
-    "tabGameInfo": "게임 정보"
+    "tabGameInfo": "게임 정보",
+    "screenshotsSection": "당신의 스크린샷",
+    "tabReviews": "리뷰",
+    "compatSection": "호환성",
+    "tabGuides": "가이드",
+    "videoSection": "비디오 필터",
+    "cheatsSection": "치트"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "시스템 아트워크 재스크래프",
       "rescrapeArtDesc": "라이브러리의 모든 시스템에 대해 설정한 제공자 순서로 히어로, 로고, 아이콘, 리본 아트워크를 다시 가져옵니다. 제공자 변경 후 또는 아트 매핑 변경 후 사용. 백그라운드에서 실행.",
       "rescrapeAll": "모두 재스크래프",
+      "localizeArt": "박스아트 최적화",
+      "localizeArtDesc": "아직 libretro에서 직접 연결된 모든 커버를 WebP로 로컬에 다운로드하고, 이미 로컬에 저장된 커버의 작고 빠른 썸네일을 다시 만듭니다. 그러면 라이브러리가 빠르게 로드되고 외부 사이트에 의존하지 않습니다. libretro에 일치하는 항목이 없는 커버는 자리표시자로 정리됩니다. 백그라운드에서 실행됩니다.",
+      "localizeStart": "모두 최적화",
+      "localizeResult": "✓ {localized}개 다운로드, {optimized}개 최적화, 끊긴 링크 {cleared}개 정리{failed, plural, =0 {} other {, # 개 재시도 예정}}",
       "updated": "{count}개 업데이트됨",
       "cancelledPrefix": "취소됨 — ",
       "updatedSystems": "{done}개 시스템 중 {updated}개 업데이트됨",
@@ -1064,7 +1137,16 @@
       "confirmBody": "누락 게임 {count, plural, one {#개} other {#개}}과 고아 미디어 폴더 {orphan, plural, one {#개} other {#개}}를 제거합니다. 해당 게임의 즐겨찾기와 컬렉션 항목도 제거됩니다. ROM 파일은 절대 건드리지 않습니다.",
       "failedToStart": "시작 실패",
       "removedSummary": "✓ {games}개 게임과 {folders}개 미디어 폴더 제거됨",
-      "failed": "실패"
+      "failed": "실패",
+      "localizeQueued": "대기 중 — 현재 작업 후에 실행됩니다. 다운로드 페이지에서 확인하세요.",
+      "jobQueued": "대기 중 — 현재 작업 후에 실행됩니다. 다운로드 페이지에서 확인하세요.",
+      "chooseSystems": "시스템 선택…",
+      "runSelected": "선택 항목 실행",
+      "runAll": "모두 실행",
+      "selectedCount": "{count}개 선택됨",
+      "noneSelected": "선택 안 함",
+      "pickSystemsHint": "하나 이상의 시스템을 선택하거나 전체 라이브러리에 대해 실행하세요.",
+      "noConfiguredSystems": "아직 구성된 시스템이 없습니다."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "{date}에 사용",
       "neverUsed": "사용 안 함",
       "revoke": "취소",
-      "noTokensYet": "아직 토큰이 없습니다."
+      "noTokensYet": "아직 토큰이 없습니다.",
+      "expiryNever": "만료되지 않음",
+      "expiry30": "30일 후 만료됨",
+      "expiry90": "90일 후 만료됨",
+      "expiry365": "1년 후 만료됨"
     },
     "retroAchievements": {
       "raIntro1": "당신의",
@@ -1235,7 +1321,15 @@
     "loading": "로딩 중…",
     "scheduled": "예약됨",
     "noRecurringTasks": "반복 작업이 활성화되어 있지 않습니다.",
-    "auto": "자동"
+    "auto": "자동",
+    "statusOptimizing": "박스아트 최적화 중…",
+    "optimizingArtBar": "박스아트 최적화 중",
+    "statusHashing": "해시 계산 중…",
+    "statusArt": "시스템 아트 다시 스크래핑 중…",
+    "statusThumbs": "이미지 새로 고침 중…",
+    "hashingFilesBar": "해시 계산",
+    "scrapingArtBar": "아트 다시 스크래핑",
+    "refreshingImagesBar": "이미지 새로 고침"
   },
   "mobileGameOptions": {
     "gameOptions": "게임 옵션",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "언어",
       "metaFranchise": "프랜차이즈",
       "metaAgeRating": "연령 등급",
-      "metaFile": "파일"
+      "metaFile": "파일",
+      "sectionReviews": "리뷰",
+      "sectionGuides": "가이드"
     },
     "properties": {
       "back": "게임으로 돌아가기",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "검색",
-      "profile": "프로필"
+      "profile": "프로필",
+      "messages": "메시지"
     },
     "desktopSiteLink": {
       "desktopSite": "데스크톱 사이트"
@@ -1589,7 +1686,8 @@
       "hero": "히어로 이미지",
       "logo": "로고",
       "icon": "아이콘"
-    }
+    },
+    "sectionMaintenance": "유지보수"
   },
   "primitives": {
     "cancel": "취소",
@@ -1684,7 +1782,9 @@
       "optPort": "포트",
       "optDlc": "DLC 및 애드온",
       "optExpansion": "확장팩",
-      "optMod": "모드"
+      "optMod": "모드",
+      "addHeading": "관련 게임 추가",
+      "kindAria": "관계 유형"
     },
     "playSummary": {
       "title": "플레이 요약",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "등급이 없는 게임도 숨기기 (엄격 — 대부분의 게임은 아직 등급이 없음)",
       "deleteWarning": "이렇게 하면 {count, plural, one {#명의 할당된 사용자} other {#명의 할당된 사용자}}에게서 프로필이 제거되고 완전한 무제한 접근으로 돌아갑니다.",
       "noUsersAssigned": "이 프로필에 할당된 사용자가 없습니다.",
-      "deleteProfile": "프로필 삭제"
+      "deleteProfile": "프로필 삭제",
+      "playTimeHeading": "플레이 시간",
+      "dailyLimitLabel": "일일 플레이 시간 제한",
+      "noLimit": "제한 없음",
+      "minutesPerDay": "분 / 일",
+      "scheduleLabel": "특정 시간 동안만 플레이 허용",
+      "allowedFrom": "부터",
+      "allowedTo": "까지"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {#개} other {#개}}"
-    },
-    "carousel": {
-      "scrollLeft": "왼쪽으로 스크롤",
-      "scrollRight": "오른쪽으로 스크롤"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "자동",
       "wide": "와이드",
       "square": "스퀘어",
+      "cart": "카트리지",
       "portrait": "세로"
     },
     "scanning": "{name} 스캔 중…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "브라우저에서 플레이 가능",
       "downloadToPlay": "{name} — 다운로드하여 플레이"
     }
+  },
+  "screenshots": {
+    "title": "당신의 스크린샷",
+    "viewCapture": "스크린샷 보기",
+    "previous": "이전",
+    "next": "다음",
+    "download": "다운로드",
+    "delete": "삭제",
+    "close": "닫기"
+  },
+  "reviews": {
+    "noneYet": "아직 리뷰가 없습니다 — 첫 번째가 되세요.",
+    "recommendedPct": "{pct}% 권장함",
+    "basedOn": "{count}명 중 {recommended}명이 추천",
+    "yourReview": "당신의 리뷰",
+    "writeReview": "리뷰 쓰기",
+    "recommend": "추천",
+    "notRecommend": "나에게는 맞지 않음",
+    "bodyPlaceholder": "당신의 생각을 공유하세요… (선택사항)",
+    "post": "리뷰 게시",
+    "update": "리뷰 업데이트",
+    "delete": "삭제",
+    "communityReviews": "{count, plural, other {# 리뷰}}"
+  },
+  "search": {
+    "placeholder": "게임, 시스템, 컬렉션, 친구 검색…",
+    "hint": "입력을 시작하여 모든 항목을 검색하세요.",
+    "noResults": "일치하는 항목이 없습니다.",
+    "groupPages": "페이지",
+    "groupGames": "게임",
+    "groupSystems": "시스템",
+    "groupCollections": "컬렉션",
+    "groupFriends": "친구",
+    "gamesCount": "{count, plural, other {# 게임}}"
+  },
+  "compat": {
+    "title": "에뮬레이션 호환성",
+    "labelPlayable": "플레이 가능",
+    "labelRuns": "문제가 있음",
+    "labelBroken": "작동 불가",
+    "labelUnknown": "테스트 안 됨",
+    "yourReport": "어떻게 작동하나요?",
+    "notePlaceholder": "메모 추가(선택사항) — 글리치, 도움이 된 설정…",
+    "save": "저장",
+    "update": "업데이트",
+    "clear": "지우기",
+    "reportsCount": "{count, plural, other {# 건의 보고}}",
+    "officialBadge": "공식 평가",
+    "untestedHint": "아직 테스트되지 않음 — 첫 번째 보고를 추가하세요.",
+    "officialLabel": "공식 평가 (관리자)",
+    "clearOfficial": "공식 평가 없음"
+  },
+  "guides": {
+    "writeGuide": "가이드 작성",
+    "noneYet": "아직 가이드가 없습니다 — 첫 번째 가이드를 작성하세요.",
+    "by": "{name}(으)로부터",
+    "back": "모든 가이드",
+    "edit": "편집",
+    "delete": "삭제",
+    "deleteConfirm": "이 가이드를 삭제하시겠습니까?",
+    "save": "가이드 저장",
+    "cancel": "취소",
+    "titlePlaceholder": "가이드 제목",
+    "bodyPlaceholder": "전략, 팁 또는 전술을 작성하세요…",
+    "newGuide": "새 가이드",
+    "editGuide": "가이드 편집"
+  },
+  "playLimit": {
+    "title": "시간이 종료되었습니다",
+    "limitReached": "일일 플레이 시간 제한인 {minutes}분에 도달했습니다. 내일 다시 와주세요!",
+    "outsideHours": "플레이 시간은 {start}부터 {end}까지만 허용됩니다.",
+    "back": "게임으로 돌아가기"
+  },
+  "messages": {
+    "title": "메시지",
+    "noFriends": "친구를 추가하여 채팅을 시작하세요.",
+    "you": "당신",
+    "noMessagesYet": "아직 메시지가 없습니다",
+    "pickConversation": "대화를 선택하여 채팅을 시작하세요.",
+    "sayHi": "안녕하세요 👋",
+    "messagePlaceholder": "메시지를 입력하세요…",
+    "send": "전송",
+    "back": "뒤로"
+  },
+  "emuVideo": {
+    "videoFilter": "비디오 필터",
+    "filterOff": "없음 (선명한 픽셀)",
+    "filterSmooth": "부드러움 (쌍선형)",
+    "appliesNextLaunch": "다음 시작 시 적용됩니다",
+    "saving": "저장 중…"
+  },
+  "cheats": {
+    "loading": "치트 로딩 중…",
+    "empty": "아직 추가된 치트가 없습니다.",
+    "remove": "제거",
+    "suggested": "이 게임에 추천됨",
+    "addTitle": "치트 추가",
+    "namePlaceholder": "이름 (예: 무한 생명)",
+    "codePlaceholder": "Game Genie 코드 또는 원본 코드 — 한 줄에 하나씩",
+    "appliesHint": "다음 플레이 시 적용됨",
+    "add": "추가",
+    "searchPlaceholder": "치트 검색…"
   }
 }

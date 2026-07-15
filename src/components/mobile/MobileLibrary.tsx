@@ -3,10 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import MobileGameCard from "./MobileGameCard";
+import MobileGameCard, { MOBILE_COVER_THUMB_W } from "./MobileGameCard";
 import { MobileSheet } from "./primitives";
 import { platformBySlug } from "@/lib/platforms";
 import { LANGUAGE_NAMES } from "@/lib/language";
+import { mediaThumb } from "@/lib/media";
+import { clampCoverAspect, DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
 import type { BrowseRomRow } from "@/lib/db";
 
 const CHUNK = 60;
@@ -63,6 +65,7 @@ export default function MobileLibrary({
   const [variantSel, setVariantSel] = useState<string[]>([]);
   const [missingSel, setMissingSel] = useState<string[]>([]);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [coverAspect, setCoverAspect] = useState(DEFAULT_COVER_ASPECT);
 
   const [items, setItems] = useState<BrowseRomRow[]>([]);
   const [total, setTotal] = useState(0);
@@ -143,6 +146,27 @@ export default function MobileLibrary({
     return () => io.disconnect();
   }, [loadMore]);
 
+  // Size every card to the real box art: sample the first game-with-art and
+  // apply its aspect to the whole grid. Single-system pages only — the mixed
+  // library is heterogeneous, so it keeps the portrait default.
+  const firstArt = platformLock ? items.find((r) => r.boxart_url)?.boxart_url ?? null : null;
+  useEffect(() => {
+    if (!firstArt) {
+      setCoverAspect(DEFAULT_COVER_ASPECT);
+      return;
+    }
+    let live = true;
+    const img = new Image();
+    img.onload = () => {
+      if (live && img.naturalWidth && img.naturalHeight)
+        setCoverAspect(clampCoverAspect(img.naturalWidth / img.naturalHeight));
+    };
+    img.src = mediaThumb(firstArt, MOBILE_COVER_THUMB_W) ?? firstArt;
+    return () => {
+      live = false;
+    };
+  }, [firstArt]);
+
   const activeFilters =
     platformSel.length + genreSel.length + langSel.length + modeSel.length +
     variantSel.length + missingSel.length + (status !== "all" ? 1 : 0);
@@ -203,6 +227,7 @@ export default function MobileLibrary({
             title={r.title}
             boxartUrl={r.boxart_url}
             platformSlug={r.platform_slug}
+            coverAspect={coverAspect}
           />
         ))}
       </div>

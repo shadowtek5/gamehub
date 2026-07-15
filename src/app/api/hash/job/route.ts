@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { getHashJobStatus, startHashJob, cancelHashJob } from "@/lib/hashJob";
+import { getHashJobStatus, cancelHashJob } from "@/lib/hashJob";
+import { enqueueHash, hashPendingOrRunning, cancelQueuedKind } from "@/lib/jobQueue";
 
 export async function GET() {
   const g = await requireAdmin();
@@ -18,18 +19,21 @@ export async function POST(req: NextRequest) {
   const systems = Array.isArray(body.systems)
     ? body.systems.filter((s: unknown) => typeof s === "string")
     : undefined;
-  if (!startHashJob(systems, { rehashArchives: !!body.rehashArchives })) {
+  if (hashPendingOrRunning()) {
     return NextResponse.json(
       { error: "A hash job is already running", ...getHashJobStatus() },
       { status: 409 }
     );
   }
-  return NextResponse.json({ ok: true, ...getHashJobStatus() });
+  // Runs through the downloads queue — serialized with scans/scrapes/etc.
+  const res = enqueueHash({ systems, rehashArchives: !!body.rehashArchives });
+  return NextResponse.json({ ok: true, started: res.started, queued: !res.started, ...getHashJobStatus() });
 }
 
 export async function DELETE() {
   const g = await requireAdmin();
   if (g instanceof NextResponse) return g;
+  cancelQueuedKind("hash");
   cancelHashJob();
   return NextResponse.json({ ok: true, ...getHashJobStatus() });
 }

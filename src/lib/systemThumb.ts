@@ -20,10 +20,7 @@ import {
   getSystem,
   getAllSystems,
   getSystemHeroCovers,
-  sampleSystemBoxart,
   setSystemThumbSig,
-  setSystemBoxLayoutAuto,
-  type BoxLayout,
 } from "./db";
 import { SYSTEMS_DIR } from "./systemStore";
 
@@ -170,40 +167,6 @@ async function regenerate(slug: string, kind: Kind, newSig: string): Promise<boo
   }
 }
 
-// ---------- box-art shape auto-detection ----------
-
-// Classify from a measured width/height ratio. Thresholds match GameCard's
-// documented buckets: >1.15 landscape, 0.85–1.15 squarish, else tall.
-function classifyAspect(ratio: number): BoxLayout {
-  if (ratio > 1.15) return "wide";
-  if (ratio >= 0.85) return "square";
-  return "portrait";
-}
-
-/** Measure a system's scraped box art and store the detected shape as its
- *  box_layout_auto (the value used whenever box_layout is 'auto'). Uses the
- *  median aspect of the top covers so one odd scan can't skew it. No-ops when
- *  there aren't enough real covers to measure. */
-export async function detectBoxLayout(slug: string): Promise<BoxLayout | null> {
-  // Measure BOX ART specifically (not hero/screenshot, which are landscape and
-  // would wrongly read as "wide").
-  const coverPaths = urlsToLocalPaths(sampleSystemBoxart(slug, 16));
-  if (coverPaths.length < 3) return null; // too few to trust — keep the built-in
-  const ratios: number[] = [];
-  for (const p of coverPaths) {
-    try {
-      const m = await sharp(p).metadata();
-      if (m.width && m.height) ratios.push(m.width / m.height);
-    } catch {}
-  }
-  if (ratios.length < 3) return null;
-  ratios.sort((a, b) => a - b);
-  const median = ratios[Math.floor(ratios.length / 2)];
-  const layout = classifyAspect(median);
-  setSystemBoxLayoutAuto(slug, layout);
-  return layout;
-}
-
 // ---------- fingerprint-driven refresh ----------
 
 const busy = globalThis as unknown as { __ghThumbBusy?: boolean };
@@ -214,15 +177,19 @@ const busy = globalThis as unknown as { __ghThumbBusy?: boolean };
  * scan/scrape just touched; omit for the whole library). One pass at a time.
  */
 export async function refreshDriftedThumbs(
-  limitTo?: string[]
+  limitTo?: string[],
+  hooks?: { isCancelled?: () => boolean; onProgress?: (done: number, total: number, current: string) => void }
 ): Promise<{ done: number; skipped?: boolean }> {
   if (busy.__ghThumbBusy) return { done: 0, skipped: true };
   busy.__ghThumbBusy = true;
   const only = limitTo ? new Set(limitTo) : null;
+  const systems = getAllSystems().filter((r) => !only || only.has(r.slug));
   let done = 0;
+  let processed = 0;
   try {
-    for (const row of getAllSystems()) {
-      if (only && !only.has(row.slug)) continue;
+    for (const row of systems) {
+      if (hooks?.isCancelled?.()) break;
+      hooks?.onProgress?.(processed, systems.length, row.slug);
       const checks: [Kind, string | null][] = [
         ["card", row.card_thumb_sig],
         ["hero", row.hero_thumb_sig],
@@ -231,14 +198,85 @@ export async function refreshDriftedThumbs(
         const current = sig(getSystemHeroCovers(row.slug, KINDS[kind].covers));
         if (current !== stored && (await regenerate(row.slug, kind, current))) {
           done++;
-          // The card kind's covers changing means this system's art set changed
-          // — re-measure the auto box shape from the same covers.
-          if (kind === "card") await detectBoxLayout(row.slug);
         }
       }
+      processed++;
+      hooks?.onProgress?.(processed, systems.length, "");
     }
   } finally {
     busy.__ghThumbBusy = false;
   }
   return { done };
+}
+
+// ---------- thumb-refresh job (queued, for the downloads page) ----------
+
+export interface ThumbJobStatus {
+  running: boolean;
+  total: number;
+  done: number;
+  updated: number;
+  current: string;
+  cancelled: boolean;
+  startedAt: string | null;
+  finishedAt: string | null;
+}
+type ThumbJobState = ThumbJobStatus & { cancelRequested: boolean };
+const thumbJob = globalThis as unknown as { __thumbJob?: ThumbJobState };
+function thumbState(): ThumbJobState {
+  if (!thumbJob.__thumbJob) {
+    thumbJob.__thumbJob = {
+      running: false, total: 0, done: 0, updated: 0, current: "",
+      cancelled: false, startedAt: null, finishedAt: null, cancelRequested: false,
+    };
+  }
+  return thumbJob.__thumbJob;
+}
+
+export function getThumbJobStatus(): ThumbJobStatus {
+  const { cancelRequested: _c, ...view } = thumbState();
+  void _c;
+  return view;
+}
+
+export function cancelThumbJob(): boolean {
+  const s = thumbState();
+  if (!s.running) return false;
+  s.cancelRequested = true;
+  return true;
+}
+
+/** Manual, queue-driven collage refresh with progress (whole library or a
+ *  subset of systems). */
+export function startThumbRefreshJob(systems?: string[], onComplete?: () => void): boolean {
+  const s = thumbState();
+  if (s.running) {
+    onComplete?.();
+    return false;
+  }
+  Object.assign(s, {
+    running: true, total: 0, done: 0, updated: 0, current: "",
+    cancelled: false, cancelRequested: false,
+    startedAt: new Date().toISOString(), finishedAt: null,
+  });
+  void (async () => {
+    try {
+      const r = await refreshDriftedThumbs(systems?.length ? systems : undefined, {
+        isCancelled: () => s.cancelRequested,
+        onProgress: (done, total, current) => {
+          s.done = done;
+          s.total = total;
+          s.current = current;
+        },
+      });
+      s.updated = r.done;
+      if (s.cancelRequested) s.cancelled = true;
+    } finally {
+      s.running = false;
+      s.current = "";
+      s.finishedAt = new Date().toISOString();
+      onComplete?.();
+    }
+  })();
+  return true;
 }

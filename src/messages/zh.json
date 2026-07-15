@@ -25,7 +25,8 @@
     "downloads": "下载",
     "activity": "活动",
     "settings": "设置",
-    "power": "电源"
+    "power": "电源",
+    "messages": "消息"
   },
   "legend": {
     "menu": "菜单",
@@ -217,7 +218,9 @@
       "requestsSent": "已发送的请求",
       "cancel": "取消",
       "removeConfirmTitle": "移除 {name}？",
-      "removeConfirmBody": "此人将从您的好友列表中移除。您随时可以再次发送请求。"
+      "removeConfirmBody": "此人将从您的好友列表中移除。您随时可以再次发送请求。",
+      "playingGame": "正在玩{title}",
+      "message": "发消息"
     },
     "summary": {
       "title": "好友",
@@ -556,7 +559,16 @@
       "bind": "绑定 {label}",
       "scopeNoteGlobal": "此控制器类型的标准布局。按系统和按游戏的布局会覆盖它。",
       "scopeNoteSystem": "适用于此系统上的所有游戏，并覆盖全局标准。按游戏的布局优先级更高。",
-      "scopeNoteGame": "仅适用于此游戏，并覆盖系统和全局布局。"
+      "scopeNoteGame": "仅适用于此游戏，并覆盖系统和全局布局。",
+      "share": "分享",
+      "exportHeading": "导出此布局",
+      "copyCode": "复制代码",
+      "copied": "✓ 已复制",
+      "importHeading": "导入布局",
+      "pastePlaceholder": "粘贴布局代码…",
+      "applyCode": "应用",
+      "importInvalid": "这看起来不像一个有效的布局代码。",
+      "importNote": "应用将代码加载到编辑器中——按保存布局以保留它。"
     },
     "button": {
       "controllerLayout": "控制器布局",
@@ -602,7 +614,15 @@
       "tagQueued": "已排队",
       "scheduled": "已计划",
       "noRecurring": "没有已启用的周期性任务。",
-      "tagAuto": "自动"
+      "tagAuto": "自动",
+      "statusOptimizing": "正在优化封面图…",
+      "optimizingArt": "正在优化封面图",
+      "statusHashing": "正在计算哈希…",
+      "statusArt": "正在重新抓取系统图像…",
+      "statusThumbs": "正在刷新图像…",
+      "hashingFiles": "计算哈希",
+      "scrapingArt": "重新抓取图像",
+      "refreshingImages": "刷新图像"
     },
     "quota": {
       "providerRequestLimits": "提供商请求限制",
@@ -640,7 +660,50 @@
     "retry": "重试",
     "exit": "退出",
     "dismiss": "关闭",
-    "controllerLayoutTitle": "控制器布局 —— {title}"
+    "controllerLayoutTitle": "控制器布局 —— {title}",
+    "screenshot": "屏幕截图 (F2)",
+    "screenshotSaved": "屏幕截图已保存",
+    "screenshotFailed": "屏幕截图保存失败",
+    "playTimeUp": "今天的时间已到——正在保存并退出。",
+    "playOutsideHours": "现在的游戏时间已到——正在保存并退出。",
+    "quickMenu": "快速菜单",
+    "quickMenuHint": "D-pad 移动 · A 选择 · B 返回 · Select+Start 切换",
+    "resume": "继续",
+    "saveState": "保存状态",
+    "loadState": "加载状态",
+    "restart": "重新启动游戏",
+    "restarted": "游戏已重新启动",
+    "restartUnavailable": "此核心不支持重新启动",
+    "exitGame": "退出游戏",
+    "back": "返回",
+    "loadingStates": "正在加载状态…",
+    "stateSlot": "保存于 {date}",
+    "recordClip": "录制片段",
+    "stopRecording": "停止录制",
+    "recording": "REC",
+    "clipSaved": "片段已保存",
+    "recordUnavailable": "此浏览器不支持录制",
+    "pause": "暂停/继续游戏",
+    "fastForward": "快进",
+    "mute": "静音/取消静音",
+    "fullscreen": "全屏",
+    "cheats": "秘籍",
+    "netplay": "网络对战",
+    "videoFilter": "显示滤镜",
+    "videoFilterSaved": "显示滤镜已保存",
+    "actionUnavailable": "操作不可用",
+    "loadingCheats": "正在加载秘籍…",
+    "noCheats": "还没有秘籍。从游戏页面添加代码，或从下方列表中选择。",
+    "cheatOn": "开启",
+    "cheatOff": "关闭",
+    "cheatsFromList": "从列表添加",
+    "menuLabel": "菜单",
+    "selectLabel": "选择",
+    "navHome": "主页",
+    "navLibrary": "库",
+    "navFriends": "朋友",
+    "navSettings": "设置",
+    "navPower": "退出游戏"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "您的内容",
     "tabVariants": "变体",
     "tabRelated": "相关",
-    "tabGameInfo": "游戏信息"
+    "tabGameInfo": "游戏信息",
+    "screenshotsSection": "您的屏幕截图",
+    "tabReviews": "评论",
+    "compatSection": "兼容性",
+    "tabGuides": "指南",
+    "videoSection": "视频滤镜",
+    "cheatsSection": "秘籍"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "重新抓取系统美术资源",
       "rescrapeArtDesc": "按您配置的提供商顺序，为库中的每个系统重新获取横幅图、标志、图标和 ribbon 美术资源。更改提供商或美术资源映射后使用。在后台运行。",
       "rescrapeAll": "全部重新抓取",
+      "localizeArt": "优化封面图",
+      "localizeArtDesc": "将每个仍从 libretro 直接外链的封面以 WebP 格式下载到本地存储，并为已保存在本地的封面重新生成小巧快速的缩略图——让库加载更快，且不再依赖外部网站。在 libretro 上没有匹配的封面会被清除为占位图。在后台运行。",
+      "localizeStart": "全部优化",
+      "localizeResult": "✓ 已下载 {localized} 个，已优化 {optimized} 个，已清除 {cleared} 个死链接{failed, plural, =0 {} other {，# 个待重试}}",
       "updated": "已更新 {count}",
       "cancelledPrefix": "已取消 —— ",
       "updatedSystems": "已更新 {updated} / {done} 个系统",
@@ -1064,7 +1137,16 @@
       "confirmBody": "移除 {missing, plural, one {# 个缺失游戏} other {# 个缺失游戏}} 和 {orphan, plural, one {# 个孤立的媒体文件夹} other {# 个孤立的媒体文件夹}}？这些游戏的收藏和合集元素也会被移除。ROM 文件绝不会被触碰。",
       "failedToStart": "无法启动",
       "removedSummary": "✓ 已移除 {games} 个游戏和 {folders} 个媒体文件夹",
-      "failed": "失败"
+      "failed": "失败",
+      "localizeQueued": "已加入队列——将在当前任务之后运行。可在下载页面查看进度。",
+      "jobQueued": "已加入队列——将在当前任务之后运行。可在下载页面查看进度。",
+      "chooseSystems": "选择系统…",
+      "runSelected": "运行所选",
+      "runAll": "运行全部",
+      "selectedCount": "已选 {count} 个",
+      "noneSelected": "未选择",
+      "pickSystemsHint": "选择一个或多个系统，或对整个库运行。",
+      "noConfiguredSystems": "尚无已配置的系统。"
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "使用于 {date}",
       "neverUsed": "从未使用",
       "revoke": "吊销",
-      "noTokensYet": "暂无令牌。"
+      "noTokensYet": "暂无令牌。",
+      "expiryNever": "永不过期",
+      "expiry30": "30天后过期",
+      "expiry90": "90天后过期",
+      "expiry365": "1年后过期"
     },
     "retroAchievements": {
       "raIntro1": "关联",
@@ -1235,7 +1321,15 @@
     "loading": "加载中…",
     "scheduled": "已计划",
     "noRecurringTasks": "没有已启用的周期性任务。",
-    "auto": "自动"
+    "auto": "自动",
+    "statusOptimizing": "正在优化封面图…",
+    "optimizingArtBar": "正在优化封面图",
+    "statusHashing": "正在计算哈希…",
+    "statusArt": "正在重新抓取系统图像…",
+    "statusThumbs": "正在刷新图像…",
+    "hashingFilesBar": "计算哈希",
+    "scrapingArtBar": "重新抓取图像",
+    "refreshingImagesBar": "刷新图像"
   },
   "mobileGameOptions": {
     "gameOptions": "游戏选项",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "语言",
       "metaFranchise": "系列",
       "metaAgeRating": "年龄分级",
-      "metaFile": "文件"
+      "metaFile": "文件",
+      "sectionReviews": "评论",
+      "sectionGuides": "指南"
     },
     "properties": {
       "back": "返回游戏",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "搜索",
-      "profile": "个人资料"
+      "profile": "个人资料",
+      "messages": "消息"
     },
     "desktopSiteLink": {
       "desktopSite": "桌面版网站"
@@ -1589,7 +1686,8 @@
       "hero": "横幅图",
       "logo": "标志",
       "icon": "图标"
-    }
+    },
+    "sectionMaintenance": "维护"
   },
   "primitives": {
     "cancel": "取消",
@@ -1684,7 +1782,9 @@
       "optPort": "移植版",
       "optDlc": "DLC 与附加内容",
       "optExpansion": "扩展包",
-      "optMod": "模组"
+      "optMod": "模组",
+      "addHeading": "添加相关游戏",
+      "kindAria": "关系类型"
     },
     "playSummary": {
       "title": "游戏摘要",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "也隐藏未分级的游戏（严格 —— 大多数游戏目前尚无分级）",
       "deleteWarning": "这将从 {count, plural, one {# 名已分配用户} other {# 名已分配用户}} 中移除此配置文件 —— 他们将再次获得完全无限制的访问权限。",
       "noUsersAssigned": "此配置文件尚未分配给任何用户。",
-      "deleteProfile": "删除配置文件"
+      "deleteProfile": "删除配置文件",
+      "playTimeHeading": "游戏时间",
+      "dailyLimitLabel": "每日游戏时间限制",
+      "noLimit": "无限制",
+      "minutesPerDay": "分钟/天",
+      "scheduleLabel": "仅在特定时间段允许游戏",
+      "allowedFrom": "从",
+      "allowedTo": "到"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# 个游戏} other {# 个游戏}}"
-    },
-    "carousel": {
-      "scrollLeft": "向左滚动",
-      "scrollRight": "向右滚动"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "自动",
       "wide": "宽",
       "square": "方形",
+      "cart": "卡带",
       "portrait": "竖版"
     },
     "scanning": "正在扫描 {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "可在浏览器中游玩",
       "downloadToPlay": "{name} —— 请下载后游玩"
     }
+  },
+  "screenshots": {
+    "title": "您的屏幕截图",
+    "viewCapture": "查看屏幕截图",
+    "previous": "上一个",
+    "next": "下一个",
+    "download": "下载",
+    "delete": "删除",
+    "close": "关闭"
+  },
+  "reviews": {
+    "noneYet": "暂无评论——成为第一个评论者。",
+    "recommendedPct": "{pct}%推荐",
+    "basedOn": "{recommended}人（共{count}人）推荐了这个",
+    "yourReview": "您的评论",
+    "writeReview": "撰写评论",
+    "recommend": "推荐",
+    "notRecommend": "不推荐",
+    "bodyPlaceholder": "分享你的想法…（可选）",
+    "post": "发布评论",
+    "update": "更新评论",
+    "delete": "删除",
+    "communityReviews": "{count, plural, other {# 条评论}}"
+  },
+  "search": {
+    "placeholder": "搜索游戏、系统、收藏、好友…",
+    "hint": "开始输入来搜索所有内容。",
+    "noResults": "无匹配结果。",
+    "groupPages": "页面",
+    "groupGames": "游戏",
+    "groupSystems": "系统",
+    "groupCollections": "收藏",
+    "groupFriends": "好友",
+    "gamesCount": "{count, plural, other {# 个游戏}}"
+  },
+  "compat": {
+    "title": "模拟器兼容性",
+    "labelPlayable": "可玩",
+    "labelRuns": "可以运行但有问题",
+    "labelBroken": "无法运行",
+    "labelUnknown": "未测试",
+    "yourReport": "它对你的运行效果如何？",
+    "notePlaceholder": "添加备注（可选）—— 故障、有帮助的设置…",
+    "save": "保存",
+    "update": "更新",
+    "clear": "清除",
+    "reportsCount": "{count, plural, other {# 个报告}}",
+    "officialBadge": "官方评分",
+    "untestedHint": "尚未测试 —— 请添加第一份报告。",
+    "officialLabel": "官方评分（管理员）",
+    "clearOfficial": "无官方评分"
+  },
+  "guides": {
+    "writeGuide": "写指南",
+    "noneYet": "还没有指南 — 写第一个。",
+    "by": "作者：{name}",
+    "back": "所有指南",
+    "edit": "编辑",
+    "delete": "删除",
+    "deleteConfirm": "删除此指南？",
+    "save": "保存指南",
+    "cancel": "取消",
+    "titlePlaceholder": "指南标题",
+    "bodyPlaceholder": "写你的通关步骤、技巧或策略…",
+    "newGuide": "新指南",
+    "editGuide": "编辑指南"
+  },
+  "playLimit": {
+    "title": "时间已到",
+    "limitReached": "您已达到每天{minutes}分钟的游戏时间限制。明天再来吧！",
+    "outsideHours": "游戏时间仅允许在{start}至{end}之间。",
+    "back": "返回游戏"
+  },
+  "messages": {
+    "title": "消息",
+    "noFriends": "添加朋友开始聊天。",
+    "you": "你",
+    "noMessagesYet": "还没有消息",
+    "pickConversation": "选择对话开始聊天。",
+    "sayHi": "嗨 👋",
+    "messagePlaceholder": "输入消息…",
+    "send": "发送",
+    "back": "返回"
+  },
+  "emuVideo": {
+    "videoFilter": "视频滤镜",
+    "filterOff": "无（锐利像素）",
+    "filterSmooth": "平滑（双线性）",
+    "appliesNextLaunch": "下次启动时生效",
+    "saving": "保存中…"
+  },
+  "cheats": {
+    "loading": "正在加载秘籍…",
+    "empty": "还没有添加秘籍。",
+    "remove": "移除",
+    "suggested": "为此游戏推荐",
+    "addTitle": "添加秘籍",
+    "namePlaceholder": "名称（例如 无限生命）",
+    "codePlaceholder": "Game Genie 或原始代码 — 每行一个",
+    "appliesHint": "下次游玩时生效",
+    "add": "添加",
+    "searchPlaceholder": "搜索作弊码…"
   }
 }

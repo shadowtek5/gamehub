@@ -25,7 +25,8 @@
     "downloads": "ダウンロード",
     "activity": "アクティビティ",
     "settings": "設定",
-    "power": "電源"
+    "power": "電源",
+    "messages": "メッセージ"
   },
   "legend": {
     "menu": "メニュー",
@@ -217,7 +218,9 @@
       "requestsSent": "送信したリクエスト",
       "cancel": "キャンセル",
       "removeConfirmTitle": "{name} を削除しますか？",
-      "removeConfirmBody": "フレンド一覧から削除されます。いつでも新しいリクエストを送信できます。"
+      "removeConfirmBody": "フレンド一覧から削除されます。いつでも新しいリクエストを送信できます。",
+      "playingGame": "{title}をプレイ中",
+      "message": "メッセージ"
     },
     "summary": {
       "title": "フレンド",
@@ -556,7 +559,16 @@
       "bind": "{label}を割り当て",
       "scopeNoteGlobal": "このコントローラータイプのデフォルトレイアウト。システム別・ゲーム別レイアウトで上書きされます。",
       "scopeNoteSystem": "このシステムの全ゲームに適用（グローバルデフォルトを上書き）。ゲーム別レイアウトが優先されます。",
-      "scopeNoteGame": "このゲームのみに適用（システム・グローバルレイアウトを上書き）。"
+      "scopeNoteGame": "このゲームのみに適用（システム・グローバルレイアウトを上書き）。",
+      "share": "共有",
+      "exportHeading": "このレイアウトをエクスポート",
+      "copyCode": "コードをコピー",
+      "copied": "✓ コピー完了",
+      "importHeading": "レイアウトをインポート",
+      "pastePlaceholder": "レイアウトコードを貼り付け…",
+      "applyCode": "適用",
+      "importInvalid": "有効なレイアウトコードのようには見えません。",
+      "importNote": "適用するとコードがエディタに読み込まれます — 保持するにはレイアウトを保存を押します。"
     },
     "button": {
       "controllerLayout": "コントローラーレイアウト",
@@ -602,7 +614,15 @@
       "tagQueued": "待機中",
       "scheduled": "予定済み",
       "noRecurring": "定期タスクは有効になっていません。",
-      "tagAuto": "自動"
+      "tagAuto": "自動",
+      "statusOptimizing": "ボックスアートを最適化中…",
+      "optimizingArt": "ボックスアートを最適化中",
+      "statusHashing": "ハッシュを計算中…",
+      "statusArt": "システムアートを再取得中…",
+      "statusThumbs": "画像を更新中…",
+      "hashingFiles": "ハッシュを計算",
+      "scrapingArt": "アートを再取得",
+      "refreshingImages": "画像を更新"
     },
     "quota": {
       "providerRequestLimits": "プロバイダー要求制限",
@@ -640,7 +660,50 @@
     "retry": "再試行",
     "exit": "終了",
     "dismiss": "閉じる",
-    "controllerLayoutTitle": "コントローラーレイアウト — {title}"
+    "controllerLayoutTitle": "コントローラーレイアウト — {title}",
+    "screenshot": "スクリーンショット (F2)",
+    "screenshotSaved": "スクリーンショットが保存されました",
+    "screenshotFailed": "スクリーンショットが失敗しました",
+    "playTimeUp": "今日の時間が終了しました — セーブして終了します。",
+    "playOutsideHours": "プレイ時間が終了しました — セーブして終了します。",
+    "quickMenu": "クイックメニュー",
+    "quickMenuHint": "D-padで移動 · Aで選択 · Bで戻る · Select+Startで切り替え",
+    "resume": "再開",
+    "saveState": "セーブ",
+    "loadState": "ロード",
+    "restart": "ゲームを再スタート",
+    "restarted": "ゲームを再スタートしました",
+    "restartUnavailable": "このコアではリスタートが利用できません",
+    "exitGame": "ゲームを終了",
+    "back": "戻る",
+    "loadingStates": "セーブを読込中…",
+    "stateSlot": "{date}のセーブ",
+    "recordClip": "クリップを記録",
+    "stopRecording": "記録を停止",
+    "recording": "REC",
+    "clipSaved": "クリップが保存されました",
+    "recordUnavailable": "このブラウザでは記録はサポートされていません",
+    "pause": "ゲームを一時停止/再開する",
+    "fastForward": "早送り",
+    "mute": "音声をミュート/ミュート解除",
+    "fullscreen": "全画面表示を切り替える",
+    "cheats": "チート",
+    "netplay": "ネットプレイ",
+    "videoFilter": "ビデオフィルター",
+    "videoFilterSaved": "ビデオフィルターが保存されました",
+    "actionUnavailable": "このゲームでは利用できません",
+    "loadingCheats": "チートコードを読み込み中…",
+    "noCheats": "まだチートコードがありません。ゲームページからコードを追加するか、下のリストから選択してください。",
+    "cheatOn": "オン",
+    "cheatOff": "オフ",
+    "cheatsFromList": "リストから追加",
+    "menuLabel": "メニュー",
+    "selectLabel": "選択",
+    "navHome": "ホーム",
+    "navLibrary": "ライブラリ",
+    "navFriends": "フレンド",
+    "navSettings": "設定",
+    "navPower": "ゲームを終了"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "あなたのもの",
     "tabVariants": "バリアント",
     "tabRelated": "関連",
-    "tabGameInfo": "ゲーム情報"
+    "tabGameInfo": "ゲーム情報",
+    "screenshotsSection": "あなたのスクリーンショット",
+    "tabReviews": "レビュー",
+    "compatSection": "互換性",
+    "tabGuides": "ガイド",
+    "videoSection": "ビデオフィルター",
+    "cheatsSection": "チートコード"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "システムアートワークを再スクレイプ",
       "rescrapeArtDesc": "ライブラリ内の全システムのヒーロー、ロゴ、アイコン、リボンアートを、設定したプロバイダー順で再取得。プロバイダー変更後やアートマッピング変更後に使用。バックグラウンド実行。",
       "rescrapeAll": "すべて再スクレイプ",
+      "localizeArt": "ボックスアートを最適化",
+      "localizeArtDesc": "libretro から直接リンクされている各カバーを WebP としてローカルに保存し、すでにローカルに保存されているカバーの小さく高速なサムネイルを再生成します。これによりライブラリが素早く読み込まれ、外部サイトに依存しなくなります。libretro に一致しないカバーはプレースホルダーにクリアされます。バックグラウンドで実行されます。",
+      "localizeStart": "すべて最適化",
+      "localizeResult": "✓ {localized}件をダウンロード、{optimized}件を最適化、{cleared}件の無効なリンクをクリア{failed, plural, =0 {} other {、# 件は再試行}}",
       "updated": "{count}件更新",
       "cancelledPrefix": "キャンセル — ",
       "updatedSystems": "{done}システム中{updated}システムを更新",
@@ -1064,7 +1137,16 @@
       "confirmBody": "欠落ゲーム{count, plural, one {# 件} other {# 件}}と孤立メディアフォルダー{orphan, plural, one {# 件} other {# 件}}を削除します。これらのゲームのお気に入りやコレクションエントリも削除されます。ROMファイルは一切触れません。",
       "failedToStart": "開始に失敗しました",
       "removedSummary": "✓ {games}件のゲームと{folders}件のメディアフォルダーを削除",
-      "failed": "失敗しました"
+      "failed": "失敗しました",
+      "localizeQueued": "キューに追加しました — 現在のジョブの後に実行されます。ダウンロードページで進行状況を確認できます。",
+      "jobQueued": "キューに追加しました — 現在のジョブの後に実行されます。ダウンロードページで進行状況を確認できます。",
+      "chooseSystems": "システムを選択…",
+      "runSelected": "選択を実行",
+      "runAll": "すべて実行",
+      "selectedCount": "{count} 件選択",
+      "noneSelected": "未選択",
+      "pickSystemsHint": "1つ以上のシステムを選ぶか、ライブラリ全体に対して実行します。",
+      "noConfiguredSystems": "構成済みのシステムはまだありません。"
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "{date}に使用",
       "neverUsed": "未使用",
       "revoke": "取り消し",
-      "noTokensYet": "まだトークンがありません。"
+      "noTokensYet": "まだトークンがありません。",
+      "expiryNever": "有効期限なし",
+      "expiry30": "30日後に有効期限が切れます",
+      "expiry90": "90日後に有効期限が切れます",
+      "expiry365": "1年後に有効期限が切れます"
     },
     "retroAchievements": {
       "raIntro1": "あなたの",
@@ -1235,7 +1321,15 @@
     "loading": "読み込み中…",
     "scheduled": "予定済み",
     "noRecurringTasks": "定期タスクは有効になっていません。",
-    "auto": "自動"
+    "auto": "自動",
+    "statusOptimizing": "ボックスアートを最適化中…",
+    "optimizingArtBar": "ボックスアートを最適化中",
+    "statusHashing": "ハッシュを計算中…",
+    "statusArt": "システムアートを再取得中…",
+    "statusThumbs": "画像を更新中…",
+    "hashingFilesBar": "ハッシュを計算",
+    "scrapingArtBar": "アートを再取得",
+    "refreshingImagesBar": "画像を更新"
   },
   "mobileGameOptions": {
     "gameOptions": "ゲームオプション",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "言語",
       "metaFranchise": "シリーズ",
       "metaAgeRating": "年齢制限",
-      "metaFile": "ファイル"
+      "metaFile": "ファイル",
+      "sectionReviews": "レビュー",
+      "sectionGuides": "ガイド"
     },
     "properties": {
       "back": "ゲームに戻る",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "検索",
-      "profile": "プロフィール"
+      "profile": "プロフィール",
+      "messages": "メッセージ"
     },
     "desktopSiteLink": {
       "desktopSite": "デスクトップサイト"
@@ -1589,7 +1686,8 @@
       "hero": "ヒーロー画像",
       "logo": "ロゴ",
       "icon": "アイコン"
-    }
+    },
+    "sectionMaintenance": "メンテナンス"
   },
   "primitives": {
     "cancel": "キャンセル",
@@ -1684,7 +1782,9 @@
       "optPort": "移植",
       "optDlc": "DLC & アドオン",
       "optExpansion": "拡張",
-      "optMod": "MOD"
+      "optMod": "MOD",
+      "addHeading": "関連ゲームを追加",
+      "kindAria": "関係タイプ"
     },
     "playSummary": {
       "title": "プレイサマリー",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "未評価ゲームも非表示（厳格 — ほとんどのゲームはまだ評価がありません）",
       "deleteWarning": "これにより{count, plural, one {# 人の割り当てユーザー} other {# 人の割り当てユーザー}}からプロファイルが削除され、完全な無制限アクセスに戻ります。",
       "noUsersAssigned": "このプロファイルに割り当てられたユーザーはいません。",
-      "deleteProfile": "プロファイルを削除"
+      "deleteProfile": "プロファイルを削除",
+      "playTimeHeading": "プレイ時間",
+      "dailyLimitLabel": "1日のプレイ時間制限",
+      "noLimit": "制限なし",
+      "minutesPerDay": "分 / 日",
+      "scheduleLabel": "特定の時間帯のみプレイ可能にする",
+      "allowedFrom": "から",
+      "allowedTo": "まで"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# 件} other {# 件}}"
-    },
-    "carousel": {
-      "scrollLeft": "左にスクロール",
-      "scrollRight": "右にスクロール"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "自動",
       "wide": "ワイド",
       "square": "スクエア",
+      "cart": "カートリッジ",
       "portrait": "ポートレート"
     },
     "scanning": "{name}をスキャン中…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "ブラウザでプレイ可能",
       "downloadToPlay": "{name} — ダウンロードしてプレイ"
     }
+  },
+  "screenshots": {
+    "title": "あなたのスクリーンショット",
+    "viewCapture": "スクリーンショットを表示",
+    "previous": "前へ",
+    "next": "次へ",
+    "download": "ダウンロード",
+    "delete": "削除",
+    "close": "閉じる"
+  },
+  "reviews": {
+    "noneYet": "まだレビューがありません — 最初になりましょう。",
+    "recommendedPct": "{pct}% 推奨",
+    "basedOn": "{count}人中{recommended}人が推奨しています",
+    "yourReview": "あなたのレビュー",
+    "writeReview": "レビューを書く",
+    "recommend": "お勧めします",
+    "notRecommend": "私には向きません",
+    "bodyPlaceholder": "あなたの考えを共有してください… (オプション)",
+    "post": "レビューを投稿",
+    "update": "レビューを更新",
+    "delete": "削除",
+    "communityReviews": "{count, plural, other {# レビュー}}"
+  },
+  "search": {
+    "placeholder": "ゲーム、システム、コレクション、フレンドを検索…",
+    "hint": "入力を始めてすべてを検索します。",
+    "noResults": "一致するものがありません。",
+    "groupPages": "ページ",
+    "groupGames": "ゲーム",
+    "groupSystems": "システム",
+    "groupCollections": "コレクション",
+    "groupFriends": "フレンド",
+    "gamesCount": "{count, plural, other {# ゲーム}}"
+  },
+  "compat": {
+    "title": "エミュレーション互換性",
+    "labelPlayable": "プレイ可能",
+    "labelRuns": "問題あり",
+    "labelBroken": "動作不可",
+    "labelUnknown": "未テスト",
+    "yourReport": "動作状況を報告してください",
+    "notePlaceholder": "メモを追加（オプション）— グリッチ、役に立つ設定…",
+    "save": "保存",
+    "update": "更新",
+    "clear": "クリア",
+    "reportsCount": "{count, plural, other {# 件の報告}}",
+    "officialBadge": "公式レーティング",
+    "untestedHint": "まだテストされていません — 最初の報告を追加してください。",
+    "officialLabel": "公式レーティング (管理者)",
+    "clearOfficial": "公式レーティングなし"
+  },
+  "guides": {
+    "writeGuide": "ガイドを作成",
+    "noneYet": "ガイドはまだありません — 最初のものを作成してください。",
+    "by": "{name}による",
+    "back": "すべてのガイド",
+    "edit": "編集",
+    "delete": "削除",
+    "deleteConfirm": "このガイドを削除しますか？",
+    "save": "ガイドを保存",
+    "cancel": "キャンセル",
+    "titlePlaceholder": "ガイドのタイトル",
+    "bodyPlaceholder": "ウォークスルー、ヒント、戦略を入力してください…",
+    "newGuide": "新しいガイド",
+    "editGuide": "ガイドを編集"
+  },
+  "playLimit": {
+    "title": "時間が終了しました",
+    "limitReached": "{minutes}分のプレイ時間制限に達しました。明日またお会いしましょう！",
+    "outsideHours": "プレイ時間は{start}から{end}の間のみです。",
+    "back": "ゲームに戻る"
+  },
+  "messages": {
+    "title": "メッセージ",
+    "noFriends": "友達を追加してチャットを始めましょう。",
+    "you": "あなた",
+    "noMessagesYet": "まだメッセージがありません",
+    "pickConversation": "会話を選んでチャットを始めましょう。",
+    "sayHi": "こんにちは 👋",
+    "messagePlaceholder": "メッセージを入力…",
+    "send": "送信",
+    "back": "戻る"
+  },
+  "emuVideo": {
+    "videoFilter": "ビデオフィルター",
+    "filterOff": "なし（シャープなピクセル）",
+    "filterSmooth": "スムーズ（双一次）",
+    "appliesNextLaunch": "次の起動時に適用されます",
+    "saving": "保存中…"
+  },
+  "cheats": {
+    "loading": "チートコードを読み込み中…",
+    "empty": "まだチートコードが追加されていません。",
+    "remove": "削除",
+    "suggested": "このゲーム向けの推奨",
+    "addTitle": "チートコードを追加",
+    "namePlaceholder": "名前 (例: 無限ライフ)",
+    "codePlaceholder": "Game Genieコードまたは生コード — 1行につき1つ",
+    "appliesHint": "次回プレイ時に適用されます",
+    "add": "追加",
+    "searchPlaceholder": "チートを検索…"
   }
 }

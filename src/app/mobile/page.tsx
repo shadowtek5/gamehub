@@ -1,5 +1,5 @@
 import { requireUser } from "@/lib/auth";
-import { getDb, listLibrary, recentlyPlayed, LibraryRomRow } from "@/lib/db";
+import { getDb, listLibraryForHome, recentlyPlayed, HomeLibraryRow } from "@/lib/db";
 import type { HomeRom, HomeActivity, HomeShelf } from "@/components/bpm/Home";
 import { buildRecommendedShelves } from "@/lib/recommend";
 import { getHomeNews } from "@/lib/news";
@@ -10,7 +10,7 @@ import HomeAutoRefresh from "@/components/HomeAutoRefresh";
 export const dynamic = "force-dynamic";
 
 /** Slim a library row to exactly what the home shelves render. */
-const slim = (r: LibraryRomRow): HomeRom => ({
+const slim = (r: HomeLibraryRow): HomeRom => ({
   id: r.id,
   title: r.title,
   boxart_url: r.boxart_url,
@@ -24,7 +24,7 @@ const slim = (r: LibraryRomRow): HomeRom => ({
 export default async function MobileHomePage() {
   const user = await requireUser();
   const t = await getTranslations("mobilePagesA.home");
-  const all = listLibrary(user.id);
+  const all = listLibraryForHome(user.id);
 
   if (all.length === 0) {
     return (

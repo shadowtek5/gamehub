@@ -4,6 +4,8 @@ import ProfileNavLink from "@/components/ProfileNavLink";
 import DesktopSiteLink from "./DesktopSiteLink";
 import MobileJobIndicator from "./MobileJobIndicator";
 import MobileNotifications from "./MobileNotifications";
+import MobileSearchButton from "./MobileSearchButton";
+import MessagesButton from "@/components/MessagesButton";
 
 // Fixed top app bar for the /mobile app: wordmark, a search entry, and the
 // "Desktop site" escape. Safe-area aware for notched phones.
@@ -19,16 +21,14 @@ export default async function MobileTopBar({ avatarUrl }: { avatarUrl?: string |
       </Link>
       <div className="ml-auto flex items-center gap-1">
         <MobileJobIndicator />
-        <MobileNotifications />
-        <Link
-          href="/mobile/library?focus=1"
-          aria-label={t("search")}
+        <MessagesButton
+          href="/mobile/messages"
+          label={t("messages")}
+          iconClass="h-5 w-5"
           className="flex h-10 w-10 items-center justify-center rounded-full text-dim active:bg-white/10"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="h-5 w-5">
-            <circle cx="10.5" cy="10.5" r="6.5" /><line x1="15.5" y1="15.5" x2="21" y2="21" />
-          </svg>
-        </Link>
+        />
+        <MobileNotifications />
+        <MobileSearchButton label={t("search")} />
         <DesktopSiteLink className="rounded-full px-3 py-1.5 text-[11px] font-semibold text-dim active:bg-white/10" />
         <ProfileNavLink href="/mobile/profile" fallback="/mobile" ariaLabel={t("profile")} className="ml-1 block">
           {avatarUrl ? (

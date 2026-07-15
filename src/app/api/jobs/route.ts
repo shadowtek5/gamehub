@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/auth";
 import { getScrapeJobStatus } from "@/lib/providers/scrapeJob";
 import { getScanJobStatus } from "@/lib/scanJob";
+import { getBoxartLocalizeStatus } from "@/lib/boxartLocalize";
+import { getHashJobStatus } from "@/lib/hashJob";
+import { getSystemArtJobStatus } from "@/lib/systemArtJob";
+import { getThumbJobStatus } from "@/lib/systemThumb";
 import { getSystemArt } from "@/lib/systemArt";
 import { getHeroCollageUrl } from "@/lib/systemThumb";
 import { getAllQuotaInfo } from "@/lib/providers/quota";
@@ -22,7 +26,7 @@ import { launchboxConfigured } from "@/lib/providers/launchbox";
 // and are intentionally NOT part of this queue.
 
 export interface JobView {
-  kind: "scan" | "scrape";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   running: boolean;
   currentSystem: string;
@@ -113,6 +117,10 @@ export async function GET() {
 
   const scan = getScanJobStatus();
   const scrape = getScrapeJobStatus();
+  const localize = getBoxartLocalizeStatus();
+  const hash = getHashJobStatus();
+  const art = getSystemArtJobStatus();
+  const thumbs = getThumbJobStatus();
   // Downloads-page hero art, in priority order: the generated hero-collage,
   // then the scraped ribbon (screenmarquee), then the scraped hero (wallpaper),
   // else null → the page draws its color + glyph fallback.
@@ -124,6 +132,8 @@ export async function GET() {
   };
   const scanArt = heroFor(scan.currentSystem);
   const scrapeArt = heroFor(scrape.currentSystem);
+  const artArt = heroFor(art.current);
+  const thumbsArt = heroFor(thumbs.current);
 
   const jobs: JobView[] = [
     {
@@ -162,6 +172,72 @@ export async function GET() {
       concurrency: scrape.concurrency,
       quotaPaused: scrape.quotaPaused,
       gameProgress: scrape.gameProgress,
+    },
+    {
+      // Whole-library box-art optimize — no per-system breakdown, so the
+      // system-specific fields stay empty and the page falls back gracefully.
+      kind: "localize",
+      label: "Optimizing box art",
+      running: localize.running,
+      currentSystem: "",
+      done: localize.processed,
+      total: localize.total,
+      systemQueue: [],
+      startedAt: localize.startedAt,
+      finishedAt: localize.finishedAt,
+      cancelled: localize.cancelled,
+      errors: [],
+      systemHero: null,
+      systemLogo: null,
+      systemIcon: null,
+    },
+    {
+      kind: "hash",
+      label: "Computing file hashes",
+      running: hash.running,
+      currentSystem: "",
+      done: hash.done,
+      total: hash.total,
+      systemQueue: [],
+      startedAt: null,
+      finishedAt: hash.finishedAt,
+      cancelled: hash.cancelled,
+      errors: hash.errors,
+      systemHero: null,
+      systemLogo: null,
+      systemIcon: null,
+    },
+    {
+      kind: "art",
+      label: "Re-scraping system art",
+      running: art.running,
+      currentSystem: art.current,
+      done: art.done,
+      total: art.total,
+      systemQueue: [],
+      startedAt: art.startedAt,
+      finishedAt: art.finishedAt,
+      cancelled: art.cancelled,
+      errors: art.errors,
+      systemHero: artArt.hero,
+      systemLogo: artArt.logo,
+      systemIcon: artArt.icon,
+    },
+    {
+      kind: "thumbs",
+      label: "Refreshing system images",
+      running: thumbs.running,
+      currentSystem: thumbs.current,
+      done: thumbs.done,
+      total: thumbs.total,
+      systemQueue: [],
+      startedAt: thumbs.startedAt,
+      finishedAt: thumbs.finishedAt,
+      cancelled: thumbs.cancelled,
+      errors: [],
+      systemHero: thumbsArt.hero,
+      systemLogo: thumbsArt.logo,
+      systemIcon: thumbsArt.icon,
     },
   ];
 

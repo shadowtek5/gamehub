@@ -25,7 +25,8 @@
     "downloads": "Nedladdningar",
     "activity": "Aktivitet",
     "settings": "Inställningar",
-    "power": "Ström"
+    "power": "Ström",
+    "messages": "Meddelanden"
   },
   "legend": {
     "menu": "Meny",
@@ -217,7 +218,9 @@
       "requestsSent": "Skickade förfrågningar",
       "cancel": "Avbryt",
       "removeConfirmTitle": "Ta bort {name}?",
-      "removeConfirmBody": "Personen tas bort från din vänlista. Du kan alltid skicka en ny förfrågan."
+      "removeConfirmBody": "Personen tas bort från din vänlista. Du kan alltid skicka en ny förfrågan.",
+      "playingGame": "Spelar {title}",
+      "message": "Meddelande"
     },
     "summary": {
       "title": "Vänner",
@@ -556,7 +559,16 @@
       "bind": "Bind {label}",
       "scopeNoteGlobal": "Standardlayout för denna kontrollerstyp. Per-system- och per-spel-layouts överskriver denna.",
       "scopeNoteSystem": "Gäller för alla spel på detta system och överskriver global standard. Per-spel-layouts har företräde.",
-      "scopeNoteGame": "Gäller endast för detta spel och överskriver system- och globala layouts."
+      "scopeNoteGame": "Gäller endast för detta spel och överskriver system- och globala layouts.",
+      "share": "Dela",
+      "exportHeading": "Exportera denna layout",
+      "copyCode": "Kopiera kod",
+      "copied": "✓ Kopierad",
+      "importHeading": "Importera en layout",
+      "pastePlaceholder": "Klistra in en layoutkod…",
+      "applyCode": "Tillämpa",
+      "importInvalid": "Det ser inte ut som en giltig layoutkod.",
+      "importNote": "Tillämpning laddar koden i redigeraren — tryck Spara layout för att behålla den."
     },
     "button": {
       "controllerLayout": "Kontroller-layout",
@@ -602,7 +614,15 @@
       "tagQueued": "I kö",
       "scheduled": "Schemalagt",
       "noRecurring": "Inga återkommande uppgifter aktiverade.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusOptimizing": "Optimerar omslag…",
+      "optimizingArt": "Optimerar omslag",
+      "statusHashing": "Beräknar hashar…",
+      "statusArt": "Skrapar om systemgrafik…",
+      "statusThumbs": "Uppdaterar bilder…",
+      "hashingFiles": "Beräknar hashar",
+      "scrapingArt": "Skrapar om grafik",
+      "refreshingImages": "Uppdaterar bilder"
     },
     "quota": {
       "providerRequestLimits": "Provider-förfrågningsgränser",
@@ -640,7 +660,50 @@
     "retry": "Försök igen",
     "exit": "Avsluta",
     "dismiss": "Stäng",
-    "controllerLayoutTitle": "Kontroller-layout — {title}"
+    "controllerLayoutTitle": "Kontroller-layout — {title}",
+    "screenshot": "Skärmbild (F2)",
+    "screenshotSaved": "Skärmbild sparad",
+    "screenshotFailed": "Misslyckades att spara skärmbild",
+    "playTimeUp": "Tiden är slut för idag — sparar och avslutar.",
+    "playOutsideHours": "Speltiden är över för nu — sparar och avslutar.",
+    "quickMenu": "Snabbmeny",
+    "quickMenuHint": "D-pad för att röra sig · A väljer · B tillbaka · Select+Start växlar",
+    "resume": "Fortsätt",
+    "saveState": "Spara tillstånd",
+    "loadState": "Läs in tillstånd",
+    "restart": "Starta om spel",
+    "restarted": "Spel omstartat",
+    "restartUnavailable": "Omstart är inte tillgänglig för denna kärna",
+    "exitGame": "Avsluta spel",
+    "back": "Tillbaka",
+    "loadingStates": "Läser in tillstånd…",
+    "stateSlot": "Sparad {date}",
+    "recordClip": "Spela in klipp",
+    "stopRecording": "Sluta spela in",
+    "recording": "REC",
+    "clipSaved": "Klipp sparat",
+    "recordUnavailable": "Inspelning stöds inte i denna webbläsare",
+    "pause": "Pausa / återuppta spel",
+    "fastForward": "Snabbspolning",
+    "mute": "Slå av / på ljud",
+    "fullscreen": "Fullskärm",
+    "cheats": "Fuskningar",
+    "netplay": "Nätspel",
+    "videoFilter": "Videofilter",
+    "videoFilterSaved": "Videofilter sparat",
+    "actionUnavailable": "Åtgärd ej tillgänglig",
+    "loadingCheats": "Laddar fusk…",
+    "noCheats": "Inga fusk än. Lägg till koder från spelsidan eller välj från listan nedan.",
+    "cheatOn": "På",
+    "cheatOff": "Av",
+    "cheatsFromList": "Lägg till från lista",
+    "menuLabel": "Meny",
+    "selectLabel": "Välj",
+    "navHome": "Hem",
+    "navLibrary": "Bibliotek",
+    "navFriends": "Vänner",
+    "navSettings": "Inställningar",
+    "navPower": "Avsluta spel"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "DINA SAKER",
     "tabVariants": "VARIANTER",
     "tabRelated": "RELATERAT",
-    "tabGameInfo": "SPELINFORMATION"
+    "tabGameInfo": "SPELINFORMATION",
+    "screenshotsSection": "Dina skärmbilder",
+    "tabReviews": "RECENSIONER",
+    "compatSection": "Kompatibilitet",
+    "tabGuides": "GUIDER",
+    "videoSection": "Videofilter",
+    "cheatsSection": "Fusk"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Rescrape system-artwork",
       "rescrapeArtDesc": "Hämta hero, logo, ikon och ribbon-artwork på nytt för varje system i ditt bibliotek i din konfigurerade provider-ordning. Använd efter ändring av providers eller artwork-mapping. Körs i bakgrunden.",
       "rescrapeAll": "Rescrape allt",
+      "localizeArt": "Optimera omslag",
+      "localizeArtDesc": "Hämta varje omslag som fortfarande hotlänkas från libretro till lokal lagring som WebP, och bygg om de små snabba miniatyrerna för omslag som redan är lagrade lokalt — så att biblioteket laddas snabbt och aldrig är beroende av en extern webbplats. Omslag utan libretro-träff rensas till en platshållare. Körs i bakgrunden.",
+      "localizeStart": "Optimera alla",
+      "localizeResult": "✓ Hämtade {localized}, optimerade {optimized}, rensade {cleared} döda länkar{failed, plural, =0 {} other {, # att försöka igen}}",
       "updated": "{count} uppdaterade",
       "cancelledPrefix": "Avbruten — ",
       "updatedSystems": "{updated} av {done} system uppdaterade",
@@ -1064,7 +1137,16 @@
       "confirmBody": "Ta bort {missing, plural, one {# saknat spel} other {# saknade spel}} och {orphan, plural, one {# övergiven mediamapp} other {# övergivna mediamappar}}. Favoriter och samlingselement för dessa spel tas också bort. ROM-filer rörs aldrig.",
       "failedToStart": "Kunde inte starta",
       "removedSummary": "✓ {games} spel och {folders} mediamappar borttagna",
-      "failed": "Misslyckades"
+      "failed": "Misslyckades",
+      "localizeQueued": "I kö — körs efter det aktuella jobbet. Följ det på Nedladdningar-sidan.",
+      "jobQueued": "I kö — körs efter det aktuella jobbet. Följ det på Nedladdningar-sidan.",
+      "chooseSystems": "Välj system…",
+      "runSelected": "Kör valda",
+      "runAll": "Kör alla",
+      "selectedCount": "{count} valda",
+      "noneSelected": "Inget valt",
+      "pickSystemsHint": "Välj ett eller flera system, eller kör mot hela biblioteket.",
+      "noConfiguredSystems": "Inga konfigurerade system ännu."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "använd {date}",
       "neverUsed": "aldrig använd",
       "revoke": "Återkalla",
-      "noTokensYet": "Inga tokens ännu."
+      "noTokensYet": "Inga tokens ännu.",
+      "expiryNever": "Upphör aldrig",
+      "expiry30": "Upphör om 30 dagar",
+      "expiry90": "Upphör om 90 dagar",
+      "expiry365": "Upphör om 1 år"
     },
     "retroAchievements": {
       "raIntro1": "Koppla",
@@ -1235,7 +1321,15 @@
     "loading": "Laddar…",
     "scheduled": "Schemalagt",
     "noRecurringTasks": "Inga återkommande uppgifter aktiverade.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusOptimizing": "Optimerar omslag…",
+    "optimizingArtBar": "Optimerar omslag",
+    "statusHashing": "Beräknar hashar…",
+    "statusArt": "Skrapar om systemgrafik…",
+    "statusThumbs": "Uppdaterar bilder…",
+    "hashingFilesBar": "Beräknar hashar",
+    "scrapingArtBar": "Skrapar om grafik",
+    "refreshingImagesBar": "Uppdaterar bilder"
   },
   "mobileGameOptions": {
     "gameOptions": "Spelalternativ",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Språk",
       "metaFranchise": "Franchise",
       "metaAgeRating": "Åldersklassificering",
-      "metaFile": "Fil"
+      "metaFile": "Fil",
+      "sectionReviews": "Recensioner",
+      "sectionGuides": "Guider"
     },
     "properties": {
       "back": "Tillbaka till spel",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Sök",
-      "profile": "Profil"
+      "profile": "Profil",
+      "messages": "Meddelanden"
     },
     "desktopSiteLink": {
       "desktopSite": "Desktop-webbplats"
@@ -1589,7 +1686,8 @@
       "hero": "Hero-bild",
       "logo": "Logotyp",
       "icon": "Ikon"
-    }
+    },
+    "sectionMaintenance": "Underhåll"
   },
   "primitives": {
     "cancel": "Avbryt",
@@ -1684,7 +1782,9 @@
       "optPort": "Port",
       "optDlc": "DLC & add-on",
       "optExpansion": "Expansion",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Lägg till ett relaterat spel",
+      "kindAria": "Relationtyp"
     },
     "playSummary": {
       "title": "Spelsammanfattning",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Dölj även oklassificerade spel (strikt — de flesta spel har ännu ingen klassificering)",
       "deleteWarning": "Detta tar bort profilen från {count, plural, one {# tilldelad användare} other {# tilldelade användare}} — de får full, obegränsad åtkomst igen.",
       "noUsersAssigned": "Inga användare tilldelade detta profilen.",
-      "deleteProfile": "Radera profil"
+      "deleteProfile": "Radera profil",
+      "playTimeHeading": "Speltid",
+      "dailyLimitLabel": "Daglig speltidsgräns",
+      "noLimit": "Ingen gräns",
+      "minutesPerDay": "minuter / dag",
+      "scheduleLabel": "Tillåt spel endast under vissa timmar",
+      "allowedFrom": "Från",
+      "allowedTo": "till"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# spel} other {# spel}}"
-    },
-    "carousel": {
-      "scrollLeft": "Scrolla till vänster",
-      "scrollRight": "Scrolla till höger"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Auto",
       "wide": "Bred",
       "square": "Kvadrat",
+      "cart": "Kassett",
       "portrait": "Stående"
     },
     "scanning": "Skannar {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Spelbar i webbläsaren",
       "downloadToPlay": "{name} — ladda ner för att spela"
     }
+  },
+  "screenshots": {
+    "title": "Dina skärmbilder",
+    "viewCapture": "Visa skärmbild",
+    "previous": "Tidigare",
+    "next": "Nästa",
+    "download": "Ladda ned",
+    "delete": "Radera",
+    "close": "Stäng"
+  },
+  "reviews": {
+    "noneYet": "Inga recensioner ännu — var först.",
+    "recommendedPct": "{pct}% rekommenderar",
+    "basedOn": "{recommended} av {count} rekommenderar detta",
+    "yourReview": "Din recension",
+    "writeReview": "Skriv en recension",
+    "recommend": "Rekommenderar",
+    "notRecommend": "Inte för mig",
+    "bodyPlaceholder": "Dela din åsikt… (valfritt)",
+    "post": "Publicera recension",
+    "update": "Uppdatera recension",
+    "delete": "Radera",
+    "communityReviews": "{count, plural, one {# recension} other {# recensioner}}"
+  },
+  "search": {
+    "placeholder": "Sök spel, system, samlingar, vänner…",
+    "hint": "Börja skriva för att söka överallt.",
+    "noResults": "Inga träffar.",
+    "groupPages": "Sidor",
+    "groupGames": "Spel",
+    "groupSystems": "System",
+    "groupCollections": "Samlingar",
+    "groupFriends": "Vänner",
+    "gamesCount": "{count, plural, one {# spel} other {# spel}}"
+  },
+  "compat": {
+    "title": "Emuleringskompatibilitet",
+    "labelPlayable": "Spelbar",
+    "labelRuns": "Fungerar med problem",
+    "labelBroken": "Bruten",
+    "labelUnknown": "Otestlad",
+    "yourReport": "Hur fungerar det för dig?",
+    "notePlaceholder": "Lägg till en anteckning (valfritt) — buggar, inställningar som hjälpte…",
+    "save": "Spara",
+    "update": "Uppdatera",
+    "clear": "Rensa",
+    "reportsCount": "{count, plural, one {# rapport} other {# rapporter}}",
+    "officialBadge": "Officiell betyg",
+    "untestedHint": "Ännu inte testlad — lägg till den första rapporten.",
+    "officialLabel": "Officiell betyg (admin)",
+    "clearOfficial": "Ingen officiell betyg"
+  },
+  "guides": {
+    "writeGuide": "Skriv en guide",
+    "noneYet": "Inga guider än — skriv den första.",
+    "by": "av {name}",
+    "back": "Alla guider",
+    "edit": "Redigera",
+    "delete": "Radera",
+    "deleteConfirm": "Radera den här guiden?",
+    "save": "Spara guide",
+    "cancel": "Avbryt",
+    "titlePlaceholder": "Guidetitel",
+    "bodyPlaceholder": "Skriv din genomgång, tips eller strategi…",
+    "newGuide": "Ny guide",
+    "editGuide": "Redigera guide"
+  },
+  "playLimit": {
+    "title": "Tiden är slut",
+    "limitReached": "Du har nått din dagliga speltidsgräns på {minutes} minuter. Kom tillbaka imorgon!",
+    "outsideHours": "Speltid är endast tillåten mellan {start} och {end}.",
+    "back": "Tillbaka till spelet"
+  },
+  "messages": {
+    "title": "Meddelanden",
+    "noFriends": "Lägg till vänner för att börja chatta.",
+    "you": "Du",
+    "noMessagesYet": "Inga meddelanden än",
+    "pickConversation": "Välj en konversation för att börja chatta.",
+    "sayHi": "Hej 👋",
+    "messagePlaceholder": "Skriv ett meddelande…",
+    "send": "Skicka",
+    "back": "Tillbaka"
+  },
+  "emuVideo": {
+    "videoFilter": "Videofilter",
+    "filterOff": "Ingen (skarpa pixlar)",
+    "filterSmooth": "Mjuk (bilinjär)",
+    "appliesNextLaunch": "Tillämpas nästa gång du startar",
+    "saving": "Sparar…"
+  },
+  "cheats": {
+    "loading": "Laddar fusk…",
+    "empty": "Inga fusk tillagda än.",
+    "remove": "Ta bort",
+    "suggested": "Föreslaget för det här spelet",
+    "addTitle": "Lägg till ett fusk",
+    "namePlaceholder": "Namn (t.ex. Oändliga liv)",
+    "codePlaceholder": "Game Genie eller raw kod — en per rad",
+    "appliesHint": "Tillämpas nästa gång du spelar",
+    "add": "Lägg till",
+    "searchPlaceholder": "Sök cheats…"
   }
 }

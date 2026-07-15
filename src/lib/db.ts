@@ -80,7 +80,18 @@ function migrate(db: Database.Database) {
       allowed_systems TEXT,               -- JSON array of platform slugs; NULL = all systems
       max_rating INTEGER,                 -- min-age cap (e.g. 13 = Teen); NULL = no cap
       hide_unrated INTEGER NOT NULL DEFAULT 0,
+      daily_limit_minutes INTEGER,        -- max play minutes per day; NULL = no limit
+      allowed_start_hour INTEGER,         -- allowed play window start hour 0-23; NULL = anytime
+      allowed_end_hour INTEGER,           -- allowed play window end hour 0-23 (wraps past midnight)
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    -- Per-user, per-day playtime tally (local date), for enforcing daily limits.
+    CREATE TABLE IF NOT EXISTS daily_play (
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      day TEXT NOT NULL,                  -- YYYY-MM-DD in server-local time
+      seconds INTEGER NOT NULL DEFAULT 0,
+      PRIMARY KEY (user_id, day)
     );
 
     CREATE TABLE IF NOT EXISTS roms (
@@ -333,6 +344,95 @@ function migrate(db: Database.Database) {
     );
     CREATE INDEX IF NOT EXISTS idx_rom_relations_rom ON rom_relations(rom_id);
     CREATE INDEX IF NOT EXISTS idx_rom_relations_related ON rom_relations(related_rom_id);
+
+    -- User-captured in-game screenshots (Steam-style). The PNG lives on disk at
+    -- data/screenshots/<user>/<rom>/<id>.<ext>; the row tracks the path + dims.
+    CREATE TABLE IF NOT EXISTS screenshots (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      image_path TEXT,
+      width INTEGER,
+      height INTEGER,
+      size_bytes INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_screenshots_user_rom ON screenshots(user_id, rom_id);
+    CREATE INDEX IF NOT EXISTS idx_screenshots_rom ON screenshots(rom_id);
+
+    -- Community reviews (Steam-style): a thumbs up/down recommendation plus an
+    -- optional written blurb, one per user per game, shown to everyone.
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      recommended INTEGER NOT NULL,           -- 1 = thumbs up, 0 = thumbs down
+      body TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT,
+      UNIQUE (user_id, rom_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_reviews_rom ON reviews(rom_id);
+
+    -- Emulation compatibility reports (Deck-Verified / ProtonDB style): each user
+    -- reports how well a game runs in the in-browser emulator. Aggregated to a
+    -- consensus badge; an admin can pin an official rating (roms.compat_official).
+    CREATE TABLE IF NOT EXISTS compat_reports (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      rating TEXT NOT NULL,                   -- playable | runs | broken
+      note TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT,
+      UNIQUE (user_id, rom_id)
+    );
+    CREATE INDEX IF NOT EXISTS idx_compat_rom ON compat_reports(rom_id);
+
+    -- Community guides / walkthroughs attached to a game (Steam community guides).
+    -- Author is nullable (SET NULL on user delete) so guides survive the author.
+    CREATE TABLE IF NOT EXISTS guides (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+      title TEXT NOT NULL,
+      body TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT
+    );
+    CREATE INDEX IF NOT EXISTS idx_guides_rom ON guides(rom_id);
+
+    -- Direct messages between friends. read_at drives unread counts / badges.
+    CREATE TABLE IF NOT EXISTS messages (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sender_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      recipient_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      body TEXT NOT NULL,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      read_at TEXT
+    );
+    CREATE INDEX IF NOT EXISTS idx_messages_pair ON messages(sender_id, recipient_id, id);
+    CREATE INDEX IF NOT EXISTS idx_messages_unread ON messages(recipient_id, read_at);
+
+    -- Per-user, per-game emulator A/V preferences (currently the video shader),
+    -- applied to EmulatorJS at boot. shader = a bundled .glslp name or 'disabled'.
+    CREATE TABLE IF NOT EXISTS emu_prefs (
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      shader TEXT,
+      PRIMARY KEY (user_id, rom_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS game_cheats (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+      name TEXT NOT NULL,
+      code TEXT NOT NULL,
+      enabled INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_game_cheats_user_rom ON game_cheats (user_id, rom_id);
   `);
 
   // Drop the retired ra_unlocks table (RA earning via GameHub Player was
@@ -369,6 +469,16 @@ function migrate(db: Database.Database) {
     db.exec("ALTER TABLE systems ADD COLUMN hero_source TEXT NOT NULL DEFAULT 'ribbon'");
   if (!sysCols.has("card_thumb_stale"))
     db.exec("ALTER TABLE systems ADD COLUMN card_thumb_stale INTEGER NOT NULL DEFAULT 1");
+  // restriction_profiles: playtime limit + allowed-hours schedule (kid profiles).
+  const rpCols = new Set(
+    (db.prepare("PRAGMA table_info(restriction_profiles)").all() as { name: string }[]).map((c) => c.name)
+  );
+  if (!rpCols.has("daily_limit_minutes"))
+    db.exec("ALTER TABLE restriction_profiles ADD COLUMN daily_limit_minutes INTEGER");
+  if (!rpCols.has("allowed_start_hour"))
+    db.exec("ALTER TABLE restriction_profiles ADD COLUMN allowed_start_hour INTEGER");
+  if (!rpCols.has("allowed_end_hour"))
+    db.exec("ALTER TABLE restriction_profiles ADD COLUMN allowed_end_hour INTEGER");
   // card_thumb_sig / hero_thumb_sig: content fingerprint (hash of the ordered
   // top covers) of the last-rendered collage image. A thumbnail is out of date
   // exactly when the current fingerprint differs from the stored one — so any
@@ -422,6 +532,7 @@ function migrate(db: Database.Database) {
   addRomCol("hltb_checked_at", "TEXT");
   addRomCol("age_rating", "TEXT"); // content classification, e.g. "ESRB: E", "PEGI: 12"
   addRomCol("franchise", "TEXT"); // series / franchise, e.g. "Super Mario"
+  addRomCol("compat_official", "TEXT"); // admin-pinned emulation rating: playable|runs|broken
   addRomCol("game_modes", "TEXT"); // "Single player, Multiplayer, Co-operative"
   addRomCol("perspectives", "TEXT"); // player perspectives, e.g. "Side view, Bird's-eye view"
   addRomCol("themes", "TEXT"); // "Action, Fantasy, Horror"
@@ -500,6 +611,8 @@ function migrate(db: Database.Database) {
   addUserCol("featured_badge", "TEXT"); // badge key shown next to the level
   addUserCol("status", "TEXT"); // online | away | invisible (manual presence preference)
   addUserCol("last_seen", "TEXT"); // ISO time of last activity — drives real online presence
+  addUserCol("playing_rom_id", "INTEGER"); // game currently being played (live now-playing presence)
+  addUserCol("playing_since", "TEXT"); // when the current play session started
   addUserCol("oidc_sub", "TEXT"); // OpenID Connect subject this account is linked to
   // Assigned age/content-restriction profile (restriction_profiles.id), or NULL
   // for unrestricted (full library). Enforced by hiddenFilter.
@@ -950,7 +1063,7 @@ export function setSystemLogoDark(slug: string, dark: boolean) {
   } catch {}
 }
 
-export type BoxLayout = "wide" | "square" | "portrait";
+export type BoxLayout = "wide" | "square" | "portrait" | "cart";
 
 /** Manual card box-art shape override ('auto' hands it back to auto-detect). */
 export function setSystemBoxLayout(slug: string, layout: "auto" | BoxLayout) {
@@ -1008,14 +1121,21 @@ export interface RestrictionProfile {
   allowed_systems: string | null;
   max_rating: number | null;
   hide_unrated: number;
+  daily_limit_minutes: number | null;
+  allowed_start_hour: number | null;
+  allowed_end_hour: number | null;
   /** How many users this profile is assigned to (list view only) */
   assigned?: number;
 }
+
+const RP_COLS =
+  "id, name, allowed_systems, max_rating, hide_unrated, daily_limit_minutes, allowed_start_hour, allowed_end_hour";
 
 export function listRestrictionProfiles(): RestrictionProfile[] {
   return getDb()
     .prepare(
       `SELECT p.id, p.name, p.allowed_systems, p.max_rating, p.hide_unrated,
+              p.daily_limit_minutes, p.allowed_start_hour, p.allowed_end_hour,
               (SELECT COUNT(*) FROM users u WHERE u.restriction_profile_id = p.id) AS assigned
        FROM restriction_profiles p ORDER BY p.name COLLATE NOCASE`
     )
@@ -1024,7 +1144,7 @@ export function listRestrictionProfiles(): RestrictionProfile[] {
 
 export function getRestrictionProfile(id: number): RestrictionProfile | undefined {
   return getDb()
-    .prepare("SELECT id, name, allowed_systems, max_rating, hide_unrated FROM restriction_profiles WHERE id = ?")
+    .prepare(`SELECT ${RP_COLS} FROM restriction_profiles WHERE id = ?`)
     .get(id) as RestrictionProfile | undefined;
 }
 
@@ -1033,18 +1153,34 @@ export interface RestrictionInput {
   allowedSystems: string[] | null;
   maxRating: number | null;
   hideUnrated: boolean;
+  /** max play minutes/day, or null for no limit */
+  dailyLimitMinutes: number | null;
+  /** allowed-play window (hours 0-23), both null for anytime */
+  allowedStartHour: number | null;
+  allowedEndHour: number | null;
 }
+
+// Clamp an hour to 0-23 or null; clamp a positive minute limit or null.
+const clampHour = (h: number | null): number | null =>
+  h == null || !Number.isFinite(h) ? null : Math.max(0, Math.min(23, Math.round(h)));
+const clampMinutes = (m: number | null): number | null =>
+  m == null || !Number.isFinite(m) || m <= 0 ? null : Math.round(m);
 
 export function createRestrictionProfile(input: RestrictionInput): number {
   const info = getDb()
     .prepare(
-      "INSERT INTO restriction_profiles (name, allowed_systems, max_rating, hide_unrated) VALUES (?, ?, ?, ?)"
+      `INSERT INTO restriction_profiles
+         (name, allowed_systems, max_rating, hide_unrated, daily_limit_minutes, allowed_start_hour, allowed_end_hour)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
     )
     .run(
       input.name,
       input.allowedSystems === null ? null : JSON.stringify([...new Set(input.allowedSystems)]),
       input.maxRating,
-      input.hideUnrated ? 1 : 0
+      input.hideUnrated ? 1 : 0,
+      clampMinutes(input.dailyLimitMinutes),
+      clampHour(input.allowedStartHour),
+      clampHour(input.allowedEndHour)
     );
   return Number(info.lastInsertRowid);
 }
@@ -1052,13 +1188,19 @@ export function createRestrictionProfile(input: RestrictionInput): number {
 export function updateRestrictionProfile(id: number, input: RestrictionInput): void {
   getDb()
     .prepare(
-      "UPDATE restriction_profiles SET name = ?, allowed_systems = ?, max_rating = ?, hide_unrated = ? WHERE id = ?"
+      `UPDATE restriction_profiles
+          SET name = ?, allowed_systems = ?, max_rating = ?, hide_unrated = ?,
+              daily_limit_minutes = ?, allowed_start_hour = ?, allowed_end_hour = ?
+        WHERE id = ?`
     )
     .run(
       input.name,
       input.allowedSystems === null ? null : JSON.stringify([...new Set(input.allowedSystems)]),
       input.maxRating,
       input.hideUnrated ? 1 : 0,
+      clampMinutes(input.dailyLimitMinutes),
+      clampHour(input.allowedStartHour),
+      clampHour(input.allowedEndHour),
       id
     );
 }
@@ -1118,6 +1260,72 @@ export function userCanSeeRom(userId: number, romId: number): boolean {
   if (r.max != null && row.rating_level != null && row.rating_level > r.max) return false;
   if (r.hideUnrated && row.rating_level == null) return false;
   return true;
+}
+
+// ---------- playtime limits & allowed-hours schedule ----------
+
+/** Today's date in server-local time (YYYY-MM-DD) — the key for daily_play. */
+function serverLocalDay(): string {
+  const d = new Date();
+  const p = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+}
+
+/** Add to a user's play tally for today (called from the play heartbeat). */
+export function addDailyPlay(userId: number, seconds: number): void {
+  getDb()
+    .prepare(
+      `INSERT INTO daily_play (user_id, day, seconds) VALUES (?, ?, ?)
+       ON CONFLICT (user_id, day) DO UPDATE SET seconds = seconds + excluded.seconds`
+    )
+    .run(userId, serverLocalDay(), seconds);
+}
+
+export function getTodayPlaySeconds(userId: number): number {
+  const r = getDb()
+    .prepare("SELECT seconds FROM daily_play WHERE user_id = ? AND day = ?")
+    .get(userId, serverLocalDay()) as { seconds: number } | undefined;
+  return r?.seconds ?? 0;
+}
+
+export interface PlayAllowance {
+  allowed: boolean;
+  reason: "schedule" | "limit" | null;
+  limitMinutes: number | null;
+  usedMinutes: number;
+  remainingMinutes: number | null;
+  /** allowed-hours window (0-23), or null for anytime */
+  window: { start: number; end: number } | null;
+}
+
+function hourAllowed(now: number, start: number, end: number): boolean {
+  if (start === end) return true; // degenerate window = anytime
+  if (start < end) return now >= start && now < end;
+  return now >= start || now < end; // wraps past midnight (e.g. 20 → 7)
+}
+
+/** Whether a user may play right now, honoring their profile's daily limit and
+ *  allowed-hours schedule. Unrestricted users (or profiles without either) are
+ *  always allowed. Schedule is reported before the limit for a clearer message. */
+export function playAllowance(userId: number): PlayAllowance {
+  const row = getDb()
+    .prepare(
+      `SELECT p.daily_limit_minutes AS lim, p.allowed_start_hour AS s, p.allowed_end_hour AS e
+         FROM users u JOIN restriction_profiles p ON p.id = u.restriction_profile_id
+        WHERE u.id = ?`
+    )
+    .get(userId) as { lim: number | null; s: number | null; e: number | null } | undefined;
+  const lim = row?.lim ?? null;
+  const window = row && row.s != null && row.e != null ? { start: row.s, end: row.e } : null;
+  const usedMinutes = Math.floor(getTodayPlaySeconds(userId) / 60);
+  const remainingMinutes = lim != null ? Math.max(0, lim - usedMinutes) : null;
+  if (window && !hourAllowed(new Date().getHours(), window.start, window.end)) {
+    return { allowed: false, reason: "schedule", limitMinutes: lim, usedMinutes, remainingMinutes, window };
+  }
+  if (lim != null && usedMinutes >= lim) {
+    return { allowed: false, reason: "limit", limitMinutes: lim, usedMinutes, remainingMinutes: 0, window };
+  }
+  return { allowed: true, reason: null, limitMinutes: lim, usedMinutes, remainingMinutes, window };
 }
 
 /** Distinct platform slugs that currently have (non-missing) games — the set a
@@ -1519,6 +1727,9 @@ export function searchLibraryBrowse(
     sort?: string;
     offset?: number;
     limit?: number;
+    /** Only the deduped total is needed (tab-count labels) — skip the rows
+     *  query entirely so the expensive dedup window runs once, not twice. */
+    countOnly?: boolean;
   }
 ): { rows: BrowseRomRow[]; total: number } {
   // The Hidden tab shows ONLY user-hidden games; everywhere else hides them
@@ -1648,7 +1859,9 @@ export function searchLibraryBrowse(
   // keep every row of a uniform group (distinct games mis-parsed to one title),
   // or just the representative of a genuinely-varied group
   const keep = "WHERE __varied = 0 OR __rn = 1";
-  const rows = db
+  const rows = opts.countOnly
+    ? []
+    : db
     .prepare(
       `SELECT * FROM (
          SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,
@@ -1688,7 +1901,7 @@ export function searchLibraryBrowse(
   // Typo tolerance (Steam ships fastest-levenshtein for exactly this): when
   // a substring search comes up nearly empty, rank the remaining candidate
   // titles by edit distance and surface the closest ones.
-  if (opts.q && opts.q.length >= 3 && offset === 0 && total < 5) {
+  if (!opts.countOnly && opts.q && opts.q.length >= 3 && offset === 0 && total < 5) {
     const qn = opts.q.toLowerCase();
     // a single transposition = 2 edits, so ≥5-char queries allow 2
     const maxDist = qn.length <= 4 ? 1 : qn.length <= 8 ? 2 : 3;
@@ -1913,6 +2126,465 @@ export function customRelatedEditions(
   }));
 }
 
+// ---------- User-captured screenshots ----------
+
+export interface ScreenshotInfo {
+  id: number;
+  width: number | null;
+  height: number | null;
+  created_at: string;
+}
+
+/** A user's captured screenshots for a game, newest first. */
+export function listUserScreenshots(userId: number, romId: number): ScreenshotInfo[] {
+  return getDb()
+    .prepare(
+      `SELECT id, width, height, created_at FROM screenshots
+       WHERE user_id = ? AND rom_id = ? ORDER BY created_at DESC, id DESC`
+    )
+    .all(userId, romId) as ScreenshotInfo[];
+}
+
+// ---------- community reviews ----------
+
+export interface ReviewRow {
+  id: number;
+  userId: number;
+  authorName: string;
+  authorAvatar: string | null;
+  recommended: number; // 1 up, 0 down
+  body: string | null;
+  created_at: string;
+  updated_at: string | null;
+}
+
+export interface ReviewSummary {
+  total: number;
+  recommended: number;
+  /** percent recommended (0–100), or null when there are no reviews yet */
+  pct: number | null;
+}
+
+/** Aggregate recommendation for a game. */
+export function reviewSummary(romId: number): ReviewSummary {
+  const r = getDb()
+    .prepare(
+      "SELECT COUNT(*) AS total, COALESCE(SUM(recommended), 0) AS recommended FROM reviews WHERE rom_id = ?"
+    )
+    .get(romId) as { total: number; recommended: number };
+  return {
+    total: r.total,
+    recommended: r.recommended,
+    pct: r.total > 0 ? Math.round((r.recommended / r.total) * 100) : null,
+  };
+}
+
+/** All reviews for a game (newest first), with author display info. */
+export function listReviews(romId: number, limit = 100): ReviewRow[] {
+  return getDb()
+    .prepare(
+      `SELECT rv.id AS id,
+              rv.user_id AS userId,
+              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
+              u.avatar_url AS authorAvatar,
+              rv.recommended AS recommended,
+              rv.body AS body,
+              rv.created_at AS created_at,
+              rv.updated_at AS updated_at
+         FROM reviews rv
+         JOIN users u ON u.id = rv.user_id
+        WHERE rv.rom_id = ?
+        ORDER BY rv.updated_at IS NULL DESC, COALESCE(rv.updated_at, rv.created_at) DESC
+        LIMIT ?`
+    )
+    .all(romId, limit) as ReviewRow[];
+}
+
+/** The current user's review for a game, if any. */
+export function getUserReview(userId: number, romId: number): ReviewRow | undefined {
+  return getDb()
+    .prepare(
+      `SELECT rv.id AS id, rv.user_id AS userId,
+              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
+              u.avatar_url AS authorAvatar,
+              rv.recommended AS recommended, rv.body AS body,
+              rv.created_at AS created_at, rv.updated_at AS updated_at
+         FROM reviews rv JOIN users u ON u.id = rv.user_id
+        WHERE rv.user_id = ? AND rv.rom_id = ?`
+    )
+    .get(userId, romId) as ReviewRow | undefined;
+}
+
+/** Create or update the user's review (one per user per game). */
+export function upsertReview(userId: number, romId: number, recommended: boolean, body: string | null): void {
+  const text = body?.trim().slice(0, 4000) || null;
+  getDb()
+    .prepare(
+      `INSERT INTO reviews (user_id, rom_id, recommended, body)
+       VALUES (?, ?, ?, ?)
+       ON CONFLICT (user_id, rom_id)
+       DO UPDATE SET recommended = excluded.recommended, body = excluded.body, updated_at = datetime('now')`
+    )
+    .run(userId, romId, recommended ? 1 : 0, text);
+}
+
+/** Delete the user's review for a game. */
+export function deleteReview(userId: number, romId: number): void {
+  getDb().prepare("DELETE FROM reviews WHERE user_id = ? AND rom_id = ?").run(userId, romId);
+}
+
+// ---------- emulation compatibility ----------
+
+export type CompatRating = "playable" | "runs" | "broken";
+const COMPAT_RATINGS: CompatRating[] = ["playable", "runs", "broken"];
+export function isCompatRating(v: unknown): v is CompatRating {
+  return typeof v === "string" && (COMPAT_RATINGS as string[]).includes(v);
+}
+
+export interface CompatReportRow {
+  id: number;
+  userId: number;
+  authorName: string;
+  rating: CompatRating;
+  note: string | null;
+  updated_at: string | null;
+  created_at: string;
+}
+
+export interface CompatSummary {
+  /** admin-pinned rating (wins over the crowd), or null */
+  official: CompatRating | null;
+  counts: Record<CompatRating, number>;
+  total: number;
+  /** what to badge: official if set, else the crowd mode, else null (unknown) */
+  consensus: CompatRating | null;
+  reports: CompatReportRow[];
+}
+
+/** Aggregate emulation compatibility for a game (official + crowd reports). */
+export function compatSummary(romId: number): CompatSummary {
+  const db = getDb();
+  const official = ((db.prepare("SELECT compat_official FROM roms WHERE id = ?").get(romId) as
+    | { compat_official: string | null }
+    | undefined)?.compat_official ?? null) as CompatRating | null;
+  const rows = db
+    .prepare(
+      `SELECT cr.id AS id, cr.user_id AS userId,
+              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
+              cr.rating AS rating, cr.note AS note, cr.updated_at AS updated_at, cr.created_at AS created_at
+         FROM compat_reports cr JOIN users u ON u.id = cr.user_id
+        WHERE cr.rom_id = ?
+        ORDER BY COALESCE(cr.updated_at, cr.created_at) DESC`
+    )
+    .all(romId) as CompatReportRow[];
+  const counts: Record<CompatRating, number> = { playable: 0, runs: 0, broken: 0 };
+  for (const r of rows) if (isCompatRating(r.rating)) counts[r.rating]++;
+  const total = rows.length;
+  // Crowd mode, tie-broken toward the more optimistic rating.
+  let mode: CompatRating | null = null;
+  for (const r of COMPAT_RATINGS) if (counts[r] > 0 && (mode === null || counts[r] > counts[mode])) mode = r;
+  return { official: isCompatRating(official) ? official : null, counts, total, consensus: (isCompatRating(official) ? official : null) ?? mode, reports: rows };
+}
+
+export function getUserCompat(userId: number, romId: number): CompatReportRow | undefined {
+  return getDb()
+    .prepare(
+      `SELECT cr.id AS id, cr.user_id AS userId,
+              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
+              cr.rating AS rating, cr.note AS note, cr.updated_at AS updated_at, cr.created_at AS created_at
+         FROM compat_reports cr JOIN users u ON u.id = cr.user_id
+        WHERE cr.user_id = ? AND cr.rom_id = ?`
+    )
+    .get(userId, romId) as CompatReportRow | undefined;
+}
+
+export function upsertCompatReport(userId: number, romId: number, rating: CompatRating, note: string | null): void {
+  const text = note?.trim().slice(0, 2000) || null;
+  getDb()
+    .prepare(
+      `INSERT INTO compat_reports (user_id, rom_id, rating, note) VALUES (?, ?, ?, ?)
+       ON CONFLICT (user_id, rom_id)
+       DO UPDATE SET rating = excluded.rating, note = excluded.note, updated_at = datetime('now')`
+    )
+    .run(userId, romId, rating, text);
+}
+
+export function deleteCompatReport(userId: number, romId: number): void {
+  getDb().prepare("DELETE FROM compat_reports WHERE user_id = ? AND rom_id = ?").run(userId, romId);
+}
+
+/** Admin: pin (or clear, with null) the official compatibility rating. */
+export function setCompatOfficial(romId: number, rating: CompatRating | null): void {
+  getDb().prepare("UPDATE roms SET compat_official = ? WHERE id = ?").run(rating, romId);
+}
+
+// ---------- community guides / walkthroughs ----------
+
+export interface GuideRow {
+  id: number;
+  romId: number;
+  userId: number | null;
+  authorName: string;
+  title: string;
+  body: string;
+  created_at: string;
+  updated_at: string | null;
+}
+
+const GUIDE_SELECT = `
+  SELECT g.id AS id, g.rom_id AS romId, g.user_id AS userId,
+         COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username, '—') AS authorName,
+         g.title AS title, g.body AS body, g.created_at AS created_at, g.updated_at AS updated_at
+    FROM guides g LEFT JOIN users u ON u.id = g.user_id`;
+
+/** All guides for a game, newest-updated first. */
+export function listGuides(romId: number): GuideRow[] {
+  return getDb()
+    .prepare(`${GUIDE_SELECT} WHERE g.rom_id = ? ORDER BY COALESCE(g.updated_at, g.created_at) DESC`)
+    .all(romId) as GuideRow[];
+}
+
+export function getGuide(id: number): GuideRow | undefined {
+  return getDb().prepare(`${GUIDE_SELECT} WHERE g.id = ?`).get(id) as GuideRow | undefined;
+}
+
+export function createGuide(romId: number, userId: number, title: string, body: string): number {
+  const t = title.trim().slice(0, 160);
+  const b = body.trim().slice(0, 40000);
+  const info = getDb()
+    .prepare("INSERT INTO guides (rom_id, user_id, title, body) VALUES (?, ?, ?, ?)")
+    .run(romId, userId, t, b);
+  return Number(info.lastInsertRowid);
+}
+
+/** Edit a guide — only the author or an admin. Returns false if not permitted. */
+export function updateGuide(
+  id: number,
+  userId: number,
+  isAdmin: boolean,
+  title: string,
+  body: string
+): boolean {
+  const row = getDb().prepare("SELECT user_id FROM guides WHERE id = ?").get(id) as
+    | { user_id: number | null }
+    | undefined;
+  if (!row || (row.user_id !== userId && !isAdmin)) return false;
+  getDb()
+    .prepare("UPDATE guides SET title = ?, body = ?, updated_at = datetime('now') WHERE id = ?")
+    .run(title.trim().slice(0, 160), body.trim().slice(0, 40000), id);
+  return true;
+}
+
+/** Delete a guide — only the author or an admin. */
+export function deleteGuide(id: number, userId: number, isAdmin: boolean): boolean {
+  const row = getDb().prepare("SELECT user_id FROM guides WHERE id = ?").get(id) as
+    | { user_id: number | null }
+    | undefined;
+  if (!row || (row.user_id !== userId && !isAdmin)) return false;
+  getDb().prepare("DELETE FROM guides WHERE id = ?").run(id);
+  return true;
+}
+
+// ---------- per-game emulator A/V preferences ----------
+
+export interface EmuPrefs {
+  shader: string | null;
+}
+
+/** A user's emulator A/V prefs for a game (null shader = default/disabled). */
+export function getEmuPrefs(userId: number, romId: number): EmuPrefs {
+  const row = getDb()
+    .prepare("SELECT shader FROM emu_prefs WHERE user_id = ? AND rom_id = ?")
+    .get(userId, romId) as { shader: string | null } | undefined;
+  return { shader: row?.shader ?? null };
+}
+
+/** Save a user's shader choice for a game (null/'' clears it). */
+export function setEmuShader(userId: number, romId: number, shader: string | null): void {
+  const val = shader && shader.trim() && shader !== "disabled" ? shader.trim().slice(0, 64) : null;
+  getDb()
+    .prepare(
+      `INSERT INTO emu_prefs (user_id, rom_id, shader) VALUES (?, ?, ?)
+       ON CONFLICT (user_id, rom_id) DO UPDATE SET shader = excluded.shader`
+    )
+    .run(userId, romId, val);
+}
+
+// ---------- game cheats (per user, per game) ----------
+
+export interface CheatRow {
+  id: number;
+  name: string;
+  code: string;
+  enabled: number;
+  created_at: string;
+}
+
+/** A user's saved cheats for a game (newest first). */
+export function listCheats(userId: number, romId: number): CheatRow[] {
+  return getDb()
+    .prepare(
+      `SELECT id, name, code, enabled, created_at FROM game_cheats
+       WHERE user_id = ? AND rom_id = ? ORDER BY created_at ASC, id ASC`
+    )
+    .all(userId, romId) as CheatRow[];
+}
+
+/** Add a cheat (enabled by default). Returns the new row. */
+export function addCheat(
+  userId: number,
+  romId: number,
+  name: string,
+  code: string
+): CheatRow {
+  const cleanName = name.trim().slice(0, 80) || "Cheat";
+  // Normalise the code: uppercase, strip stray spaces per line, keep newlines
+  // (multi-line Game Genie/raw codes are valid).
+  const cleanCode = code
+    .split(/\r?\n/)
+    .map((l) => l.trim().toUpperCase())
+    .filter(Boolean)
+    .join("\n")
+    .slice(0, 400);
+  // Added disabled by default — cheats (especially raw RAM codes) can break a
+  // game, so the user opts in per cheat rather than having new ones apply live.
+  const info = getDb()
+    .prepare("INSERT INTO game_cheats (user_id, rom_id, name, code, enabled) VALUES (?, ?, ?, ?, 0)")
+    .run(userId, romId, cleanName, cleanCode);
+  return getDb()
+    .prepare("SELECT id, name, code, enabled, created_at FROM game_cheats WHERE id = ?")
+    .get(Number(info.lastInsertRowid)) as CheatRow;
+}
+
+/** Toggle a cheat on/off (scoped to the owner). */
+export function setCheatEnabled(userId: number, cheatId: number, enabled: boolean): void {
+  getDb()
+    .prepare("UPDATE game_cheats SET enabled = ? WHERE id = ? AND user_id = ?")
+    .run(enabled ? 1 : 0, cheatId, userId);
+}
+
+/** Delete a cheat (scoped to the owner). */
+export function deleteCheat(userId: number, cheatId: number): void {
+  getDb().prepare("DELETE FROM game_cheats WHERE id = ? AND user_id = ?").run(cheatId, userId);
+}
+
+// ---------- direct messages (friend chat) ----------
+
+export interface ChatMessage {
+  id: number;
+  senderId: number;
+  recipientId: number;
+  body: string;
+  created_at: string;
+  read_at: string | null;
+}
+
+export interface Conversation {
+  otherId: number;
+  name: string;
+  avatar_url: string | null;
+  presence: Presence;
+  lastBody: string | null;
+  lastAt: string | null;
+  lastFromMe: boolean;
+  unread: number;
+}
+
+/** True when two users are accepted friends (DMs are friends-only). */
+export function areFriends(a: number, b: number): boolean {
+  return !!getDb()
+    .prepare(
+      `SELECT 1 FROM friendships
+        WHERE status = 'accepted'
+          AND ((requester_id = ? AND addressee_id = ?) OR (requester_id = ? AND addressee_id = ?))
+        LIMIT 1`
+    )
+    .get(a, b, b, a);
+}
+
+/** Send a DM (friends only). Returns the new message, or null if not friends. */
+export function sendMessage(fromId: number, toId: number, body: string): ChatMessage | null {
+  const text = body.trim().slice(0, 4000);
+  if (!text || fromId === toId || !areFriends(fromId, toId)) return null;
+  const info = getDb()
+    .prepare("INSERT INTO messages (sender_id, recipient_id, body) VALUES (?, ?, ?)")
+    .run(fromId, toId, text);
+  return getDb()
+    .prepare(
+      "SELECT id, sender_id AS senderId, recipient_id AS recipientId, body, created_at, read_at FROM messages WHERE id = ?"
+    )
+    .get(Number(info.lastInsertRowid)) as ChatMessage;
+}
+
+/** The message thread between two users (oldest → newest, capped). */
+export function getThread(userId: number, otherId: number, limit = 200): ChatMessage[] {
+  const rows = getDb()
+    .prepare(
+      `SELECT id, sender_id AS senderId, recipient_id AS recipientId, body, created_at, read_at
+         FROM messages
+        WHERE (sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)
+        ORDER BY id DESC LIMIT ?`
+    )
+    .all(userId, otherId, otherId, userId, limit) as ChatMessage[];
+  return rows.reverse();
+}
+
+/** Mark all messages FROM `otherId` TO `userId` as read. */
+export function markThreadRead(userId: number, otherId: number): void {
+  getDb()
+    .prepare(
+      "UPDATE messages SET read_at = datetime('now') WHERE recipient_id = ? AND sender_id = ? AND read_at IS NULL"
+    )
+    .run(userId, otherId);
+}
+
+export function totalUnreadMessages(userId: number): number {
+  return (
+    getDb()
+      .prepare("SELECT COUNT(*) AS n FROM messages WHERE recipient_id = ? AND read_at IS NULL")
+      .get(userId) as { n: number }
+  ).n;
+}
+
+/** Conversations for the inbox: every friend, with the last message preview and
+ *  unread count. Friends you've messaged sort to the top by recency. */
+export function listConversations(userId: number): Conversation[] {
+  const friends = listFriends(userId);
+  const db = getDb();
+  const lastStmt = db.prepare(
+    `SELECT body, created_at, sender_id AS senderId
+       FROM messages
+      WHERE (sender_id = ? AND recipient_id = ?) OR (sender_id = ? AND recipient_id = ?)
+      ORDER BY id DESC LIMIT 1`
+  );
+  const unreadStmt = db.prepare(
+    "SELECT COUNT(*) AS n FROM messages WHERE recipient_id = ? AND sender_id = ? AND read_at IS NULL"
+  );
+  const convos: Conversation[] = friends.map((f) => {
+    const last = lastStmt.get(userId, f.id, f.id, userId) as
+      | { body: string; created_at: string; senderId: number }
+      | undefined;
+    const unread = (unreadStmt.get(userId, f.id) as { n: number }).n;
+    return {
+      otherId: f.id,
+      name: f.name,
+      avatar_url: f.avatar_url,
+      presence: f.presence ?? "offline",
+      lastBody: last?.body ?? null,
+      lastAt: last?.created_at ?? null,
+      lastFromMe: last ? last.senderId === userId : false,
+      unread,
+    };
+  });
+  // Conversations with messages first (newest last-message first), then the rest A→Z.
+  return convos.sort((a, b) => {
+    if (a.lastAt && b.lastAt) return a.lastAt < b.lastAt ? 1 : -1;
+    if (a.lastAt) return -1;
+    if (b.lastAt) return 1;
+    return a.name.localeCompare(b.name);
+  });
+}
+
 /** Split distinct comma-separated column values into a sorted token list */
 function tokenFacet(column: string, platformSlug?: string): string[] {
   const h = hiddenFilter();
@@ -1975,6 +2647,44 @@ export function listLibrary(userId: number): LibraryRomRow[] {
   return getDb()
     .prepare(`${LIBRARY_SELECT}${h.sql} ORDER BY r.sort_title`)
     .all(userId, ...h.params) as LibraryRomRow[];
+}
+
+/** Slim row for the home page + recommendation shelves — exactly the columns
+ *  they read, no heavy text. The full LIBRARY_SELECT (`r.*`) pulls ~62 MB across
+ *  the whole library; this keeps the per-visit home render cheap. */
+export interface HomeLibraryRow {
+  id: number;
+  title: string;
+  boxart_url: string | null;
+  hero_url: string | null;
+  screenshot_url: string | null;
+  platform_slug: string;
+  added_at: string | null;
+  genre: string | null;
+  rating: string | null;
+  favorite: number;
+  play_status: string;
+  playtime_seconds: number;
+  last_played_at: string | null;
+}
+
+const HOME_LIBRARY_SELECT = `
+  SELECT r.id, r.title, r.boxart_url, r.hero_url, r.screenshot_url, r.platform_slug,
+         r.added_at, r.genre, r.rating,
+         COALESCE(ur.favorite, 0) AS favorite,
+         COALESCE(ur.play_status, 'none') AS play_status,
+         COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
+         ur.last_played_at AS last_played_at
+  FROM roms r
+  LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+  WHERE r.missing = 0
+`;
+
+export function listLibraryForHome(userId: number): HomeLibraryRow[] {
+  const h = hiddenFilter(true, userId);
+  return getDb()
+    .prepare(`${HOME_LIBRARY_SELECT}${h.sql} ORDER BY r.sort_title`)
+    .all(userId, ...h.params) as HomeLibraryRow[];
 }
 
 export function getLibraryRom(userId: number, romId: number): LibraryRomRow | undefined {
@@ -2074,6 +2784,68 @@ export function presenceOf(status: string | null, lastSeen: string | null): Pres
   return status === "away" ? "away" : "online";
 }
 
+// ---------- now-playing (live "playing X right now") ----------
+
+/** A play session counts as "live" only with a very recent heartbeat — the
+ *  player pings every 60s, so a couple of missed beats means they've stopped
+ *  (browser closed without firing the stop beacon). Tighter than presence. */
+const PLAYING_WINDOW_MS = 3 * 60 * 1000;
+
+/** Mark a user as currently playing a game (called from the play heartbeat).
+ *  Also refreshes last_seen so presence stays online while playing. Stamps
+ *  playing_since only when the game changes, so it reflects THIS session. */
+export function setPlaying(userId: number, romId: number): void {
+  try {
+    getDb()
+      .prepare(
+        `UPDATE users
+            SET playing_rom_id = ?,
+                playing_since = CASE WHEN playing_rom_id = ? THEN playing_since ELSE datetime('now') END,
+                last_seen = datetime('now')
+          WHERE id = ?`
+      )
+      .run(romId, romId, userId);
+  } catch {
+    /* best-effort */
+  }
+}
+
+/** Clear a user's now-playing (on exit / stop beacon). */
+export function clearPlaying(userId: number, romId?: number): void {
+  try {
+    // Only clear if still on this game (avoid a stale beacon wiping a newer session).
+    if (romId != null) {
+      getDb()
+        .prepare("UPDATE users SET playing_rom_id = NULL, playing_since = NULL WHERE id = ? AND playing_rom_id = ?")
+        .run(userId, romId);
+    } else {
+      getDb().prepare("UPDATE users SET playing_rom_id = NULL, playing_since = NULL WHERE id = ?").run(userId);
+    }
+  } catch {
+    /* best-effort */
+  }
+}
+
+/** The game a user is playing right now (title + id), or null. Respects the
+ *  live window and the Invisible status. */
+export interface NowPlaying {
+  romId: number;
+  title: string;
+  platformSlug: string;
+}
+export function nowPlayingFor(
+  status: string | null,
+  lastSeen: string | null,
+  playingRomId: number | null,
+  title: string | null,
+  platformSlug: string | null
+): NowPlaying | null {
+  if (status === "invisible" || !playingRomId || !title || !lastSeen) return null;
+  const age = Date.now() - new Date(lastSeen.replace(" ", "T") + "Z").getTime();
+  if (!Number.isFinite(age) || age > PLAYING_WINDOW_MS) return null;
+  return { romId: playingRomId, title, platformSlug: platformSlug ?? "" };
+}
+
 // ---------- friendships (mutual friend graph) ----------
 
 export type FriendshipState = "none" | "friends" | "incoming" | "outgoing";
@@ -2086,6 +2858,8 @@ export interface FriendUser {
   since: string;
   /** Derived presence — populated for accepted friends (listFriends). */
   presence?: Presence;
+  /** The game this friend is playing right now (listFriends), or null. */
+  playing?: NowPlaying | null;
 }
 
 /** Accepted friend ids for a user (both directions). */
@@ -2164,17 +2938,36 @@ export function listFriends(userId: number): FriendUser[] {
               u.avatar_url AS avatar_url,
               u.status AS status,
               u.last_seen AS last_seen,
+              u.playing_rom_id AS playing_rom_id,
+              pr.title AS playing_title,
+              pr.platform_slug AS playing_slug,
               COALESCE(f.updated_at, f.created_at) AS since
          FROM friendships f
          JOIN users u ON u.id = CASE WHEN f.requester_id = ? THEN f.addressee_id ELSE f.requester_id END
+         LEFT JOIN roms pr ON pr.id = u.playing_rom_id AND pr.missing = 0
         WHERE f.status = 'accepted' AND (f.requester_id = ? OR f.addressee_id = ?)
         ORDER BY name COLLATE NOCASE`
     )
-    .all(userId, userId, userId) as (FriendUser & { status: string | null; last_seen: string | null })[];
-  const rank: Record<Presence, number> = { online: 0, away: 1, offline: 2 };
+    .all(userId, userId, userId) as (FriendUser & {
+    status: string | null;
+    last_seen: string | null;
+    playing_rom_id: number | null;
+    playing_title: string | null;
+    playing_slug: string | null;
+  })[];
+  // Playing friends sort to the very top, then online, away, offline.
+  const rank: Record<Presence, number> = { online: 1, away: 2, offline: 3 };
   return rows
-    .map(({ status, last_seen, ...f }) => ({ ...f, presence: presenceOf(status, last_seen) }))
-    .sort((a, b) => rank[a.presence!] - rank[b.presence!] || a.name.localeCompare(b.name));
+    .map(({ status, last_seen, playing_rom_id, playing_title, playing_slug, ...f }) => ({
+      ...f,
+      presence: presenceOf(status, last_seen),
+      playing: nowPlayingFor(status, last_seen, playing_rom_id, playing_title, playing_slug),
+    }))
+    .sort(
+      (a, b) =>
+        (a.playing ? 0 : rank[a.presence!]) - (b.playing ? 0 : rank[b.presence!]) ||
+        a.name.localeCompare(b.name)
+    );
 }
 
 /** Pending requests others have sent to `userId` (awaiting their accept). */

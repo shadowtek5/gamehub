@@ -219,7 +219,9 @@ export default function NewCollectionForm({
                       )}
                     </span>
                     <ChipPicker
-                      options={genres.map((g) => ({ value: g, label: g }))}
+                      options={[...genres]
+                        .sort((a, b) => a.localeCompare(b))
+                        .map((g) => ({ value: g, label: g }))}
                       selected={fGenres}
                       onChange={setFGenres}
                     />
@@ -240,7 +242,9 @@ export default function NewCollectionForm({
                       )}
                     </span>
                     <ChipPicker
-                      options={languages.map((l) => ({ value: l, label: LANGUAGE_NAMES[l] ?? l }))}
+                      options={[...languages]
+                        .sort((a, b) => (LANGUAGE_NAMES[a] ?? a).localeCompare(LANGUAGE_NAMES[b] ?? b))
+                        .map((l) => ({ value: l, label: LANGUAGE_NAMES[l] ?? l }))}
                       selected={fLanguages}
                       onChange={setFLanguages}
                     />

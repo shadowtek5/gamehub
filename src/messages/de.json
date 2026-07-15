@@ -25,7 +25,8 @@
     "downloads": "Downloads",
     "activity": "Aktivität",
     "settings": "Einstellungen",
-    "power": "Power"
+    "power": "Power",
+    "messages": "Nachrichten"
   },
   "legend": {
     "menu": "Menü",
@@ -217,7 +218,9 @@
       "requestsSent": "Gesendete Anfragen",
       "cancel": "Abbrechen",
       "removeConfirmTitle": "{name} entfernen?",
-      "removeConfirmBody": "Die Person wird aus deinen Freunden entfernt. Du kannst jederzeit eine neue Anfrage senden."
+      "removeConfirmBody": "Die Person wird aus deinen Freunden entfernt. Du kannst jederzeit eine neue Anfrage senden.",
+      "playingGame": "Spielt {title}",
+      "message": "Nachricht"
     },
     "summary": {
       "title": "Freunde",
@@ -556,7 +559,16 @@
       "bind": "{label} zuweisen",
       "scopeNoteGlobal": "Standardlayout für diesen Controllertyp. Pro-System- und pro-Spiel-Layouts überschreiben es.",
       "scopeNoteSystem": "Gilt für jedes Spiel auf diesem System und überschreibt die globale Standardeinstellung. Pro-Spiel-Layouts haben trotzdem Vorrang.",
-      "scopeNoteGame": "Gilt nur für dieses Spiel und überschreibt System- und globale Layouts."
+      "scopeNoteGame": "Gilt nur für dieses Spiel und überschreibt System- und globale Layouts.",
+      "share": "Teilen",
+      "exportHeading": "Dieses Layout exportieren",
+      "copyCode": "Code kopieren",
+      "copied": "✓ Kopiert",
+      "importHeading": "Ein Layout importieren",
+      "pastePlaceholder": "Layout-Code einfügen…",
+      "applyCode": "Anwenden",
+      "importInvalid": "Das sieht nicht wie ein gültiger Layout-Code aus.",
+      "importNote": "Das Anwenden lädt den Code in den Editor — drücke Layout speichern, um es zu behalten."
     },
     "button": {
       "controllerLayout": "Controller-Layout",
@@ -602,7 +614,15 @@
       "tagQueued": "In Warteschlange",
       "scheduled": "Geplant",
       "noRecurring": "Keine wiederkehrenden Aufgaben aktiviert.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusOptimizing": "Boxart wird optimiert…",
+      "optimizingArt": "Boxart wird optimiert",
+      "statusHashing": "Hashes werden berechnet…",
+      "statusArt": "System-Artwork wird neu gescrapt…",
+      "statusThumbs": "Bilder werden aktualisiert…",
+      "hashingFiles": "Hashes berechnen",
+      "scrapingArt": "Artwork neu scrapen",
+      "refreshingImages": "Bilder aktualisieren"
     },
     "quota": {
       "providerRequestLimits": "Anbieter-Anfragelimits",
@@ -640,7 +660,50 @@
     "retry": "Erneut versuchen",
     "exit": "Beenden",
     "dismiss": "Schließen",
-    "controllerLayoutTitle": "Controller-Layout — {title}"
+    "controllerLayoutTitle": "Controller-Layout — {title}",
+    "screenshot": "Screenshot (F2)",
+    "screenshotSaved": "Screenshot gespeichert",
+    "screenshotFailed": "Screenshot fehlgeschlagen",
+    "playTimeUp": "Die Zeit für heute ist vorbei — wird gespeichert und beendet.",
+    "playOutsideHours": "Die Spielzeit ist jetzt vorbei — wird gespeichert und beendet.",
+    "quickMenu": "Schnellmenü",
+    "quickMenuHint": "D-Pad zum Navigieren · A zum Auswählen · B zum Zurückgehen · Select+Start zum Umschalten",
+    "resume": "Fortsetzen",
+    "saveState": "Zustand speichern",
+    "loadState": "Zustand laden",
+    "restart": "Spiel neu starten",
+    "restarted": "Spiel neu gestartet",
+    "restartUnavailable": "Neustart ist für diesen Kern nicht verfügbar",
+    "exitGame": "Spiel beenden",
+    "back": "Zurück",
+    "loadingStates": "Zustände werden geladen…",
+    "stateSlot": "Gespeichert von {date}",
+    "recordClip": "Clip aufnehmen",
+    "stopRecording": "Aufnahme stoppen",
+    "recording": "AUF",
+    "clipSaved": "Clip gespeichert",
+    "recordUnavailable": "Aufzeichnung wird in diesem Browser nicht unterstützt",
+    "pause": "Spiel pausieren / fortsetzen",
+    "fastForward": "Schneller Vorlauf",
+    "mute": "Stummschalten / Ton ein",
+    "fullscreen": "Vollbild umschalten",
+    "cheats": "Cheats",
+    "netplay": "Netplay",
+    "videoFilter": "Videofilter",
+    "videoFilterSaved": "Videofilter gespeichert",
+    "actionUnavailable": "Nicht verfügbar für dieses Spiel",
+    "loadingCheats": "Cheats werden geladen…",
+    "noCheats": "Noch keine Cheats. Fügen Sie Codes von der Spielseite hinzu oder wählen Sie aus der Liste unten.",
+    "cheatOn": "An",
+    "cheatOff": "Aus",
+    "cheatsFromList": "Aus Liste hinzufügen",
+    "menuLabel": "Menü",
+    "selectLabel": "Auswählen",
+    "navHome": "Startseite",
+    "navLibrary": "Mediathek",
+    "navFriends": "Freunde",
+    "navSettings": "Einstellungen",
+    "navPower": "Spiel beenden"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "DEIN ZEUG",
     "tabVariants": "VARIANTEN",
     "tabRelated": "VERWANDT",
-    "tabGameInfo": "SPIELINFO"
+    "tabGameInfo": "SPIELINFO",
+    "screenshotsSection": "Deine Screenshots",
+    "tabReviews": "BEWERTUNGEN",
+    "compatSection": "Kompatibilität",
+    "tabGuides": "ANLEITUNGEN",
+    "videoSection": "Videofilter",
+    "cheatsSection": "Cheats"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "System-Artwork neu scrapen",
       "rescrapeArtDesc": "Hero, Logo, Icon und Ribbon-Artwork für jedes System in deiner Bibliothek in deiner konfigurierten Anbieter-Reihenfolge neu abrufen. Nach Änderung von Anbietern oder Artwork-Mapping verwenden. Läuft im Hintergrund.",
       "rescrapeAll": "Alles neu scrapen",
+      "localizeArt": "Boxart optimieren",
+      "localizeArtDesc": "Lade jedes noch von libretro verlinkte Cover als WebP in den lokalen Speicher herunter und baue die kleinen schnellen Miniaturansichten für bereits lokal gespeicherte Cover neu auf — damit die Bibliothek schnell lädt und nie von einer externen Seite abhängt. Cover ohne libretro-Treffer werden auf einen Platzhalter zurückgesetzt. Läuft im Hintergrund.",
+      "localizeStart": "Alle optimieren",
+      "localizeResult": "✓ {localized} heruntergeladen, {optimized} optimiert, {cleared} tote Links entfernt{failed, plural, =0 {} other {, # zur Wiederholung}}",
       "updated": "{count} aktualisiert",
       "cancelledPrefix": "Abgebrochen — ",
       "updatedSystems": "{updated} von {done} Systemen aktualisiert",
@@ -1064,7 +1137,16 @@
       "confirmBody": "{missing, plural, one {# fehlendes Spiel} other {# fehlende Spiele}} und {orphan, plural, one {# verwaisten Medienordner} other {# verwaiste Medienordner}} entfernen. Favoriten und Sammlungseinträge dieser Spiele werden ebenfalls entfernt. ROM-Dateien bleiben unberührt.",
       "failedToStart": "Start fehlgeschlagen",
       "removedSummary": "✓ {games} Spiele und {folders} Medienordner entfernt",
-      "failed": "Fehlgeschlagen"
+      "failed": "Fehlgeschlagen",
+      "localizeQueued": "In der Warteschlange — läuft nach dem aktuellen Auftrag. Verfolge es auf der Downloads-Seite.",
+      "jobQueued": "In der Warteschlange — läuft nach dem aktuellen Auftrag. Verfolge es auf der Downloads-Seite.",
+      "chooseSystems": "Systeme auswählen…",
+      "runSelected": "Auswahl ausführen",
+      "runAll": "Alle ausführen",
+      "selectedCount": "{count} ausgewählt",
+      "noneSelected": "Nichts ausgewählt",
+      "pickSystemsHint": "Wähle ein oder mehrere Systeme oder führe es für die gesamte Bibliothek aus.",
+      "noConfiguredSystems": "Noch keine konfigurierten Systeme."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "verwendet am {date}",
       "neverUsed": "nie verwendet",
       "revoke": "Widerrufen",
-      "noTokensYet": "Noch keine Tokens."
+      "noTokensYet": "Noch keine Tokens.",
+      "expiryNever": "Läuft nie ab",
+      "expiry30": "Läuft in 30 Tagen ab",
+      "expiry90": "Läuft in 90 Tagen ab",
+      "expiry365": "Läuft in 1 Jahr ab"
     },
     "retroAchievements": {
       "raIntro1": "Verknüpfe dein",
@@ -1235,7 +1321,15 @@
     "loading": "Lädt…",
     "scheduled": "Geplant",
     "noRecurringTasks": "Keine wiederkehrenden Aufgaben aktiviert.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusOptimizing": "Boxart wird optimiert…",
+    "optimizingArtBar": "Boxart wird optimiert",
+    "statusHashing": "Hashes werden berechnet…",
+    "statusArt": "System-Artwork wird neu gescrapt…",
+    "statusThumbs": "Bilder werden aktualisiert…",
+    "hashingFilesBar": "Hashes berechnen",
+    "scrapingArtBar": "Artwork neu scrapen",
+    "refreshingImagesBar": "Bilder aktualisieren"
   },
   "mobileGameOptions": {
     "gameOptions": "Spieloptionen",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Sprache",
       "metaFranchise": "Franchise",
       "metaAgeRating": "Altersfreigabe",
-      "metaFile": "Datei"
+      "metaFile": "Datei",
+      "sectionReviews": "Bewertungen",
+      "sectionGuides": "Anleitungen"
     },
     "properties": {
       "back": "Zurück zum Spiel",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Suchen",
-      "profile": "Profil"
+      "profile": "Profil",
+      "messages": "Nachrichten"
     },
     "desktopSiteLink": {
       "desktopSite": "Desktop-Seite"
@@ -1589,7 +1686,8 @@
       "hero": "Hero-Bild",
       "logo": "Logo",
       "icon": "Icon"
-    }
+    },
+    "sectionMaintenance": "Wartung"
   },
   "primitives": {
     "cancel": "Abbrechen",
@@ -1684,7 +1782,9 @@
       "optPort": "Port",
       "optDlc": "DLC & Add-on",
       "optExpansion": "Erweiterung",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Verwandtes Spiel hinzufügen",
+      "kindAria": "Beziehungstyp"
     },
     "playSummary": {
       "title": "Spielzusammenfassung",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Auch unbewertete Spiele ausblenden (streng — die meisten Spiele haben noch keine Bewertung)",
       "deleteWarning": "Dies entfernt das Profil von {count, plural, one {# zugewiesenem Benutzer} other {# zugewiesenen Benutzern}} — sie erhalten wieder vollen, unbeschränkten Zugriff.",
       "noUsersAssigned": "Diesem Profil sind keine Benutzer zugewiesen.",
-      "deleteProfile": "Profil löschen"
+      "deleteProfile": "Profil löschen",
+      "playTimeHeading": "Spielzeit",
+      "dailyLimitLabel": "Tägliches Spielzeitlimit",
+      "noLimit": "Kein Limit",
+      "minutesPerDay": "Minuten / Tag",
+      "scheduleLabel": "Spielen nur zu bestimmten Zeiten erlauben",
+      "allowedFrom": "Von",
+      "allowedTo": "bis"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# Spiel} other {# Spiele}}"
-    },
-    "carousel": {
-      "scrollLeft": "Nach links scrollen",
-      "scrollRight": "Nach rechts scrollen"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Auto",
       "wide": "Breit",
       "square": "Quadratisch",
+      "cart": "Modul",
       "portrait": "Hochformat"
     },
     "scanning": "Scanne {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "In deinem Browser spielbar",
       "downloadToPlay": "{name} — zum Spielen herunterladen"
     }
+  },
+  "screenshots": {
+    "title": "Deine Screenshots",
+    "viewCapture": "Screenshot anzeigen",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "download": "Herunterladen",
+    "delete": "Löschen",
+    "close": "Schließen"
+  },
+  "reviews": {
+    "noneYet": "Noch keine Bewertungen — sei der Erste.",
+    "recommendedPct": "{pct}% empfohlen",
+    "basedOn": "{recommended} von {count} empfehlen dies",
+    "yourReview": "Deine Bewertung",
+    "writeReview": "Schreibe eine Bewertung",
+    "recommend": "Empfehlen",
+    "notRecommend": "Nicht für mich",
+    "bodyPlaceholder": "Teile deine Gedanken mit… (optional)",
+    "post": "Bewertung veröffentlichen",
+    "update": "Bewertung aktualisieren",
+    "delete": "Löschen",
+    "communityReviews": "{count, plural, one {# Bewertung} other {# Bewertungen}}"
+  },
+  "search": {
+    "placeholder": "Suche nach Spielen, Systemen, Sammlungen, Freunden…",
+    "hint": "Geben Sie ein, um alles zu durchsuchen.",
+    "noResults": "Keine Treffer.",
+    "groupPages": "Seiten",
+    "groupGames": "Spiele",
+    "groupSystems": "Systeme",
+    "groupCollections": "Sammlungen",
+    "groupFriends": "Freunde",
+    "gamesCount": "{count, plural, one {# Spiel} other {# Spiele}}"
+  },
+  "compat": {
+    "title": "Emulator-Kompatibilität",
+    "labelPlayable": "Spielbar",
+    "labelRuns": "Läuft mit Problemen",
+    "labelBroken": "Defekt",
+    "labelUnknown": "Nicht getestet",
+    "yourReport": "Wie läuft es bei dir?",
+    "notePlaceholder": "Notiz hinzufügen (optional) — Fehler, hilfreiche Einstellungen…",
+    "save": "Speichern",
+    "update": "Aktualisieren",
+    "clear": "Löschen",
+    "reportsCount": "{count, plural, one {# Bericht} other {# Berichte}}",
+    "officialBadge": "Offizielle Bewertung",
+    "untestedHint": "Noch nicht getestet — gib den ersten Bericht ab.",
+    "officialLabel": "Offizielle Bewertung (Admin)",
+    "clearOfficial": "Keine offizielle Bewertung"
+  },
+  "guides": {
+    "writeGuide": "Anleitung schreiben",
+    "noneYet": "Noch keine Anleitungen — schreiben Sie die erste.",
+    "by": "von {name}",
+    "back": "Alle Anleitungen",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "deleteConfirm": "Diese Anleitung löschen?",
+    "save": "Anleitung speichern",
+    "cancel": "Abbrechen",
+    "titlePlaceholder": "Anleitung Titel",
+    "bodyPlaceholder": "Schreiben Sie Ihre Anleitung, Tipps oder Strategie…",
+    "newGuide": "Neue Anleitung",
+    "editGuide": "Anleitung bearbeiten"
+  },
+  "playLimit": {
+    "title": "Die Zeit ist vorbei",
+    "limitReached": "Du hast dein tägliches Spielzeitlimit von {minutes} Minuten erreicht. Komm morgen wieder!",
+    "outsideHours": "Spielen ist nur zwischen {start} und {end} Uhr erlaubt.",
+    "back": "Zurück zum Spiel"
+  },
+  "messages": {
+    "title": "Nachrichten",
+    "noFriends": "Füge Freunde hinzu, um zu chatten.",
+    "you": "Du",
+    "noMessagesYet": "Noch keine Nachrichten",
+    "pickConversation": "Wähle eine Unterhaltung, um zu chatten.",
+    "sayHi": "Sag Hallo 👋",
+    "messagePlaceholder": "Gib eine Nachricht ein…",
+    "send": "Senden",
+    "back": "Zurück"
+  },
+  "emuVideo": {
+    "videoFilter": "Videofilter",
+    "filterOff": "Keine (scharfe Pixel)",
+    "filterSmooth": "Glatt (bilinear)",
+    "appliesNextLaunch": "Wird angewendet beim nächsten Start",
+    "saving": "Wird gespeichert…"
+  },
+  "cheats": {
+    "loading": "Cheats werden geladen…",
+    "empty": "Noch keine Cheats hinzugefügt.",
+    "remove": "Entfernen",
+    "suggested": "Für dieses Spiel empfohlen",
+    "addTitle": "Einen Cheat hinzufügen",
+    "namePlaceholder": "Name (z. B. Unendliches Leben)",
+    "codePlaceholder": "Game Genie oder Raw Code — einer pro Zeile",
+    "appliesHint": "Gilt beim nächsten Spielen",
+    "add": "Hinzufügen",
+    "searchPlaceholder": "Cheats durchsuchen…"
   }
 }

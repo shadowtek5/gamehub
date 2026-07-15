@@ -15,6 +15,108 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-15",
+    title: "Cheats — with a huge built-in code library",
+    body: "Games now have a Cheats section (and a Cheats page in the in-game Quick Menu). Pick from a built-in library of over half a million ready-made cheats covering ~14,000 games — search by name and add with one tap — or type your own Game Genie / raw codes. Toggle each one on or off; changes in the Quick Menu apply instantly, and codes set on the game page kick in the next time you launch. On desktop/TV and the mobile app.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
+    title: "A cleaner in-game menu",
+    body: "The in-game Quick Menu is now the single place for everything. EmulatorJS's default control bar is hidden for a clean, distraction-free screen — one subtle menu button (or Select+Start / F1) opens the menu, and it holds it all: pause, fast-forward, save/load states, screenshot, record, mute, fullscreen, cheats, controller layout, restart, exit — plus a new Video filter picker (sharp pixels, smooth, or a CRT look, remembered per game). You can also still set the video filter on the game page.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
+    title: "Record clips of your gameplay",
+    body: "You can now record video clips while you play. Hit the ● button in the on-screen bar (or \"Record clip\" in the Quick Menu) to start capturing the game, and stop it the same way — a \"REC\" indicator shows while it's rolling, and the clip downloads to your device when you stop. Handy for capturing that perfect run or a weird glitch. (Clips are video-only for now; syncing game audio is on the list.)",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
+    title: "Faster library — box art now lives locally",
+    body: "Library and system pages load a lot faster. GameHub no longer hotlinks cover art live from an external site — every cover is downloaded once and stored locally as a compact WebP (a ~350 KB remote PNG becomes a ~20 KB local thumbnail), so grids paint quickly and don't depend on anyone else's server being up. New games are localized automatically after a scan, and there's a one-time \"Download box art locally\" action under Settings › Storage & maintenance to convert an existing library (it also clears dead cover links to a clean placeholder).",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
+    title: "An in-game Quick Menu, Steam Deck-style",
+    body: "While a game is running you can now pull up a Quick Menu overlay — press Select + Start on a controller, or hit the ☰ button in the on-screen bar. From it you can save a state, load any of your save-state slots (with thumbnails), grab a screenshot, open the controller-layout editor, restart, or exit — without fumbling through the emulator's own menus. It's fully controller-navigable (D-pad to move, A to pick, B to go back). New feature — worth a quick try with your controller.",
+    art: "news",
+  },
+  {
+    date: "2026-07-15",
+    title: "Message your friends",
+    body: "GameHub now has direct messages. A new Messages area (the chat icon in the top bar, or the Message button next to any friend) lets you chat one-on-one with your friends: a conversation list with unread badges on the left, the thread on the right, and a live unread count on the header icon. Messages update as they arrive, opening a conversation marks it read, and it's friends-only. Works on desktop/TV and the mobile app.",
+    art: "recommendations",
+  },
+  {
+    date: "2026-07-15",
+    title: "Share your controller layouts",
+    body: "Perfected a button mapping? You can now share it. The controller-layout editor has a new Share panel: hit Copy code to turn the current layout into a short shareable code, and paste a friend's code into Import to load it in — then Save to keep it. Great for handing a known-good mapping for a fiddly pad or a specific game to someone else, no re-mapping button by button. Works everywhere the layout editor does, on desktop/TV and the mobile app.",
+    art: "news",
+  },
+  {
+    date: "2026-07-15",
+    title: "Box art that fits every system",
+    body: "System cards now size themselves to the actual box art. Instead of a fixed, per-system card shape, each system's grid samples the first game that has art, reads its real proportions, and sizes every card to match — so tall PS1 covers, near-square 3DS keep-cases and wide cartridge labels all fill their cards cleanly with no more cropped edges. It just works, with nothing to configure, on both desktop/TV and the mobile app.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
+    title: "Playtime limits and schedules for kids",
+    body: "Parental controls got real teeth. A restriction profile (Settings › Age restrictions) can now set a daily play-time limit and an allowed-hours window — say 60 minutes a day, only between 3 PM and 8 PM. When a child on that profile reaches the limit or is outside the allowed hours, they simply can't launch a game, and if they hit the limit mid-session the game saves and exits with a friendly \"time's up\" message. It's all on top of the existing per-profile system and content-rating limits, and applies on desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-07-15",
+    title: "Write and read guides for your games",
+    body: "Games now have community guides. A new GUIDES tab on the game page (a Guides section on mobile) lets anyone write a walkthrough, tips or strategy and read what others have shared. Browse the list, open a guide to read it in full, and edit or delete your own any time (admins can moderate any). It's plain, no-fuss text — just hit \"Write a guide\". On desktop/TV and the mobile app.",
+    art: "news",
+  },
+  {
+    date: "2026-07-15",
+    title: "Compatibility ratings — know before you play",
+    body: "Playable games now show an emulation compatibility badge, like Steam Deck's Verified/Playable or ProtonDB. On a game's page you'll see a consensus rating — Playable, Runs with issues, or Broken — built from everyone's reports, with a breakdown of the counts. Tell the community how it ran for you (and leave a note about glitches or settings that helped) in a couple of taps. Admins can pin an official rating that overrides the crowd. Shows on desktop/TV and the mobile app.",
+    art: "hashing",
+  },
+  {
+    date: "2026-07-15",
+    title: "Search everything from one box",
+    body: "There's now a universal search palette. Press Ctrl+K (or / on a keyboard), or tap the search icon in the top bar, and start typing — it finds games, systems, collections, friends and app pages all at once, grouped, with keyboard navigation (arrows + Enter). Jump straight to anything without digging through menus. On desktop/TV and the mobile app.",
+    art: "news",
+  },
+  {
+    date: "2026-07-15",
+    title: "Reviews — say whether a game's worth it",
+    body: "Games now have community reviews, Steam-style. On any game there's a new REVIEWS tab (a Reviews section on mobile): give a thumbs up or down and, if you like, write a few words. Everyone's reviews show together with an at-a-glance \"% recommended\" score, and the tab shows that percentage right on the label. You can edit or delete your review any time — one per person per game. Works on desktop/TV and the mobile app.",
+    art: "recommendations",
+  },
+  {
+    date: "2026-07-15",
+    title: "See what your friends are playing — live",
+    body: "Your friends list now shows who's in a game right now. While a friend is playing, their entry gets a green dot and a \"Playing {game}\" line, and they jump to the top of your friends list — tap through straight to the game. It updates as you play (no need to leave a game to broadcast it) and clears itself when you stop. Works on the Friends page on both desktop/TV and the mobile app, and it respects the Invisible status.",
+    art: "recommendations",
+  },
+  {
+    date: "2026-07-15",
+    title: "Take screenshots while you play",
+    body: "GameHub can now grab screenshots straight from the emulator, Steam-style. While a game is running, hit the camera button in the on-screen bar (or press F2) to capture the current frame — it's saved to your personal gallery for that game. Every game page now has a \"Your screenshots\" section (desktop and mobile) with a grid of your captures: click any one for a fullscreen viewer with next/previous, download, and delete. Your shots are private to you, and each game keeps your most recent 100.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-14",
+    title: "Dropdowns and menus tidied up",
+    body: "A pass over every dropdown and options menu for consistency. Genre lists are now alphabetized (like the language lists already were), the language picker reads in name order instead of by locale code, and the library Sort-by list is reordered for a ROM library (everyday sorts first, achievements last). API tokens now default to a safer least-privilege, 90-day setting — and you can finally set a token's expiry from the mobile app, not just desktop. The mobile game and system options menus were reordered to match desktop (with destructive \"Clean up missing\" isolated at the bottom), Patch ROM is available to non-admins on mobile just like desktop, and the kid-profile age cap now includes an Adults-Only 18+ tier.",
+    art: "news",
+  },
+  {
+    date: "2026-07-14",
+    title: "Crisp white icons across every menu",
+    body: "The menus got a visual cleanup to match Steam Big Picture. Every icon in Settings (both the desktop rail and the mobile list), the Quick Access panel, and the game/system option menus is now a clean white line icon instead of a mixed bag of colorful emoji — so the Language globe, Friends, Sign out, Fetch manual, Patch ROM and the rest all share one consistent look. Same on desktop/TV and the mobile app.",
+    art: "artwork",
+  },
+  {
     date: "2026-07-14",
     title: "Even more desktop tools reach the mobile app",
     body: "A second round of mobile parity, this time for admins and editors. A system's tools sheet (⚙) now lets you Upload ROMs, Manage firmware, edit the per-system controller layout, and export the system for other launchers (gamelist.xml, RetroArch .lpl, and multi-disc .m3u). A game's options sheet gains Fix metadata match, Fetch video snap, Fetch manual, and Patch ROM — and the game page now shows its full activity timeline, where you can post and read comments. And mobile Settings now includes the Age Restrictions panel — restriction profiles and per-system age gating — and lets you assign a restriction profile to a user.",

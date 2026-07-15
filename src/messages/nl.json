@@ -25,7 +25,8 @@
     "downloads": "Downloads",
     "activity": "Activiteit",
     "settings": "Instellingen",
-    "power": "Power"
+    "power": "Power",
+    "messages": "Berichten"
   },
   "legend": {
     "menu": "Menu",
@@ -217,7 +218,9 @@
       "requestsSent": "Verzonden verzoeken",
       "cancel": "Annuleren",
       "removeConfirmTitle": "{name} verwijderen?",
-      "removeConfirmBody": "De persoon wordt uit je vrienden verwijderd. Je kunt altijd een nieuw verzoek versturen."
+      "removeConfirmBody": "De persoon wordt uit je vrienden verwijderd. Je kunt altijd een nieuw verzoek versturen.",
+      "playingGame": "Speelt {title}",
+      "message": "Bericht"
     },
     "summary": {
       "title": "Vrienden",
@@ -556,7 +559,16 @@
       "bind": "{label} toewijzen",
       "scopeNoteGlobal": "Standaardlayout voor dit controllertype. Per-systeem- en per-spel-layouts overschrijven deze.",
       "scopeNoteSystem": "Geldt voor elk spel op dit systeem en overschrijft de globale standaard. Per-spel-layouts hebben voorrang.",
-      "scopeNoteGame": "Geldt alleen voor dit spel en overschrijft systeem- en globale layouts."
+      "scopeNoteGame": "Geldt alleen voor dit spel en overschrijft systeem- en globale layouts.",
+      "share": "Delen",
+      "exportHeading": "Deze indeling exporteren",
+      "copyCode": "Code kopiëren",
+      "copied": "✓ Gekopieerd",
+      "importHeading": "Een indeling importeren",
+      "pastePlaceholder": "Een indelingscode plakken…",
+      "applyCode": "Toepassen",
+      "importInvalid": "Dit lijkt geen geldige indelingscode te zijn.",
+      "importNote": "Toepassen laadt de code in de editor — druk op Indeling opslaan om deze te behouden."
     },
     "button": {
       "controllerLayout": "Controller-layout",
@@ -602,7 +614,15 @@
       "tagQueued": "In wachtrij",
       "scheduled": "Gepland",
       "noRecurring": "Geen terugkerende taken ingeschakeld.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusOptimizing": "Boxart optimaliseren…",
+      "optimizingArt": "Boxart optimaliseren",
+      "statusHashing": "Hashes berekenen…",
+      "statusArt": "Systeemafbeeldingen opnieuw ophalen…",
+      "statusThumbs": "Afbeeldingen vernieuwen…",
+      "hashingFiles": "Hashes berekenen",
+      "scrapingArt": "Afbeeldingen opnieuw ophalen",
+      "refreshingImages": "Afbeeldingen vernieuwen"
     },
     "quota": {
       "providerRequestLimits": "Provider-verzoeklimieten",
@@ -640,7 +660,50 @@
     "retry": "Opnieuw proberen",
     "exit": "Afsluiten",
     "dismiss": "Sluiten",
-    "controllerLayoutTitle": "Controller-layout — {title}"
+    "controllerLayoutTitle": "Controller-layout — {title}",
+    "screenshot": "Schermafbeelding (F2)",
+    "screenshotSaved": "Schermafbeelding opgeslagen",
+    "screenshotFailed": "Schermafbeelding mislukt",
+    "playTimeUp": "Speeltijd voorbij voor vandaag — opslaan en afsluiten.",
+    "playOutsideHours": "Speeltijd is voorbij — opslaan en afsluiten.",
+    "quickMenu": "Snelmenu",
+    "quickMenuHint": "D-pad voor navigatie · A selecteren · B terug · Select+Start schakelt",
+    "resume": "Hervatten",
+    "saveState": "Positie opslaan",
+    "loadState": "Positie laden",
+    "restart": "Spel herstarten",
+    "restarted": "Spel herstart",
+    "restartUnavailable": "Herstarten is niet beschikbaar voor deze core",
+    "exitGame": "Spel afsluiten",
+    "back": "Terug",
+    "loadingStates": "Opgeslagen posities laden…",
+    "stateSlot": "Opslaan van {date}",
+    "recordClip": "Clip opnemen",
+    "stopRecording": "Opname stoppen",
+    "recording": "REC",
+    "clipSaved": "Clip opgeslagen",
+    "recordUnavailable": "Opnemen wordt niet ondersteund in deze browser",
+    "pause": "Spel pauzeren / hervatten",
+    "fastForward": "Snel vooruit",
+    "mute": "Geluid uit / aan",
+    "fullscreen": "Fullscreen in-/uitschakelen",
+    "cheats": "Cheats",
+    "netplay": "Netplay",
+    "videoFilter": "Videofilter",
+    "videoFilterSaved": "Videofilter opgeslagen",
+    "actionUnavailable": "Niet beschikbaar voor deze game",
+    "loadingCheats": "Cheats laden…",
+    "noCheats": "Nog geen cheats. Voeg codes toe vanaf de gamepagina, of kies uit de onderstaande lijst.",
+    "cheatOn": "Aan",
+    "cheatOff": "Uit",
+    "cheatsFromList": "Toevoegen uit lijst",
+    "menuLabel": "Menu",
+    "selectLabel": "Selecteren",
+    "navHome": "Startpagina",
+    "navLibrary": "Bibliotheek",
+    "navFriends": "Vrienden",
+    "navSettings": "Instellingen",
+    "navPower": "Spel afsluiten"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "JOUW SPULLEN",
     "tabVariants": "VARIANTEN",
     "tabRelated": "GERELATEERD",
-    "tabGameInfo": "SPELINFORMATIE"
+    "tabGameInfo": "SPELINFORMATIE",
+    "screenshotsSection": "Je schermafbeeldingen",
+    "tabReviews": "BEOORDELINGEN",
+    "compatSection": "Compatibiliteit",
+    "tabGuides": "GIDSEN",
+    "videoSection": "Videofilter",
+    "cheatsSection": "Cheats"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Systeem-artwork opnieuw scrapen",
       "rescrapeArtDesc": "Hero, logo, icoon en ribbon-artwork voor elk systeem in je bibliotheek opnieuw ophalen in je geconfigureerde provider-volgorde. Gebruik na het wijzigen van providers of artwork-mapping. Draait op de achtergrond.",
       "rescrapeAll": "Alles opnieuw scrapen",
+      "localizeArt": "Boxart optimaliseren",
+      "localizeArtDesc": "Download elke cover die nog rechtstreeks vanaf libretro wordt gekoppeld lokaal als WebP, en bouw de kleine snelle miniaturen opnieuw op voor covers die al lokaal zijn opgeslagen — zodat de bibliotheek snel laadt en nooit afhankelijk is van een externe site. Covers zonder libretro-overeenkomst worden gewist naar een tijdelijke afbeelding. Draait op de achtergrond.",
+      "localizeStart": "Alles optimaliseren",
+      "localizeResult": "✓ {localized} gedownload, {optimized} geoptimaliseerd, {cleared} dode links gewist{failed, plural, =0 {} other {, # opnieuw proberen}}",
       "updated": "{count} bijgewerkt",
       "cancelledPrefix": "Geannuleerd — ",
       "updatedSystems": "{updated} van {done} systemen bijgewerkt",
@@ -1064,7 +1137,16 @@
       "confirmBody": "{missing, plural, one {# ontbrekend spel} other {# ontbrekende spellen}} en {orphan, plural, one {# wees-mediafolder} other {# wees-mediafolders}} verwijderen. Favorieten en collectie-items van deze spellen worden ook verwijderd. ROM-bestanden blijven onaangeroerd.",
       "failedToStart": "Start mislukt",
       "removedSummary": "✓ {games} spellen en {folders} mediafolders verwijderd",
-      "failed": "Mislukt"
+      "failed": "Mislukt",
+      "localizeQueued": "In de wachtrij — wordt uitgevoerd na de huidige taak. Volg het op de Downloads-pagina.",
+      "jobQueued": "In de wachtrij — wordt uitgevoerd na de huidige taak. Volg het op de Downloads-pagina.",
+      "chooseSystems": "Systemen kiezen…",
+      "runSelected": "Selectie uitvoeren",
+      "runAll": "Alles uitvoeren",
+      "selectedCount": "{count} geselecteerd",
+      "noneSelected": "Niets geselecteerd",
+      "pickSystemsHint": "Kies een of meer systemen, of voer uit op de hele bibliotheek.",
+      "noConfiguredSystems": "Nog geen geconfigureerde systemen."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "gebruikt op {date}",
       "neverUsed": "nooit gebruikt",
       "revoke": "Intrekken",
-      "noTokensYet": "Nog geen tokens."
+      "noTokensYet": "Nog geen tokens.",
+      "expiryNever": "Verloopt nooit",
+      "expiry30": "Verloopt over 30 dagen",
+      "expiry90": "Verloopt over 90 dagen",
+      "expiry365": "Verloopt over 1 jaar"
     },
     "retroAchievements": {
       "raIntro1": "Koppel je",
@@ -1235,7 +1321,15 @@
     "loading": "Laden…",
     "scheduled": "Gepland",
     "noRecurringTasks": "Geen terugkerende taken ingeschakeld.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusOptimizing": "Boxart optimaliseren…",
+    "optimizingArtBar": "Boxart optimaliseren",
+    "statusHashing": "Hashes berekenen…",
+    "statusArt": "Systeemafbeeldingen opnieuw ophalen…",
+    "statusThumbs": "Afbeeldingen vernieuwen…",
+    "hashingFilesBar": "Hashes berekenen",
+    "scrapingArtBar": "Afbeeldingen opnieuw ophalen",
+    "refreshingImagesBar": "Afbeeldingen vernieuwen"
   },
   "mobileGameOptions": {
     "gameOptions": "Spelopties",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Taal",
       "metaFranchise": "Franchise",
       "metaAgeRating": "Leeftijdsclassificatie",
-      "metaFile": "Bestand"
+      "metaFile": "Bestand",
+      "sectionReviews": "Beoordelingen",
+      "sectionGuides": "Gidsen"
     },
     "properties": {
       "back": "Terug naar spel",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Zoeken",
-      "profile": "Profiel"
+      "profile": "Profiel",
+      "messages": "Berichten"
     },
     "desktopSiteLink": {
       "desktopSite": "Desktop-site"
@@ -1589,7 +1686,8 @@
       "hero": "Hero-afbeelding",
       "logo": "Logo",
       "icon": "Icoon"
-    }
+    },
+    "sectionMaintenance": "Onderhoud"
   },
   "primitives": {
     "cancel": "Annuleren",
@@ -1684,7 +1782,9 @@
       "optPort": "Port",
       "optDlc": "DLC & add-on",
       "optExpansion": "Uitbreiding",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Voeg een gerelateerd spel toe",
+      "kindAria": "Relatietype"
     },
     "playSummary": {
       "title": "Speelsamenvatting",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Ook niet-geclassificeerde spellen verbergen (streng — de meeste spellen hebben nog geen classificatie)",
       "deleteWarning": "Dit verwijdert het profiel van {count, plural, one {# toegewezen gebruiker} other {# toegewezen gebruikers}} — zij krijgen weer volledige, onbeperkte toegang.",
       "noUsersAssigned": "Aan dit profiel zijn geen gebruikers toegewezen.",
-      "deleteProfile": "Profiel verwijderen"
+      "deleteProfile": "Profiel verwijderen",
+      "playTimeHeading": "Speeltijd",
+      "dailyLimitLabel": "Dagelijkse speeltijdlimiet",
+      "noLimit": "Geen limiet",
+      "minutesPerDay": "minuten / dag",
+      "scheduleLabel": "Spelen alleen toestaan op bepaalde tijdstippen",
+      "allowedFrom": "Van",
+      "allowedTo": "tot"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# spel} other {# spellen}}"
-    },
-    "carousel": {
-      "scrollLeft": "Naar links scrollen",
-      "scrollRight": "Naar rechts scrollen"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Auto",
       "wide": "Breed",
       "square": "Vierkant",
+      "cart": "Cartridge",
       "portrait": "Staand"
     },
     "scanning": "{name} scannen…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Speelbaar in je browser",
       "downloadToPlay": "{name} — downloaden om te spelen"
     }
+  },
+  "screenshots": {
+    "title": "Je schermafbeeldingen",
+    "viewCapture": "Schermafbeelding weergeven",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "download": "Download",
+    "delete": "Verwijderen",
+    "close": "Sluiten"
+  },
+  "reviews": {
+    "noneYet": "Nog geen beoordelingen — wees de eerste.",
+    "recommendedPct": "{pct}% aanbevolen",
+    "basedOn": "{recommended} van {count} bevelen dit aan",
+    "yourReview": "Je beoordeling",
+    "writeReview": "Schrijf een beoordeling",
+    "recommend": "Aanbevelen",
+    "notRecommend": "Niet voor mij",
+    "bodyPlaceholder": "Deel wat je denkt… (optioneel)",
+    "post": "Beoordeling plaatsen",
+    "update": "Beoordeling bijwerken",
+    "delete": "Verwijderen",
+    "communityReviews": "{count, plural, one {# beoordeling} other {# beoordelingen}}"
+  },
+  "search": {
+    "placeholder": "Zoek spellen, systemen, verzamelingen, vrienden…",
+    "hint": "Begin met typen om overal te zoeken.",
+    "noResults": "Geen overeenkomsten.",
+    "groupPages": "Pagina's",
+    "groupGames": "Spellen",
+    "groupSystems": "Systemen",
+    "groupCollections": "Verzamelingen",
+    "groupFriends": "Vrienden",
+    "gamesCount": "{count, plural, one {# spel} other {# spellen}}"
+  },
+  "compat": {
+    "title": "Emulatie-compatibiliteit",
+    "labelPlayable": "Speelbaar",
+    "labelRuns": "Loopt met problemen",
+    "labelBroken": "Niet werkend",
+    "labelUnknown": "Niet getest",
+    "yourReport": "Hoe werkt het voor jou?",
+    "notePlaceholder": "Voeg een opmerking toe (optioneel) — glitches, instellingen die hielpen…",
+    "save": "Opslaan",
+    "update": "Bijwerken",
+    "clear": "Wissen",
+    "reportsCount": "{count, plural, one {# rapport} other {# rapporten}}",
+    "officialBadge": "Officiële beoordeling",
+    "untestedHint": "Nog niet getest — voeg het eerste rapport toe.",
+    "officialLabel": "Officiële beoordeling (admin)",
+    "clearOfficial": "Geen officiële beoordeling"
+  },
+  "guides": {
+    "writeGuide": "Schrijf een gids",
+    "noneYet": "Nog geen gidsen — schrijf de eerste.",
+    "by": "door {name}",
+    "back": "Alle gidsen",
+    "edit": "Bewerken",
+    "delete": "Verwijderen",
+    "deleteConfirm": "Deze gids verwijderen?",
+    "save": "Gids opslaan",
+    "cancel": "Annuleren",
+    "titlePlaceholder": "Gidstitel",
+    "bodyPlaceholder": "Schrijf uw handleiding, tips of strategie…",
+    "newGuide": "Nieuwe gids",
+    "editGuide": "Gids bewerken"
+  },
+  "playLimit": {
+    "title": "Speeltijd voorbij",
+    "limitReached": "Je hebt je dagelijkse speeltijdlimiet van {minutes} minuten bereikt. Tot morgen!",
+    "outsideHours": "Speeltijd is alleen toegestaan tussen {start} en {end}.",
+    "back": "Terug naar spel"
+  },
+  "messages": {
+    "title": "Berichten",
+    "noFriends": "Voeg vrienden toe om te beginnen met chatten.",
+    "you": "Jij",
+    "noMessagesYet": "Nog geen berichten",
+    "pickConversation": "Kies een gesprek om te beginnen met chatten.",
+    "sayHi": "Hallo 👋",
+    "messagePlaceholder": "Typ een bericht…",
+    "send": "Verzenden",
+    "back": "Terug"
+  },
+  "emuVideo": {
+    "videoFilter": "Videofilter",
+    "filterOff": "Geen (scherpe pixels)",
+    "filterSmooth": "Glad (bilineair)",
+    "appliesNextLaunch": "Wordt toegepast bij volgende start",
+    "saving": "Opslaan…"
+  },
+  "cheats": {
+    "loading": "Cheats laden…",
+    "empty": "Nog geen cheats toegevoegd.",
+    "remove": "Verwijderen",
+    "suggested": "Aanbevolen voor dit spel",
+    "addTitle": "Een cheat toevoegen",
+    "namePlaceholder": "Naam (bijv. Onbeperkte levens)",
+    "codePlaceholder": "Game Genie of onbewerkte code — één per regel",
+    "appliesHint": "Volgende keer dat je speelt",
+    "add": "Toevoegen",
+    "searchPlaceholder": "Cheats zoeken…"
   }
 }

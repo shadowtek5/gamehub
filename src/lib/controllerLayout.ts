@@ -158,7 +158,37 @@ export function sanitizeLayout(input: unknown): Layout {
   return out;
 }
 
-export type LayoutSource = "game" | "system" | "global" | "default";
+// ---- share codes: export/import a layout as a compact, paste-able string ----
+const SHARE_PREFIX = "GHCL1.";
+
+/** Encode a layout as a shareable code (base64url of its JSON, versioned). */
+export function encodeLayoutCode(layout: Layout): string {
+  try {
+    const json = JSON.stringify(layout);
+    const b64 =
+      typeof btoa !== "undefined" ? btoa(json) : Buffer.from(json, "utf8").toString("base64");
+    return SHARE_PREFIX + b64.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  } catch {
+    return "";
+  }
+}
+
+/** Decode a share code back into a (sanitized, complete) layout, or null. */
+export function decodeLayoutCode(code: string): Layout | null {
+  const s = code.trim();
+  if (!s.startsWith(SHARE_PREFIX)) return null;
+  let b64 = s.slice(SHARE_PREFIX.length).replace(/-/g, "+").replace(/_/g, "/");
+  while (b64.length % 4) b64 += "=";
+  try {
+    const json =
+      typeof atob !== "undefined" ? atob(b64) : Buffer.from(b64, "base64").toString("utf8");
+    return sanitizeLayout(JSON.parse(json));
+  } catch {
+    return null;
+  }
+}
+
+export type LayoutSource = "game" | "system" | "default" | "global";
 
 /** Resolve the effective layout from the persisted override layers. */
 export function resolveLayout(

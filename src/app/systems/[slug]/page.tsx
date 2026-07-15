@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
-import { browseFacets, getSystem, getSystemHeroCovers, getSystemStats } from "@/lib/db";
+import { browseFacets, getSystemHeroCovers, getSystemStats } from "@/lib/db";
 import { platformBySlug } from "@/lib/platforms";
 import { getSystemArt } from "@/lib/systemArt";
 import { getHeroCollageUrl } from "@/lib/systemThumb";
 import { getSystemMeta } from "@/lib/systemMeta";
 import LibraryBrowser from "@/components/LibraryBrowser";
-import { resolveBoxLayout } from "@/lib/boxLayout";
 import SystemTools from "@/components/SystemTools";
 import SystemHero from "@/components/SystemHero";
 
@@ -26,13 +25,6 @@ export default async function SystemPage({
   // header stats are needed here
   const { variants, genres, languages } = browseFacets(platform.slug);
   const stats = getSystemStats(user.id, platform.slug);
-
-  // Effective box-art shape: manual override wins, else the measured auto value,
-  // else GameCard's built-in default for this slug.
-  const sysRow = getSystem(platform.slug);
-  const effLayout =
-    sysRow && sysRow.box_layout !== "auto" ? sysRow.box_layout : sysRow?.box_layout_auto;
-  const boxLayout = resolveBoxLayout(platform.slug, effLayout);
 
   // Scraped hero/logo art (game-details style) with the top-rated box covers as
   // the collage fallback when the system has no scraped art yet.
@@ -67,10 +59,6 @@ export default async function SystemPage({
               covers={heroCovers}
               color={platform.color}
               heroSource={art.heroSource}
-              cardLayout={(sysRow?.box_layout as "auto" | "wide" | "square" | "portrait") ?? "auto"}
-              cardLayoutAuto={
-                (sysRow?.box_layout_auto as "wide" | "square" | "portrait" | null) ?? null
-              }
             />
           ) : undefined
         }
@@ -79,7 +67,6 @@ export default async function SystemPage({
         <LibraryBrowser
           remote
           platformLock={platform.slug}
-          boxLayout={boxLayout}
           totalGames={stats.total}
           variants={variants}
           genres={genres}

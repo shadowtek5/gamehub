@@ -10,7 +10,15 @@ import type { RestrictionProfile } from "@/lib/db";
 import { RATING_CAPS, capToMax, maxToCap } from "@/lib/ageRating";
 import { playSound } from "@/lib/sounds";
 import { useTranslations } from "next-intl";
-import { GpSubHeader, GpButton, GpModal, GpDropdown } from "./primitives";
+import { GpSubHeader, GpButton, GpModal, GpDropdown, GpCheck } from "./primitives";
+
+// 0-23 → "8 AM" / "8 PM" for the allowed-hours pickers.
+function formatHour(h: number): string {
+  const am = h < 12;
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12} ${am ? "AM" : "PM"}`;
+}
+const HOUR_OPTIONS = Array.from({ length: 24 }, (_, h) => ({ value: String(h), label: formatHour(h) }));
 
 function parseAllowed(json: string | null): string[] | null {
   if (!json) return null;
@@ -50,6 +58,10 @@ export default function SettingsAgeRestrictions({
   const [allowed, setAllowed] = useState<string[]>([]);
   const [capValue, setCapValue] = useState("none");
   const [hideUnrated, setHideUnrated] = useState(false);
+  const [dailyLimit, setDailyLimit] = useState(""); // minutes, "" = no limit
+  const [scheduleOn, setScheduleOn] = useState(false);
+  const [startHour, setStartHour] = useState(8);
+  const [endHour, setEndHour] = useState(20);
   const [deleteArmed, setDeleteArmed] = useState(false);
 
   function openEditor(p: RestrictionProfile | "new") {
@@ -62,6 +74,10 @@ export default function SettingsAgeRestrictions({
       setAllowed([]);
       setCapValue("none");
       setHideUnrated(false);
+      setDailyLimit("");
+      setScheduleOn(false);
+      setStartHour(8);
+      setEndHour(20);
     } else {
       const parsed = parseAllowed(p.allowed_systems);
       setName(p.name);
@@ -69,6 +85,11 @@ export default function SettingsAgeRestrictions({
       setAllowed(parsed ?? []);
       setCapValue(maxToCap(p.max_rating));
       setHideUnrated(!!p.hide_unrated);
+      setDailyLimit(p.daily_limit_minutes != null ? String(p.daily_limit_minutes) : "");
+      const sched = p.allowed_start_hour != null && p.allowed_end_hour != null;
+      setScheduleOn(sched);
+      setStartHour(sched ? p.allowed_start_hour! : 8);
+      setEndHour(sched ? p.allowed_end_hour! : 20);
     }
     setEditing(p);
   }
@@ -85,6 +106,9 @@ export default function SettingsAgeRestrictions({
         allowedSystems: systemMode === "choose" ? allowed : null,
         maxRating: capToMax(capValue),
         hideUnrated,
+        dailyLimitMinutes: dailyLimit.trim() ? Number(dailyLimit) : null,
+        allowedStartHour: scheduleOn ? startHour : null,
+        allowedEndHour: scheduleOn ? endHour : null,
       };
       const isNew = editing === "new";
       const url = isNew ? "/api/restriction-profiles" : `/api/restriction-profiles/${(editing as RestrictionProfile).id}`;
@@ -264,15 +288,49 @@ export default function SettingsAgeRestrictions({
                 />
               </div>
               {capValue !== "none" && (
-                <label className="mt-2 flex cursor-pointer items-center gap-2 text-[12px] text-dim">
-                  <input
-                    type="checkbox"
-                    checked={hideUnrated}
-                    onChange={(e) => setHideUnrated(e.target.checked)}
-                  />
-                  <span>{t("hideUnratedLabel")}</span>
-                </label>
+                <div className="mt-2">
+                  <GpCheck checked={hideUnrated} onChange={setHideUnrated} label={t("hideUnratedLabel")} />
+                </div>
               )}
+            </div>
+
+            {/* Playtime limits & allowed-hours schedule */}
+            <div className="border-t-2 border-black/40 pt-4">
+              <div className="mb-3 text-[14px] font-semibold text-body">{t("playTimeHeading")}</div>
+              <label className="flex flex-wrap items-center gap-3">
+                <span className="text-[14px] text-body">{t("dailyLimitLabel")}</span>
+                <input
+                  type="number"
+                  min={0}
+                  step={5}
+                  value={dailyLimit}
+                  onChange={(e) => setDailyLimit(e.target.value)}
+                  placeholder={t("noLimit")}
+                  className="w-28 rounded-[3px] bg-[#12161c] px-3 py-2 text-[14px] text-bright outline-none ring-1 ring-white/10 placeholder:text-dim focus:ring-2 focus:ring-white"
+                />
+                <span className="text-[13px] text-dim">{t("minutesPerDay")}</span>
+              </label>
+              <div className="mt-3">
+                <GpCheck checked={scheduleOn} onChange={setScheduleOn} label={t("scheduleLabel")} />
+                {scheduleOn && (
+                  <div className="mt-2 flex flex-wrap items-center gap-2 pl-1">
+                    <span className="text-[13px] text-dim">{t("allowedFrom")}</span>
+                    <GpDropdown
+                      value={String(startHour)}
+                      width={110}
+                      options={HOUR_OPTIONS}
+                      onChange={(v) => setStartHour(Number(v))}
+                    />
+                    <span className="text-[13px] text-dim">{t("allowedTo")}</span>
+                    <GpDropdown
+                      value={String(endHour)}
+                      width={110}
+                      options={HOUR_OPTIONS}
+                      onChange={(v) => setEndHour(Number(v))}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
 
             {editing !== "new" && (

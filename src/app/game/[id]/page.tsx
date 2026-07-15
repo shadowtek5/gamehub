@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
-import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, CollectionRow } from "@/lib/db";
+import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { formatBytes, formatPlaytime, timeAgo } from "@/lib/format";
 import {
@@ -35,6 +35,12 @@ import GameTheme from "@/components/GameTheme";
 import ManualViewer from "@/components/ManualViewer";
 import ManualButton from "@/components/ManualButton";
 import SaveStatesPanel, { SaveStateInfo } from "@/components/SaveStatesPanel";
+import ScreenshotGallery from "@/components/ScreenshotGallery";
+import Reviews from "@/components/Reviews";
+import Compatibility from "@/components/Compatibility";
+import VideoFilterPicker from "@/components/VideoFilterPicker";
+import CheatsManager from "@/components/CheatsManager";
+import Guides from "@/components/Guides";
 
 export const dynamic = "force-dynamic";
 
@@ -155,6 +161,18 @@ export default async function GamePage({
   const batterySave = getDb()
     .prepare("SELECT size_bytes, updated_at FROM battery_saves WHERE user_id = ? AND rom_id = ?")
     .get(user.id, rom.id) as { size_bytes: number; updated_at: string } | undefined;
+  const screenshots = listUserScreenshots(user.id, rom.id);
+  const reviewsData = {
+    summary: reviewSummary(rom.id),
+    reviews: listReviews(rom.id),
+    mine: getUserReview(user.id, rom.id) ?? null,
+  };
+  // Emulation compatibility only makes sense for playable (in-browser) systems.
+  const compatData = platform?.ejsCore
+    ? { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null }
+    : null;
+  const emuShader = platform?.ejsCore ? getEmuPrefs(user.id, rom.id).shader : null;
+  const guides = listGuides(rom.id);
 
   // Multi-disc siblings: same title/system/variant in the same folder
   let discs: { id: number; disc_number: number; size_bytes: number }[] = [];
@@ -268,7 +286,25 @@ export default async function GamePage({
         </DetailsSection>
       )}
 
-      {(platform?.ejsCore || saveStates.length > 0 || batterySave) && (
+      {compatData && (
+        <DetailsSection title={t("compatSection")}>
+          <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} />
+        </DetailsSection>
+      )}
+
+      {platform?.ejsCore && (
+        <DetailsSection title={t("videoSection")}>
+          <VideoFilterPicker romId={rom.id} initialShader={emuShader} />
+        </DetailsSection>
+      )}
+
+      {platform?.ejsCore && (
+        <DetailsSection title={t("cheatsSection")}>
+          <CheatsManager romId={rom.id} />
+        </DetailsSection>
+      )}
+
+      {platform?.ejsCore && (
         <DetailsSection title={t("savesAndStates")}>
           <SaveStatesPanel
             romId={rom.id}
@@ -277,6 +313,14 @@ export default async function GamePage({
             batterySave={batterySave ?? null}
             gameImage={rom.screenshot_url ?? rom.boxart_url ?? rom.hero_url ?? null}
           />
+        </DetailsSection>
+      )}
+
+      {platform?.ejsCore && screenshots.length > 0 && (
+        <DetailsSection title={t("screenshotsSection")} bodyless>
+          <div className="p-[10px]">
+            <ScreenshotGallery romId={rom.id} shots={screenshots} canDelete showHeading={false} />
+          </div>
         </DetailsSection>
       )}
 
@@ -787,6 +831,34 @@ export default async function GamePage({
                 },
               ]
             : []),
+          {
+            key: "guides",
+            label: t("tabGuides"),
+            content: <Guides romId={rom.id} currentUserId={user.id} isAdmin={user.isAdmin} initial={guides} />,
+            badge:
+              guides.length > 0 ? (
+                <span
+                  key="guides-count"
+                  className="rounded-full bg-white/10 px-1.5 text-[10px] font-bold text-body"
+                >
+                  {guides.length}
+                </span>
+              ) : undefined,
+          },
+          {
+            key: "reviews",
+            label: t("tabReviews"),
+            content: <Reviews romId={rom.id} currentUserId={user.id} initial={reviewsData} />,
+            badge:
+              reviewsData.summary.pct !== null ? (
+                <span
+                  key="review-pct"
+                  className="rounded-full bg-white/10 px-1.5 text-[10px] font-bold text-body"
+                >
+                  {reviewsData.summary.pct}%
+                </span>
+              ) : undefined,
+          },
           {
             key: "info",
             label: t("tabGameInfo"),

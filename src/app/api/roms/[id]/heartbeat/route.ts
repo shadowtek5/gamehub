@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/auth";
-import { getDb, ensureUserRom } from "@/lib/db";
+import { getDb, ensureUserRom, setPlaying, addDailyPlay, playAllowance } from "@/lib/db";
 
 /** Called every 60s by the play page to track playtime.
  *  We bump the per-user, per-game playtime + last_played_at on `user_roms` —
@@ -27,6 +27,13 @@ export async function POST(
          WHERE user_id = ? AND rom_id = ?`
     )
     .run(user.id, romId);
+  // Live "now playing" presence for friends (also refreshes last_seen).
+  setPlaying(user.id, romId);
 
-  return NextResponse.json({ ok: true });
+  // Kid-profile enforcement: tally today's play, then report whether the user
+  // must stop now (daily limit hit or outside allowed hours). The player exits
+  // when blocked. No-op for unrestricted users.
+  addDailyPlay(user.id, 60);
+  const allow = playAllowance(user.id);
+  return NextResponse.json({ ok: true, blocked: !allow.allowed, reason: allow.reason });
 }

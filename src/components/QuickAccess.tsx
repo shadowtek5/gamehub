@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import GameCover from "./GameCover";
-import { LOCALES, LOCALE_COOKIE, LOCALE_LABELS, type Locale } from "@/i18n/locales";
+import { LOCALES_FOR_PICKER, LOCALE_COOKIE, LOCALE_LABELS, type Locale } from "@/i18n/locales";
 import { platformBySlug } from "@/lib/platforms";
 import { setChromeOverlay, useExclusiveOverlay } from "@/lib/chromeOverlay";
 import {
@@ -60,7 +60,7 @@ export default function QuickAccess({
   const tLang = useTranslations("settings.language");
   const activeLocale = useLocale() as Locale;
   const [lang, setLang] = useState<Locale>(activeLocale);
-  const langOptions = LOCALES.map((code) => ({
+  const langOptions = LOCALES_FOR_PICKER.map((code) => ({
     value: code,
     label: `${LOCALE_LABELS[code].flag}  ${LOCALE_LABELS[code].label}`,
   }));
@@ -334,7 +334,9 @@ export default function QuickAccess({
           aria-checked={fullscreen}
         >
           <span className="flex items-center gap-3">
-            <span className="w-5 text-center opacity-70">⛶</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]"><path d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </span>
             {t("fullscreen")}
           </span>
           <GpSwitch on={fullscreen} />
@@ -351,14 +353,18 @@ export default function QuickAccess({
           aria-checked={sounds}
         >
           <span className="flex items-center gap-3">
-            <span className="w-5 text-center opacity-70">♪</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]"><path d="M9 18V6l9-2v10" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6.5" cy="18" r="2.5" fill="currentColor" stroke="none" /><circle cx="15.5" cy="16" r="2.5" fill="currentColor" stroke="none" /></svg>
+            </span>
             {t("uiSounds")}
           </span>
           <GpSwitch on={sounds} />
         </button>
         {sounds && (
           <div className="flex items-center gap-3 px-5 py-1.5">
-            <span className="w-5 text-center opacity-70">🔊</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-[18px] w-[18px]"><path d="M11 5 6 9H3v6h3l5 4V5Z" /><path d="M15 9a3 3 0 0 1 0 6M17.5 6.5a6 6 0 0 1 0 11" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg>
+            </span>
             <GpSlider
               value={volume}
               onChange={(v) => {
@@ -383,7 +389,9 @@ export default function QuickAccess({
           aria-checked={themeMusic}
         >
           <span className="flex items-center gap-3">
-            <span className="w-5 text-center opacity-70">♫</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]"><path d="M9 17V4l11-2v13" strokeLinecap="round" strokeLinejoin="round" /><circle cx="6.5" cy="17.5" r="2.5" fill="currentColor" stroke="none" /><circle cx="17.5" cy="15.5" r="2.5" fill="currentColor" stroke="none" /></svg>
+            </span>
             {t("themeMusic")}
           </span>
           <GpSwitch on={themeMusic} />
@@ -393,12 +401,16 @@ export default function QuickAccess({
           <>
             <div className="px-5 pt-3 text-xs font-bold uppercase tracking-[0.25em] text-dim">{t("admin")}</div>
             <button onClick={scanNow} disabled={scanning} className="menu-item">
-              <span className="w-5 text-center opacity-70">⟳</span>
+              <span className="flex w-5 shrink-0 justify-center opacity-70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]"><path d="M20 12a8 8 0 1 1-2.3-5.6M20 4v3.6h-3.6" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </span>
               {t("scanLibrary")}
             </button>
             {scanMsg && <div className="px-6 pb-2 text-xs text-body">{scanMsg}</div>}
             <Link href="/settings" onClick={() => setOpen(false)} className="menu-item">
-              <span className="w-5 text-center opacity-70">⚙</span>
+              <span className="flex w-5 shrink-0 justify-center opacity-70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="h-[18px] w-[18px]"><circle cx="12" cy="12" r="3.2" /><path d="M12 3v2.5M12 18.5V21M5.6 5.6l1.8 1.8M16.6 16.6l1.8 1.8M3 12h2.5M18.5 12H21M5.6 18.4l1.8-1.8M16.6 7.4l1.8-1.8" strokeLinecap="round" /></svg>
+              </span>
               {t("allSettings")}
             </Link>
           </>
@@ -423,22 +435,30 @@ export default function QuickAccess({
             </div>
           </div>
           <Link href="/account" onClick={() => setOpen(false)} className="menu-item">
-            <span className="w-5 text-center opacity-70">👤</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-[18px] w-[18px]"><circle cx="12" cy="8" r="4" /><path d="M4 20a8 8 0 0 1 16 0v1H4Z" /></svg>
+            </span>
             {t("account")}
           </Link>
           <Link href="/account/friends" onClick={() => setOpen(false)} className="menu-item">
-            <span className="w-5 text-center opacity-70">🤝</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="currentColor" className="h-[18px] w-[18px]"><circle cx="8" cy="8" r="3" /><circle cx="17" cy="9" r="2.4" /><path d="M2 19a6 6 0 0 1 12 0v1H2v-1Zm13-1a5 5 0 0 1 7 1v1h-6" /></svg>
+            </span>
             {t("friends")}
           </Link>
           <div className="flex items-center justify-between gap-2 py-1 pl-5 pr-3">
             <span className="flex items-center gap-3 text-sm text-body">
-              <span className="w-5 text-center opacity-70">🌐</span>
+              <span className="flex w-5 shrink-0 justify-center opacity-70">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-[18px] w-[18px]"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.4 3.8 5.7 3.8 9s-1.3 6.6-3.8 9c-2.5-2.4-3.8-5.7-3.8-9s1.3-6.6 3.8-9Z" strokeLinejoin="round" /></svg>
+              </span>
               {tLang("rowLabel")}
             </span>
             <GpDropdown value={lang} options={langOptions} onChange={changeLang} width={150} />
           </div>
           <button onClick={signOut} className="menu-item text-[#e0685f]">
-            <span className="w-5 text-center opacity-70">⇥</span>
+            <span className="flex w-5 shrink-0 justify-center opacity-70">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-[18px] w-[18px]"><path d="M15 12H4m0 0 4-4m-4 4 4 4M14 4h4a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </span>
             {t("signOut")}
           </button>
         </div>

@@ -25,7 +25,8 @@
     "downloads": "التنزيلات",
     "activity": "النشاط",
     "settings": "الإعدادات",
-    "power": "إيقاف التشغيل"
+    "power": "إيقاف التشغيل",
+    "messages": "الرسائل"
   },
   "legend": {
     "menu": "القائمة",
@@ -184,7 +185,16 @@
       "bind": "تعيين {label}",
       "scopeNoteGlobal": "التخطيط الافتراضي لهذا النوع من وحدات التحكم. تتجاوزه تخطيطات كل نظام وكل لعبة.",
       "scopeNoteSystem": "ينطبق على كل لعبة في هذا النظام، متجاوزًا الافتراضي العام. لا تزال تخطيطات كل لعبة تفوز.",
-      "scopeNoteGame": "ينطبق على هذه اللعبة فقط، متجاوزًا تخطيطات النظام والعام."
+      "scopeNoteGame": "ينطبق على هذه اللعبة فقط، متجاوزًا تخطيطات النظام والعام.",
+      "share": "مشاركة",
+      "exportHeading": "تصدير هذا التخطيط",
+      "copyCode": "نسخ الكود",
+      "copied": "✓ تم النسخ",
+      "importHeading": "استيراد تخطيط",
+      "pastePlaceholder": "الصق رمز تخطيط…",
+      "applyCode": "تطبيق",
+      "importInvalid": "هذا لا يبدو مثل رمز تخطيط صحيح.",
+      "importNote": "التطبيق يحمل الرمز في المحرر — اضغط حفظ التخطيط للاحتفاظ به."
     },
     "button": {
       "controllerLayout": "تخطيط وحدة التحكم",
@@ -230,7 +240,15 @@
       "tagQueued": "في الانتظار",
       "scheduled": "مجدولة",
       "noRecurring": "لا توجد مهام متكررة مُفعّلة.",
-      "tagAuto": "تلقائي"
+      "tagAuto": "تلقائي",
+      "statusOptimizing": "جارٍ تحسين صور الأغلفة…",
+      "optimizingArt": "تحسين صور الأغلفة",
+      "statusHashing": "جارٍ حساب التجزئات…",
+      "statusArt": "إعادة كشط صور النظام…",
+      "statusThumbs": "تحديث الصور…",
+      "hashingFiles": "حساب التجزئات",
+      "scrapingArt": "إعادة كشط الصور",
+      "refreshingImages": "تحديث الصور"
     },
     "quota": {
       "providerRequestLimits": "حدود طلبات المزوّد",
@@ -355,7 +373,13 @@
     "tabYourStuff": "أشياؤك",
     "tabVariants": "الإصدارات",
     "tabRelated": "ذات صلة",
-    "tabGameInfo": "معلومات اللعبة"
+    "tabGameInfo": "معلومات اللعبة",
+    "screenshotsSection": "لقطات شاشتك",
+    "tabReviews": "المراجعات",
+    "compatSection": "التوافق",
+    "tabGuides": "أدلة",
+    "videoSection": "مرشح الفيديو",
+    "cheatsSection": "الرموز"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -378,6 +402,10 @@
       "rescrapeArt": "إعادة جلب صور النظام",
       "rescrapeArtDesc": "إعادة جلب صور البطل والشعار والأيقونة والشريط لكل نظام في مكتبتك، بترتيب المزوّدين الذي هيّأته. استخدمه بعد تغيير المزوّدين أو تعيين الصور. يعمل في الخلفية.",
       "rescrapeAll": "إعادة جلب الكل",
+      "localizeArt": "تحسين صور الأغلفة",
+      "localizeArtDesc": "قم بتنزيل كل غلاف لا يزال مرتبطًا مباشرة من libretro إلى التخزين المحلي بصيغة WebP، وأعد بناء الصور المصغّرة السريعة للأغلفة المخزّنة محليًا بالفعل — كي تُحمّل المكتبة بسرعة ولا تعتمد على موقع خارجي. تُمسح الأغلفة التي لا تطابق libretro إلى صورة بديلة. يعمل في الخلفية.",
+      "localizeStart": "تحسين الكل",
+      "localizeResult": "✓ تم تنزيل {localized}، وتحسين {optimized}، ومسح {cleared} رابطًا معطلاً{failed, plural, =0 {} other {، # للمحاولة لاحقًا}}",
       "updated": "{count} تم تحديثها",
       "cancelledPrefix": "أُلغيت — ",
       "updatedSystems": "تم تحديث {updated} من {done} أنظمة",
@@ -396,7 +424,16 @@
       "confirmBody": "يزيل {missing, plural, zero {# لعبة مفقودة} one {لعبة مفقودة واحدة} two {لعبتين مفقودتين} few {# ألعاب مفقودة} many {# لعبة مفقودة} other {# لعبة مفقودة}} و{orphan, plural, zero {# مجلد وسائط يتيم} one {مجلد وسائط يتيم واحد} two {مجلدي وسائط يتيمين} few {# مجلدات وسائط يتيمة} many {# مجلد وسائط يتيم} other {# مجلد وسائط يتيم}}. تُزال أيضًا المفضلات وإدخالات المجموعات لتلك الألعاب. لا تُمسّ ملفات ROM أبدًا.",
       "failedToStart": "تعذّر البدء",
       "removedSummary": "✓ تمت إزالة {games} ألعاب و{folders} مجلدات وسائط",
-      "failed": "فشل"
+      "failed": "فشل",
+      "localizeQueued": "في قائمة الانتظار — سيبدأ بعد المهمة الحالية. تابعه في صفحة التنزيلات.",
+      "jobQueued": "في قائمة الانتظار — سيبدأ بعد المهمة الحالية. تابعه في صفحة التنزيلات.",
+      "chooseSystems": "اختر الأنظمة…",
+      "runSelected": "تشغيل المحدد",
+      "runAll": "تشغيل الكل",
+      "selectedCount": "{count} محدد",
+      "noneSelected": "لا شيء محدد",
+      "pickSystemsHint": "اختر نظامًا واحدًا أو أكثر، أو شغّل على المكتبة بأكملها.",
+      "noConfiguredSystems": "لا توجد أنظمة مُهيأة بعد."
     },
     "backupPanel": {
       "parts": {
@@ -603,7 +640,8 @@
       "hero": "صورة البطل",
       "logo": "شعار",
       "icon": "أيقونة"
-    }
+    },
+    "sectionMaintenance": "الصيانة"
   },
   "settingsStorage": {
     "rescanning": "إعادة فحص {name} — ",
@@ -735,16 +773,19 @@
       "hideUnratedLabel": "أخفِ أيضًا الألعاب غير المصنّفة (صارم — معظم الألعاب ليس لها تصنيف بعد)",
       "deleteWarning": "يزيل هذا الملف من {count, plural, zero {# مستخدم معيّن} one {مستخدم معيّن واحد} two {مستخدمين معيّنين} few {# مستخدمين معيّنين} many {# مستخدمًا معيّنًا} other {# مستخدم معيّن}} — سيعودون إلى الوصول الكامل غير المقيّد.",
       "noUsersAssigned": "لم يُعيَّن أي مستخدم لهذا الملف.",
-      "deleteProfile": "حذف الملف"
+      "deleteProfile": "حذف الملف",
+      "playTimeHeading": "وقت اللعب",
+      "dailyLimitLabel": "حد اللعب اليومي",
+      "noLimit": "بدون حد",
+      "minutesPerDay": "دقيقة / يوم",
+      "scheduleLabel": "السماح باللعب فقط خلال ساعات معينة",
+      "allowedFrom": "من",
+      "allowedTo": "إلى"
     }
   },
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}}"
-    },
-    "carousel": {
-      "scrollLeft": "التمرير لليسار",
-      "scrollRight": "التمرير لليمين"
     }
   },
   "systemsPages": {
@@ -1091,7 +1132,11 @@
       "usedDate": "استُخدم في {date}",
       "neverUsed": "لم يُستخدم قط",
       "revoke": "إبطال",
-      "noTokensYet": "لا توجد رموز بعد."
+      "noTokensYet": "لا توجد رموز بعد.",
+      "expiryNever": "لا تنتهي صلاحيتها أبدًا",
+      "expiry30": "تنتهي الصلاحية خلال 30 يومًا",
+      "expiry90": "تنتهي الصلاحية خلال 90 يومًا",
+      "expiry365": "تنتهي الصلاحية خلال سنة واحدة"
     },
     "retroAchievements": {
       "raIntro1": "اربط حساب",
@@ -1139,7 +1184,9 @@
       "metaLanguage": "اللغة",
       "metaFranchise": "السلسلة",
       "metaAgeRating": "تصنيف العمر",
-      "metaFile": "الملف"
+      "metaFile": "الملف",
+      "sectionReviews": "المراجعات",
+      "sectionGuides": "الأدلة"
     },
     "properties": {
       "back": "العودة إلى اللعبة",
@@ -1182,7 +1229,9 @@
       "optPort": "إصدار منقول",
       "optDlc": "محتوى إضافي وإضافة",
       "optExpansion": "توسعة",
-      "optMod": "تعديل"
+      "optMod": "تعديل",
+      "addHeading": "إضافة لعبة ذات صلة",
+      "kindAria": "نوع العلاقة"
     },
     "playSummary": {
       "title": "ملخص اللعب",
@@ -1391,7 +1440,9 @@
       "requestsSent": "الطلبات المرسلة",
       "searching": "جارٍ البحث…",
       "title": "الأصدقاء",
-      "yourFriends": "أصدقاؤك"
+      "yourFriends": "أصدقاؤك",
+      "playingGame": "يلعب {title}",
+      "message": "إرسال رسالة"
     },
     "panel": {
       "accountDetails": "تفاصيل الحساب",
@@ -2026,7 +2077,50 @@
     "retry": "إعادة المحاولة",
     "exit": "خروج",
     "dismiss": "إغلاق",
-    "controllerLayoutTitle": "تخطيط وحدة التحكم — {title}"
+    "controllerLayoutTitle": "تخطيط وحدة التحكم — {title}",
+    "screenshot": "لقطة شاشة (F2)",
+    "screenshotSaved": "تم حفظ لقطة الشاشة",
+    "screenshotFailed": "فشل التقاط الشاشة",
+    "playTimeUp": "انتهى وقت اللعب لليوم — حفظ وإغلاق.",
+    "playOutsideHours": "انتهى وقت اللعب الآن — حفظ وإغلاق.",
+    "quickMenu": "القائمة السريعة",
+    "quickMenuHint": "D-pad للتحريك · A للاختيار · B للرجوع · Select+Start للتبديل",
+    "resume": "استئناف",
+    "saveState": "حفظ حالة",
+    "loadState": "تحميل حالة",
+    "restart": "إعادة تشغيل اللعبة",
+    "restarted": "تم إعادة تشغيل اللعبة",
+    "restartUnavailable": "إعادة التشغيل غير متاحة لهذا المحاكي",
+    "exitGame": "الخروج من اللعبة",
+    "back": "رجوع",
+    "loadingStates": "جاري تحميل حالات الحفظ…",
+    "stateSlot": "حفظ من {date}",
+    "recordClip": "تسجيل مقطع",
+    "stopRecording": "إيقاف التسجيل",
+    "recording": "تسج",
+    "clipSaved": "تم حفظ المقطع",
+    "recordUnavailable": "التسجيل غير مدعوم في هذا المتصفح",
+    "pause": "الإيقاف / استئناف اللعبة",
+    "fastForward": "التقديم السريع",
+    "mute": "كتم الصوت / إلغاء كتم الصوت",
+    "fullscreen": "تبديل ملء الشاشة",
+    "cheats": "الغش",
+    "netplay": "اللعب عبر الإنترنت",
+    "videoFilter": "مرشح الفيديو",
+    "videoFilterSaved": "تم حفظ مرشح الفيديو",
+    "actionUnavailable": "غير متاح لهذه اللعبة",
+    "loadingCheats": "تحميل الرموز…",
+    "noCheats": "لا توجد رموز حتى الآن. أضف الأكواد من صفحة اللعبة، أو اختر من القائمة أدناه.",
+    "cheatOn": "تشغيل",
+    "cheatOff": "إيقاف",
+    "cheatsFromList": "إضافة من القائمة",
+    "menuLabel": "القائمة",
+    "selectLabel": "اختر",
+    "navHome": "الصفحة الرئيسية",
+    "navLibrary": "المكتبة",
+    "navFriends": "الأصدقاء",
+    "navSettings": "الإعدادات",
+    "navPower": "خروج من اللعبة"
   },
   "fileModals": {
     "common": {
@@ -2210,7 +2304,15 @@
     "loading": "جارٍ التحميل…",
     "scheduled": "مجدولة",
     "noRecurringTasks": "لا توجد مهام متكررة مُفعّلة.",
-    "auto": "تلقائي"
+    "auto": "تلقائي",
+    "statusOptimizing": "جارٍ تحسين صور الأغلفة…",
+    "optimizingArtBar": "تحسين صور الأغلفة",
+    "statusHashing": "جارٍ حساب التجزئات…",
+    "statusArt": "إعادة كشط صور النظام…",
+    "statusThumbs": "تحديث الصور…",
+    "hashingFilesBar": "حساب التجزئات",
+    "scrapingArtBar": "إعادة كشط الصور",
+    "refreshingImagesBar": "تحديث الصور"
   },
   "mobileHome": {
     "greeting": "مرحبًا {userName} 👋",
@@ -2251,7 +2353,8 @@
     },
     "topBar": {
       "search": "بحث",
-      "profile": "الملف الشخصي"
+      "profile": "الملف الشخصي",
+      "messages": "الرسائل"
     },
     "desktopSiteLink": {
       "desktopSite": "موقع سطح المكتب"
@@ -2626,6 +2729,7 @@
       "auto": "تلقائي",
       "wide": "عريض",
       "square": "مربع",
+      "cart": "خرطوشة",
       "portrait": "عمودي"
     },
     "scanStarted": "بدأ الفحص — راجع الترويسة أو صفحة التنزيلات",
@@ -2698,5 +2802,107 @@
     "remove": "إزالة",
     "cleanupConfirm": "حذف <b>{count}</b> {count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}} مفقودة من {name} ووسائطها؟ لا يمكن التراجع عن هذا.",
     "ok": "موافق"
+  },
+  "screenshots": {
+    "title": "لقطات شاشتك",
+    "viewCapture": "عرض لقطة الشاشة",
+    "previous": "السابق",
+    "next": "التالي",
+    "download": "تحميل",
+    "delete": "حذف",
+    "close": "إغلاق"
+  },
+  "reviews": {
+    "noneYet": "لا توجد مراجعات حتى الآن — كن الأول.",
+    "recommendedPct": "موصى به بنسبة {pct}%",
+    "basedOn": "{recommended} من {count} يوصي بهذا",
+    "yourReview": "مراجعتك",
+    "writeReview": "اكتب مراجعة",
+    "recommend": "أوصي",
+    "notRecommend": "ليس لي",
+    "bodyPlaceholder": "شارك رأيك… (اختياري)",
+    "post": "نشر المراجعة",
+    "update": "تحديث المراجعة",
+    "delete": "حذف",
+    "communityReviews": "{count, plural, one {# مراجعة} other {# مراجعات}}"
+  },
+  "search": {
+    "placeholder": "البحث عن الألعاب والأنظمة والمجموعات والأصدقاء…",
+    "hint": "ابدأ بالكتابة للبحث في كل شيء.",
+    "noResults": "لا توجد مطابقات.",
+    "groupPages": "الصفحات",
+    "groupGames": "الألعاب",
+    "groupSystems": "الأنظمة",
+    "groupCollections": "المجموعات",
+    "groupFriends": "الأصدقاء",
+    "gamesCount": "{count, plural, zero {# ألعاب} one {# لعبة} two {# لعبة} few {# ألعاب} many {# لعبة} other {# لعبة}}"
+  },
+  "compat": {
+    "title": "توافق المحاكاة",
+    "labelPlayable": "يعمل بشكل صحيح",
+    "labelRuns": "يعمل مع مشاكل",
+    "labelBroken": "معطل",
+    "labelUnknown": "لم يتم الاختبار",
+    "yourReport": "كيف يعمل عندك؟",
+    "notePlaceholder": "أضف ملاحظة (اختياري) — أعطال، إعدادات ساعدت…",
+    "save": "حفظ",
+    "update": "تحديث",
+    "clear": "مسح",
+    "reportsCount": "{count, plural, zero {# تقارير} one {# تقرير} two {# تقريران} few {# تقارير} many {# تقريرًا} other {# تقرير}}",
+    "officialBadge": "التقييم الرسمي",
+    "untestedHint": "لم يتم الاختبار بعد — أضف أول تقرير.",
+    "officialLabel": "التقييم الرسمي (مسؤول)",
+    "clearOfficial": "لا يوجد تقييم رسمي"
+  },
+  "guides": {
+    "writeGuide": "كتابة دليل",
+    "noneYet": "لا توجد أدلة حتى الآن — اكتب الأولى.",
+    "by": "بواسطة {name}",
+    "back": "جميع الأدلة",
+    "edit": "تحرير",
+    "delete": "حذف",
+    "deleteConfirm": "حذف هذا الدليل؟",
+    "save": "حفظ الدليل",
+    "cancel": "إلغاء",
+    "titlePlaceholder": "عنوان الدليل",
+    "bodyPlaceholder": "اكتب شرحك أو النصائح أو الإستراتيجية…",
+    "newGuide": "دليل جديد",
+    "editGuide": "تحرير الدليل"
+  },
+  "playLimit": {
+    "title": "انتهى وقت اللعب",
+    "limitReached": "لقد وصلت إلى حد اللعب اليومي البالغ {minutes} دقيقة. عد غداً!",
+    "outsideHours": "اللعب مسموح فقط بين الساعة {start} والساعة {end}.",
+    "back": "العودة إلى اللعبة"
+  },
+  "messages": {
+    "title": "الرسائل",
+    "noFriends": "أضف أصدقاء لبدء الدردشة.",
+    "you": "أنت",
+    "noMessagesYet": "لا توجد رسائل حتى الآن",
+    "pickConversation": "اختر محادثة لبدء الدردشة.",
+    "sayHi": "قل مرحبا 👋",
+    "messagePlaceholder": "اكتب رسالة…",
+    "send": "إرسال",
+    "back": "عودة"
+  },
+  "emuVideo": {
+    "videoFilter": "مرشح الفيديو",
+    "filterOff": "لا شيء (بكسل حاد)",
+    "filterSmooth": "سلس (bilinear)",
+    "appliesNextLaunch": "ينطبق في المرة التالية التي تقوم بإطلاق",
+    "saving": "جاري الحفظ…"
+  },
+  "cheats": {
+    "loading": "تحميل الرموز…",
+    "empty": "لم تتم إضافة رموز حتى الآن.",
+    "remove": "إزالة",
+    "suggested": "مقترح لهذه اللعبة",
+    "addTitle": "إضافة رمز",
+    "namePlaceholder": "الاسم (مثال: أرواح لا نهائية)",
+    "codePlaceholder": "Game Genie أو كود خام — واحد في كل سطر",
+    "appliesHint": "ينطبق في المرة القادمة التي تلعب فيها",
+    "add": "إضافة",
+    "searchPlaceholder": "ابحث عن الخدع…"
   }
 }

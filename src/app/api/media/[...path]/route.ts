@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
-import sharp from "sharp";
 import { getSessionUser } from "@/lib/auth";
+import { ensureThumb } from "@/lib/mediaThumbGen";
 
 /** Image types we can downscale on the fly for grid thumbnails. */
 const RESIZABLE = new Set([".png", ".jpg", ".jpeg", ".webp"]);
@@ -63,17 +63,9 @@ export async function GET(
   if (wParam && RESIZABLE.has(ext)) {
     const w = Math.max(16, Math.min(1200, Math.round(Number(wParam)) || 0));
     if (w >= 16) {
-      try {
-        const thumbPath = `${filePath}.w${w}.webp`;
-        const cached =
-          fs.existsSync(thumbPath) && fs.statSync(thumbPath).mtimeMs >= stat.mtimeMs;
-        const bytes = cached
-          ? await fs.promises.readFile(thumbPath)
-          : await sharp(filePath)
-              .resize({ width: w, withoutEnlargement: true })
-              .webp({ quality: 80 })
-              .toBuffer();
-        if (!cached) await fs.promises.writeFile(thumbPath, bytes).catch(() => {});
+      // Shared with the box-art optimizer so pre-generated derivatives are hits.
+      const bytes = await ensureThumb(filePath, w);
+      if (bytes) {
         return new NextResponse(new Uint8Array(bytes), {
           status: 200,
           headers: {
@@ -82,9 +74,8 @@ export async function GET(
             "Cache-Control": cacheControl,
           },
         });
-      } catch {
-        // Any decode/resize failure falls through to serving the original bytes.
       }
+      // Decode/resize failure falls through to serving the original bytes.
     }
   }
 

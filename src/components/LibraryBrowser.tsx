@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import GameCard from "./GameCard";
-import { cardFootprint, boxLayoutForSlug, type BoxLayout } from "@/lib/boxLayout";
+import GameCard, { COVER_THUMB_W } from "./GameCard";
+import { cardDims, clampCoverAspect, DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
+import { mediaThumb } from "@/lib/media";
 import CollectionShelves from "./CollectionShelves";
 import type { BrowseRomRow, LibraryCollectionTab } from "@/lib/db";
 import { LANGUAGE_NAMES } from "@/lib/language";
@@ -37,18 +38,20 @@ const STATUS = [
   { key: "hidden" },
 ] as const;
 
-/** SORT BY options — keys map to searchLibraryBrowse's BROWSE_SORTS. Mirrors
- *  Steam's list; "Friends Playing" is omitted (GameHub tracks no friend
- *  presence) and Metacritic maps to the game's rating. */
+/** SORT BY options — keys map to searchLibraryBrowse's BROWSE_SORTS. Ordered
+ *  for a ROM library (not Steam's order): the everyday sorts first, the recency
+ *  cluster together, then the niche ones. "% Achievements" is last — it's empty
+ *  for most emulated titles. "Friends Playing" is omitted (no friend presence)
+ *  and Metacritic maps to the game's rating. */
 const SORTS = [
   { key: "name" },
-  { key: "achievements" },
-  { key: "playtime" },
   { key: "played" },
-  { key: "release" },
   { key: "added" },
-  { key: "size" },
+  { key: "release" },
   { key: "rating" },
+  { key: "playtime" },
+  { key: "size" },
+  { key: "achievements" },
 ] as const;
 
 /** Player-mode facets — matched against the scraped game_modes column. These
@@ -90,7 +93,6 @@ export default function LibraryBrowser({
   platformLock,
   collectionLock,
   virtualLock,
-  boxLayout,
   systemIcons,
   variants = [],
   genres = [],
@@ -118,8 +120,6 @@ export default function LibraryBrowser({
   collectionLock?: string;
   /** Remote mode: pin every query to a virtual metadata group (virtual pages) */
   virtualLock?: { dim: string; value: string };
-  /** Locked system's effective box-art shape (system pages) — for row packing */
-  boxLayout?: BoxLayout;
   /** slug → console icon URL; when set, cards show a system badge (library/favorites) */
   systemIcons?: Record<string, string | null>;
   /** Remote mode: variant names present in the library (filter dropdown) */
@@ -745,7 +745,9 @@ export default function LibraryBrowser({
                 onChange={setGenre}
                 options={[
                   { value: "all", label: t("allGenres") },
-                  ...genres.map((g) => ({ value: g, label: g })),
+                  ...[...genres]
+                    .sort((a, b) => a.localeCompare(b))
+                    .map((g) => ({ value: g, label: g })),
                 ]}
               />
             )}
@@ -830,9 +832,6 @@ export default function LibraryBrowser({
               <VirtualGrid
                 roms={displayed}
                 sizeMode={platformLock ? "natural" : "uniform"}
-                footprintLayout={
-                  platformLock ? (boxLayout ?? boxLayoutForSlug(platformLock)) : "portrait"
-                }
                 systemIcons={systemIcons}
               />
               {hasMore && (
@@ -918,7 +917,7 @@ export default function LibraryBrowser({
 
           {genres.length > 0 && (
             <GpFilterSection label={t("sectionGenre")}>
-              {genres.map((g) => (
+              {[...genres].sort((a, b) => a.localeCompare(b)).map((g) => (
                 <GpCheck
                   key={g}
                   checked={genreSel.includes(g)}
@@ -1061,18 +1060,17 @@ const GAP_Y = 42;
 function VirtualGrid({
   roms,
   sizeMode,
-  footprintLayout,
   systemIcons,
 }: {
   roms: BrowseRomRow[];
   sizeMode: "natural" | "uniform";
-  footprintLayout: BoxLayout;
   systemIcons?: Record<string, string | null>;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [gridW, setGridW] = useState(0);
   const [sm, setSm] = useState(true);
   const [offsetTop, setOffsetTop] = useState(0);
+  const [aspect, setAspect] = useState(DEFAULT_COVER_ASPECT);
 
   useEffect(() => {
     const el = wrap.current;
@@ -1092,7 +1090,31 @@ function VirtualGrid({
     };
   }, []);
 
-  const fp = cardFootprint(footprintLayout, sizeMode, sm);
+  // Sample the first game that actually has box art and size every card to its
+  // real aspect ratio. A single system's covers are homogeneous, so one sample
+  // fits the whole grid — no per-system shape enum, no precompute. Mixed
+  // (uniform) grids keep the fixed capsule, so there's nothing to sample.
+  const firstArt = sizeMode === "uniform" ? null : roms.find((r) => r.boxart_url)?.boxart_url ?? null;
+  useEffect(() => {
+    if (!firstArt) {
+      setAspect(DEFAULT_COVER_ASPECT);
+      return;
+    }
+    let live = true;
+    const img = new Image();
+    img.onload = () => {
+      if (live && img.naturalWidth && img.naturalHeight)
+        setAspect(clampCoverAspect(img.naturalWidth / img.naturalHeight));
+    };
+    // Sample at the cover width so this reuses the derivative the cards already
+    // request — no extra resize/fetch just to measure the aspect.
+    img.src = mediaThumb(firstArt, COVER_THUMB_W) ?? firstArt;
+    return () => {
+      live = false;
+    };
+  }, [firstArt]);
+
+  const fp = cardDims(aspect, sizeMode, sm);
   const gapX = sizeMode === "uniform" ? 45 : 16;
   const cols = Math.max(1, Math.floor((gridW + gapX) / (fp.w + gapX)));
   const rowCount = Math.ceil(roms.length / cols);
@@ -1103,6 +1125,12 @@ function VirtualGrid({
     overscan: 4,
     scrollMargin: offsetTop,
   });
+
+  // Re-pack when the sampled card height (or column count) changes — the
+  // virtualizer caches row sizes and won't otherwise notice a new footprint.
+  useEffect(() => {
+    virtualizer.measure();
+  }, [fp.h, cols, virtualizer]);
 
   return (
     <div ref={wrap} className="gamepadlibrary_GamepadLibrary_gh appgrid_Container_gh relative mt-4">
@@ -1121,6 +1149,7 @@ function VirtualGrid({
                 <GameCard
                   key={rom.id}
                   rom={rom}
+                  dims={fp}
                   size={sizeMode}
                   systemIcon={systemIcons?.[rom.platform_slug] ?? null}
                   showSystem={!!systemIcons}

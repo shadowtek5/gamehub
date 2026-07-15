@@ -21,7 +21,7 @@ import {
 
 interface SysProg { slug: string; total: number; done: number }
 interface JobView {
-  kind: "scan" | "scrape";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   running: boolean;
   currentSystem: string;
@@ -40,7 +40,7 @@ interface JobView {
 
 interface QueuedView {
   id: number;
-  kind: "scan" | "scrape";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   systems: string[];
   detail: string;
@@ -130,6 +130,17 @@ function QueueRow({ icon, name, detail, tag }: { icon: React.ReactNode; name: st
   );
 }
 
+// Per-kind i18n keys for the running-job status line + progress-bar label.
+// (scrape has its own "now scraping {game}" logic and isn't in STATUS_KEY.)
+const STATUS_KEY: Record<string, string> = {
+  scan: "statusScanning", localize: "statusOptimizing", hash: "statusHashing",
+  art: "statusArt", thumbs: "statusThumbs",
+};
+const BAR_KEY: Record<string, string> = {
+  scan: "scanningFiles", scrape: "scrapingMetadata", localize: "optimizingArt",
+  hash: "hashingFiles", art: "scrapingArt", thumbs: "refreshingImages",
+};
+
 export default function DownloadsPage() {
   const t = useTranslations("downloads.page");
   const [jobs, setJobs] = useState<JobView[]>([]);
@@ -176,8 +187,16 @@ export default function DownloadsPage() {
     return () => { stop = true; clearTimeout(timer); clearInterval(tick); };
   }, []);
 
-  async function cancel(kind: "scan" | "scrape") {
-    await fetch(kind === "scan" ? "/api/scan/job" : "/api/scrape/job", { method: "DELETE" });
+  async function cancel(kind: JobView["kind"]) {
+    const routes: Record<string, string> = {
+      scan: "/api/scan/job",
+      scrape: "/api/scrape/job",
+      localize: "/api/maintenance/localize-boxart",
+      hash: "/api/hash/job",
+      art: "/api/systems/art-job",
+      thumbs: "/api/systems/thumbs",
+    };
+    await fetch(routes[kind], { method: "DELETE" });
   }
 
   const running = jobs
@@ -192,7 +211,10 @@ export default function DownloadsPage() {
   const series = active ? hist.current[active.kind] ?? [] : [];
   const throughput = series.length ? series[series.length - 1] * PER_MIN : 0;
   const peak = series.length ? Math.max(...series) * PER_MIN : 0;
-  const unit = active?.kind === "scan" ? t("systems") : t("games");
+  const unit =
+    active?.kind === "scan" || active?.kind === "art" || active?.kind === "thumbs"
+      ? t("systems")
+      : t("games");
 
   const pausedScrape = jobs.find((j) => j.kind === "scrape" && j.quotaPaused);
   const pauseReason = pausedScrape?.errors.find((e) => /limit reached/i.test(e));
@@ -248,7 +270,7 @@ export default function DownloadsPage() {
             <div className="mt-2 truncate text-[15px] text-white/75">
               {active.kind === "scrape"
                 ? active.current ? t("nowScraping", { current: active.current }) : t("statusScraping")
-                : t("statusScanning")}
+                : t(STATUS_KEY[active.kind] ?? "statusScanning")}
             </div>
           </div>
           <span className="inline-flex w-fit items-center gap-1.5 rounded-[3px] bg-black/60 px-3 py-1.5 text-[13px] text-white">
@@ -261,13 +283,15 @@ export default function DownloadsPage() {
           <div className="flex flex-wrap gap-x-10 gap-y-4">
             <Stat label={t("throughput")} value={`${Math.round(throughput)}/min`} legend="bars" />
             <Stat label={t("peak")} value={`${Math.round(peak)}/min`} legend="line" />
-            <Stat label={t("systemsStat")} value={`${systemsDone} / ${active.systemQueue.length}`} />
+            {(active.kind === "scan" || active.kind === "scrape") && (
+              <Stat label={t("systemsStat")} value={`${systemsDone} / ${active.systemQueue.length}`} />
+            )}
             {active.kind === "scrape" && (active.concurrency ?? 1) > 1 && (
               <Stat label={t("parallel")} value={`${active.concurrency}×`} />
             )}
           </div>
           <Bar
-            label={active.kind === "scan" ? t("scanningFiles") : t("scrapingMetadata")}
+            label={t(BAR_KEY[active.kind] ?? "scanningFiles")}
             value={pct(active.done, active.total)}
             valueRight={`${active.done} / ${active.total} ${unit}`}
             colorClass="bg-[#3a86ff]"

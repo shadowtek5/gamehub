@@ -21,8 +21,10 @@ export default function ApiTokens() {
   const t = useTranslations("accountAdmin.apiTokens");
   const [tokens, setTokens] = useState<TokenRow[] | null>(null);
   const [name, setName] = useState("");
-  const [scope, setScope] = useState("full");
-  const [expiry, setExpiry] = useState("0");
+  // Safer defaults: least-privilege scope and a bounded lifetime rather than a
+  // full-access token that never expires.
+  const [scope, setScope] = useState("viewer");
+  const [expiry, setExpiry] = useState("90");
   const [fresh, setFresh] = useState<{ name: string; token: string } | null>(null);
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -106,9 +108,9 @@ export default function ApiTokens() {
           width={200}
           onChange={setScope}
           options={[
-            { value: "full", label: t("scopeFull") },
-            { value: "editor", label: t("scopeEditor") },
             { value: "viewer", label: t("readOnly") },
+            { value: "editor", label: t("scopeEditor") },
+            { value: "full", label: t("scopeFull") },
           ]}
         />
         <GpDropdown

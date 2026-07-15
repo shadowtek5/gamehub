@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
+import { SETTINGS_ICONS } from "@/components/settingsIcons";
 import { getMobileSettingsSections } from "./sections";
 
 export const dynamic = "force-dynamic";
@@ -24,8 +25,8 @@ export default async function MobileSettingsPage() {
               i > 0 ? "border-t border-white/5" : ""
             }`}
           >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] bg-[#12161c] text-[16px]">
-              {s.icon}
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[8px] bg-[#12161c] text-white/90">
+              {SETTINGS_ICONS[s.key] ?? <span className="text-[16px]">{s.icon}</span>}
             </span>
             <span className="min-w-0 flex-1">
               <span className="block text-[15px] font-semibold text-bright">{s.label}</span>

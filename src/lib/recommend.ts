@@ -1,23 +1,23 @@
 // Builds the home page's "Recommended" shelves from a user's library. Pure and
-// in-memory — it works off the LibraryRomRow[] the home page already loads, so
+// in-memory — it works off the HomeLibraryRow[] the home page already loads, so
 // no extra queries. Each shelf has a title, a one-line rationale, and up to
 // SHELF_MAX games; empty shelves are dropped by the caller.
 
-import { LibraryRomRow } from "./db";
+import { HomeLibraryRow } from "./db";
 import { platformBySlug } from "./platforms";
 
 export interface RecommendedShelf {
   key: string;
   title: string;
   subtitle: string;
-  roms: LibraryRomRow[];
+  roms: HomeLibraryRow[];
 }
 
 const SHELF_MAX = 16;
 const JUMP_BACK_MIN_DAYS = 7; // played but untouched at least this long
 
-const isPlayed = (r: LibraryRomRow) => r.playtime_seconds > 0;
-const hasArt = (r: LibraryRomRow) => !!r.boxart_url;
+const isPlayed = (r: HomeLibraryRow) => r.playtime_seconds > 0;
+const hasArt = (r: HomeLibraryRow) => !!r.boxart_url;
 
 /** Parse scraped ratings ("88/100", "16/20", "4.5/5") to a 0..1 ratio. */
 function ratingRatio(raw: string | null): number | null {
@@ -41,7 +41,7 @@ function splitGenres(raw: string | null): string[] {
 const daysSince = (iso: string | null): number =>
   iso ? (Date.now() - new Date(iso).getTime()) / 86400e3 : Infinity;
 
-export function buildRecommendedShelves(all: LibraryRomRow[]): RecommendedShelf[] {
+export function buildRecommendedShelves(all: HomeLibraryRow[]): RecommendedShelf[] {
   const shelves: RecommendedShelf[] = [];
   const unplayed = all.filter((r) => !isPlayed(r) && hasArt(r));
 
@@ -102,7 +102,7 @@ export function buildRecommendedShelves(all: LibraryRomRow[]): RecommendedShelf[
   // 4) Hidden gems — highest scraped-rating games you haven't played.
   const gems = unplayed
     .map((r) => ({ r, score: ratingRatio(r.rating) }))
-    .filter((x): x is { r: LibraryRomRow; score: number } => x.score !== null && x.score >= 0.8)
+    .filter((x): x is { r: HomeLibraryRow; score: number } => x.score !== null && x.score >= 0.8)
     .sort((a, b) => b.score - a.score)
     .map((x) => x.r)
     .slice(0, SHELF_MAX);
@@ -117,7 +117,7 @@ export function buildRecommendedShelves(all: LibraryRomRow[]): RecommendedShelf[
 
   // 5) Dive into a system — the system with the most unplayed games, excluding
   // any already spotlighted by the genre shelf's platform mix.
-  const bySystem = new Map<string, LibraryRomRow[]>();
+  const bySystem = new Map<string, HomeLibraryRow[]>();
   for (const r of unplayed) {
     const list = bySystem.get(r.platform_slug) ?? [];
     list.push(r);

@@ -16,6 +16,9 @@ import RomUploadModal from "./RomUploadModal";
 import RibbonCollage, { HERO_LAYOUT } from "./RibbonCollage";
 import { GpConfirm, GpModal, GpButton } from "@/components/bpm/primitives";
 import ControllerLayout from "./ControllerLayout";
+import {
+  GCloud, GRevert, GBackfill, GHeroArt, GPencil, GIcon, GScrape, GList,
+} from "./menuGlyphs";
 import { playSound } from "@/lib/sounds";
 
 const ROW =
@@ -24,7 +27,6 @@ const SUB_ROW =
   "flex w-full cursor-pointer items-center gap-3 bg-[#23282e] px-5 py-2.5 text-left text-sm text-body hover:bg-[#2d333b] hover:text-bright focus:bg-[#2d333b] focus:text-bright focus:outline-none disabled:cursor-default disabled:opacity-40";
 const SUB_HEADER =
   "bg-[#1c2127] px-5 pb-1.5 pt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-dim";
-const SUB_ICON = "w-5 shrink-0 text-center opacity-70";
 // Group headers inside the main menu (Games / System / Maintenance)
 const SECTION =
   "bg-[#1c2127] px-6 pb-1 pt-2.5 text-[10px] font-bold uppercase tracking-[0.2em] text-dim";
@@ -38,8 +40,6 @@ export default function SystemTools({
   covers = [],
   color,
   heroSource = "ribbon",
-  cardLayout = "auto",
-  cardLayoutAuto = null,
   open: openProp,
   onOpenChange,
   hideTrigger = false,
@@ -51,10 +51,6 @@ export default function SystemTools({
   color: string;
   /** which source currently backs the hero — for the "current" badge */
   heroSource?: "ribbon" | "image";
-  /** manual card-shape override ('auto' = use the measured value) */
-  cardLayout?: "auto" | "wide" | "square" | "portrait";
-  /** the shape auto-detect measured from covers (shown next to 'Auto') */
-  cardLayoutAuto?: "wide" | "square" | "portrait" | null;
   /** Controlled open state (e.g. opened as a context menu from the browse
    *  grid). When provided, the component is controlled and reports changes via
    *  onOpenChange. */
@@ -89,8 +85,7 @@ export default function SystemTools({
   useEffect(() => {
     viewRef.current = view;
   }, [view]);
-  const [expand, setExpand] = useState<"none" | "scrape" | "artwork" | "content" | "layout" | "export">("none");
-  const [layout, setLayoutState] = useState<"auto" | "wide" | "square" | "portrait">(cardLayout);
+  const [expand, setExpand] = useState<"none" | "scrape" | "artwork" | "content" | "export">("none");
   // Reset to the root menu whenever it (re)opens — including controlled opens
   // from the browse grid, where there's no toggle() to do it.
   const prevOpen = useRef(open);
@@ -403,43 +398,6 @@ export default function SystemTools({
     }
   }
 
-  async function setLayout(next: "auto" | "wide" | "square" | "portrait") {
-    setLayoutState(next);
-    setExpand("none");
-    setOpen(false);
-    playSound("activate");
-    setBusy("layout");
-    setMsg(t("updatingCardShape"));
-    try {
-      const res = await fetch(`/api/systems/${slug}/box-layout`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ layout: next }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMsg(
-          next === "auto"
-            ? t("cardShapeAuto", { detected: data.layoutAuto ?? t("defaultShape") })
-            : t("cardShapeSet", { shape: next })
-        );
-        // router.refresh() re-renders the server component (row-packing prop),
-        // but the grid's cards are client-cached — reload them so each card's
-        // box_layout picks up the new shape.
-        window.dispatchEvent(new Event("gh-library-refetch"));
-        router.refresh();
-      } else {
-        setLayoutState(cardLayout);
-        setMsg(data.error ?? t("cardShapeFailed"));
-      }
-    } catch (e) {
-      setLayoutState(cardLayout);
-      setMsg(`✗ ${e instanceof Error ? e.message : e}`);
-    } finally {
-      setBusy("");
-    }
-  }
-
   // Export this system for another launcher. Fetched as a blob (not a bare
   // link) so a "no multi-disc games" 404 surfaces as a message instead of a
   // broken download.
@@ -472,13 +430,6 @@ export default function SystemTools({
       setBusy("");
     }
   }
-
-  const LAYOUT_LABEL: Record<"auto" | "wide" | "square" | "portrait", string> = {
-    auto: t("layoutLabel.auto"),
-    wide: t("layoutLabel.wide"),
-    square: t("layoutLabel.square"),
-    portrait: t("layoutLabel.portrait"),
-  };
 
   return (
     <>
@@ -642,11 +593,11 @@ export default function SystemTools({
                       <div className="absolute left-full top-0 ml-1.5 flex w-[290px] flex-col overflow-hidden rounded-[3px] shadow-2xl ring-1 ring-black/40">
                         <div className={SUB_HEADER}>{t("scrapeGameMetadata")}</div>
                         <button onClick={() => scrape(true)} className={SUB_ROW}>
-                          <span className={SUB_ICON}>☁</span>
+                          <GCloud className="opacity-70" />
                           {t("scrapeMissing")}
                         </button>
                         <button onClick={() => scrape(false)} className={SUB_ROW}>
-                          <span className={SUB_ICON}>⟲</span>
+                          <GRevert className="opacity-70" />
                           {t("scrapeEverything")}
                         </button>
                         <button
@@ -654,7 +605,7 @@ export default function SystemTools({
                           className={SUB_ROW}
                           title={t("backfillTitle")}
                         >
-                          <span className={SUB_ICON}>⤓</span>
+                          <GBackfill className="opacity-70" />
                           {t("backfillMetadata")}
                         </button>
                       </div>
@@ -687,54 +638,21 @@ export default function SystemTools({
                       <div className="absolute left-full top-0 ml-1.5 flex w-[290px] flex-col overflow-hidden rounded-[3px] shadow-2xl ring-1 ring-black/40">
                         <div className={SUB_HEADER}>{t("systemImages")}</div>
                         <button onClick={() => openArtPicker("hero")} className={SUB_ROW}>
-                          <span className={SUB_ICON}>▭</span>
+                          <GHeroArt className="opacity-70" />
                           {t("hero")}
                         </button>
                         <button onClick={() => openArtPicker("logo")} className={SUB_ROW}>
-                          <span className={SUB_ICON}>✎</span>
+                          <GPencil className="opacity-70" />
                           {t("logo")}
                         </button>
                         <button onClick={() => openArtPicker("icon")} className={SUB_ROW}>
-                          <span className={SUB_ICON}>◈</span>
+                          <GIcon className="opacity-70" />
                           {t("icon")}
                         </button>
                         <button onClick={autofetchArt} disabled={busy !== ""} className={SUB_ROW}>
-                          <span className={SUB_ICON}>⤵</span>
+                          <GScrape className="opacity-70" />
                           {t("autofetchAll")}
                         </button>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Card shape › (box-art aspect used for this system's cards) */}
-                  <div className="relative">
-                    <button
-                      onClick={() => setExpand(expand === "layout" ? "none" : "layout")}
-                      className={`${ROW} flex items-center justify-between`}
-                    >
-                      <span>{t("cardShape")}</span>
-                      <span className="flex items-center gap-2 text-dim">
-                        {LAYOUT_LABEL[layout]}
-                        <span>›</span>
-                      </span>
-                    </button>
-                    {expand === "layout" && (
-                      <div className="absolute left-full top-0 ml-1.5 flex w-[290px] flex-col overflow-hidden rounded-[3px] shadow-2xl ring-1 ring-black/40">
-                        <div className={SUB_HEADER}>{t("cardBoxArtShape")}</div>
-                        {(["auto", "wide", "square", "portrait"] as const).map((opt) => (
-                          <button
-                            key={opt}
-                            onClick={() => setLayout(opt)}
-                            disabled={busy !== ""}
-                            className={SUB_ROW}
-                          >
-                            <span className={SUB_ICON}>{layout === opt ? "✓" : ""}</span>
-                            {LAYOUT_LABEL[opt]}
-                            {opt === "auto" && cardLayoutAuto && (
-                              <span className="ml-auto text-xs text-dim">{cardLayoutAuto}</span>
-                            )}
-                          </button>
-                        ))}
                       </div>
                     )}
                   </div>
@@ -771,7 +689,7 @@ export default function SystemTools({
                           className={SUB_ROW}
                           title={t("gamelistTitle")}
                         >
-                          <span className={SUB_ICON}>▤</span>
+                          <GList className="opacity-70" />
                           {t("gamelistLabel")}
                         </button>
                         <button
@@ -780,7 +698,7 @@ export default function SystemTools({
                           className={SUB_ROW}
                           title={t("retroarchTitle")}
                         >
-                          <span className={SUB_ICON}>▸</span>
+                          <GList className="opacity-70" />
                           {t("retroarchLabel")}
                         </button>
                         <button
@@ -789,7 +707,7 @@ export default function SystemTools({
                           className={SUB_ROW}
                           title={t("m3uTitle")}
                         >
-                          <span className={SUB_ICON}>💿</span>
+                          <GList className="opacity-70" />
                           {t("m3uLabel")}
                         </button>
                       </div>

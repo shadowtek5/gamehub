@@ -16,6 +16,10 @@ import MobileArtPicker, {
 } from "./MobileArtPicker";
 import { MobileSheet, SheetRow, SheetSection, SheetCloseButton, SheetBack } from "./primitives";
 import RomPatcherModal from "@/components/RomPatcherModal";
+import {
+  GStar, GList, GEye, GEyeOff, GBook, GDownload, GScrape, GBackfill, GTarget,
+  GBoxArt, GHeroArt, GPencil, GFilm, GBandage, GGear, GCheck,
+} from "@/components/menuGlyphs";
 
 interface CollectionOpt {
   id: number;
@@ -258,16 +262,17 @@ export default function MobileGameOptions({
           {view === "menu" ? (
             <div className="flex flex-col">
               <SheetRow onClick={toggleFavorite}>
-                <span className={favorite ? "text-accent" : "text-dim"}>★</span>
+                <GStar className={favorite ? "text-accent" : "text-dim"} />
                 {favorite ? t("removeFromFavorites") : t("addToFavorites")}
               </SheetRow>
-              <SheetRow onClick={() => setView("collections")}>
-                <span className="text-dim">▤</span> {t("addToCollection")}
-                <span className="ml-auto text-dim">›</span>
-              </SheetRow>
+              {/* Order mirrors the desktop game menu: Favorite → Hide → Collections. */}
               <SheetRow onClick={toggleHidden}>
-                <span className="text-dim">{hidden ? "◎" : "⦸"}</span>
+                {hidden ? <GEye className="text-dim" /> : <GEyeOff className="text-dim" />}
                 {hidden ? t("unhideFromLibrary") : t("hideFromLibrary")}
+              </SheetRow>
+              <SheetRow onClick={() => setView("collections")}>
+                <GList className="text-dim" /> {t("addToCollection")}
+                <span className="ml-auto text-dim">›</span>
               </SheetRow>
               {hasManual && (
                 <SheetRow
@@ -276,52 +281,53 @@ export default function MobileGameOptions({
                     window.dispatchEvent(new Event("gh-open-manual"));
                   }}
                 >
-                  <span className="text-dim">📖</span> {t("readManual")}
+                  <GBook className="text-dim" /> {t("readManual")}
                 </SheetRow>
               )}
               <SheetRow href={`/api/roms/${romId}/file?download=1`}>
-                <span className="text-dim">⇩</span> {t("downloadRom")}
+                <GDownload className="text-dim" /> {t("downloadRom")}
+              </SheetRow>
+              {/* Patch ROM is a client-side, non-admin action (matches desktop). */}
+              <SheetRow
+                onClick={() => {
+                  close();
+                  playSound("modalOpen");
+                  setPatcherOpen(true);
+                }}
+              >
+                <GBandage className="text-dim" /> {tg("patchRom")}
               </SheetRow>
               {isAdmin && (
                 <>
                   <SheetSection divider>{t("admin")}</SheetSection>
                   <SheetRow onClick={() => scrape()}>
-                    <span className="text-dim">⤵</span> {t("scrapeMetadata")}
+                    <GScrape className="text-dim" /> {t("scrapeMetadata")}
                     {msg && ` — ${msg}`}
                   </SheetRow>
                   <SheetRow onClick={() => scrape(true)}>
-                    <span className="text-dim">⤓</span> {t("backfillMetadata")}
+                    <GBackfill className="text-dim" /> {t("backfillMetadata")}
                   </SheetRow>
                   <SheetRow onClick={openMatchView}>
-                    <span className="text-dim">⌖</span> {tg("fixMatch")}
+                    <GTarget className="text-dim" /> {tg("fixMatch")}
                   </SheetRow>
                   <SheetRow onClick={() => openArtPicker("boxart")}>
-                    <span className="text-dim">▦</span> {t("chooseBoxArt")}
+                    <GBoxArt className="text-dim" /> {t("chooseBoxArt")}
                   </SheetRow>
                   <SheetRow onClick={() => openArtPicker("hero")}>
-                    <span className="text-dim">▭</span> {t("chooseHeroArtwork")}
+                    <GHeroArt className="text-dim" /> {t("chooseHeroArtwork")}
                   </SheetRow>
                   <SheetRow onClick={() => openArtPicker("logo")}>
-                    <span className="text-dim">✎</span> {t("chooseLogo")}
+                    <GPencil className="text-dim" /> {t("chooseLogo")}
                   </SheetRow>
                   <SheetRow onClick={() => fetchMedia("video")}>
-                    <span className="text-dim">🎬</span> {tg("fetchVideoSnap")}
+                    <GFilm className="text-dim" /> {tg("fetchVideoSnap")}
                   </SheetRow>
                   <SheetRow onClick={() => fetchMedia("manual")}>
-                    <span className="text-dim">📖</span> {tg("fetchManual")}
+                    <GBook className="text-dim" /> {tg("fetchManual")}
                   </SheetRow>
                   {mediaMsg && <div className="px-5 py-1 text-[12px] text-dim">{mediaMsg}</div>}
-                  <SheetRow
-                    onClick={() => {
-                      close();
-                      playSound("modalOpen");
-                      setPatcherOpen(true);
-                    }}
-                  >
-                    <span className="text-dim">🩹</span> {tg("patchRom")}
-                  </SheetRow>
                   <SheetRow href={`/mobile/game/${romId}/properties`}>
-                    <span className="text-dim">⚙</span> {t("properties")}
+                    <GGear className="text-dim" /> {t("properties")}
                   </SheetRow>
                 </>
               )}
@@ -335,7 +341,7 @@ export default function MobileGameOptions({
               ) : (
                 collections.map((c) => (
                   <SheetRow key={c.id} onClick={() => toggleCollection(c)}>
-                    <span className={c.hasRom ? "text-accent" : "text-transparent"}>✓</span>
+                    <GCheck className={c.hasRom ? "text-accent" : "text-transparent"} />
                     {c.name}
                   </SheetRow>
                 ))

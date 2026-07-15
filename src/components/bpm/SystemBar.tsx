@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import JobIndicator from "@/components/bpm/JobIndicator";
 import NotificationBell from "@/components/bpm/NotificationBell";
+import MessagesButton from "@/components/MessagesButton";
 import ProfileNavLink from "@/components/ProfileNavLink";
 import { useChromeOverlayOpen } from "@/lib/chromeOverlay";
 
@@ -118,18 +119,24 @@ export default function SystemBar({
         ) : (
           <>
             <div className="flex-1" />
-            <Link href="/library" className={CELL} aria-label={t("search")} title={t("search")}>
+            <button
+              onClick={() => window.dispatchEvent(new Event("gh-search"))}
+              className={CELL}
+              aria-label={t("search")}
+              title={t("search")}
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className={ICON}>
                 <circle cx="10.5" cy="10.5" r="6.5" />
                 <line x1="15.5" y1="15.5" x2="21" y2="21" />
               </svg>
-            </Link>
+            </button>
           </>
         )}
       </div>
 
       <JobIndicator />
 
+      <MessagesButton href="/messages" label={t("messages")} className={CELL} />
       <NotificationBell />
       <button
         onClick={() => window.dispatchEvent(new Event("gh-quickaccess"))}

@@ -11,6 +11,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ScrapeOutcome } from "@/lib/providers/scrape";
 import RomPatcherModal from "./RomPatcherModal";
+import {
+  GScrape, GBackfill, GTarget, GBoxArt, GHeroArt, GPencil, GFilm, GBook,
+  GDownload, GBandage,
+} from "./menuGlyphs";
 import { playSound } from "@/lib/sounds";
 import { useTranslations } from "next-intl";
 
@@ -31,8 +35,6 @@ const SUB_ROW =
 
 const SUB_HEADER =
   "bg-[#1c2127] px-5 pb-1.5 pt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-dim";
-
-const SUB_ICON = "w-5 shrink-0 text-center opacity-70";
 
 export default function GameOptionsModal({
   romId,
@@ -911,7 +913,7 @@ export default function GameOptionsModal({
                       <>
                         <div className={SUB_HEADER}>{t("metadataHeader")}</div>
                         <button onClick={() => scrape()} className={SUB_ROW}>
-                          <span className={SUB_ICON}>⤵</span>
+                          <GScrape className="opacity-70" />
                           {t("scrapeMetadata")}{scrapeMsg && ` — ${scrapeMsg}`}
                         </button>
                         <button
@@ -919,7 +921,7 @@ export default function GameOptionsModal({
                           className={SUB_ROW}
                           title={t("backfillTooltip")}
                         >
-                          <span className={SUB_ICON}>⤓</span>
+                          <GBackfill className="opacity-70" />
                           {t("backfillMetadata")}
                         </button>
                         <button
@@ -927,21 +929,21 @@ export default function GameOptionsModal({
                           className={SUB_ROW}
                           title={t("fixMatchTooltip")}
                         >
-                          <span className={SUB_ICON}>⌖</span>
+                          <GTarget className="opacity-70" />
                           {t("fixMatch")}
                         </button>
 
                         <div className={SUB_HEADER}>{t("artworkHeader")}</div>
                         <button onClick={openBoxartPicker} className={SUB_ROW}>
-                          <span className={SUB_ICON}>▦</span>
+                          <GBoxArt className="opacity-70" />
                           {t("chooseBoxart")}
                         </button>
                         <button onClick={openHeroPicker} className={SUB_ROW}>
-                          <span className={SUB_ICON}>▭</span>
+                          <GHeroArt className="opacity-70" />
                           {t("chooseHero")}
                         </button>
                         <button onClick={openLogoPicker} className={SUB_ROW}>
-                          <span className={SUB_ICON}>✎</span>
+                          <GPencil className="opacity-70" />
                           {t("chooseLogo")}
                         </button>
 
@@ -951,7 +953,7 @@ export default function GameOptionsModal({
                           className={SUB_ROW}
                           title={t("fetchVideoTooltip")}
                         >
-                          <span className={SUB_ICON}>🎬</span>
+                          <GFilm className="opacity-70" />
                           {t("fetchVideoSnap")}
                         </button>
                         <button
@@ -959,7 +961,7 @@ export default function GameOptionsModal({
                           className={SUB_ROW}
                           title={t("fetchManualTooltip")}
                         >
-                          <span className={SUB_ICON}>📖</span>
+                          <GBook className="opacity-70" />
                           {t("fetchManual")}
                         </button>
 
@@ -967,7 +969,7 @@ export default function GameOptionsModal({
                       </>
                     )}
                     <a href={`/api/roms/${romId}/file?download=1`} className={SUB_ROW}>
-                      <span className={SUB_ICON}>⇩</span>
+                      <GDownload className="opacity-70" />
                       {t("downloadRom")}
                     </a>
                     <button
@@ -979,7 +981,7 @@ export default function GameOptionsModal({
                       className={SUB_ROW}
                       title={t("patchTooltip")}
                     >
-                      <span className={SUB_ICON}>🩹</span>
+                      <GBandage className="opacity-70" />
                       {t("patchRom")}
                     </button>
                   </div>

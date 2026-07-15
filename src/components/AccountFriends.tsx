@@ -18,7 +18,11 @@ interface FUser {
   avatar_url: string | null;
   since?: string;
   presence?: Presence;
+  playing?: { romId: number; title: string } | null;
 }
+
+// Currently-playing friends get a green dot regardless of presence tier.
+const PLAYING_COLOR = "#59bf40";
 
 const PRESENCE_COLOR: Record<Presence, string> = {
   online: "#57cbde",
@@ -160,6 +164,8 @@ export default function AccountFriends({ hrefBase = "/profile" }: { hrefBase?: s
   }
 
   const btn = "DialogButton Focusable shrink-0 cursor-pointer rounded-[2px] px-3 py-1.5 text-[13px] disabled:opacity-40";
+  // DMs live at /messages (desktop) or /mobile/messages (mobile) — mirror hrefBase.
+  const msgBase = hrefBase.startsWith("/mobile") ? "/mobile/messages" : "/messages";
 
   function resultAction(h: SearchHit) {
     if (h.state === "friends") return <span className="shrink-0 text-[13px] font-semibold text-dim">{t("alreadyFriends")}</span>;
@@ -259,17 +265,39 @@ export default function AccountFriends({ hrefBase = "/profile" }: { hrefBase?: s
                 <Link href={`${hrefBase}/${u.id}`} className="flex min-w-0 flex-1 items-center gap-3">
                   <span className="relative shrink-0">
                     <Avatar u={u} size={36} />
-                    <PresenceDot presence={u.presence} />
+                    {u.playing ? (
+                      <span
+                        className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full ring-2 ring-[#1b222c]"
+                        style={{ backgroundColor: PLAYING_COLOR }}
+                        title={u.playing.title}
+                        aria-label={u.playing.title}
+                      />
+                    ) : (
+                      <PresenceDot presence={u.presence} />
+                    )}
                   </span>
                   <span className="min-w-0">
                     <span className="block truncate text-[14px] font-semibold text-bright">{u.name}</span>
-                    <span
-                      className="block text-[11px]"
-                      style={{ color: PRESENCE_COLOR[u.presence ?? "offline"] }}
-                    >
-                      {presenceLabels[u.presence ?? "offline"]}
-                    </span>
+                    {u.playing ? (
+                      <span
+                        className="block truncate text-[11px]"
+                        style={{ color: PLAYING_COLOR }}
+                        title={u.playing.title}
+                      >
+                        {t("playingGame", { title: u.playing.title })}
+                      </span>
+                    ) : (
+                      <span
+                        className="block text-[11px]"
+                        style={{ color: PRESENCE_COLOR[u.presence ?? "offline"] }}
+                      >
+                        {presenceLabels[u.presence ?? "offline"]}
+                      </span>
+                    )}
                   </span>
+                </Link>
+                <Link href={`${msgBase}?to=${u.id}`} className={`btn-gray ${btn}`} title={t("message")}>
+                  {t("message")}
                 </Link>
                 <button
                   onClick={() => setConfirmRemove(u)}

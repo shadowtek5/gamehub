@@ -25,7 +25,8 @@
     "downloads": "Nedlastinger",
     "activity": "Aktivitet",
     "settings": "Innstillinger",
-    "power": "Strøm"
+    "power": "Strøm",
+    "messages": "Meldinger"
   },
   "legend": {
     "menu": "Meny",
@@ -217,7 +218,9 @@
       "requestsSent": "Sendte forespørsler",
       "cancel": "Avbryt",
       "removeConfirmTitle": "Fjern {name}?",
-      "removeConfirmBody": "Personen fjernes fra vennelisten din. Du kan alltid sende en ny forespørsel."
+      "removeConfirmBody": "Personen fjernes fra vennelisten din. Du kan alltid sende en ny forespørsel.",
+      "playingGame": "Spiller {title}",
+      "message": "Melding"
     },
     "summary": {
       "title": "Venner",
@@ -556,7 +559,16 @@
       "bind": "Tilordne {label}",
       "scopeNoteGlobal": "Standard layout for denne kontrollertypen. Per-system- og per-spill-layouts overskriver denne.",
       "scopeNoteSystem": "Gjelder for alle spill på dette systemet og overskriver global standard. Per-spill-layouts har forrang.",
-      "scopeNoteGame": "Gjelder bare for dette spillet og overskriver system- og globale layouts."
+      "scopeNoteGame": "Gjelder bare for dette spillet og overskriver system- og globale layouts.",
+      "share": "Dele",
+      "exportHeading": "Eksporter dette oppsettet",
+      "copyCode": "Kopier kode",
+      "copied": "✓ Kopiert",
+      "importHeading": "Importer et oppsett",
+      "pastePlaceholder": "Lim inn en oppsettskode…",
+      "applyCode": "Bruk",
+      "importInvalid": "Det ser ikke ut som en gyldig oppsettskode.",
+      "importNote": "Bruk laster koden inn i redigeringsprogrammet — trykk Lagre oppsett for å beholde det."
     },
     "button": {
       "controllerLayout": "Kontroller-layout",
@@ -602,7 +614,15 @@
       "tagQueued": "I kø",
       "scheduled": "Planlagt",
       "noRecurring": "Ingen tilbakevendende oppgaver aktivert.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusOptimizing": "Optimaliserer omslag…",
+      "optimizingArt": "Optimaliserer omslag",
+      "statusHashing": "Beregner hasher…",
+      "statusArt": "Henter systemkunst på nytt…",
+      "statusThumbs": "Oppdaterer bilder…",
+      "hashingFiles": "Beregner hasher",
+      "scrapingArt": "Henter kunst på nytt",
+      "refreshingImages": "Oppdaterer bilder"
     },
     "quota": {
       "providerRequestLimits": "Provider-forespørselsgrenser",
@@ -640,7 +660,50 @@
     "retry": "Prøv igjen",
     "exit": "Avslutt",
     "dismiss": "Lukk",
-    "controllerLayoutTitle": "Kontroller-layout — {title}"
+    "controllerLayoutTitle": "Kontroller-layout — {title}",
+    "screenshot": "Skjermbilde (F2)",
+    "screenshotSaved": "Skjermbilde lagret",
+    "screenshotFailed": "Skjermbilde mislyktes",
+    "playTimeUp": "Tiden er over for i dag — lagrer og avslutter.",
+    "playOutsideHours": "Spilletiden er over — lagrer og avslutter.",
+    "quickMenu": "Hurtigmeny",
+    "quickMenuHint": "D-pad for å bevege · A for å velge · B for tilbake · Select+Start slår av/på",
+    "resume": "Fortsett",
+    "saveState": "Lagre spill",
+    "loadState": "Last spill",
+    "restart": "Start spillet på nytt",
+    "restarted": "Spillet ble startet på nytt",
+    "restartUnavailable": "Omstart er ikke tilgjengelig for denne kjernen",
+    "exitGame": "Avslutt spill",
+    "back": "Tilbake",
+    "loadingStates": "Laster lagringer…",
+    "stateSlot": "Lagret fra {date}",
+    "recordClip": "Spill inn klipp",
+    "stopRecording": "Stopp opptak",
+    "recording": "REC",
+    "clipSaved": "Klipp lagret",
+    "recordUnavailable": "Opptak støttes ikke i denne nettleseren",
+    "pause": "Pause / fortsett spill",
+    "fastForward": "Rask fremspill",
+    "mute": "Dempe / gjenoppta lyd",
+    "fullscreen": "Veksle fullskjerm",
+    "cheats": "Juks",
+    "netplay": "Netplay",
+    "videoFilter": "Videofilter",
+    "videoFilterSaved": "Videofilter lagret",
+    "actionUnavailable": "Ikke tilgjengelig for dette spillet",
+    "loadingCheats": "Laster inn cheater…",
+    "noCheats": "Ingen cheater ennå. Legg til koder fra spillsiden, eller velg fra listen nedenfor.",
+    "cheatOn": "På",
+    "cheatOff": "Av",
+    "cheatsFromList": "Legg til fra liste",
+    "menuLabel": "Meny",
+    "selectLabel": "Velg",
+    "navHome": "Hjem",
+    "navLibrary": "Bibliotek",
+    "navFriends": "Venner",
+    "navSettings": "Innstillinger",
+    "navPower": "Avslutt spill"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "DINE TING",
     "tabVariants": "VARIANTER",
     "tabRelated": "RELATERT",
-    "tabGameInfo": "SPILLINFO"
+    "tabGameInfo": "SPILLINFO",
+    "screenshotsSection": "Dine skjermbilder",
+    "tabReviews": "ANMELDELSER",
+    "compatSection": "Kompatibilitet",
+    "tabGuides": "VEILEDNINGER",
+    "videoSection": "Videofilter",
+    "cheatsSection": "Cheater"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Rescrape system-artwork",
       "rescrapeArtDesc": "Hent hero, logo, ikon og ribbon-artwork på nytt for hvert system i biblioteket ditt i din konfigurerte provider-rekkefølge. Bruk etter endring av providers eller artwork-mapping. Kjører i bakgrunnen.",
       "rescrapeAll": "Rescrape alt",
+      "localizeArt": "Optimaliser omslag",
+      "localizeArtDesc": "Last ned hvert omslag som fortsatt hotlinkes fra libretro til lokal lagring som WebP, og bygg opp igjen de små raske miniatyrbildene for omslag som allerede er lagret lokalt — slik at biblioteket lastes raskt og aldri er avhengig av et eksternt nettsted. Omslag uten libretro-treff tømmes til en plassholder. Kjører i bakgrunnen.",
+      "localizeStart": "Optimaliser alle",
+      "localizeResult": "✓ Lastet ned {localized}, optimaliserte {optimized}, tømte {cleared} døde lenker{failed, plural, =0 {} other {, # for nytt forsøk}}",
       "updated": "{count} oppdatert",
       "cancelledPrefix": "Avbrutt — ",
       "updatedSystems": "{updated} av {done} systemer oppdatert",
@@ -1064,7 +1137,16 @@
       "confirmBody": "Fjern {missing, plural, one {# manglende spill} other {# manglende spill}} og {orphan, plural, one {# foreldreløs media-mappe} other {# foreldreløse media-mapper}}. Favoritter og samlingselementer for disse spillene fjernes også. ROM-filer røres aldri.",
       "failedToStart": "Kunne ikke starte",
       "removedSummary": "✓ {games} spill og {folders} media-mapper fjernet",
-      "failed": "Mislyktes"
+      "failed": "Mislyktes",
+      "localizeQueued": "I kø — kjøres etter den gjeldende jobben. Følg den på Nedlastinger-siden.",
+      "jobQueued": "I kø — kjøres etter den gjeldende jobben. Følg den på Nedlastinger-siden.",
+      "chooseSystems": "Velg systemer…",
+      "runSelected": "Kjør valgte",
+      "runAll": "Kjør alle",
+      "selectedCount": "{count} valgt",
+      "noneSelected": "Ingen valgt",
+      "pickSystemsHint": "Velg ett eller flere systemer, eller kjør mot hele biblioteket.",
+      "noConfiguredSystems": "Ingen konfigurerte systemer ennå."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "brukt {date}",
       "neverUsed": "aldri brukt",
       "revoke": "Trekk tilbake",
-      "noTokensYet": "Ingen tokens ennå."
+      "noTokensYet": "Ingen tokens ennå.",
+      "expiryNever": "Utløper aldri",
+      "expiry30": "Utløper om 30 dager",
+      "expiry90": "Utløper om 90 dager",
+      "expiry365": "Utløper om 1 år"
     },
     "retroAchievements": {
       "raIntro1": "Koble",
@@ -1235,7 +1321,15 @@
     "loading": "Laster…",
     "scheduled": "Planlagt",
     "noRecurringTasks": "Ingen tilbakevendende oppgaver aktivert.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusOptimizing": "Optimaliserer omslag…",
+    "optimizingArtBar": "Optimaliserer omslag",
+    "statusHashing": "Beregner hasher…",
+    "statusArt": "Henter systemkunst på nytt…",
+    "statusThumbs": "Oppdaterer bilder…",
+    "hashingFilesBar": "Beregner hasher",
+    "scrapingArtBar": "Henter kunst på nytt",
+    "refreshingImagesBar": "Oppdaterer bilder"
   },
   "mobileGameOptions": {
     "gameOptions": "Spillalternativer",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Språk",
       "metaFranchise": "Franchise",
       "metaAgeRating": "Aldersklassifisering",
-      "metaFile": "Fil"
+      "metaFile": "Fil",
+      "sectionReviews": "Anmeldelser",
+      "sectionGuides": "Veiledninger"
     },
     "properties": {
       "back": "Tilbake til spill",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Søk",
-      "profile": "Profil"
+      "profile": "Profil",
+      "messages": "Meldinger"
     },
     "desktopSiteLink": {
       "desktopSite": "Desktop-nettsted"
@@ -1589,7 +1686,8 @@
       "hero": "Hero-bilde",
       "logo": "Logo",
       "icon": "Ikon"
-    }
+    },
+    "sectionMaintenance": "Vedlikehold"
   },
   "primitives": {
     "cancel": "Avbryt",
@@ -1684,7 +1782,9 @@
       "optPort": "Port",
       "optDlc": "DLC & add-on",
       "optExpansion": "Utvidelse",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Legg til et relatert spill",
+      "kindAria": "Relasjontype"
     },
     "playSummary": {
       "title": "Spillesammendrag",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Skjul også uklassifiserte spill (strengt — de fleste spill har ennå ingen klassifisering)",
       "deleteWarning": "Dette fjerner profilen fra {count, plural, one {# tildelt bruker} other {# tildelte brukere}} — de får full, ubegrenset tilgang igjen.",
       "noUsersAssigned": "Ingen brukere tildelt dette profilet.",
-      "deleteProfile": "Slett profil"
+      "deleteProfile": "Slett profil",
+      "playTimeHeading": "Spilletid",
+      "dailyLimitLabel": "Daglig spilletidsgrense",
+      "noLimit": "Ingen grense",
+      "minutesPerDay": "minutter / dag",
+      "scheduleLabel": "Tillat spilling bare på bestemte tidspunkter",
+      "allowedFrom": "Fra",
+      "allowedTo": "til"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# spill} other {# spill}}"
-    },
-    "carousel": {
-      "scrollLeft": "Rull til venstre",
-      "scrollRight": "Rull til høyre"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Auto",
       "wide": "Bred",
       "square": "Kvadrat",
+      "cart": "Kassett",
       "portrait": "Stående"
     },
     "scanning": "Skanner {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Spillbar i nettleseren",
       "downloadToPlay": "{name} — last ned for å spille"
     }
+  },
+  "screenshots": {
+    "title": "Dine skjermbilder",
+    "viewCapture": "Vis skjermbilde",
+    "previous": "Forrige",
+    "next": "Neste",
+    "download": "Last ned",
+    "delete": "Slett",
+    "close": "Lukk"
+  },
+  "reviews": {
+    "noneYet": "Ingen anmeldelser ennå — vær den første.",
+    "recommendedPct": "{pct}% anbefalt",
+    "basedOn": "{recommended} av {count} anbefaler dette",
+    "yourReview": "Din anmeldelse",
+    "writeReview": "Skriv en anmeldelse",
+    "recommend": "Anbefal",
+    "notRecommend": "Ikke for meg",
+    "bodyPlaceholder": "Del hva du mener… (valgfritt)",
+    "post": "Publiser anmeldelse",
+    "update": "Oppdater anmeldelse",
+    "delete": "Slett",
+    "communityReviews": "{count, plural, one {# anmeldelse} other {# anmeldelser}}"
+  },
+  "search": {
+    "placeholder": "Søk etter spill, systemer, samlinger, venner…",
+    "hint": "Begynn å skrive for å søke overalt.",
+    "noResults": "Ingen samsvar.",
+    "groupPages": "Sider",
+    "groupGames": "Spill",
+    "groupSystems": "Systemer",
+    "groupCollections": "Samlinger",
+    "groupFriends": "Venner",
+    "gamesCount": "{count, plural, one {# spill} other {# spill}}"
+  },
+  "compat": {
+    "title": "Emulatorkompatibilitet",
+    "labelPlayable": "Spillbar",
+    "labelRuns": "Kjører med problemer",
+    "labelBroken": "Ødelagt",
+    "labelUnknown": "Ikke testet",
+    "yourReport": "Hvordan kjører det for deg?",
+    "notePlaceholder": "Legg til en merknad (valgfritt) — feil, innstillinger som hjalp…",
+    "save": "Lagre",
+    "update": "Oppdater",
+    "clear": "Fjern",
+    "reportsCount": "{count, plural, one {# rapport} other {# rapporter}}",
+    "officialBadge": "Offisiell vurdering",
+    "untestedHint": "Ikke testet ennå — legg til den første rapporten.",
+    "officialLabel": "Offisiell vurdering (admin)",
+    "clearOfficial": "Ingen offisiell vurdering"
+  },
+  "guides": {
+    "writeGuide": "Skriv en veiledning",
+    "noneYet": "Ingen veiledninger ennå — skriv den første.",
+    "by": "av {name}",
+    "back": "Alle veiledninger",
+    "edit": "Rediger",
+    "delete": "Slett",
+    "deleteConfirm": "Slette denne veiledningen?",
+    "save": "Lagre veiledning",
+    "cancel": "Avbryt",
+    "titlePlaceholder": "Veiledningstitel",
+    "bodyPlaceholder": "Skriv din gjennomgang, tips eller strategi…",
+    "newGuide": "Ny veiledning",
+    "editGuide": "Rediger veiledning"
+  },
+  "playLimit": {
+    "title": "Tiden er over",
+    "limitReached": "Du har nådd den daglige spilletidsgrensen din på {minutes} minutter. Se deg igjen i morgen!",
+    "outsideHours": "Spilletid er bare tillatt mellom {start} og {end}.",
+    "back": "Tilbake til spill"
+  },
+  "messages": {
+    "title": "Meldinger",
+    "noFriends": "Legg til venner for å begynne å chatte.",
+    "you": "Du",
+    "noMessagesYet": "Ingen meldinger ennå",
+    "pickConversation": "Velg en samtale for å begynne å chatte.",
+    "sayHi": "Hei 👋",
+    "messagePlaceholder": "Skriv en melding…",
+    "send": "Send",
+    "back": "Tilbake"
+  },
+  "emuVideo": {
+    "videoFilter": "Videofilter",
+    "filterOff": "Ingen (skarpe piksler)",
+    "filterSmooth": "Glatt (bilineær)",
+    "appliesNextLaunch": "Gjelder neste gang du starter",
+    "saving": "Lagrer…"
+  },
+  "cheats": {
+    "loading": "Laster inn cheater…",
+    "empty": "Ingen cheater lagt til ennå.",
+    "remove": "Fjern",
+    "suggested": "Foreslått for dette spillet",
+    "addTitle": "Legg til en cheat",
+    "namePlaceholder": "Navn (f.eks. Uendelige liv)",
+    "codePlaceholder": "Game Genie- eller rå-kode — én per linje",
+    "appliesHint": "Gjelder neste gang du spiller",
+    "add": "Legg til",
+    "searchPlaceholder": "Søk etter cheats…"
   }
 }

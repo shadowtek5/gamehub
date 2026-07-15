@@ -19,6 +19,8 @@ import {
   defaultLayout,
   detectFamily,
   physicalLabel,
+  encodeLayoutCode,
+  decodeLayoutCode,
   type ConsoleButton,
   type ControllerFamily,
   type Layout,
@@ -76,6 +78,12 @@ export default function ControllerLayout({
   const [saving, setSaving] = useState(false);
   const [picking, setPicking] = useState<PhysicalKey | null>(null);
   const [pressed, setPressed] = useState<Set<number>>(new Set());
+  // Share (export/import) UI state.
+  const [shareOpen, setShareOpen] = useState(false);
+  const [shareCode, setShareCode] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [importCode, setImportCode] = useState("");
+  const [importErr, setImportErr] = useState(false);
 
   // Suspend app-nav so presses land here, not in the grid behind (no-op in the
   // emulator, where GamepadNav isn't mounted).
@@ -184,6 +192,34 @@ export default function ControllerLayout({
     }
   }
 
+  // Share codes: export the current layout to a copyable code, or paste one in.
+  function exportCode() {
+    if (!layout) return;
+    const code = encodeLayoutCode(layout);
+    if (!code) return;
+    void navigator.clipboard?.writeText(code).then(
+      () => setCopied(true),
+      () => setCopied(false)
+    );
+    setShareCode(code);
+    setShareOpen(true);
+    setImportErr(false);
+    playSound("tab");
+  }
+  function applyImport() {
+    const parsed = decodeLayoutCode(importCode);
+    if (!parsed) {
+      setImportErr(true);
+      return;
+    }
+    setLayout(parsed);
+    setDirty(true);
+    setImportErr(false);
+    setImportCode("");
+    setShareOpen(false);
+    playSound("confirm");
+  }
+
   async function resetToInherited() {
     setSaving(true);
     try {
@@ -217,6 +253,9 @@ export default function ControllerLayout({
       footer={
         <>
           <GpButton onClick={onClose}>{t("close")}</GpButton>
+          <GpButton onClick={() => { setShareOpen((v) => !v); setCopied(false); setImportErr(false); }}>
+            {t("share")}
+          </GpButton>
           <GpButton onClick={resetToInherited} disabled={saving || !hasOverride}>
             {scope.kind === "global" ? t("resetToDefault") : t("resetToInherited")}
           </GpButton>
@@ -226,6 +265,40 @@ export default function ControllerLayout({
         </>
       }
     >
+      {/* Share panel: export the current layout as a code, or paste one to apply. */}
+      {shareOpen && (
+        <div className="mb-4 rounded-[6px] bg-[#12161c] p-4 ring-1 ring-white/10">
+          <div className="mb-3">
+            <div className="mb-1.5 text-[12px] font-bold uppercase tracking-wide text-dim">{t("exportHeading")}</div>
+            <div className="flex flex-wrap items-center gap-2">
+              <GpButton onClick={exportCode} disabled={!layout}>{t("copyCode")}</GpButton>
+              {shareCode && (
+                <input
+                  readOnly
+                  value={shareCode}
+                  onFocus={(e) => e.currentTarget.select()}
+                  className="min-w-0 flex-1 rounded-[3px] bg-black/40 px-2 py-1.5 text-[12px] text-body outline-none ring-1 ring-white/10"
+                />
+              )}
+              {copied && <span className="text-[12px] text-accent">{t("copied")}</span>}
+            </div>
+          </div>
+          <div>
+            <div className="mb-1.5 text-[12px] font-bold uppercase tracking-wide text-dim">{t("importHeading")}</div>
+            <div className="flex flex-wrap items-center gap-2">
+              <input
+                value={importCode}
+                onChange={(e) => { setImportCode(e.target.value); setImportErr(false); }}
+                placeholder={t("pastePlaceholder")}
+                className="min-w-0 flex-1 rounded-[3px] bg-black/40 px-2 py-1.5 text-[12px] text-bright outline-none ring-1 ring-white/10 placeholder:text-dim focus:ring-2 focus:ring-white"
+              />
+              <GpButton primary onClick={applyImport} disabled={!importCode.trim()}>{t("applyCode")}</GpButton>
+            </div>
+            {importErr && <div className="mt-1.5 text-[12px] text-[#e5544b]">{t("importInvalid")}</div>}
+            <div className="mt-1.5 text-[11px] text-dim">{t("importNote")}</div>
+          </div>
+        </div>
+      )}
       {/* Status + family selector */}
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <div className="text-[13px] text-dim">

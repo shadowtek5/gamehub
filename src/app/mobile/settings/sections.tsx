@@ -117,6 +117,7 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
             initialAutoCleanup={getSetting("auto_cleanup") === "on"}
             initialFsWatcher={getSetting("fs_watcher") === "on"}
             lastAutoScan={getSetting("last_auto_scan")}
+            systems={scrapeSystems}
           />
           <SetIntegrity />
           <BackupPanel />
@@ -155,6 +156,7 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
       blurb: t("sections.providers.blurb"),
       content: (<><SettingsInternet /><SettingsLaunchBox /><SettingsDatDb /></>),
     },
+    { key: "firmware", label: t("sections.firmware.label"), icon: "▶", blurb: t("sections.firmware.blurb"), content: <SettingsInGame /> },
     {
       key: "news",
       label: t("sections.news.label"),
@@ -183,7 +185,6 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
       blurb: t("sections.activity.blurb"),
       content: <ActivityLog mobile />,
     },
-    { key: "firmware", label: t("sections.firmware.label"), icon: "▶", blurb: t("sections.firmware.blurb"), content: <SettingsInGame /> },
     { key: "customization", label: t("sections.customization.label"), icon: "🎨", blurb: t("sections.customization.blurb"), content: <AppearancePanel /> },
     { key: "audio", label: t("sections.audio.label"), icon: "🔊", blurb: t("sections.audio.blurb"), content: <SettingsAudio isAdmin /> },
     { key: "controller", label: t("sections.controller.label"), icon: "🎮", blurb: t("sections.controller.blurb"), content: <SettingsController /> },

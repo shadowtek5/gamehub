@@ -18,14 +18,22 @@ interface TokenRow {
 
 export default function MobileApiTokens() {
   const t = useTranslations("mobileAccount");
+  // Ascending privilege, matching the desktop panel; least-privilege default.
   const SCOPES = [
-    { value: "full", label: t("apiTokens.scopeFull") },
-    { value: "editor", label: t("apiTokens.scopeEditor") },
     { value: "viewer", label: t("apiTokens.scopeViewer") },
+    { value: "editor", label: t("apiTokens.scopeEditor") },
+    { value: "full", label: t("apiTokens.scopeFull") },
+  ];
+  const EXPIRY = [
+    { value: "90", label: t("apiTokens.expiry90") },
+    { value: "30", label: t("apiTokens.expiry30") },
+    { value: "365", label: t("apiTokens.expiry365") },
+    { value: "0", label: t("apiTokens.expiryNever") },
   ];
   const [tokens, setTokens] = useState<TokenRow[] | null>(null);
   const [name, setName] = useState("");
-  const [scope, setScope] = useState("full");
+  const [scope, setScope] = useState("viewer");
+  const [expiry, setExpiry] = useState("90");
   const [fresh, setFresh] = useState<{ name: string; token: string } | null>(null);
   const [copied, setCopied] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -49,7 +57,7 @@ export default function MobileApiTokens() {
       const res = await fetch("/api/tokens", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, scope }),
+        body: JSON.stringify({ name, scope, expiresInDays: Number(expiry) }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -94,6 +102,7 @@ export default function MobileApiTokens() {
           onChange={(e) => setName(e.target.value)}
         />
         <GpDropdown value={scope} width="100%" onChange={setScope} options={SCOPES} />
+        <GpDropdown value={expiry} width="100%" onChange={setExpiry} options={EXPIRY} />
         <button
           onClick={create}
           disabled={busy || !name.trim()}

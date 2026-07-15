@@ -8,7 +8,6 @@ import {
   platformByFolder,
   AMBIGUOUS_EXTENSIONS,
 } from "./platforms";
-import { libretroBoxartUrl } from "./boxart";
 import { parseLanguages } from "./language";
 
 export interface ScanResult {
@@ -434,7 +433,10 @@ export function scanLibrary(options: ScanOptions = {}): ScanResult {
           (existing.revision ?? null) === (fileFields.revision ?? null) &&
           (existing.language ?? null) === (fileFields.language ?? null);
         if (!unchanged) {
-          upsert.run({ ...fileFields, title, sort_title: sort, region, boxart_url: libretroBoxartUrl(hit.platform, filename) });
+          // boxart_url is left NULL — GameHub never persists a live scraper URL.
+          // Box art is downloaded locally by the post-scan localizer / scrape.
+          // (This is the ON CONFLICT path, which doesn't touch boxart_url anyway.)
+          upsert.run({ ...fileFields, title, sort_title: sort, region, boxart_url: null });
           result.updated++;
         }
         seen.add(hit.filePath);
@@ -462,7 +464,9 @@ export function scanLibrary(options: ScanOptions = {}): ScanResult {
         continue;
       }
 
-      const ins = upsert.run({ ...fileFields, title, sort_title: sort, region, boxart_url: libretroBoxartUrl(hit.platform, filename) });
+      // boxart_url NULL — never persist a live scraper URL; the post-scan
+      // localizer downloads a libretro candidate into local storage instead.
+      const ins = upsert.run({ ...fileFields, title, sort_title: sort, region, boxart_url: null });
       seen.add(hit.filePath);
       result.added++;
       result.addedIds.push(Number(ins.lastInsertRowid));

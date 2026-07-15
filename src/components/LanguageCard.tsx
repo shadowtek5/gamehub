@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { GpDropdown } from "@/components/bpm/primitives";
-import { LOCALES, LOCALE_COOKIE, LOCALE_LABELS, type Locale } from "@/i18n/locales";
+import { LOCALES_FOR_PICKER, LOCALE_COOKIE, LOCALE_LABELS, type Locale } from "@/i18n/locales";
 
 export default function LanguageCard() {
   const t = useTranslations("settings.language");
@@ -17,7 +17,7 @@ export default function LanguageCard() {
   const [value, setValue] = useState<Locale>(active);
   const router = useRouter();
 
-  const options = LOCALES.map((code) => ({
+  const options = LOCALES_FOR_PICKER.map((code) => ({
     value: code,
     label: `${LOCALE_LABELS[code].flag}  ${LOCALE_LABELS[code].label}`,
   }));

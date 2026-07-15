@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import type { AuditJobStatus, DuplicateGroup, SetReport, TitleDupGroup } from "@/lib/audit";
 import type { HashJobStatus } from "@/lib/hashJob";
 import { playSound } from "@/lib/sounds";
-import { GpSubHeader, GpButton, GpProgress, GpDropdown } from "./primitives";
+import { GpSubHeader, GpButton, GpProgress, GpDropdown, GpRadioRow } from "./primitives";
 
 interface Counts {
   verified: number;
@@ -419,29 +419,25 @@ export default function SetIntegrity() {
                           {t("hideExtras", { count: g.count - 1 })}
                         </GpButton>
                       </div>
-                      <div className="flex flex-col gap-1">
+                      <div className="flex flex-col">
                         {g.members.map((m) => (
-                          <label
+                          <GpRadioRow
                             key={m.id}
-                            className="flex cursor-pointer items-center gap-2 text-[12px] text-body"
-                          >
-                            <input
-                              type="radio"
-                              name={`keep-${key}`}
-                              checked={keepId === m.id}
-                              onChange={() => setKeepSel((s) => ({ ...s, [key]: m.id }))}
-                            />
-                            <span className="truncate" title={m.filename}>
-                              {m.filename}
-                              {m.region ? <span className="text-dim"> · {m.region}</span> : null}
-                              {m.revision ? <span className="text-dim"> · {m.revision}</span> : null}
-                              {m.scraped ? <span className="text-[#4c9fe0]"> · {t("scraped")}</span> : null}
-                              {m.dat_status === "verified" ? (
-                                <span className="text-[#6dc85f]"> · {t("verifiedTag")}</span>
-                              ) : null}
-                              <span className="text-dim"> · {fmtBytes(m.size_bytes)}</span>
-                            </span>
-                          </label>
+                            selected={keepId === m.id}
+                            onSelect={() => setKeepSel((s) => ({ ...s, [key]: m.id }))}
+                            label={
+                              <span className="truncate text-[12px]" title={m.filename}>
+                                {m.filename}
+                                {m.region ? <span className="text-dim"> · {m.region}</span> : null}
+                                {m.revision ? <span className="text-dim"> · {m.revision}</span> : null}
+                                {m.scraped ? <span className="text-[#4c9fe0]"> · {t("scraped")}</span> : null}
+                                {m.dat_status === "verified" ? (
+                                  <span className="text-[#6dc85f]"> · {t("verifiedTag")}</span>
+                                ) : null}
+                                <span className="text-dim"> · {fmtBytes(m.size_bytes)}</span>
+                              </span>
+                            }
+                          />
                         ))}
                       </div>
                     </div>

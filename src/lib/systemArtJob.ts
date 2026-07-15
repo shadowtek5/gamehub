@@ -86,11 +86,15 @@ function systemsWithGames(): string[] {
  * previously-scraped systems pick up the current provider/type mapping. Scoped
  * to systems that have games in the library. False if one is already running.
  */
-export function startSystemArtJob(): boolean {
+export function startSystemArtJob(systems?: string[], onComplete?: () => void): boolean {
   const s = state();
-  if (s.running) return false;
+  if (s.running) {
+    onComplete?.();
+    return false;
+  }
 
-  const slugs = systemsWithGames();
+  const only = systems?.length ? new Set(systems) : null;
+  const slugs = systemsWithGames().filter((slug) => !only || only.has(slug));
   s.running = true;
   s.total = slugs.length;
   s.done = 0;
@@ -126,6 +130,7 @@ export function startSystemArtJob(): boolean {
       s.running = false;
       s.current = "";
       s.finishedAt = new Date().toISOString();
+      onComplete?.();
     }
   })();
 

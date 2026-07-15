@@ -17,8 +17,12 @@ import {
   countScrapeTargets,
 } from "./providers/scrapeJob";
 import { platformBySlug } from "./platforms";
+import { localizeBoxartForIds, startBoxartLocalizeAll, getBoxartLocalizeStatus } from "./boxartLocalize";
+import { startHashJob, getHashJobStatus } from "./hashJob";
+import { startSystemArtJob, getSystemArtJobStatus } from "./systemArtJob";
+import { startThumbRefreshJob, getThumbJobStatus } from "./systemThumb";
 
-export type QueueKind = "scan" | "scrape";
+export type QueueKind = "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
 
 interface QueuedJob {
   id: number;
@@ -38,6 +42,8 @@ interface QueuedJob {
   actor?: { id: number; name: string } | null;
   /** scan-only: when the scan adds new games, auto-queue a scrape for them */
   autoScrape?: boolean;
+  /** hash-only: also re-hash already-hashed .zip/.7z archives */
+  rehashArchives?: boolean;
   enqueuedAt: string;
 }
 
@@ -60,32 +66,50 @@ function q() {
 
 /** Any heavy job currently occupying the single run slot. */
 function anyRunning(): boolean {
-  return getScanJobStatus().running || getScrapeJobStatus().running;
+  return (
+    getScanJobStatus().running ||
+    getScrapeJobStatus().running ||
+    getBoxartLocalizeStatus().running ||
+    getHashJobStatus().running ||
+    getSystemArtJobStatus().running ||
+    getThumbJobStatus().running
+  );
 }
 
 function launch(job: QueuedJob): void {
   if (job.kind === "scan") {
-    // When an automatic scan (watcher / schedule) adds new games, chase it with a
-    // scrape scoped to the same systems, onlyMissing=true — so exactly the freshly
-    // added, not-yet-scraped games get metadata + art, without re-scraping the rest.
-    const onDone = job.autoScrape
-      ? () => {
-          try {
-            const st = getScanJobStatus();
-            const newIds = getLastScanAddedIds();
-            if (!st.cancelled && newIds.length > 0) {
-              // Scrape exactly the games this scan added — a targeted job that
-              // shows on the downloads page, not a whole-system rescrape.
-              enqueueScrapeIds(newIds, job.actor?.id ?? null);
-              console.log(`[auto-scrape] ${newIds.length} new game(s) — scrape queued`);
-            }
-          } catch (e) {
-            console.error("[auto-scrape] failed to queue:", e);
+    // After a scan adds games: download their box art into local storage (the
+    // scanner never persists a live libretro URL), and — for automatic scans —
+    // chase it with a scrape scoped to just those games for full metadata + art.
+    const onDone = () => {
+      try {
+        const st = getScanJobStatus();
+        const newIds = getLastScanAddedIds();
+        if (!st.cancelled && newIds.length > 0) {
+          // Localize box art immediately so new games aren't art-less until a
+          // (possibly-never) full scrape runs. Fire-and-forget.
+          void localizeBoxartForIds(newIds);
+          if (job.autoScrape) {
+            enqueueScrapeIds(newIds, job.actor?.id ?? null);
+            console.log(`[auto-scrape] ${newIds.length} new game(s) — scrape queued`);
           }
-          pump();
         }
-      : pump;
+      } catch (e) {
+        console.error("[post-scan] failed:", e);
+      }
+      pump();
+    };
     startScanJob(job.systems, onDone, job.actor ?? null);
+  } else if (job.kind === "localize") {
+    // Optimize box art (whole library or selected systems) — download any
+    // still-live libretro covers and (re)build the small grid thumbnails.
+    startBoxartLocalizeAll(job.systems ?? undefined, pump);
+  } else if (job.kind === "hash") {
+    startHashJob(job.systems ?? undefined, { rehashArchives: job.rehashArchives }, pump);
+  } else if (job.kind === "art") {
+    startSystemArtJob(job.systems ?? undefined, pump);
+  } else if (job.kind === "thumbs") {
+    startThumbRefreshJob(job.systems ?? undefined, pump);
   } else {
     // Targets are resolved HERE (not at enqueue) so a scan queued ahead of this
     // scrape is reflected in what gets scraped. An id-scoped job (auto-scrape of
@@ -155,6 +179,42 @@ export function enqueueScrapeIds(ids: number[], initiatedBy: number | null = nul
   return enqueue({ kind: "scrape", systems: null, scrapeIds: ids, initiatedBy });
 }
 
+/** Queue a box-art optimize (whole library or selected systems): download live
+ *  libretro covers + build grid thumbnails. Serializes with scans/scrapes so
+ *  they never double-write art, and shows on the downloads page like any job. */
+export function enqueueLocalize(systems?: string[]): EnqueueResult {
+  return enqueue({ kind: "localize", systems: systems?.length ? systems : null });
+}
+
+/** A localize job is running or already waiting — so the button can't stack it. */
+export function localizePendingOrRunning(): boolean {
+  return getBoxartLocalizeStatus().running || q().pending.some((j) => j.kind === "localize");
+}
+
+/** Queue a file-hash pass (whole library, or a system subset / archive re-hash). */
+export function enqueueHash(opts: { systems?: string[]; rehashArchives?: boolean } = {}): EnqueueResult {
+  return enqueue({ kind: "hash", systems: opts.systems ?? null, rehashArchives: opts.rehashArchives });
+}
+export function hashPendingOrRunning(): boolean {
+  return getHashJobStatus().running || q().pending.some((j) => j.kind === "hash");
+}
+
+/** Queue a system-art re-scrape (whole library or selected systems). */
+export function enqueueSystemArt(systems?: string[]): EnqueueResult {
+  return enqueue({ kind: "art", systems: systems?.length ? systems : null });
+}
+export function systemArtPendingOrRunning(): boolean {
+  return getSystemArtJobStatus().running || q().pending.some((j) => j.kind === "art");
+}
+
+/** Queue a system-collage image refresh (whole library or selected systems). */
+export function enqueueThumbs(systems?: string[]): EnqueueResult {
+  return enqueue({ kind: "thumbs", systems: systems?.length ? systems : null });
+}
+export function thumbsPendingOrRunning(): boolean {
+  return getThumbJobStatus().running || q().pending.some((j) => j.kind === "thumbs");
+}
+
 /** A scan is running or already waiting — used to dedupe automatic scans so the
  *  daily timer / fs-watcher never stack redundant full scans. */
 export function scanPendingOrRunning(): boolean {
@@ -183,6 +243,18 @@ export function queuedViews(): QueuedView[] {
           : `${systems.length} systems`;
     if (j.kind === "scan") {
       return { id: j.id, kind: "scan", label: "Library scan", systems, detail: scope };
+    }
+    if (j.kind === "localize") {
+      return { id: j.id, kind: "localize", label: "Optimize box art", systems, detail: scope };
+    }
+    if (j.kind === "hash") {
+      return { id: j.id, kind: "hash", label: "Compute file hashes", systems, detail: scope };
+    }
+    if (j.kind === "art") {
+      return { id: j.id, kind: "art", label: "Re-scrape system art", systems, detail: scope };
+    }
+    if (j.kind === "thumbs") {
+      return { id: j.id, kind: "thumbs", label: "Refresh system images", systems, detail: scope };
     }
     // An id-scoped scrape (auto-scrape of new games) knows its exact count.
     if (j.scrapeIds?.length) {

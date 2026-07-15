@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
-import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, CollectionRow } from "@/lib/db";
+import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { formatBytes, formatPlaytime, timeAgo } from "@/lib/format";
 import { formatHltb } from "@/lib/providers/hltb";
@@ -17,6 +17,12 @@ import ManualViewer from "@/components/ManualViewer";
 import MobileGameOptions from "@/components/mobile/MobileGameOptions";
 import RelatedContent from "@/components/RelatedContent";
 import SaveStatesPanel, { SaveStateInfo } from "@/components/SaveStatesPanel";
+import ScreenshotGallery from "@/components/ScreenshotGallery";
+import Reviews from "@/components/Reviews";
+import Compatibility from "@/components/Compatibility";
+import VideoFilterPicker from "@/components/VideoFilterPicker";
+import CheatsManager from "@/components/CheatsManager";
+import Guides from "@/components/Guides";
 import AchievementCarousel from "@/components/AchievementCarousel";
 import ControllerLayoutButton from "@/components/ControllerLayoutButton";
 import ActivityComposer from "@/components/ActivityComposer";
@@ -155,6 +161,17 @@ export default async function MobileGamePage({
   const batterySave = getDb()
     .prepare("SELECT size_bytes, updated_at FROM battery_saves WHERE user_id = ? AND rom_id = ?")
     .get(user.id, rom.id) as { size_bytes: number; updated_at: string } | undefined;
+  const screenshots = listUserScreenshots(user.id, rom.id);
+  const reviewsData = {
+    summary: reviewSummary(rom.id),
+    reviews: listReviews(rom.id),
+    mine: getUserReview(user.id, rom.id) ?? null,
+  };
+  const emuShader = playable ? getEmuPrefs(user.id, rom.id).shader : null;
+  const compatData = playable
+    ? { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null }
+    : null;
+  const guides = listGuides(rom.id);
 
   // Per-game activity timeline (comments + events), same feed as the desktop.
   const activity = getRomActivity(rom.id);
@@ -344,7 +361,33 @@ export default async function MobileGamePage({
           </Section>
         )}
 
-        {(playable || saveStates.length > 0 || batterySave) && (
+        {compatData && (
+          <Section title={tg("compatSection")}>
+            <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} />
+          </Section>
+        )}
+
+        {playable && (
+          <Section title={tg("videoSection")}>
+            <VideoFilterPicker romId={rom.id} initialShader={emuShader} />
+          </Section>
+        )}
+
+        {playable && (
+          <Section title={tg("cheatsSection")}>
+            <CheatsManager romId={rom.id} />
+          </Section>
+        )}
+
+        <Section title={t("sectionGuides")}>
+          <Guides romId={rom.id} currentUserId={user.id} isAdmin={user.isAdmin} initial={guides} />
+        </Section>
+
+        <Section title={t("sectionReviews")}>
+          <Reviews romId={rom.id} currentUserId={user.id} initial={reviewsData} />
+        </Section>
+
+        {playable && (
           <Section title={tg("savesAndStates")}>
             <SaveStatesPanel
               romId={rom.id}
@@ -353,6 +396,12 @@ export default async function MobileGamePage({
               batterySave={batterySave ?? null}
               gameImage={rom.screenshot_url ?? rom.boxart_url ?? rom.hero_url ?? null}
             />
+          </Section>
+        )}
+
+        {playable && screenshots.length > 0 && (
+          <Section title={tg("screenshotsSection")}>
+            <ScreenshotGallery romId={rom.id} shots={screenshots} canDelete showHeading={false} />
           </Section>
         )}
 

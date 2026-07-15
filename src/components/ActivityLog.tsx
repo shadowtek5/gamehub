@@ -9,7 +9,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { GpPill } from "@/components/bpm/primitives";
+import { GpPill, GpDropdown } from "@/components/bpm/primitives";
 
 interface EventRow {
   id: number;
@@ -247,18 +247,17 @@ export default function ActivityLog({ mobile = false }: { mobile?: boolean }) {
           {t("exportJson")}
         </button>
         <span className="ml-auto flex items-center gap-2 text-dim">
-          <span>{t("clear")}</span>
-          <select
+          {/* Dropdown reads "older than 30 days" etc., so the Clear button
+              completes the phrase — no separate leading "Clear" label needed. */}
+          <GpDropdown
             value={clearScope}
-            onChange={(e) => setClearScope(e.target.value)}
-            className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-body focus:outline-none"
-          >
-            {CLEAR_SCOPES.map((s) => (
-              <option key={s.value} value={s.value} className="bg-[#12161c]">
-                {t(SCOPE_LABEL_KEY[s.value])}
-              </option>
-            ))}
-          </select>
+            width={190}
+            onChange={setClearScope}
+            options={CLEAR_SCOPES.map((s) => ({
+              value: s.value,
+              label: t(SCOPE_LABEL_KEY[s.value]),
+            }))}
+          />
           <button
             type="button"
             onClick={clearLogs}

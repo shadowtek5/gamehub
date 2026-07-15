@@ -18,6 +18,22 @@ import { mobyLookup } from "@/lib/providers/mobygames";
 import { sgdbLookup } from "@/lib/providers/steamgriddb";
 import { launchboxConfigured, lbLookup } from "@/lib/providers/launchbox";
 
+/** Does a guessed libretro thumbnail actually exist? (Most don't — the URL is
+ *  built from the ROM name, which rarely matches libretro's exact No-Intro name.)
+ *  A HEAD is enough and avoids downloading the image just to check. */
+async function libretroExists(url: string): Promise<boolean> {
+  try {
+    const res = await fetch(url, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(8000),
+      headers: { "User-Agent": "GameHub/0.1 (box-art picker)" },
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 /** Box-art candidates from all configured providers, for the box art picker */
 export async function GET(
   _req: NextRequest,
@@ -87,14 +103,19 @@ export async function GET(
 
   // libretro-thumbnails — free, no key. libretro names its thumbnails by the
   // exact No-Intro/Redump name, so the DAT identity is the most reliable
-  // filename; fall back to the ROM filename + title guesses.
+  // filename; fall back to the ROM filename + title guesses. These are just
+  // guesses, and most don't exist — VERIFY each one so the picker only ever
+  // shows real covers instead of silently-broken (404) thumbnails.
   if (platform) {
-    const lrUrls = [
+    const lrUrls = [...new Set([
       ...(identity !== rom.title ? [libretroBoxartUrlFromTitle(platform, identity)] : []),
       ...libretroCandidates(platform, rom.filename, rom.title).boxart,
-    ];
-    for (const url of [...new Set(lrUrls)].slice(0, 3)) {
-      if (!candidates.some((c) => c.url === url)) {
+    ])].slice(0, 4);
+    const checked = await Promise.all(
+      lrUrls.map(async (url) => ({ url, ok: await libretroExists(url) }))
+    );
+    for (const { url, ok } of checked) {
+      if (ok && !candidates.some((c) => c.url === url)) {
         candidates.push({ url, provider: "libretro-thumbnails" });
       }
     }

@@ -26,7 +26,30 @@ function parseBody(body: unknown): RestrictionInput | { error: string } {
     if (!Number.isFinite(n) || n < 0 || n > 21) return { error: "maxRating out of range" };
     maxRating = n;
   }
-  return { name, allowedSystems, maxRating, hideUnrated: b.hideUnrated === true };
+  let dailyLimitMinutes: number | null = null;
+  if (b.dailyLimitMinutes != null && b.dailyLimitMinutes !== "") {
+    const n = Number(b.dailyLimitMinutes);
+    if (Number.isFinite(n) && n > 0) dailyLimitMinutes = Math.round(n);
+  }
+  let allowedStartHour: number | null = null;
+  let allowedEndHour: number | null = null;
+  if (b.allowedStartHour != null && b.allowedEndHour != null) {
+    const s = Number(b.allowedStartHour);
+    const e = Number(b.allowedEndHour);
+    if (Number.isFinite(s) && Number.isFinite(e)) {
+      allowedStartHour = Math.max(0, Math.min(23, Math.round(s)));
+      allowedEndHour = Math.max(0, Math.min(23, Math.round(e)));
+    }
+  }
+  return {
+    name,
+    allowedSystems,
+    maxRating,
+    hideUnrated: b.hideUnrated === true,
+    dailyLimitMinutes,
+    allowedStartHour,
+    allowedEndHour,
+  };
 }
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {

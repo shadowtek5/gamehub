@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
-import { getDb, getSetting, listLibrary, recentlyPlayed, friendIds, LibraryRomRow } from "@/lib/db";
+import { getDb, getSetting, listLibraryForHome, recentlyPlayed, friendIds, HomeLibraryRow } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { needsSetup } from "@/lib/setup";
 import Home, { HomeRom, HomeActivity, HomeShelf } from "@/components/bpm/Home";
@@ -11,7 +11,7 @@ import { getHomeNews } from "@/lib/news";
 export const dynamic = "force-dynamic";
 
 /** Slim a library row to exactly what the BPM home renders */
-const slim = (r: LibraryRomRow): HomeRom => ({
+const slim = (r: HomeLibraryRow): HomeRom => ({
   id: r.id,
   title: r.title,
   boxart_url: r.boxart_url,
@@ -29,7 +29,7 @@ export default async function HomePage() {
   // and the empty-library welcome below still points the way.
   if (user.isAdmin && needsSetup() && getSetting("setup_prompted") !== "on") redirect("/setup");
 
-  const all = listLibrary(user.id);
+  const all = listLibraryForHome(user.id);
   if (all.length === 0) {
     // While setup is still incomplete, lead with the wizard (we only auto-redirect
     // there once); otherwise point at Settings.

@@ -26,7 +26,7 @@ interface SysProg {
   done: number;
 }
 interface JobView {
-  kind: "scan" | "scrape";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   running: boolean;
   currentSystem: string;
@@ -44,7 +44,7 @@ interface JobView {
 
 interface QueuedView {
   id: number;
-  kind: "scan" | "scrape";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   systems: string[];
   detail: string;
@@ -91,6 +91,16 @@ function Stat({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+// Per-kind status-line + progress-bar i18n keys (scrape has its own logic).
+const STATUS_KEY: Record<string, string> = {
+  scan: "scanningFiles", localize: "statusOptimizing", hash: "statusHashing",
+  art: "statusArt", thumbs: "statusThumbs",
+};
+const BAR_KEY: Record<string, string> = {
+  scan: "scanningFilesBar", scrape: "scrapingMetadataBar", localize: "optimizingArtBar",
+  hash: "hashingFilesBar", art: "scrapingArtBar", thumbs: "refreshingImagesBar",
+};
 
 export default function MobileDownloads() {
   const t = useTranslations("mobileDownloads");
@@ -150,8 +160,16 @@ export default function MobileDownloads() {
     };
   }, []);
 
-  async function cancel(kind: "scan" | "scrape") {
-    await fetch(kind === "scan" ? "/api/scan/job" : "/api/scrape/job", { method: "DELETE" });
+  async function cancel(kind: JobView["kind"]) {
+    const routes: Record<string, string> = {
+      scan: "/api/scan/job",
+      scrape: "/api/scrape/job",
+      localize: "/api/maintenance/localize-boxart",
+      hash: "/api/hash/job",
+      art: "/api/systems/art-job",
+      thumbs: "/api/systems/thumbs",
+    };
+    await fetch(routes[kind], { method: "DELETE" });
   }
 
   const running = jobs
@@ -167,7 +185,10 @@ export default function MobileDownloads() {
   const s = active ? series[active.kind] ?? [] : [];
   const throughput = s.length ? s[s.length - 1] * PER_MIN : 0;
   const peak = s.length ? Math.max(...s) * PER_MIN : 0;
-  const unit = active?.kind === "scan" ? t("unitSystems") : t("unitGames");
+  const unit =
+    active?.kind === "scan" || active?.kind === "art" || active?.kind === "thumbs"
+      ? t("unitSystems")
+      : t("unitGames");
   const etaStr = active ? eta(active.startedAt, active.done, active.total) : "";
 
   return (
@@ -219,7 +240,7 @@ export default function MobileDownloads() {
               ? active.current
                 ? t("nowScraping", { current: active.current })
                 : t("scrapingMetadata")
-              : t("scanningFiles")}
+              : t(STATUS_KEY[active.kind] ?? "scanningFiles")}
           </div>
         </div>
       </div>
@@ -229,7 +250,9 @@ export default function MobileDownloads() {
         <div className="flex flex-wrap gap-x-6 gap-y-2">
           <Stat label={t("throughput")} value={t("perMin", { value: Math.round(throughput) })} />
           <Stat label={t("peak")} value={t("perMin", { value: Math.round(peak) })} />
-          <Stat label={t("systems")} value={`${systemsDone} / ${active.systemQueue.length}`} />
+          {(active.kind === "scan" || active.kind === "scrape") && (
+            <Stat label={t("systems")} value={`${systemsDone} / ${active.systemQueue.length}`} />
+          )}
           {active.kind === "scrape" && (active.concurrency ?? 1) > 1 && (
             <Stat label={t("parallel")} value={`${active.concurrency}×`} />
           )}
@@ -245,7 +268,7 @@ export default function MobileDownloads() {
       {/* Progress bars */}
       <div className="flex flex-col gap-3">
         <Bar
-          label={active.kind === "scan" ? t("scanningFilesBar") : t("scrapingMetadataBar")}
+          label={t(BAR_KEY[active.kind] ?? "scanningFilesBar")}
           right={`${active.done.toLocaleString()} / ${active.total.toLocaleString()} ${unit}`}
           value={pct(active.done, active.total)}
         />

@@ -25,7 +25,8 @@
     "downloads": "Downloads",
     "activity": "Aktivitet",
     "settings": "Indstillinger",
-    "power": "Strøm"
+    "power": "Strøm",
+    "messages": "Beskeder"
   },
   "legend": {
     "menu": "Menu",
@@ -217,7 +218,9 @@
       "requestsSent": "Anmodninger sendt",
       "cancel": "Annuller",
       "removeConfirmTitle": "Fjern {name}?",
-      "removeConfirmBody": "De vil blive fjernet fra dine venner. Du kan sende en ny anmodning når som helst."
+      "removeConfirmBody": "De vil blive fjernet fra dine venner. Du kan sende en ny anmodning når som helst.",
+      "playingGame": "Spiller {title}",
+      "message": "Besked"
     },
     "summary": {
       "title": "Venner",
@@ -556,7 +559,16 @@
       "bind": "Bind {label}",
       "scopeNoteGlobal": "Standardlayout for denne controllertype. Per-system og per-spil layouts overskriver det.",
       "scopeNoteSystem": "Gælder for alle spil på dette system, overskriver den globale standard. Per-spil layouts vinder stadig.",
-      "scopeNoteGame": "Gælder kun for dette spil, overskriver system- og globale layouts."
+      "scopeNoteGame": "Gælder kun for dette spil, overskriver system- og globale layouts.",
+      "share": "Del",
+      "exportHeading": "Eksportér dette layout",
+      "copyCode": "Kopier kode",
+      "copied": "✓ Kopieret",
+      "importHeading": "Importér et layout",
+      "pastePlaceholder": "Indsæt en layoutkode…",
+      "applyCode": "Anvend",
+      "importInvalid": "Det ser ikke ud til at være en gyldig layoutkode.",
+      "importNote": "Hvis du anvender, indlæses koden i editoren — tryk på Gem layout for at beholde det."
     },
     "button": {
       "controllerLayout": "Controller-layout",
@@ -602,7 +614,15 @@
       "tagQueued": "I kø",
       "scheduled": "Planlagt",
       "noRecurring": "Ingen tilbagevendende opgaver aktiveret.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusOptimizing": "Optimerer coverbilleder…",
+      "optimizingArt": "Optimerer coverbilleder",
+      "statusHashing": "Beregner hashes…",
+      "statusArt": "Genindsamler systemkunst…",
+      "statusThumbs": "Opdaterer billeder…",
+      "hashingFiles": "Beregner hashes",
+      "scrapingArt": "Genindsamler kunst",
+      "refreshingImages": "Opdaterer billeder"
     },
     "quota": {
       "providerRequestLimits": "Udbyderanmodningsgrænser",
@@ -640,7 +660,50 @@
     "retry": "Prøv igen",
     "exit": "Afslut",
     "dismiss": "Afvis",
-    "controllerLayoutTitle": "Controller-layout — {title}"
+    "controllerLayoutTitle": "Controller-layout — {title}",
+    "screenshot": "Skærmbillede (F2)",
+    "screenshotSaved": "Skærmbillede gemt",
+    "screenshotFailed": "Skærmbillede fejlede",
+    "playTimeUp": "Tiden er gået for i dag — gemmer og lukker.",
+    "playOutsideHours": "Spilletiden er slut for nu — gemmer og lukker.",
+    "quickMenu": "Hurtigmenu",
+    "quickMenuHint": "D-pad til at bevæge dig · A for at vælge · B for at gå tilbage · Select+Start til at slå til/fra",
+    "resume": "Genoptag",
+    "saveState": "Gem tilstand",
+    "loadState": "Indlæs tilstand",
+    "restart": "Genstart spillet",
+    "restarted": "Spillet er genstartet",
+    "restartUnavailable": "Genstart er ikke tilgængelig for denne kerne",
+    "exitGame": "Afslut spillet",
+    "back": "Tilbage",
+    "loadingStates": "Indlæser tilstande…",
+    "stateSlot": "Gemt fra {date}",
+    "recordClip": "Optag klip",
+    "stopRecording": "Stop optagelse",
+    "recording": "OPT",
+    "clipSaved": "Klip gemt",
+    "recordUnavailable": "Optagelse understøttes ikke i denne browser",
+    "pause": "Pause / genoptag spil",
+    "fastForward": "Spol fremad",
+    "mute": "Lyd fra / Lyd til",
+    "fullscreen": "Skift til fuldskerm",
+    "cheats": "Cheats",
+    "netplay": "Netplay",
+    "videoFilter": "Videofilter",
+    "videoFilterSaved": "Videofilter gemt",
+    "actionUnavailable": "Ikke tilgængeligt for dette spil",
+    "loadingCheats": "Indlæser cheats…",
+    "noCheats": "Ingen cheats endnu. Tilføj koder fra spillets side, eller vælg fra listen herunder.",
+    "cheatOn": "Til",
+    "cheatOff": "Fra",
+    "cheatsFromList": "Tilføj fra liste",
+    "menuLabel": "Menu",
+    "selectLabel": "Vælg",
+    "navHome": "Hjem",
+    "navLibrary": "Bibliotek",
+    "navFriends": "Venner",
+    "navSettings": "Indstillinger",
+    "navPower": "Afslut spil"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "DIT STUFF",
     "tabVariants": "VARIANTER",
     "tabRelated": "RELATERET",
-    "tabGameInfo": "SPILINFO"
+    "tabGameInfo": "SPILINFO",
+    "screenshotsSection": "Dine skærmbilleder",
+    "tabReviews": "ANMELDELSER",
+    "compatSection": "Kompatibilitet",
+    "tabGuides": "VEJLEDNINGER",
+    "videoSection": "Videofilter",
+    "cheatsSection": "Cheats"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Gen-scrap system-kunst",
       "rescrapeArtDesc": "Gen-hent hero, logo, ikon og ribbon-kunst for hvert system i dit bibliotek, i din konfigurerede udbyder-rækkefølge. Brug efter ændring af udbydere eller kunst-mapping. Kører i baggrunden.",
       "rescrapeAll": "Gen-scrap alt",
+      "localizeArt": "Optimer coverbilleder",
+      "localizeArtDesc": "Hent alle covers, der stadig hotlinkes fra libretro, til lokal lagring som WebP, og genopbyg de små hurtige miniaturer for covers, der allerede er gemt lokalt — så biblioteket indlæses hurtigt og aldrig afhænger af et eksternt websted. Covers uden libretro-match ryddes til en pladsholder. Kører i baggrunden.",
+      "localizeStart": "Optimer alle",
+      "localizeResult": "✓ Hentede {localized}, optimerede {optimized}, ryddede {cleared} døde links{failed, plural, =0 {} other {, # til gentagelse}}",
       "updated": "{count} opdateret",
       "cancelledPrefix": "Annulleret — ",
       "updatedSystems": "Opdaterede {updated} af {done} systemer",
@@ -1064,7 +1137,16 @@
       "confirmBody": "Fjerner {missing, plural, one {# manglende spil} other {# manglende spil}} og {orphan, plural, one {# forældreløs mediemappe} other {# forældreløse mediemapper}}. Favoritter og samlingsindgange for de spil fjernes også. ROM-filer røres aldrig.",
       "failedToStart": "Kunne ikke starte",
       "removedSummary": "✓ Fjernede {games} spil og {folders} mediemapper",
-      "failed": "Mislykkedes"
+      "failed": "Mislykkedes",
+      "localizeQueued": "I kø — kører efter det aktuelle job. Følg den på Downloads-siden.",
+      "jobQueued": "I kø — kører efter det aktuelle job. Følg den på Downloads-siden.",
+      "chooseSystems": "Vælg systemer…",
+      "runSelected": "Kør valgte",
+      "runAll": "Kør alle",
+      "selectedCount": "{count} valgt",
+      "noneSelected": "Ingen valgt",
+      "pickSystemsHint": "Vælg et eller flere systemer, eller kør mod hele biblioteket.",
+      "noConfiguredSystems": "Ingen konfigurerede systemer endnu."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "brugt {date}",
       "neverUsed": "aldrig brugt",
       "revoke": "Tilbagekald",
-      "noTokensYet": "Ingen tokens endnu."
+      "noTokensYet": "Ingen tokens endnu.",
+      "expiryNever": "Udløber aldrig",
+      "expiry30": "Udløber om 30 dage",
+      "expiry90": "Udløber om 90 dage",
+      "expiry365": "Udløber om 1 år"
     },
     "retroAchievements": {
       "raIntro1": "Link din",
@@ -1235,7 +1321,15 @@
     "loading": "Indlæser…",
     "scheduled": "Planlagt",
     "noRecurringTasks": "Ingen tilbagevendende opgaver aktiveret.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusOptimizing": "Optimerer coverbilleder…",
+    "optimizingArtBar": "Optimerer coverbilleder",
+    "statusHashing": "Beregner hashes…",
+    "statusArt": "Genindsamler systemkunst…",
+    "statusThumbs": "Opdaterer billeder…",
+    "hashingFilesBar": "Beregner hashes",
+    "scrapingArtBar": "Genindsamler kunst",
+    "refreshingImagesBar": "Opdaterer billeder"
   },
   "mobileGameOptions": {
     "gameOptions": "Spilindstillinger",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Sprog",
       "metaFranchise": "Franchise",
       "metaAgeRating": "Aldersvurdering",
-      "metaFile": "Fil"
+      "metaFile": "Fil",
+      "sectionReviews": "Anmeldelser",
+      "sectionGuides": "Vejledninger"
     },
     "properties": {
       "back": "Tilbage til spil",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Søg",
-      "profile": "Profil"
+      "profile": "Profil",
+      "messages": "Beskeder"
     },
     "desktopSiteLink": {
       "desktopSite": "Desktop-site"
@@ -1589,7 +1686,8 @@
       "hero": "hero-billede",
       "logo": "logo",
       "icon": "ikon"
-    }
+    },
+    "sectionMaintenance": "Vedligeholdelse"
   },
   "primitives": {
     "cancel": "Annuller",
@@ -1684,7 +1782,9 @@
       "optPort": "Port",
       "optDlc": "DLC & add-on",
       "optExpansion": "Udvidelse",
-      "optMod": "Mod"
+      "optMod": "Mod",
+      "addHeading": "Tilføj et relateret spil",
+      "kindAria": "Relationstype"
     },
     "playSummary": {
       "title": "Spiloversigt",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Skjul også uvurderede spil (streng — de fleste spil har endnu ingen vurdering)",
       "deleteWarning": "Dette fjerner profilen fra {count, plural, one {# tildelt bruger} other {# tildelte brugere}} — de går tilbage til fuld, ubegrænset adgang.",
       "noUsersAssigned": "Ingen brugere er tildelt denne profil.",
-      "deleteProfile": "Slet profil"
+      "deleteProfile": "Slet profil",
+      "playTimeHeading": "Spilletid",
+      "dailyLimitLabel": "Daglig spillegrænse",
+      "noLimit": "Ingen grænse",
+      "minutesPerDay": "minutter / dag",
+      "scheduleLabel": "Tillad kun spil på bestemte tidspunkter",
+      "allowedFrom": "Fra",
+      "allowedTo": "til"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# spil} other {# spil}}"
-    },
-    "carousel": {
-      "scrollLeft": "Scroll venstre",
-      "scrollRight": "Scroll højre"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Auto",
       "wide": "Bred",
       "square": "Firkant",
+      "cart": "Kassette",
       "portrait": "Portræt"
     },
     "scanning": "Scanner {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Kan spilles i din browser",
       "downloadToPlay": "{name} — download for at spille"
     }
+  },
+  "screenshots": {
+    "title": "Dine skærmbilleder",
+    "viewCapture": "Se skærmbillede",
+    "previous": "Forrige",
+    "next": "Næste",
+    "download": "Download",
+    "delete": "Slet",
+    "close": "Luk"
+  },
+  "reviews": {
+    "noneYet": "Ingen anmeldelser endnu — vær den første.",
+    "recommendedPct": "{pct}% anbefalet",
+    "basedOn": "{recommended} ud af {count} anbefaler dette",
+    "yourReview": "Din anmeldelse",
+    "writeReview": "Skriv en anmeldelse",
+    "recommend": "Anbefal",
+    "notRecommend": "Ikke for mig",
+    "bodyPlaceholder": "Del hvad du tænker… (valgfrit)",
+    "post": "Skrive anmeldelse",
+    "update": "Opdater anmeldelse",
+    "delete": "Slet",
+    "communityReviews": "{count, plural, one {# anmeldelse} other {# anmeldelser}}"
+  },
+  "search": {
+    "placeholder": "Søg efter spil, systemer, samlinger, venner…",
+    "hint": "Begynd at skrive for at søge alt.",
+    "noResults": "Ingen resultater.",
+    "groupPages": "Sider",
+    "groupGames": "Spil",
+    "groupSystems": "Systemer",
+    "groupCollections": "Samlinger",
+    "groupFriends": "Venner",
+    "gamesCount": "{count, plural, one {# spil} other {# spil}}"
+  },
+  "compat": {
+    "title": "Emuleringkompatibilitet",
+    "labelPlayable": "Afspillbar",
+    "labelRuns": "Kører med problemer",
+    "labelBroken": "Ødelagt",
+    "labelUnknown": "Ikke testet",
+    "yourReport": "Hvordan køres det for dig?",
+    "notePlaceholder": "Tilføj en note (valgfrit) — fejl, indstillinger som hjalp…",
+    "save": "Gem",
+    "update": "Opdater",
+    "clear": "Ryd",
+    "reportsCount": "{count, plural, one {# rapport} other {# rapporter}}",
+    "officialBadge": "Officiel vurdering",
+    "untestedHint": "Ikke testet endnu — tilføj den første rapport.",
+    "officialLabel": "Officiel vurdering (admin)",
+    "clearOfficial": "Ingen officiel vurdering"
+  },
+  "guides": {
+    "writeGuide": "Skriv en vejledning",
+    "noneYet": "Ingen vejledninger endnu — skriv den første.",
+    "by": "af {name}",
+    "back": "Alle vejledninger",
+    "edit": "Rediger",
+    "delete": "Slet",
+    "deleteConfirm": "Slet denne vejledning?",
+    "save": "Gem vejledning",
+    "cancel": "Annuller",
+    "titlePlaceholder": "Vejledningstitel",
+    "bodyPlaceholder": "Skriv din gennemgang, tips eller strategi…",
+    "newGuide": "Ny vejledning",
+    "editGuide": "Rediger vejledning"
+  },
+  "playLimit": {
+    "title": "Tiden er gået",
+    "limitReached": "Du har nået din daglige spillegrænse på {minutes} minutter. Kom tilbage i morgen!",
+    "outsideHours": "Spil er kun tilladt mellem {start} og {end}.",
+    "back": "Tilbage til spil"
+  },
+  "messages": {
+    "title": "Beskeder",
+    "noFriends": "Tilføj venner for at begynde at chatte.",
+    "you": "Du",
+    "noMessagesYet": "Ingen beskeder endnu",
+    "pickConversation": "Vælg en samtale for at begynde at chatte.",
+    "sayHi": "Sig hej 👋",
+    "messagePlaceholder": "Skriv en besked…",
+    "send": "Send",
+    "back": "Tilbage"
+  },
+  "emuVideo": {
+    "videoFilter": "Videofilter",
+    "filterOff": "Ingen (skarpe pixels)",
+    "filterSmooth": "Glat (bilinear)",
+    "appliesNextLaunch": "Gælder næste gang du starter",
+    "saving": "Gemmer…"
+  },
+  "cheats": {
+    "loading": "Indlæser cheats…",
+    "empty": "Ingen cheats tilføjet endnu.",
+    "remove": "Fjern",
+    "suggested": "Foreslået til dette spil",
+    "addTitle": "Tilføj et cheat",
+    "namePlaceholder": "Navn (fx Uendelige liv)",
+    "codePlaceholder": "Game Genie eller rå kode — en pr. linje",
+    "appliesHint": "Gælder næste gang du spiller",
+    "add": "Tilføj",
+    "searchPlaceholder": "Søg efter cheats…"
   }
 }

@@ -3,6 +3,7 @@ import { getDb } from "@/lib/db";
 import MobileTopBar from "@/components/mobile/MobileTopBar";
 import MobileBottomNav from "@/components/mobile/MobileBottomNav";
 import PwaRegister from "@/components/mobile/PwaRegister";
+import CommandPalette from "@/components/CommandPalette";
 
 export const dynamic = "force-dynamic";
 
@@ -31,6 +32,7 @@ export default async function MobileLayout({ children }: { children: React.React
         {children}
       </main>
       <MobileBottomNav showDownloads={user.isEditor} />
+      <CommandPalette mobile isAdmin={user.isAdmin} />
       <PwaRegister />
     </div>
   );

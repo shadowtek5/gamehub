@@ -20,6 +20,7 @@ import SoundManager from "@/components/SoundManager";
 import SteamosShim from "@/components/SteamosShim";
 import ShelfScroll from "@/components/ShelfScroll";
 import QuickAccess, { QuickResume } from "@/components/QuickAccess";
+import CommandPalette from "@/components/CommandPalette";
 import GameCardMenu from "@/components/GameCardMenu";
 import RoutePathTracker from "@/components/RoutePathTracker";
 import LanguageSync from "@/components/LanguageSync";
@@ -124,6 +125,7 @@ export default async function RootLayout({
               />
             )}
             {user && <GameCardMenu />}
+            {user && <CommandPalette mobile={false} isAdmin={user.isAdmin} />}
             <RoutePathTracker />
             <GamepadNav />
             <OnScreenKeyboard />

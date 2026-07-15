@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
-import { browseFacets, getSystem } from "@/lib/db";
+import { browseFacets } from "@/lib/db";
 import { platformBySlug } from "@/lib/platforms";
 import MobileLibrary from "@/components/mobile/MobileLibrary";
 import MobileSystemOptions from "@/components/mobile/MobileSystemOptions";
@@ -20,7 +20,6 @@ export default async function MobileSystemPage({
   const platform = platformBySlug(slug);
   if (!platform) notFound();
   const { genres, languages } = browseFacets(slug);
-  const sys = getSystem(slug);
 
   return (
     <div>
@@ -32,12 +31,7 @@ export default async function MobileSystemPage({
         </Link>
         <h1 className="min-w-0 flex-1 truncate text-[22px] font-black text-bright">{platform.name}</h1>
         {user.isEditor && (
-          <MobileSystemOptions
-            slug={slug}
-            shortName={platform.shortName}
-            cardLayout={(sys?.box_layout as "auto" | "wide" | "square" | "portrait") ?? "auto"}
-            cardLayoutAuto={sys?.box_layout_auto ?? null}
-          />
+          <MobileSystemOptions slug={slug} shortName={platform.shortName} />
         )}
       </div>
       <MobileLibrary platformLock={slug} genres={genres} languages={languages} />

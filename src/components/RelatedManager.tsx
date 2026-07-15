@@ -177,10 +177,14 @@ export default function RelatedManager({
 
             <div className="flex-1 overflow-y-auto px-5 py-4">
               {/* Add */}
+              <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-dim">
+                {t("manager.addHeading")}
+              </div>
               <div className="mb-2 flex items-center gap-2">
                 <select
                   value={kind}
                   onChange={(e) => setKind(e.target.value)}
+                  aria-label={t("manager.kindAria")}
                   className="Focusable shrink-0 cursor-pointer rounded-[3px] bg-[#2a2f3a] px-2.5 py-2 text-[13px] text-bright outline-none ring-1 ring-white/10 focus:ring-2 focus:ring-white"
                 >
                   {KIND_OPTIONS.map((k) => (

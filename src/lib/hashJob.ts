@@ -278,10 +278,14 @@ export async function hashRoms(
  *  ROM hashes that actually match No-Intro/Redump DATs. */
 export function startHashJob(
   systems?: string[],
-  opts: { rehashArchives?: boolean } = {}
+  opts: { rehashArchives?: boolean } = {},
+  onComplete?: () => void
 ): boolean {
   const s = state();
-  if (s.running) return false;
+  if (s.running) {
+    onComplete?.();
+    return false;
+  }
 
   const db = getDb();
   const plat = systems?.length
@@ -346,6 +350,7 @@ export function startHashJob(
       s.running = false;
       s.current = "";
       s.finishedAt = new Date().toISOString();
+      onComplete?.();
     }
   })();
 

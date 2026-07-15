@@ -124,6 +124,7 @@ export default async function SettingsPage() {
                   initialAutoCleanup={getSetting("auto_cleanup") === "on"}
                   initialFsWatcher={getSetting("fs_watcher") === "on"}
                   lastAutoScan={getSetting("last_auto_scan")}
+                  systems={scrapeSystems}
                 />
                 <SetIntegrity />
                 <BackupPanel />

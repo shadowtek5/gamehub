@@ -25,7 +25,8 @@
     "downloads": "Преузимања",
     "activity": "Активност",
     "settings": "Подешавања",
-    "power": "Напајање"
+    "power": "Напајање",
+    "messages": "Поруке"
   },
   "legend": {
     "menu": "Мени",
@@ -217,7 +218,9 @@
       "requestsSent": "Послати захтеви",
       "cancel": "Откажи",
       "removeConfirmTitle": "Уклонити {name}?",
-      "removeConfirmBody": "Особа ће бити уклоњена са листе пријатеља. Увек можете послати нови захтев."
+      "removeConfirmBody": "Особа ће бити уклоњена са листе пријатеља. Увек можете послати нови захтев.",
+      "playingGame": "Игра {title}",
+      "message": "Порука"
     },
     "summary": {
       "title": "Пријатељи",
@@ -556,7 +559,16 @@
       "bind": "Повежи {label}",
       "scopeNoteGlobal": "Подразумевани распоред за овај тип контролера. Распореди по систему и по игри га преписују.",
       "scopeNoteSystem": "Примењује се на све игре на овом систему и преписује глобални подразумевани. Распореди по игри имају предност.",
-      "scopeNoteGame": "Примењује се само на ову игру и преписује распореде система и глобалне."
+      "scopeNoteGame": "Примењује се само на ову игру и преписује распореде система и глобалне.",
+      "share": "Дели",
+      "exportHeading": "Извези овај распоред",
+      "copyCode": "Копирај код",
+      "copied": "✓ Копирано",
+      "importHeading": "Увези распоред",
+      "pastePlaceholder": "Налепи код распореда…",
+      "applyCode": "Примени",
+      "importInvalid": "То не изгледа као исправан код распореда.",
+      "importNote": "Примена учитава код у уредник — притисни Сачувај распоред да би га задржао."
     },
     "button": {
       "controllerLayout": "Распоред контролера",
@@ -602,7 +614,15 @@
       "tagQueued": "На чекању",
       "scheduled": "Заказано",
       "noRecurring": "Нема укључених периодичних задатака.",
-      "tagAuto": "Ауто"
+      "tagAuto": "Ауто",
+      "statusOptimizing": "Оптимизација омота…",
+      "optimizingArt": "Оптимизација омота",
+      "statusHashing": "Израчунавање хешева…",
+      "statusArt": "Поновно преузимање графике система…",
+      "statusThumbs": "Освежавање слика…",
+      "hashingFiles": "Израчунавање хешева",
+      "scrapingArt": "Поновно преузимање графике",
+      "refreshingImages": "Освежавање слика"
     },
     "quota": {
       "providerRequestLimits": "Лимити захтева провајдера",
@@ -640,7 +660,50 @@
     "retry": "Покушај поново",
     "exit": "Изађи",
     "dismiss": "Затвори",
-    "controllerLayoutTitle": "Распоред контролера — {title}"
+    "controllerLayoutTitle": "Распоред контролера — {title}",
+    "screenshot": "Снимак екрана (F2)",
+    "screenshotSaved": "Снимак екрана сачуван",
+    "screenshotFailed": "Неуспело сачувавање снимка",
+    "playTimeUp": "Време је истекло за данас — чување и напуштање.",
+    "playOutsideHours": "Време за игру је прошло за сада — чување и напуштање.",
+    "quickMenu": "Брз мени",
+    "quickMenuHint": "D-pad за кретање · A избор · B назад · Select+Start пребацивање",
+    "resume": "Наставити",
+    "saveState": "Сачувај стање",
+    "loadState": "Учитај стање",
+    "restart": "Поново покрени игру",
+    "restarted": "Игра је поново покренута",
+    "restartUnavailable": "Поновни почетак није доступан за ово језгро",
+    "exitGame": "Изађи из игре",
+    "back": "Назад",
+    "loadingStates": "Учитавање стања…",
+    "stateSlot": "Сачувано {date}",
+    "recordClip": "Снимај клип",
+    "stopRecording": "Заустави снимање",
+    "recording": "REC",
+    "clipSaved": "Клип сачуван",
+    "recordUnavailable": "Снимање није подржано у овом прегледачу",
+    "pause": "Паузирај / Наставак",
+    "fastForward": "Убрзана игра",
+    "mute": "Искључи / Укључи звук",
+    "fullscreen": "Пун екран",
+    "cheats": "Читови",
+    "netplay": "Мултиплејер",
+    "videoFilter": "Видео филтер",
+    "videoFilterSaved": "Видео филтер је сачуван",
+    "actionUnavailable": "Радња није доступна",
+    "loadingCheats": "Учитавање кодова…",
+    "noCheats": "Нема кодова. Додајте кодове са странице игре или изаберите из списка испод.",
+    "cheatOn": "Укључено",
+    "cheatOff": "Искључено",
+    "cheatsFromList": "Додај из списка",
+    "menuLabel": "Мени",
+    "selectLabel": "Изабери",
+    "navHome": "Почетна",
+    "navLibrary": "Библиотека",
+    "navFriends": "Пријатељи",
+    "navSettings": "Подешавања",
+    "navPower": "Изађи из игре"
   },
   "fileModals": {
     "common": {
@@ -896,7 +959,13 @@
     "tabYourStuff": "ВАШЕ СТВАРИ",
     "tabVariants": "ВАРИЈАНТЕ",
     "tabRelated": "ПОВЕЗАНО",
-    "tabGameInfo": "ИНФОРМАЦИЈЕ О ИГРИ"
+    "tabGameInfo": "ИНФОРМАЦИЈЕ О ИГРИ",
+    "screenshotsSection": "Ваши снимци екрана",
+    "tabReviews": "РЕЦЕНЗИЈЕ",
+    "compatSection": "Компатибилност",
+    "tabGuides": "ВОДИЧИ",
+    "videoSection": "Видео филтер",
+    "cheatsSection": "Кодови"
   },
   "gameTabs": {
     "notes": {
@@ -1046,6 +1115,10 @@
       "rescrapeArt": "Поново скрепингуј арт система",
       "rescrapeArtDesc": "Поново преузми hero, логотип, иконицу и ribbon-арт за сваки систем у вашој библиотеци по редоследу конфигурисаних провајдера. Користите после промене провајдера или мапирања арта. Ради у позадини.",
       "rescrapeAll": "Поново скрепингуј све",
+      "localizeArt": "Оптимизуј омоте",
+      "localizeArtDesc": "Преузми локално као WebP сваки омот који се још директно повезује са libretro-а и поново изгради мале брзе сличице за омоте који су већ сачувани локално — да би се библиотека брзо учитавала и никада не зависила од спољашњег сајта. Омоти без подударања на libretro-у бришу се на резервну слику. Ради у позадини.",
+      "localizeStart": "Оптимизуј све",
+      "localizeResult": "✓ Преузето {localized}, оптимизовано {optimized}, обрисано {cleared} мртвих веза{failed, plural, =0 {} other {, # за поновни покушај}}",
       "updated": "Ажурирано {count}",
       "cancelledPrefix": "Отказано — ",
       "updatedSystems": "Ажурирано {updated} од {done} система",
@@ -1064,7 +1137,16 @@
       "confirmBody": "Уклонити {missing, plural, one {# недостајућу игру} other {# недостајућих игара}} и {orphan, plural, one {# напуштени медиј фолдер} other {# напуштених медиј фолдера}}? Омиљено и елементи колекције ових игара ће такође бити уклоњени. ROM фајлови се никада не дирају.",
       "failedToStart": "Није могуће покренути",
       "removedSummary": "✓ Уклоњено {games} игара и {folders} медиј фолдера",
-      "failed": "Неуспешно"
+      "failed": "Неуспешно",
+      "localizeQueued": "У реду — покренуће се након тренутног задатка. Пратите на страници Преузимања.",
+      "jobQueued": "У реду — покренуће се након тренутног задатка. Пратите на страници Преузимања.",
+      "chooseSystems": "Изабери системе…",
+      "runSelected": "Покрени изабране",
+      "runAll": "Покрени све",
+      "selectedCount": "Изабрано: {count}",
+      "noneSelected": "Ништа није изабрано",
+      "pickSystemsHint": "Изаберите један или више система, или покрените за целу библиотеку.",
+      "noConfiguredSystems": "Још нема конфигурисаних система."
     },
     "backupPanel": {
       "parts": {
@@ -1192,7 +1274,11 @@
       "usedDate": "коришћен {date}",
       "neverUsed": "никада није коришћен",
       "revoke": "Опозови",
-      "noTokensYet": "Још нема токена."
+      "noTokensYet": "Још нема токена.",
+      "expiryNever": "Никада не истиче",
+      "expiry30": "Истиче за 30 дана",
+      "expiry90": "Истиче за 90 дана",
+      "expiry365": "Истиче за 1 годину"
     },
     "retroAchievements": {
       "raIntro1": "Повежите",
@@ -1235,7 +1321,15 @@
     "loading": "Учитавање…",
     "scheduled": "Заказано",
     "noRecurringTasks": "Нема укључених периодичних задатака.",
-    "auto": "Ауто"
+    "auto": "Ауто",
+    "statusOptimizing": "Оптимизација омота…",
+    "optimizingArtBar": "Оптимизација омота",
+    "statusHashing": "Израчунавање хешева…",
+    "statusArt": "Поновно преузимање графике система…",
+    "statusThumbs": "Освежавање слика…",
+    "hashingFilesBar": "Израчунавање хешева",
+    "scrapingArtBar": "Поновно преузимање графике",
+    "refreshingImagesBar": "Освежавање слика"
   },
   "mobileGameOptions": {
     "gameOptions": "Опције игре",
@@ -1303,7 +1397,9 @@
       "metaLanguage": "Језик",
       "metaFranchise": "Франшиза",
       "metaAgeRating": "Старосни рејтинг",
-      "metaFile": "Фајл"
+      "metaFile": "Фајл",
+      "sectionReviews": "Рецензије",
+      "sectionGuides": "Водичи"
     },
     "properties": {
       "back": "Назад у игру",
@@ -1378,7 +1474,8 @@
     },
     "topBar": {
       "search": "Претрага",
-      "profile": "Профил"
+      "profile": "Профил",
+      "messages": "Поруке"
     },
     "desktopSiteLink": {
       "desktopSite": "Десктоп сајт"
@@ -1589,7 +1686,8 @@
       "hero": "Hero слика",
       "logo": "Логотип",
       "icon": "Иконица"
-    }
+    },
+    "sectionMaintenance": "Одржавање"
   },
   "primitives": {
     "cancel": "Откажи",
@@ -1684,7 +1782,9 @@
       "optPort": "Порт",
       "optDlc": "DLC и додатак",
       "optExpansion": "Проширење",
-      "optMod": "Мод"
+      "optMod": "Мод",
+      "addHeading": "Додај повезану игру",
+      "kindAria": "Тип односа"
     },
     "playSummary": {
       "title": "Сажетак игре",
@@ -2448,7 +2548,14 @@
       "hideUnratedLabel": "Сакриј и нерејтинговане игре (строго — већина игара још нема рејтинг)",
       "deleteWarning": "Ово ће уклонити профил са {count, plural, one {# додељеног корисника} other {# додељених корисника}} — они ће поново добити пун, неограничен приступ.",
       "noUsersAssigned": "Ниједан корисник није додељен овом профилу.",
-      "deleteProfile": "Обриши профил"
+      "deleteProfile": "Обриши профил",
+      "playTimeHeading": "Време за игру",
+      "dailyLimitLabel": "Дневна граница време за игру",
+      "noLimit": "Без ограничења",
+      "minutesPerDay": "минута / дан",
+      "scheduleLabel": "Дозволи игру само у одређено време",
+      "allowedFrom": "Од",
+      "allowedTo": "до"
     }
   },
   "setup": {
@@ -2570,10 +2677,6 @@
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# игра} other {# игара}}"
-    },
-    "carousel": {
-      "scrollLeft": "Скролуј лево",
-      "scrollRight": "Скролуј десно"
     }
   },
   "systemTools": {
@@ -2587,6 +2690,7 @@
       "auto": "Ауто",
       "wide": "Широко",
       "square": "Квадратно",
+      "cart": "Кертриџ",
       "portrait": "Портретно"
     },
     "scanning": "Скенирање {name}…",
@@ -2698,5 +2802,107 @@
       "playableInBrowser": "Играбљиво у прегледачу",
       "downloadToPlay": "{name} — преузмите да бисте играли"
     }
+  },
+  "screenshots": {
+    "title": "Ваши снимци екрана",
+    "viewCapture": "Прикажи снимак екрана",
+    "previous": "Претходни",
+    "next": "Следећи",
+    "download": "Преузми",
+    "delete": "Избриши",
+    "close": "Затвори"
+  },
+  "reviews": {
+    "noneYet": "Нема рецензија — будите први.",
+    "recommendedPct": "{pct}% препоручује",
+    "basedOn": "{recommended} од {count} препоручује ово",
+    "yourReview": "Ваша рецензија",
+    "writeReview": "Напишите рецензију",
+    "recommend": "Препоручујем",
+    "notRecommend": "Није за мене",
+    "bodyPlaceholder": "Поделите своју мисао… (опционално)",
+    "post": "Објави рецензију",
+    "update": "Ажурирај рецензију",
+    "delete": "Избриши",
+    "communityReviews": "{count, plural, one {# рецензија} few {# рецензије} other {# рецензији}}"
+  },
+  "search": {
+    "placeholder": "Претражи игре, системе, колекције, пријатеље…",
+    "hint": "Почните да куцате да претражите свуда.",
+    "noResults": "Нема подударања.",
+    "groupPages": "Странице",
+    "groupGames": "Игре",
+    "groupSystems": "Системи",
+    "groupCollections": "Колекције",
+    "groupFriends": "Пријатељи",
+    "gamesCount": "{count, plural, one {# игра} few {# игре} other {# игара}}"
+  },
+  "compat": {
+    "title": "Компатибилност емулације",
+    "labelPlayable": "Играбилно",
+    "labelRuns": "Ради са проблемима",
+    "labelBroken": "Сломљено",
+    "labelUnknown": "Нетестирано",
+    "yourReport": "Како ради за вас?",
+    "notePlaceholder": "Додајте напомену (опционално) — проблеми, подешавања која су помогла…",
+    "save": "Сачувај",
+    "update": "Ажурирај",
+    "clear": "Обриши",
+    "reportsCount": "{count, plural, one {# извештај} few {# извештаја} other {# извештаја}}",
+    "officialBadge": "Званична оценка",
+    "untestedHint": "Још нису тестирано — додајте први извештај.",
+    "officialLabel": "Званична оценка (администратор)",
+    "clearOfficial": "Нема званичне оцене"
+  },
+  "guides": {
+    "writeGuide": "Напишите водич",
+    "noneYet": "Нема водича — напишите први.",
+    "by": "од {name}",
+    "back": "Сви водичи",
+    "edit": "Уреди",
+    "delete": "Обриши",
+    "deleteConfirm": "Обришете овај водич?",
+    "save": "Сачувај водич",
+    "cancel": "Откажи",
+    "titlePlaceholder": "Наслов водича",
+    "bodyPlaceholder": "Напишите водич, савете или стратегију…",
+    "newGuide": "Нови водич",
+    "editGuide": "Уреди водич"
+  },
+  "playLimit": {
+    "title": "Време је истекло",
+    "limitReached": "Достигли сте дневну границу од {minutes} минута. Вратите се сутра!",
+    "outsideHours": "Игра је дозвољена само између {start} и {end}.",
+    "back": "Назад на игру"
+  },
+  "messages": {
+    "title": "Поруке",
+    "noFriends": "Додајте пријатеље да почнете разговор.",
+    "you": "Ви",
+    "noMessagesYet": "Нема порука",
+    "pickConversation": "Изаберите разговор да почнете разговор.",
+    "sayHi": "Здраво 👋",
+    "messagePlaceholder": "Откуцајте поруку…",
+    "send": "Пошаљи",
+    "back": "Назад"
+  },
+  "emuVideo": {
+    "videoFilter": "Видео филтер",
+    "filterOff": "Ниједан (оштри пиксели)",
+    "filterSmooth": "Глатко (билинеарно)",
+    "appliesNextLaunch": "Примењује се при следећем покретању",
+    "saving": "Чување…"
+  },
+  "cheats": {
+    "loading": "Учитавање кодова…",
+    "empty": "Ниједан код није додат.",
+    "remove": "Уклони",
+    "suggested": "Препоручено за ову игру",
+    "addTitle": "Додај код",
+    "namePlaceholder": "Назив (нпр. Бесконачни животи)",
+    "codePlaceholder": "Game Genie или сирови код — један по реду",
+    "appliesHint": "Биће примењено при следећем покретању игре",
+    "add": "Додај",
+    "searchPlaceholder": "Претрага читова…"
   }
 }

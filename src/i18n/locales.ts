@@ -62,6 +62,16 @@ export const LOCALE_LABELS: Record<Locale, { label: string; flag: string }> = {
   zh: { label: "中文", flag: "🇨🇳" },
 };
 
+/** Locale codes ordered for the language switcher: English first, then the rest
+ *  A→Z by their native display name — so the visible list reads alphabetically
+ *  to a user instead of by ISO code (which put "Suomi" before "Français", etc.). */
+export const LOCALES_FOR_PICKER: readonly Locale[] = [
+  "en",
+  ...LOCALES.filter((l) => l !== "en").sort((a, b) =>
+    LOCALE_LABELS[a].label.localeCompare(LOCALE_LABELS[b].label)
+  ),
+];
+
 export function isLocale(value: string | null | undefined): value is Locale {
   return !!value && (LOCALES as readonly string[]).includes(value);
 }

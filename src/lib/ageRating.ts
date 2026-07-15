@@ -56,6 +56,7 @@ export const RATING_CAPS: { value: string; label: string; max: number | null }[]
   { value: "e10", label: "Everyone 10+ (≈ E10+)", max: 10 },
   { value: "t", label: "Teen (≈ ESRB T)", max: 13 },
   { value: "m", label: "Mature 17+ (≈ ESRB M)", max: 17 },
+  { value: "ao", label: "Adults Only 18+ (≈ ESRB AO)", max: 18 },
 ];
 
 /** UI cap value ("t") → max age (13); unknown/none → null. */
@@ -66,7 +67,9 @@ export function capToMax(value: string | null | undefined): number | null {
 /** Max age (13) → UI cap value ("t"); null → "none". */
 export function maxToCap(max: number | null): string {
   if (max == null) return "none";
-  // Nearest cap at or above the stored max, so a custom value still maps sanely.
-  const exact = RATING_CAPS.find((c) => c.max === max);
-  return exact?.value ?? "none";
+  // Nearest cap whose ceiling is at or above the stored max, so a custom value
+  // (e.g. 16, or an 18 with no exact tier) still constrains instead of falling
+  // through to "no limit". Caps are ascending, so the first match wins.
+  const capped = RATING_CAPS.filter((c) => c.max != null).sort((a, b) => a.max! - b.max!);
+  return capped.find((c) => c.max! >= max)?.value ?? "none";
 }

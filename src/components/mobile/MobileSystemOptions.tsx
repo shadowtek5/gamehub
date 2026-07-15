@@ -13,13 +13,15 @@ import MobileArtPicker, {
   type ArtCandidate,
   type ArtAspect,
 } from "./MobileArtPicker";
-import { MobileSheet, SheetRow, SheetSection, SheetCloseButton, SheetBack } from "./primitives";
+import { MobileSheet, SheetRow, SheetSection, SheetCloseButton } from "./primitives";
 import { useTranslations } from "next-intl";
 import RomUploadModal from "@/components/RomUploadModal";
 import FirmwareModal from "@/components/FirmwareModal";
 import ControllerLayout from "@/components/ControllerLayout";
-
-type Layout = "auto" | "wide" | "square" | "portrait";
+import {
+  GRefresh, GCloud, GRevert, GBackfill, GHeroArt, GPencil, GIcon, GScrape,
+  GInfo, GBroom, GUpload, GFirmware, GGamepad, GList,
+} from "@/components/menuGlyphs";
 
 type ArtKind = "hero" | "logo" | "icon";
 const ART_META: Record<ArtKind, { label: string; aspect: ArtAspect; canSuppress: boolean }> = {
@@ -31,17 +33,12 @@ const ART_META: Record<ArtKind, { label: string; aspect: ArtAspect; canSuppress:
 export default function MobileSystemOptions({
   slug,
   shortName,
-  cardLayout = "auto",
-  cardLayoutAuto = null,
 }: {
   slug: string;
   shortName: string;
-  cardLayout?: Layout;
-  cardLayoutAuto?: string | null;
 }) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState<"menu" | "layout" | "art">("menu");
-  const [layout, setLayout] = useState<Layout>(cardLayout);
+  const [view, setView] = useState<"menu" | "art">("menu");
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
   const [cleanupCount, setCleanupCount] = useState<number | null>(null);
@@ -212,27 +209,6 @@ export default function MobileSystemOptions({
       setBusy(false);
     }
   }
-  async function setCardShape(next: Layout) {
-    setLayout(next);
-    setView("menu");
-    setBusy(true);
-    setMsg(t("updatingCardShape"));
-    try {
-      const res = await fetch(`/api/systems/${slug}/box-layout`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ layout: next }),
-      });
-      const d = await res.json();
-      setMsg(res.ok ? t("cardShapeSet", { shape: next === "auto" ? t("autoWithValue", { value: d.layoutAuto ?? t("defaultLayout") }) : next }) : `✗ ${t("failed")}`);
-      if (res.ok) {
-        window.dispatchEvent(new Event("gh-library-refetch"));
-        router.refresh();
-      }
-    } finally {
-      setBusy(false);
-    }
-  }
   async function checkCleanup() {
     setBusy(true);
     setMsg("");
@@ -286,8 +262,6 @@ export default function MobileSystemOptions({
     }
   }
 
-  const LAYOUTS: Layout[] = ["auto", "wide", "square", "portrait"];
-
   return (
     <>
       <button
@@ -309,62 +283,50 @@ export default function MobileSystemOptions({
 
           {view === "menu" ? (
             <div className="flex flex-col">
-              <SheetRow onClick={rescan} disabled={busy}><span className="text-dim">⟳</span> {t("rescanFiles")}</SheetRow>
-              <SheetRow onClick={() => scrape(true)} disabled={busy}><span className="text-dim">☁</span> {t("scrapeMissing")}</SheetRow>
-              <SheetRow onClick={() => scrape(false)} disabled={busy}><span className="text-dim">⟲</span> {t("scrapeEverything")}</SheetRow>
-              <SheetRow onClick={() => scrape(false, true)} disabled={busy}><span className="text-dim">⤓</span> {t("backfillMetadata")}</SheetRow>
-              <SheetSection>{t("sectionArtwork")}</SheetSection>
-              <SheetRow onClick={() => openArtPicker("hero")}><span className="text-dim">▭</span> {t("heroImageMenu")}</SheetRow>
-              <SheetRow onClick={() => openArtPicker("logo")}><span className="text-dim">✎</span> {t("logoMenu")}</SheetRow>
-              <SheetRow onClick={() => openArtPicker("icon")}><span className="text-dim">◈</span> {t("iconMenu")}</SheetRow>
-              <SheetRow onClick={autofetchArt} disabled={busy}><span className="text-dim">⤵</span> {t("autoFetchAll")}</SheetRow>
-              <SheetSection>{t("sectionSystem")}</SheetSection>
-              <SheetRow onClick={() => setView("layout")}>
-                <span className="text-dim">▦</span> {t("cardShapeLabel")}
-                <span className="ml-auto text-dim">{layout === "auto" ? t("autoLabel") : layout} ›</span>
+              {/* Grouping mirrors the desktop system cog: Games (incl. Upload) →
+                  Artwork → System → Export → Maintenance (with cleanup isolated
+                  last as the only destructive action). */}
+              <SheetRow onClick={rescan} disabled={busy}><GRefresh className="text-dim" /> {t("rescanFiles")}</SheetRow>
+              <SheetRow onClick={() => scrape(true)} disabled={busy}><GCloud className="text-dim" /> {t("scrapeMissing")}</SheetRow>
+              <SheetRow onClick={() => scrape(false)} disabled={busy}><GRevert className="text-dim" /> {t("scrapeEverything")}</SheetRow>
+              <SheetRow onClick={() => scrape(false, true)} disabled={busy}><GBackfill className="text-dim" /> {t("backfillMetadata")}</SheetRow>
+              <SheetRow onClick={() => { setOpen(false); setUploadOpen(true); }}>
+                <GUpload className="text-dim" /> {ts("uploadRoms")}
               </SheetRow>
-              <SheetRow onClick={updateInfo} disabled={busy}><span className="text-dim">ℹ</span> {t("updateSystemInfo")}</SheetRow>
+              <SheetSection>{t("sectionArtwork")}</SheetSection>
+              <SheetRow onClick={() => openArtPicker("hero")}><GHeroArt className="text-dim" /> {t("heroImageMenu")}</SheetRow>
+              <SheetRow onClick={() => openArtPicker("logo")}><GPencil className="text-dim" /> {t("logoMenu")}</SheetRow>
+              <SheetRow onClick={() => openArtPicker("icon")}><GIcon className="text-dim" /> {t("iconMenu")}</SheetRow>
+              <SheetRow onClick={autofetchArt} disabled={busy}><GScrape className="text-dim" /> {t("autoFetchAll")}</SheetRow>
+              <SheetSection>{t("sectionSystem")}</SheetSection>
+              <SheetRow onClick={updateInfo} disabled={busy}><GInfo className="text-dim" /> {t("updateSystemInfo")}</SheetRow>
+              <SheetRow onClick={() => { setOpen(false); setCtrlLayoutOpen(true); }}>
+                <GGamepad className="text-dim" /> {ts("controllerLayout")}
+              </SheetRow>
+              <SheetSection>{ts("exportToFrontend")}</SheetSection>
+              <SheetRow onClick={() => exportDownload("gamelist", "gamelist.xml")}>
+                <GList className="text-dim" /> {ts("gamelistLabel")}
+              </SheetRow>
+              <SheetRow onClick={() => exportDownload("retroarch", `${shortName}.lpl`)}>
+                <GList className="text-dim" /> {ts("retroarchLabel")}
+              </SheetRow>
+              <SheetRow onClick={() => exportDownload("m3u", `${shortName}.zip`)}>
+                <GList className="text-dim" /> {ts("m3uLabel")}
+              </SheetRow>
+              <SheetSection>{t("sectionMaintenance")}</SheetSection>
+              <SheetRow onClick={() => { setOpen(false); setFirmwareOpen(true); }}>
+                <GFirmware className="text-dim" /> {ts("manageFirmware")}
+              </SheetRow>
               {cleanupCount === null ? (
-                <SheetRow onClick={checkCleanup} disabled={busy}><span className="text-dim">🧹</span> {t("cleanUpMissing")}</SheetRow>
+                <SheetRow onClick={checkCleanup} disabled={busy}><GBroom className="text-dim" /> {t("cleanUpMissing")}</SheetRow>
               ) : (
                 <div className="flex items-center gap-3 px-5 py-3">
                   <span className="flex-1 text-[14px] text-body">{t("removeMissingGames", { count: cleanupCount })}</span>
                   <button onClick={runCleanup} disabled={busy} className="rounded-[6px] bg-[#a33a3a] px-3 py-1.5 text-[13px] font-semibold text-white">{t("remove")}</button>
                 </div>
               )}
-              <SheetRow onClick={() => { setOpen(false); setUploadOpen(true); }}>
-                <span className="text-dim">⇧</span> {ts("uploadRoms")}
-              </SheetRow>
-              <SheetRow onClick={() => { setOpen(false); setFirmwareOpen(true); }}>
-                <span className="text-dim">▣</span> {ts("manageFirmware")}
-              </SheetRow>
-              <SheetRow onClick={() => { setOpen(false); setCtrlLayoutOpen(true); }}>
-                <span className="text-dim">🎮</span> {ts("controllerLayout")}
-              </SheetRow>
-              <SheetSection>{ts("exportToFrontend")}</SheetSection>
-              <SheetRow onClick={() => exportDownload("gamelist", "gamelist.xml")}>
-                <span className="text-dim">▤</span> {ts("gamelistLabel")}
-              </SheetRow>
-              <SheetRow onClick={() => exportDownload("retroarch", `${shortName}.lpl`)}>
-                <span className="text-dim">▤</span> {ts("retroarchLabel")}
-              </SheetRow>
-              <SheetRow onClick={() => exportDownload("m3u", `${shortName}.zip`)}>
-                <span className="text-dim">▤</span> {ts("m3uLabel")}
-              </SheetRow>
               {msg && <div className="px-5 py-2 text-[13px] text-dim">{msg}</div>}
               <SheetCloseButton onClick={() => setOpen(false)} />
-            </div>
-          ) : view === "layout" ? (
-            <div className="flex flex-col">
-              <SheetBack onClick={() => setView("menu")} />
-              <div className="px-5 pb-1 text-[11px] font-bold uppercase tracking-wider text-dim">{t("cardBoxArtShape")}</div>
-              {LAYOUTS.map((opt) => (
-                <SheetRow key={opt} onClick={() => setCardShape(opt)} disabled={busy}>
-                  <span className={layout === opt ? "text-accent" : "text-transparent"}>✓</span>
-                  <span className="capitalize">{opt}</span>
-                  {opt === "auto" && cardLayoutAuto && <span className="ml-auto text-[12px] text-dim">{cardLayoutAuto}</span>}
-                </SheetRow>
-              ))}
             </div>
           ) : (
             <MobileArtPicker

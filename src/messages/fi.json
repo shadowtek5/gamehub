@@ -25,7 +25,8 @@
     "downloads": "Lataukset",
     "activity": "Toiminta",
     "settings": "Asetukset",
-    "power": "Sammuta"
+    "power": "Sammuta",
+    "messages": "Viestit"
   },
   "legend": {
     "menu": "Valikko",
@@ -184,7 +185,16 @@
       "bind": "Sido {label}",
       "scopeNoteGlobal": "Oletusasettelu tälle ohjaintyypille. Järjestelmä- ja pelikohtaiset asettelut korvaavat sen.",
       "scopeNoteSystem": "Koskee jokaista tämän järjestelmän peliä ja korvaa yleisen oletuksen. Pelikohtaiset asettelut voittavat silti.",
-      "scopeNoteGame": "Koskee vain tätä peliä ja korvaa järjestelmä- ja yleisasettelut."
+      "scopeNoteGame": "Koskee vain tätä peliä ja korvaa järjestelmä- ja yleisasettelut.",
+      "share": "Jaa",
+      "exportHeading": "Vie tämä asettelu",
+      "copyCode": "Kopioi koodi",
+      "copied": "✓ Kopioitu",
+      "importHeading": "Tuo asettelu",
+      "pastePlaceholder": "Liitä asettelun koodi…",
+      "applyCode": "Käytä",
+      "importInvalid": "Tämä ei näytä kelvolliselta asettelun koodilta.",
+      "importNote": "Käyttäminen lataa koodin editoriin — paina Tallenna asettelu säilyttääksesi sen."
     },
     "button": {
       "controllerLayout": "Ohjaimen asettelu",
@@ -230,7 +240,15 @@
       "tagQueued": "Jonossa",
       "scheduled": "Ajastettu",
       "noRecurring": "Ei toistuvia tehtäviä käytössä.",
-      "tagAuto": "Autom."
+      "tagAuto": "Autom.",
+      "statusOptimizing": "Optimoidaan kansikuvia…",
+      "optimizingArt": "Optimoidaan kansikuvia",
+      "statusHashing": "Lasketaan tiivisteitä…",
+      "statusArt": "Haetaan järjestelmäkuvia uudelleen…",
+      "statusThumbs": "Päivitetään kuvia…",
+      "hashingFiles": "Lasketaan tiivisteitä",
+      "scrapingArt": "Haetaan kuvia uudelleen",
+      "refreshingImages": "Päivitetään kuvia"
     },
     "quota": {
       "providerRequestLimits": "Palveluntarjoajan pyyntörajat",
@@ -355,7 +373,13 @@
     "tabYourStuff": "OMAT TIEDOT",
     "tabVariants": "VERSIOT",
     "tabRelated": "LIITTYVÄT",
-    "tabGameInfo": "PELIN TIEDOT"
+    "tabGameInfo": "PELIN TIEDOT",
+    "screenshotsSection": "Kuvakaappaukset",
+    "tabReviews": "ARVOSTELUT",
+    "compatSection": "Yhteensopivuus",
+    "tabGuides": "OPPAAT",
+    "videoSection": "Videosuodatin",
+    "cheatsSection": "Huijaukset"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -378,6 +402,10 @@
       "rescrapeArt": "Hae järjestelmien kuvat uudelleen",
       "rescrapeArtDesc": "Hae uudelleen hero-, logo-, kuvake- ja nauhakuvat jokaiselle kirjastosi järjestelmälle määrittämässäsi palveluntarjoajajärjestyksessä. Käytä palveluntarjoajien tai kuvamäärityksen muuttamisen jälkeen. Suoritetaan taustalla.",
       "rescrapeAll": "Hae kaikki uudelleen",
+      "localizeArt": "Optimoi kansikuvat",
+      "localizeArtDesc": "Lataa jokainen edelleen libretrosta suoraan linkitetty kansikuva paikalliseen tallennustilaan WebP-muodossa ja rakenna uudelleen pienet nopeat pikkukuvat jo paikallisesti tallennetuille kansille — jotta kirjasto latautuu nopeasti eikä ole koskaan riippuvainen ulkoisesta sivustosta. Kannet, joille ei löydy libretro-vastinetta, tyhjennetään paikkamerkiksi. Suoritetaan taustalla.",
+      "localizeStart": "Optimoi kaikki",
+      "localizeResult": "✓ Ladattu {localized}, optimoitu {optimized}, poistettu {cleared} kuollutta linkkiä{failed, plural, =0 {} other {, # yritetään uudelleen}}",
       "updated": "{count} päivitetty",
       "cancelledPrefix": "Peruutettu — ",
       "updatedSystems": "Päivitetty {updated}/{done} järjestelmää",
@@ -396,7 +424,16 @@
       "confirmBody": "Poistaa {missing, plural, one {# puuttuvan pelin} other {# puuttuvaa peliä}} ja {orphan, plural, one {# orvon mediakansion} other {# orpoa mediakansiota}}. Myös näiden pelien suosikit ja kokoelmamerkinnät poistetaan. ROM-tiedostoihin ei koskaan kosketa.",
       "failedToStart": "Käynnistys epäonnistui",
       "removedSummary": "✓ Poistettu {games} peliä ja {folders} mediakansiota",
-      "failed": "Epäonnistui"
+      "failed": "Epäonnistui",
+      "localizeQueued": "Jonossa — suoritetaan nykyisen työn jälkeen. Seuraa sitä Lataukset-sivulla.",
+      "jobQueued": "Jonossa — suoritetaan nykyisen työn jälkeen. Seuraa sitä Lataukset-sivulla.",
+      "chooseSystems": "Valitse järjestelmät…",
+      "runSelected": "Suorita valitut",
+      "runAll": "Suorita kaikki",
+      "selectedCount": "{count} valittu",
+      "noneSelected": "Ei valintoja",
+      "pickSystemsHint": "Valitse yksi tai useampi järjestelmä tai suorita koko kirjastolle.",
+      "noConfiguredSystems": "Ei määritettyjä järjestelmiä vielä."
     },
     "backupPanel": {
       "parts": {
@@ -603,7 +640,8 @@
       "hero": "hero-kuva",
       "logo": "logo",
       "icon": "kuvake"
-    }
+    },
+    "sectionMaintenance": "Ylläpito"
   },
   "settingsStorage": {
     "rescanning": "Skannataan uudelleen {name} — ",
@@ -735,16 +773,19 @@
       "hideUnratedLabel": "Piilota myös luokittelemattomat pelit (tiukka — useimmilla peleillä ei vielä ole luokitusta)",
       "deleteWarning": "Tämä poistaa profiilin {count, plural, one {# määritetyltä käyttäjältä} other {# määritetyltä käyttäjältä}} — he palaavat täyteen, rajoittamattomaan käyttöön.",
       "noUsersAssigned": "Tätä profiilia ei ole määritetty yhdellekään käyttäjälle.",
-      "deleteProfile": "Poista profiili"
+      "deleteProfile": "Poista profiili",
+      "playTimeHeading": "Peluaika",
+      "dailyLimitLabel": "Päivittäinen peluaikaraja",
+      "noLimit": "Ei rajaa",
+      "minutesPerDay": "minuuttia / päivä",
+      "scheduleLabel": "Salli pelaaminen vain tiettyinä aikoina",
+      "allowedFrom": "Klo",
+      "allowedTo": "–"
     }
   },
   "shelves": {
     "categoryTile": {
       "gameCount": "{count, plural, one {# peli} other {# peliä}}"
-    },
-    "carousel": {
-      "scrollLeft": "Vieritä vasemmalle",
-      "scrollRight": "Vieritä oikealle"
     }
   },
   "systemsPages": {
@@ -1091,7 +1132,11 @@
       "usedDate": "käytetty {date}",
       "neverUsed": "ei koskaan käytetty",
       "revoke": "Peruuta",
-      "noTokensYet": "Ei vielä tunnuksia."
+      "noTokensYet": "Ei vielä tunnuksia.",
+      "expiryNever": "Ei koskaan umpeudu",
+      "expiry30": "Umpeutuu 30 päivän kuluttua",
+      "expiry90": "Umpeutuu 90 päivän kuluttua",
+      "expiry365": "Umpeutuu 1 vuoden kuluttua"
     },
     "retroAchievements": {
       "raIntro1": "Yhdistä",
@@ -1143,7 +1188,9 @@
       "optPort": "Portti",
       "optDlc": "DLC ja lisäosa",
       "optExpansion": "Laajennus",
-      "optMod": "Modi"
+      "optMod": "Modi",
+      "addHeading": "Lisää liittyvä peli",
+      "kindAria": "Suhteen tyyppi"
     },
     "playSummary": {
       "title": "Peliyhteenveto",
@@ -1231,7 +1278,9 @@
       "metaLanguage": "Kieli",
       "metaFranchise": "Sarja",
       "metaAgeRating": "Ikäluokitus",
-      "metaFile": "Tiedosto"
+      "metaFile": "Tiedosto",
+      "sectionReviews": "Arvostelut",
+      "sectionGuides": "Oppaat"
     },
     "properties": {
       "back": "Takaisin peliin",
@@ -1939,7 +1988,9 @@
       "requestsSent": "Lähetetyt pyynnöt",
       "cancel": "Peruuta",
       "removeConfirmTitle": "Poistetaanko {name}?",
-      "removeConfirmBody": "Heidät poistetaan kaveristasi. Voit lähettää uuden pyynnön milloin tahansa."
+      "removeConfirmBody": "Heidät poistetaan kaveristasi. Voit lähettää uuden pyynnön milloin tahansa.",
+      "playingGame": "Pelaa {title}",
+      "message": "Viesti"
     },
     "summary": {
       "title": "Kaverit",
@@ -2027,7 +2078,8 @@
     },
     "topBar": {
       "search": "Haku",
-      "profile": "Profiili"
+      "profile": "Profiili",
+      "messages": "Viestit"
     },
     "desktopSiteLink": {
       "desktopSite": "Työpöytäsivusto"
@@ -2071,7 +2123,50 @@
     "retry": "Yritä uudelleen",
     "exit": "Poistu",
     "dismiss": "Hylkää",
-    "controllerLayoutTitle": "Ohjaimen asettelu — {title}"
+    "controllerLayoutTitle": "Ohjaimen asettelu — {title}",
+    "screenshot": "Kuvakaappaus (F2)",
+    "screenshotSaved": "Kuvakaappaus tallennettu",
+    "screenshotFailed": "Kuvakaappaus epäonnistui",
+    "playTimeUp": "Tänään on pelattu tarpeeksi — tallennetaan ja suljetaan.",
+    "playOutsideHours": "Pelunaika on loppu — tallennetaan ja suljetaan.",
+    "quickMenu": "Pikavalikkö",
+    "quickMenuHint": "D-pad liikkumiseen · A valintaan · B taaksepäin · Select+Start vaihteluun",
+    "resume": "Jatka",
+    "saveState": "Tallenna tila",
+    "loadState": "Lataa tila",
+    "restart": "Käynnistä peli uudelleen",
+    "restarted": "Peli käynnistettiin uudelleen",
+    "restartUnavailable": "Uudelleenkäynnistys ei ole käytettävissä tälle ytimelle",
+    "exitGame": "Poistu pelistä",
+    "back": "Takaisin",
+    "loadingStates": "Ladataan tiloja…",
+    "stateSlot": "Tallennettu {date}",
+    "recordClip": "Nauhoita leike",
+    "stopRecording": "Lopeta nauhoitus",
+    "recording": "NAUH",
+    "clipSaved": "Leike tallennettu",
+    "recordUnavailable": "Nauhoitus ei ole tuettu tässä selaimessa",
+    "pause": "Pysäytä / jatka peliä",
+    "fastForward": "Pikakelaus",
+    "mute": "Mykistä / poista mykistys",
+    "fullscreen": "Vaihda koko näyttöön",
+    "cheats": "Cheats",
+    "netplay": "Netplay",
+    "videoFilter": "Videosuodatin",
+    "videoFilterSaved": "Videosuodatin tallennettu",
+    "actionUnavailable": "Ei saatavilla tälle pelille",
+    "loadingCheats": "Ladataan huijauksia…",
+    "noCheats": "Ei vielä huijauksia. Lisää koodit pelistä tai valitse listasta alla.",
+    "cheatOn": "Päällä",
+    "cheatOff": "Pois päältä",
+    "cheatsFromList": "Lisää listasta",
+    "menuLabel": "Valikko",
+    "selectLabel": "Valitse",
+    "navHome": "Koti",
+    "navLibrary": "Kirjasto",
+    "navFriends": "Ystävät",
+    "navSettings": "Asetukset",
+    "navPower": "Lopeta peli"
   },
   "mobileDownloads": {
     "library": "Kirjasto",
@@ -2100,7 +2195,15 @@
     "loading": "Ladataan…",
     "scheduled": "Ajastettu",
     "noRecurringTasks": "Ei toistuvia tehtäviä käytössä.",
-    "auto": "Autom."
+    "auto": "Autom.",
+    "statusOptimizing": "Optimoidaan kansikuvia…",
+    "optimizingArtBar": "Optimoidaan kansikuvia",
+    "statusHashing": "Lasketaan tiivisteitä…",
+    "statusArt": "Haetaan järjestelmäkuvia uudelleen…",
+    "statusThumbs": "Päivitetään kuvia…",
+    "hashingFilesBar": "Lasketaan tiivisteitä",
+    "scrapingArtBar": "Haetaan kuvia uudelleen",
+    "refreshingImagesBar": "Päivitetään kuvia"
   },
   "mobileSettings": {
     "list": {
@@ -2502,6 +2605,7 @@
       "auto": "Autom.",
       "wide": "Leveä",
       "square": "Neliö",
+      "cart": "Kasetti",
       "portrait": "Pysty"
     },
     "scanning": "Skannataan {name}…",
@@ -2698,5 +2802,107 @@
     "themeSaved": "✓ Tallennettu",
     "themeCleared": "✓ Tyhjennetty — etsitään uudelleen",
     "themeRemoved": "✓ Ladattu teematiedosto poistettu"
+  },
+  "screenshots": {
+    "title": "Kuvakaappaukset",
+    "viewCapture": "Näytä kuvakaappaus",
+    "previous": "Edellinen",
+    "next": "Seuraava",
+    "download": "Lataa",
+    "delete": "Poista",
+    "close": "Sulje"
+  },
+  "reviews": {
+    "noneYet": "Ei vielä arvosteluja — ole ensimmäinen.",
+    "recommendedPct": "{pct}% suositeltu",
+    "basedOn": "{recommended} / {count} suosittelee tätä",
+    "yourReview": "Arvosteluasi",
+    "writeReview": "Kirjoita arvostelu",
+    "recommend": "Suosittele",
+    "notRecommend": "Ei minulle",
+    "bodyPlaceholder": "Jaa mielipiteesi… (valinnainen)",
+    "post": "Julkaista arvostelu",
+    "update": "Päivitä arvostelu",
+    "delete": "Poista",
+    "communityReviews": "{count, plural, one {# arvostelu} other {# arvostelut}}"
+  },
+  "search": {
+    "placeholder": "Hae pelejä, järjestelmiä, kokoelmia, ystäviä…",
+    "hint": "Aloita kirjoittamalla hakeaksesi kaikkea.",
+    "noResults": "Ei tuloksia.",
+    "groupPages": "Sivut",
+    "groupGames": "Pelit",
+    "groupSystems": "Järjestelmät",
+    "groupCollections": "Kokoelmat",
+    "groupFriends": "Ystävät",
+    "gamesCount": "{count, plural, one {# peli} other {# peliä}}"
+  },
+  "compat": {
+    "title": "Emuloinnin yhteensopivuus",
+    "labelPlayable": "Pelattava",
+    "labelRuns": "Toimii ongelmien kanssa",
+    "labelBroken": "Rikki",
+    "labelUnknown": "Testaamaton",
+    "yourReport": "Miten se toimii sinulla?",
+    "notePlaceholder": "Lisää muistiinpano (valinnainen) — virheet, asetukset jotka auttoivat…",
+    "save": "Tallenna",
+    "update": "Päivitä",
+    "clear": "Tyhjennä",
+    "reportsCount": "{count, plural, one {# raportti} other {# raporttia}}",
+    "officialBadge": "Virallinen arviointi",
+    "untestedHint": "Ei vielä testattu — lisää ensimmäinen raportti.",
+    "officialLabel": "Virallinen arviointi (ylläpitäjä)",
+    "clearOfficial": "Ei virallista arviointia"
+  },
+  "guides": {
+    "writeGuide": "Kirjoita opas",
+    "noneYet": "Ei vielä oppaita — kirjoita ensimmäinen.",
+    "by": "tekijä: {name}",
+    "back": "Kaikki oppaat",
+    "edit": "Muokkaa",
+    "delete": "Poista",
+    "deleteConfirm": "Poistetaanko tämä opas?",
+    "save": "Tallenna opas",
+    "cancel": "Peruuta",
+    "titlePlaceholder": "Oppaan otsikko",
+    "bodyPlaceholder": "Kirjoita vaellusohjeesi, vinkkejä tai strategiaa…",
+    "newGuide": "Uusi opas",
+    "editGuide": "Muokkaa opasta"
+  },
+  "playLimit": {
+    "title": "Pelunaika on loppu",
+    "limitReached": "Olet saavuttanut päivittäisen peluajan rajan {minutes} minuuttia. Tule takaisin huomenna!",
+    "outsideHours": "Pelaaminen on sallittu vain {start}–{end} välisenä aikana.",
+    "back": "Takaisin peliin"
+  },
+  "messages": {
+    "title": "Viestit",
+    "noFriends": "Lisää ystäviä aloittaaksesi keskustelun.",
+    "you": "Sinä",
+    "noMessagesYet": "Ei vielä viestejä",
+    "pickConversation": "Valitse keskustelu aloittaaksesi chatista.",
+    "sayHi": "Sano terve 👋",
+    "messagePlaceholder": "Kirjoita viesti…",
+    "send": "Lähetä",
+    "back": "Takaisin"
+  },
+  "emuVideo": {
+    "videoFilter": "Videosuodatin",
+    "filterOff": "Ei mitään (teräviä pikselit)",
+    "filterSmooth": "Sileä (bilinear)",
+    "appliesNextLaunch": "Otetaan käyttöön seuraavan käynnistyksen yhteydessä",
+    "saving": "Tallennetaan…"
+  },
+  "cheats": {
+    "loading": "Ladataan huijauksia…",
+    "empty": "Huijauksia ei ole vielä lisätty.",
+    "remove": "Poista",
+    "suggested": "Ehdotettu tälle pelille",
+    "addTitle": "Lisää huijaus",
+    "namePlaceholder": "Nimi (esim. Rajattomat elämät)",
+    "codePlaceholder": "Game Genie tai raakakoodi — yksi per rivi",
+    "appliesHint": "Voimassa seuraavan kerran, kun pelaat",
+    "add": "Lisää",
+    "searchPlaceholder": "Hae cheatseja…"
   }
 }
