@@ -22,6 +22,8 @@ export interface SystemCard {
   covers: string[];
   icon: string | null;
   ribbon: string | null;
+  /** resolved system logo (scraped or the bundled default) — the primary card art */
+  logo: string | null;
 }
 
 const VIEW_KEY = "gh-systems-view";
@@ -99,8 +101,14 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
           {systems.map((s) => {
             const p = platformBySlug(s.slug);
             if (!p) return null;
+            // Cover collage is the default; brand-wash + centered logo is the
+            // fallback for systems with no covers/marquee (matches the detail hero).
+            const showThumb = !!s.thumb;
             const showRibbon = !s.thumb && s.covers.length > 0;
             const showMarquee = !s.thumb && !showRibbon && !!s.ribbon;
+            const hasLogo = !showThumb && !showRibbon && !showMarquee && !!s.logo;
+            const wash = `linear-gradient(135deg, color-mix(in srgb, ${p.color} 58%, #e6ecf4) 0%, color-mix(in srgb, ${p.color} 55%, #0c1017) 52%, #0a0e13 100%)`;
+            const plain = `linear-gradient(120deg, #0b0f14 25%, #16202d 60%, ${p.color}44 100%)`;
             return (
               <Link
                 key={s.slug}
@@ -111,13 +119,11 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
               >
                 <div
                   className="allcollections_CollectionBG_gh absolute inset-0 transition-transform duration-300 group-hover:scale-[1.04]"
-                  style={{
-                    background: `linear-gradient(120deg, #0b0f14 25%, #16202d 60%, ${p?.color ?? "#2a475e"}44 100%)`,
-                  }}
+                  style={{ background: hasLogo ? wash : plain }}
                 >
-                  {s.thumb ? (
+                  {showThumb ? (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={s.thumb} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
+                    <img src={s.thumb!} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover" />
                   ) : showRibbon ? (
                     <div className="absolute inset-0 [perspective:800px]">
                       <RibbonCollage covers={s.covers} color={p?.color ?? "#2a475e"} layout={CARD_LAYOUT} />
@@ -125,9 +131,20 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
                   ) : showMarquee ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={s.ribbon!} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover [filter:saturate(1.1)]" />
+                  ) : hasLogo ? (
+                    <div className="absolute inset-0 flex items-center justify-center p-5 pb-14">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={s.logo!}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        className="max-h-[72%] max-w-[82%] object-contain [filter:drop-shadow(0_2px_4px_rgba(0,0,0,0.5))]"
+                      />
+                    </div>
                   ) : null}
                 </div>
-                {!s.thumb && !showRibbon && !showMarquee && (
+                {!hasLogo && !showThumb && !showRibbon && !showMarquee && (
                   <div className="pointer-events-none absolute -right-3 -top-6 select-none text-[90px] font-black leading-none text-white/5">
                     {p?.shortName ?? s.slug}
                   </div>

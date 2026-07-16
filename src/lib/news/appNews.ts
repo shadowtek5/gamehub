@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-07-15",
+    title: "Every system looks great out of the box",
+    body: "Systems now ship with a full set of default artwork — no scraping needed. Each console gets its real logo on a brand-colored gradient across the detail hero and browse card, plus a matching square icon with its console silhouette, all tinted to the system's signature color. The logos are bundled in the app (pulled from open logo sources and your cached art), so a fresh library looks polished from the first launch. Your cover-art mosaics still lead for systems with games; the branded default fills in everywhere else. On desktop/TV and the mobile app. Any art you scrape or set yourself still takes over.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-15",
     title: "Cheats — with a huge built-in code library",
     body: "Games now have a Cheats section (and a Cheats page in the in-game Quick Menu). Pick from a built-in library of over half a million ready-made cheats covering ~14,000 games — search by name and add with one tap — or type your own Game Genie / raw codes. Toggle each one on or off; changes in the Quick Menu apply instantly, and codes set on the game page kick in the next time you launch. On desktop/TV and the mobile app.",
     art: "artwork",

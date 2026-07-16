@@ -311,6 +311,8 @@ function migrate(db: Database.Database) {
       hero_thumb_sig TEXT,
       box_layout TEXT NOT NULL DEFAULT 'auto',
       box_layout_auto TEXT,
+      custom_thumb INTEGER NOT NULL DEFAULT 0,
+      custom_covers TEXT,
       hidden INTEGER NOT NULL DEFAULT 0,
       enabled INTEGER NOT NULL DEFAULT 1
     );
@@ -492,6 +494,11 @@ function migrate(db: Database.Database) {
   if (!sysCols.has("box_layout"))
     db.exec("ALTER TABLE systems ADD COLUMN box_layout TEXT NOT NULL DEFAULT 'auto'");
   if (!sysCols.has("box_layout_auto")) db.exec("ALTER TABLE systems ADD COLUMN box_layout_auto TEXT");
+  // custom_thumb: the collages were built from a hand-picked set of games (custom_covers,
+  // a JSON array of cover URLs) and must NOT be overwritten by the auto drift-refresh.
+  if (!sysCols.has("custom_thumb"))
+    db.exec("ALTER TABLE systems ADD COLUMN custom_thumb INTEGER NOT NULL DEFAULT 0");
+  if (!sysCols.has("custom_covers")) db.exec("ALTER TABLE systems ADD COLUMN custom_covers TEXT");
 
   // Additive migrations for existing databases
   const romCols = new Set(
@@ -542,6 +549,30 @@ function migrate(db: Database.Database) {
   addRomCol("publisher_image_url", "TEXT"); // publisher logo image
   addRomCol("developer_image_url", "TEXT"); // developer logo image
   addRomCol("rating_image_url", "TEXT"); // age-rating badge image (ESRB/PEGI)
+
+  // updated_at: bumps whenever ANYTHING about a ROM changes (scrape, art pick,
+  // rename/move, hash, dat/compat verdict, missing flag, …). Seeded equal to
+  // added_at so it starts the same, then a trigger stamps the current time on
+  // every UPDATE. Feeds the home "Recent" carousel (recently played + recently
+  // updated). Backfill runs once, on column add, BEFORE the triggers exist.
+  if (!romCols.has("updated_at")) {
+    db.exec("ALTER TABLE roms ADD COLUMN updated_at TEXT");
+    db.exec("UPDATE roms SET updated_at = added_at WHERE updated_at IS NULL");
+  }
+  // New rows inherit added_at; every later change stamps now(). recursive_triggers
+  // is off, so the trigger's own write never re-fires it; the WHEN guards also let
+  // an explicit updated_at write pass through untouched. (datetime('now') is UTC,
+  // matching added_at's default, and second-resolution.)
+  db.exec(`CREATE TRIGGER IF NOT EXISTS trg_roms_updated_at_insert
+    AFTER INSERT ON roms FOR EACH ROW WHEN NEW.updated_at IS NULL
+    BEGIN
+      UPDATE roms SET updated_at = COALESCE(NEW.added_at, datetime('now')) WHERE id = NEW.id;
+    END`);
+  db.exec(`CREATE TRIGGER IF NOT EXISTS trg_roms_updated_at_touch
+    AFTER UPDATE ON roms FOR EACH ROW WHEN NEW.updated_at IS OLD.updated_at
+    BEGIN
+      UPDATE roms SET updated_at = datetime('now') WHERE id = NEW.id;
+    END`);
 
   // rating_level: numeric minimum age derived from age_rating, so kid profiles
   // can cap content across every rating board with one comparison. Backfilled
@@ -901,6 +932,10 @@ export interface SystemRow {
   box_layout: string;
   /** shape measured from this system's scraped covers (used when box_layout='auto') */
   box_layout_auto: string | null;
+  /** 1 = collages were built from a hand-picked game set; auto-refresh must skip it */
+  custom_thumb: number;
+  /** JSON array of the hand-picked cover URLs backing the custom collage (null = none) */
+  custom_covers: string | null;
   hidden: number;
   enabled: number;
 }
@@ -1080,6 +1115,38 @@ export function setSystemBoxLayoutAuto(slug: string, layout: BoxLayout) {
 export function setSystemThumbSig(slug: string, kind: "card" | "hero", sig: string) {
   const col = kind === "card" ? "card_thumb_sig" : "hero_thumb_sig";
   getDb().prepare(`UPDATE systems SET ${col} = ? WHERE slug = ?`).run(sig, slug);
+}
+
+/** Mark a system's collages as a hand-picked custom set (won't be auto-overwritten)
+ *  and remember the chosen cover URLs so they can be re-rendered or edited. */
+export function setSystemCustomCollage(slug: string, coverUrls: string[]) {
+  getDb()
+    .prepare("UPDATE systems SET custom_thumb = 1, custom_covers = ? WHERE slug = ?")
+    .run(JSON.stringify(coverUrls), slug);
+}
+
+/** Revert a system to auto-generated collages (also clears the thumb fingerprints
+ *  so the next refresh rebuilds them from the top covers). */
+export function clearSystemCustomCollage(slug: string) {
+  getDb()
+    .prepare(
+      "UPDATE systems SET custom_thumb = 0, custom_covers = NULL, card_thumb_sig = NULL, hero_thumb_sig = NULL WHERE slug = ?"
+    )
+    .run(slug);
+}
+
+/** The hand-picked cover URLs backing a system's custom collage, or [] if none. */
+export function getSystemCustomCovers(slug: string): string[] {
+  const row = getDb().prepare("SELECT custom_covers FROM systems WHERE slug = ?").get(slug) as
+    | { custom_covers: string | null }
+    | undefined;
+  if (!row?.custom_covers) return [];
+  try {
+    const v = JSON.parse(row.custom_covers);
+    return Array.isArray(v) ? v.filter((x) => typeof x === "string") : [];
+  } catch {
+    return [];
+  }
 }
 
 export function setSystemShow(
@@ -1387,6 +1454,23 @@ export function getSystemHeroCovers(slug: string, limit = 9): string[] {
       )
       .all(slug, limit) as { art: string }[]
   ).map((r) => r.art);
+}
+
+/** A system's games that have cover art — id, title, cover URL — best-rated first.
+ *  Feeds the custom-collage game picker on the system detail page. */
+export function listSystemGamesWithCovers(
+  slug: string,
+  limit = 500
+): { id: number; title: string; cover: string }[] {
+  return getDb()
+    .prepare(
+      `SELECT id, title, ${COLLAGE_ART} AS cover FROM roms
+       WHERE platform_slug = ? AND missing = 0
+         AND ${COLLAGE_ART} IS NOT NULL
+       ORDER BY (${RATING_RATIO}) DESC, title
+       LIMIT ?`
+    )
+    .all(slug, limit) as { id: number; title: string; cover: string }[];
 }
 
 /** Per-user, per-system aggregates for the system-detail play bar: the game

@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Avbrutt — ",
       "updatedSystems": "{updated} av {done} systemer oppdatert",
       "refreshImages": "Oppdater systembilder",
-      "refreshImagesDesc": "Bygg browse-kort og hero-collage-bilder på nytt for systemer der covers er endret. Kjører automatisk etter skanninger og scrapes; bruk dette for å tvinge det.",
+      "refreshImagesDesc": "Gjenoppbygg navigasjonskort- og hero-kollasj-bilder for systemer hvis omslag er endret eller hvis bufret bilde mangler. Kjøres automatisk etter skanninger; \"Gjenoppbygg alt\" tvinger en fullstendig regenerering av hver kollasj.",
       "refreshImagesBtn": "Oppdater bilder",
       "refreshStarted": "✓ Endrede collage-bilder oppdateres i bakgrunnen.",
       "refreshFailed": "✗ Kunne ikke starte oppdatering.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} valgt",
       "noneSelected": "Ingen valgt",
       "pickSystemsHint": "Velg ett eller flere systemer, eller kjør mot hele biblioteket.",
-      "noConfiguredSystems": "Ingen konfigurerte systemer ennå."
+      "noConfiguredSystems": "Ingen konfigurerte systemer ennå.",
+      "rebuildAllImages": "Gjenoppbygg alt"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Gjelder neste gang du spiller",
     "add": "Legg til",
     "searchPlaceholder": "Søk etter cheats…"
+  },
+  "customCollage": {
+    "title": "Tilpasset kollasj",
+    "subtitle": "{count, plural, =0 {Velg spillene som skal vises} one {# spill valgt} other {# spill valgt}}",
+    "close": "Lukk",
+    "loading": "Laster inn spill…",
+    "noGames": "Ingen spill med omslagkunst i dette systemet ennå.",
+    "pickSome": "Velg minst ett spill.",
+    "failed": "Kunne ikke bygge kollasjen. Prøv igjen.",
+    "revert": "Tilbake til automatisk",
+    "cancel": "Avbryt",
+    "generate": "Generer kollasj",
+    "generating": "Genererer…",
+    "openLabel": "Tilpasset kollasj",
+    "openDesc": "Velg manuelt hvilke spill som skal vises i dette systemets kort og hero-kollasj. Det har prioritet og vil ikke erstattes automatisk."
   }
 }

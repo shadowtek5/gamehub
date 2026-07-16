@@ -201,9 +201,9 @@ export default function MaintenancePanel({
     await fetch("/api/maintenance/localize-boxart", { method: "DELETE" });
   }
 
-  async function refreshImages(systems?: string[]) {
+  async function refreshImages(systems?: string[], force = false) {
     playSound("activate");
-    const res = await fetch("/api/systems/thumbs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ systems }) });
+    const res = await fetch("/api/systems/thumbs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ systems, force }) });
     const data = await res.json().catch(() => ({}));
     setThumbMsg(!res.ok ? t("refreshFailed") : data.queued ? t("jobQueued") : t("refreshStarted"));
   }
@@ -418,7 +418,10 @@ export default function MaintenancePanel({
         label={t("refreshImages")}
         description={t("refreshImagesDesc")}
       >
-        <GpButton onClick={() => openPicker("thumbs")} className="shrink-0">{t("chooseSystems")}</GpButton>
+        <div className="flex shrink-0 gap-2">
+          <GpButton onClick={() => openPicker("thumbs")}>{t("chooseSystems")}</GpButton>
+          <GpButton onClick={() => void refreshImages(undefined, true)}>{t("rebuildAllImages")}</GpButton>
+        </div>
       </GpRow>
       {thumbMsg && <p className="mb-2 text-xs text-accent">{thumbMsg}</p>}
 

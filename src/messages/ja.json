@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "キャンセル — ",
       "updatedSystems": "{done}システム中{updated}システムを更新",
       "refreshImages": "システム画像を更新",
-      "refreshImagesDesc": "カバーが変更されたシステムの閲覧カードとヒーローコラージュ画像を再構築。スキャン・スクレイプ後に自動実行。ここで強制実行可能。",
+      "refreshImagesDesc": "ブラウズカード、ヒーローコラージュ画像を再構築します。カバーが変更されたシステムまたはキャッシュ画像がないシステムの場合。スキャン後に自動実行されます。「すべてを再構築」をクリックすると、すべてのコラージュの完全な再生成を強制します。",
       "refreshImagesBtn": "画像を更新",
       "refreshStarted": "✓ 変更されたコラージュ画像をバックグラウンドで更新中。",
       "refreshFailed": "✗ 更新を開始できませんでした。",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} 件選択",
       "noneSelected": "未選択",
       "pickSystemsHint": "1つ以上のシステムを選ぶか、ライブラリ全体に対して実行します。",
-      "noConfiguredSystems": "構成済みのシステムはまだありません。"
+      "noConfiguredSystems": "構成済みのシステムはまだありません。",
+      "rebuildAllImages": "すべてを再構築"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "次回プレイ時に適用されます",
     "add": "追加",
     "searchPlaceholder": "チートを検索…"
+  },
+  "customCollage": {
+    "title": "カスタムコラージュ",
+    "subtitle": "{count, plural, =0 {表示するゲームを選択してください} other {# 個のゲームが選択されました}}",
+    "close": "閉じる",
+    "loading": "ゲームを読み込み中…",
+    "noGames": "このシステムにはまだカバーアートを持つゲームはありません。",
+    "pickSome": "少なくとも1つのゲームを選択してください。",
+    "failed": "コラージュを作成できませんでした。もう一度お試しください。",
+    "revert": "自動に戻す",
+    "cancel": "キャンセル",
+    "generate": "コラージュを生成",
+    "generating": "生成中…",
+    "openLabel": "カスタムコラージュ",
+    "openDesc": "このシステムのカード、ヒーローコラージュに表示されるゲームを手動で選択します。優先度が高く、自動置換されません。"
   }
 }

@@ -113,10 +113,10 @@ async function processRow(row: TargetRow): Promise<Outcome> {
     const res = await fetchArt(url);
     if (res.buf) {
       const dir = mediaDir(row.id);
+      // saveMedia pre-builds the w400/w300 grid thumbnails for box art.
       const file = await saveMedia(res.buf, dir, "boxart", imageExt(res.buf));
       if (!file) return "failed";
       getDb().prepare("UPDATE roms SET boxart_url = ? WHERE id = ?").run(localMediaUrl(row.id, file), row.id);
-      await warmThumbs(path.join(dir, file));
       return "localized";
     }
     if (res.notFound) sawNotFound = true;

@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const systems = Array.isArray(body?.systems)
     ? body.systems.filter((s: unknown) => typeof s === "string")
     : undefined;
-  const res = enqueueThumbs(systems);
+  const res = enqueueThumbs(systems, body?.force === true);
   return NextResponse.json({ ok: true, started: res.started, queued: !res.started, ...getThumbJobStatus() });
 }
 

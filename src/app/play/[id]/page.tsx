@@ -80,6 +80,8 @@ export default async function PlayPage({
       resumeStateId={state ? Number(state) : undefined}
       biosUrl={hasFirmware ? `/api/firmware/pack/${platform.slug}` : undefined}
       shader={shader}
+      gameLogo={rom.logo_url ?? undefined}
+      gameCover={rom.boxart_url ?? rom.hero_url ?? rom.screenshot_url ?? undefined}
     />
   );
 }

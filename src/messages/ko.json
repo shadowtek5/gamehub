@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "취소됨 — ",
       "updatedSystems": "{done}개 시스템 중 {updated}개 업데이트됨",
       "refreshImages": "시스템 이미지 새로 고침",
-      "refreshImagesDesc": "커버가 변경된 시스템의 탐색 카드 및 히어로 콜라주 이미지를 재구성합니다. 스캔 및 스크래프 후 자동 실행. 강제 실행하려면 여기 사용.",
+      "refreshImagesDesc": "검색 카드 및 히어로 콜라주 이미지를 다시 구축합니다. 커버가 변경되었거나 캐시된 이미지가 누락된 시스템의 경우입니다. 스캔 후 자동으로 실행됩니다. \"모두 다시 구축\"은 모든 콜라주의 전체 재생성을 강제합니다.",
       "refreshImagesBtn": "이미지 새로 고침",
       "refreshStarted": "✓ 변경된 콜라주 이미지를 백그라운드에서 새로 고침 중.",
       "refreshFailed": "✗ 새로 고침을 시작할 수 없음.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count}개 선택됨",
       "noneSelected": "선택 안 함",
       "pickSystemsHint": "하나 이상의 시스템을 선택하거나 전체 라이브러리에 대해 실행하세요.",
-      "noConfiguredSystems": "아직 구성된 시스템이 없습니다."
+      "noConfiguredSystems": "아직 구성된 시스템이 없습니다.",
+      "rebuildAllImages": "모두 다시 구축"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "다음 플레이 시 적용됨",
     "add": "추가",
     "searchPlaceholder": "치트 검색…"
+  },
+  "customCollage": {
+    "title": "사용자 정의 콜라주",
+    "subtitle": "{count, plural, =0 {표시할 게임을 선택하세요} other {# 개의 게임이 선택됨}}",
+    "close": "닫기",
+    "loading": "게임 로드 중…",
+    "noGames": "이 시스템에는 아직 커버 아트가 있는 게임이 없습니다.",
+    "pickSome": "최소 1개의 게임을 선택하세요.",
+    "failed": "콜라주를 만들 수 없습니다. 다시 시도하세요.",
+    "revert": "자동으로 되돌리기",
+    "cancel": "취소",
+    "generate": "콜라주 생성",
+    "generating": "생성 중…",
+    "openLabel": "사용자 정의 콜라주",
+    "openDesc": "이 시스템의 카드 및 히어로 콜라주에 표시되는 게임을 수동으로 선택합니다. 우선순위가 높으며 자동으로 교체되지 않습니다."
   }
 }

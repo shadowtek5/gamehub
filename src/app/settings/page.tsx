@@ -37,7 +37,6 @@ import {
   thegamesdbConfigured,
 } from "@/lib/providers/config";
 import { launchboxConfigured } from "@/lib/providers/launchbox";
-import SystemMetaScrape from "@/components/SystemMetaScrape";
 import ScraperOptionsPanel from "@/components/ScraperOptions";
 import ReportsPanel from "@/components/ReportsPanel";
 import BulkScrape from "@/components/BulkScrape";
@@ -151,7 +150,6 @@ export default async function SettingsPage() {
                   }}
                 />
                 <BulkScrape systems={scrapeSystems} />
-                <SystemMetaScrape systems={scrapeSystems} />
               </>
             ),
           },

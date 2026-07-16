@@ -52,6 +52,7 @@ export default async function SystemsPage() {
       covers: coversBySlug.get(p.slug) ?? [],
       icon: art.icon ?? null,
       ribbon: art.ribbon ?? null,
+      logo: art.logo ?? null,
     };
   });
 

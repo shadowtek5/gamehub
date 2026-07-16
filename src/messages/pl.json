@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Anulowano — ",
       "updatedSystems": "Zaktualizowano {updated} z {done} systemów",
       "refreshImages": "Odśwież obrazy systemu",
-      "refreshImagesDesc": "Przebuduj karty przeglądania i obrazy kolażu hero dla systemów, których okładki zostały zmienione. Działa automatycznie po skanowaniu i scrapingu; użyj tego, aby wymusić.",
+      "refreshImagesDesc": "Przebuduj obrazy karty przeglądania i bohaterskiego kolaża dla systemów, których okładki się zmieniły lub których buforowany obraz brakuje. Uruchamia się automatycznie po skanach; \"Przebuduj wszystko\" wymusza pełną regenerację każdego kolaża.",
       "refreshImagesBtn": "Odśwież obrazy",
       "refreshStarted": "✓ Zmodyfikowane obrazy kolażu są odświeżane w tle.",
       "refreshFailed": "✗ Nie można rozpocząć odświeżania.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "Wybrano {count}",
       "noneSelected": "Nie wybrano",
       "pickSystemsHint": "Wybierz jeden lub więcej systemów albo uruchom dla całej biblioteki.",
-      "noConfiguredSystems": "Brak skonfigurowanych systemów."
+      "noConfiguredSystems": "Brak skonfigurowanych systemów.",
+      "rebuildAllImages": "Przebuduj wszystko"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Będzie stosowany przy następnym uruchomieniu gry",
     "add": "Dodaj",
     "searchPlaceholder": "Wyszukaj cheaty…"
+  },
+  "customCollage": {
+    "title": "Niestandardowy kolaż",
+    "subtitle": "{count, plural, =0 {Wybierz gry do wyświetlenia} one {# gra wybrana} few {# gry wybrane} many {# gier wybranych} other {# gier wybranych}}",
+    "close": "Zamknij",
+    "loading": "Wczytywanie gier…",
+    "noGames": "Brak gier z okładkami w tym systemie.",
+    "pickSome": "Wybierz co najmniej jedną grę.",
+    "failed": "Nie udało się zbudować kolaża. Spróbuj ponownie.",
+    "revert": "Przywróć automata",
+    "cancel": "Anuluj",
+    "generate": "Wygeneruj kolaż",
+    "generating": "Generowanie…",
+    "openLabel": "Niestandardowy kolaż",
+    "openDesc": "Ręcznie wybierz gry wyświetlane w karcie i bohaterskim kolaży tego systemu. Ma pierwszeństwo i nie będzie automatycznie zastępowana."
   }
 }

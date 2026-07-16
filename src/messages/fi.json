@@ -410,7 +410,7 @@
       "cancelledPrefix": "Peruutettu — ",
       "updatedSystems": "Päivitetty {updated}/{done} järjestelmää",
       "refreshImages": "Päivitä järjestelmäkuvat",
-      "refreshImagesDesc": "Rakenna uudelleen selauskortti- ja hero-kollaasikuvat järjestelmille, joiden kannet muuttuivat. Suoritetaan automaattisesti skannausten ja hakujen jälkeen; käytä tätä pakottaaksesi sen.",
+      "refreshImagesDesc": "Muodosta uudelleen selainkortit- ja sankarien kollaasikuvat järjestelmille, joiden kannet ovat muuttuneet tai joiden välimuistikuva puuttuu. Suoritetaan automaattisesti skannausten jälkeen; \"Muodosta uudelleen kaikki\" pakottaa jokaisen kollaasikuvan täydellisen uudelleenluonnin.",
       "refreshImagesBtn": "Päivitä kuvat",
       "refreshStarted": "✓ Päivitetään muuttuneet kollaasikuvat taustalla.",
       "refreshFailed": "✗ Päivitystä ei voitu aloittaa.",
@@ -433,7 +433,8 @@
       "selectedCount": "{count} valittu",
       "noneSelected": "Ei valintoja",
       "pickSystemsHint": "Valitse yksi tai useampi järjestelmä tai suorita koko kirjastolle.",
-      "noConfiguredSystems": "Ei määritettyjä järjestelmiä vielä."
+      "noConfiguredSystems": "Ei määritettyjä järjestelmiä vielä.",
+      "rebuildAllImages": "Muodosta uudelleen kaikki"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Voimassa seuraavan kerran, kun pelaat",
     "add": "Lisää",
     "searchPlaceholder": "Hae cheatseja…"
+  },
+  "customCollage": {
+    "title": "Mukautettu kollaasi",
+    "subtitle": "{count, plural, =0 {Valitse näytettävät pelit} one {# peli valittu} other {# peliä valittu}}",
+    "close": "Sulje",
+    "loading": "Ladataan pelejä…",
+    "noGames": "Tällä järjestelmällä ei ole vielä pelejä kansikuvilla.",
+    "pickSome": "Valitse vähintään yksi peli.",
+    "failed": "Kollaasia ei voitu luoda. Yritä uudelleen.",
+    "revert": "Palaa automaattiseen",
+    "cancel": "Peruuta",
+    "generate": "Luo kollaasi",
+    "generating": "Luodaan…",
+    "openLabel": "Mukautettu kollaasi",
+    "openDesc": "Valitse manuaalisesti pelit, jotka näytetään tämän järjestelmän kortissa ja sankareiden kollaasissa. Sillä on etusija eikä se korvaudu automaattisesti."
   }
 }

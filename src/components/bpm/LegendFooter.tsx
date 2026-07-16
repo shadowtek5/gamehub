@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { goBackSmart } from "@/lib/navBack";
-import { useChromeOverlayOpen } from "@/lib/chromeOverlay";
+import { useChromeOverlayOpen, useInGameMenuOpen } from "@/lib/chromeOverlay";
 import { useControllerFamily } from "@/lib/useControllerFamily";
 import { FaceGlyph, OptionsGlyph } from "@/components/ControllerGlyph";
 
@@ -57,6 +57,8 @@ export default function LegendFooter() {
   const family = useControllerFamily();
   // Near-opaque while the Main Menu / Quick Access panel is open (matches header).
   const dimmed = useChromeOverlayOpen();
+  // Shown over the fullscreen emulator when the in-game Quick Menu is open.
+  const inGame = useInGameMenuOpen();
   const [filterCount, setFilterCount] = useState(0);
   useEffect(() => {
     const on = (e: Event) => setFilterCount((e as CustomEvent<number>).detail ?? 0);
@@ -119,7 +121,8 @@ export default function LegendFooter() {
     };
   }, []);
 
-  if (pathname.startsWith("/play") || pathname.startsWith("/login")) return null;
+  // Hidden during fullscreen play, but shown when the in-game Quick Menu opens.
+  if ((pathname.startsWith("/play") && !inGame) || pathname.startsWith("/login")) return null;
 
   const isGamePage = pathname.startsWith("/game/");
   const isSystemsBrowse = pathname === "/systems";
@@ -150,11 +153,15 @@ export default function LegendFooter() {
   return (
     <div
       data-nav="chrome"
-      className="footer_BasicFooter_gh fixed inset-x-0 bottom-0 z-[70] flex h-[42px] items-center px-[1.7vw] backdrop-blur-[100px] transition-[background-color] duration-200"
+      className={`footer_BasicFooter_gh fixed inset-x-0 bottom-0 flex h-[42px] items-center px-[1.7vw] backdrop-blur-[100px] transition-[background-color] duration-200 ${
+        inGame ? "z-[110]" : "z-[70]"
+      }`}
       style={{
-        backgroundColor: dimmed
-          ? "color-mix(in oklab, var(--color-black) 96%, transparent)"
-          : "color-mix(in oklab, var(--color-black) 94%, transparent)",
+        backgroundColor: inGame
+          ? "#000"
+          : dimmed
+            ? "color-mix(in oklab, var(--color-black) 96%, transparent)"
+            : "color-mix(in oklab, var(--color-black) 94%, transparent)",
       }}
     >
       <div className="footer_FooterLegend_gh flex h-[35px] w-full items-center py-[3px]">

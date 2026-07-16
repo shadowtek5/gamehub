@@ -222,7 +222,7 @@ export default function SaveStatesPanel({
                   </div>
                 )}
                 {playable && (
-                  <Link
+                  <a
                     href={`/play/${romId}?state=${s.id}`}
                     className="Focusable absolute inset-0 flex items-center justify-center bg-black/45 text-white opacity-0 outline-none transition-opacity hover:opacity-100 focus:opacity-100 focus:ring-2 focus:ring-inset focus:ring-white/80"
                     title={t("resumeTitle")}
@@ -231,7 +231,7 @@ export default function SaveStatesPanel({
                       <svg viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5"><path d="M6 4l14 8-14 8z" /></svg>
                       {t("resume")}
                     </span>
-                  </Link>
+                  </a>
                 )}
               </div>
               <div className="flex items-start gap-2 p-3">

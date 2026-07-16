@@ -637,13 +637,16 @@ export default async function GamePage({
           <div className="flex min-w-0 items-center gap-6">
             {platform && platformPlayable(platform) ? (
               <div className="appactionbutton_PlayButtonContainer_gh flex h-12 w-[234px] shrink-0 items-center overflow-hidden rounded-[2px] bg-[#dcdedf]/[0.17]">
-                <Link
+                {/* Plain <a>, not <Link>: launching must be a full-page load so
+                    EmulatorJS starts in a fresh document (it can't cleanly
+                    re-init on a client-side SPA re-entry). */}
+                <a
                   href={`/play/${rom.id}`}
                   className="appactionbutton_ButtonChild_gh flex h-full flex-1 items-center gap-3 px-4 text-[16px] font-medium text-white transition-colors hover:bg-white/10"
                 >
                   <span className="text-[13px] text-[#59bf40]">▶</span>
                   <span className="appactionbutton_ButtonText_gh">{t("play")}</span>
-                </Link>
+                </a>
                 <PlayOptionsChevron />
               </div>
             ) : (
@@ -776,7 +779,7 @@ export default async function GamePage({
             ⇩ {t("allDiscsZip")}
           </a>
           {discs.map((d) => (
-            <Link
+            <a
               key={d.id}
               href={
                 d.id === rom.id
@@ -793,7 +796,7 @@ export default async function GamePage({
               title={formatBytes(d.size_bytes)}
             >
               {d.id === rom.id ? "" : platform?.ejsCore ? "▶ " : ""}{t("discNumber", { number: d.disc_number })}
-            </Link>
+            </a>
           ))}
         </div>
       )}

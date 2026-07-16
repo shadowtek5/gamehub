@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "已取消 —— ",
       "updatedSystems": "已更新 {updated} / {done} 个系统",
       "refreshImages": "刷新系统图像",
-      "refreshImagesDesc": "为封面已更改的系统重新构建浏览卡片和横幅拼贴图像。扫描和抓取后会自动运行；使用此选项可强制更新。",
+      "refreshImagesDesc": "为封面已更改或缓存图像丢失的系统重建浏览卡片和主角拼贴图像。在扫描后自动运行；\"全部重建\"强制完全重新生成每个拼贴。",
       "refreshImagesBtn": "刷新图像",
       "refreshStarted": "✓ 已更改的拼贴图像正在后台刷新。",
       "refreshFailed": "✗ 无法启动刷新。",
@@ -1146,7 +1146,8 @@
       "selectedCount": "已选 {count} 个",
       "noneSelected": "未选择",
       "pickSystemsHint": "选择一个或多个系统，或对整个库运行。",
-      "noConfiguredSystems": "尚无已配置的系统。"
+      "noConfiguredSystems": "尚无已配置的系统。",
+      "rebuildAllImages": "全部重建"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "下次游玩时生效",
     "add": "添加",
     "searchPlaceholder": "搜索作弊码…"
+  },
+  "customCollage": {
+    "title": "自定义拼贴",
+    "subtitle": "{count, plural, =0 {选择要展示的游戏} other {已选择 # 款游戏}}",
+    "close": "关闭",
+    "loading": "正在加载游戏…",
+    "noGames": "此系统中还没有游戏封面。",
+    "pickSome": "至少选择一款游戏。",
+    "failed": "无法构建拼贴。请重试。",
+    "revert": "恢复为自动",
+    "cancel": "取消",
+    "generate": "生成拼贴",
+    "generating": "正在生成…",
+    "openLabel": "自定义拼贴",
+    "openDesc": "手动选择此系统的卡片和主角拼贴中显示的游戏。它具有优先级，不会被自动替换。"
   }
 }

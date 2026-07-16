@@ -1132,8 +1132,9 @@
       "cancelledPrefix": "Cancelled — ",
       "updatedSystems": "Updated {updated} of {done} systems",
       "refreshImages": "Refresh system images",
-      "refreshImagesDesc": "Rebuild the browse-card and hero collage images for systems whose covers changed. Runs automatically after scans and scrapes; use this to force it.",
+      "refreshImagesDesc": "Rebuild the browse-card and hero collage images for systems whose covers changed or whose cached image is missing. Runs automatically after scans; \"Rebuild all\" forces a full regenerate of every collage.",
       "refreshImagesBtn": "Refresh images",
+      "rebuildAllImages": "Rebuild all",
       "refreshStarted": "✓ Refreshing changed collage images in the background.",
       "refreshFailed": "✗ Couldn't start the refresh.",
       "checkCleanup": "Check & clean up",
@@ -2781,6 +2782,21 @@
     "categoryTile": {
       "gameCount": "{count, plural, one {# game} other {# games}}"
     }
+  },
+  "customCollage": {
+    "title": "Custom collage",
+    "subtitle": "{count, plural, =0 {Pick the games to feature} one {# game selected} other {# games selected}}",
+    "close": "Close",
+    "loading": "Loading games…",
+    "noGames": "No games with cover art in this system yet.",
+    "pickSome": "Pick at least one game.",
+    "failed": "Couldn't build the collage. Try again.",
+    "revert": "Revert to auto",
+    "cancel": "Cancel",
+    "generate": "Generate collage",
+    "generating": "Generating…",
+    "openLabel": "Custom collage",
+    "openDesc": "Hand-pick the games shown in this system's card and hero collage. It takes priority and won't be auto-replaced."
   },
   "systemTools": {
     "artLabel": {

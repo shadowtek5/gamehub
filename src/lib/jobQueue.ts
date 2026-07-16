@@ -44,6 +44,8 @@ interface QueuedJob {
   autoScrape?: boolean;
   /** hash-only: also re-hash already-hashed .zip/.7z archives */
   rehashArchives?: boolean;
+  /** thumbs-only: rebuild every collage regardless of fingerprint */
+  force?: boolean;
   enqueuedAt: string;
 }
 
@@ -86,12 +88,18 @@ function launch(job: QueuedJob): void {
         const st = getScanJobStatus();
         const newIds = getLastScanAddedIds();
         if (!st.cancelled && newIds.length > 0) {
-          // Localize box art immediately so new games aren't art-less until a
-          // (possibly-never) full scrape runs. Fire-and-forget.
-          void localizeBoxartForIds(newIds);
           if (job.autoScrape) {
+            // The scrape downloads full metadata AND local box art for each new
+            // game, so it owns art here. Do NOT also run the localizer: it runs
+            // outside the queue and would occupy the run slot without pumping,
+            // stalling this queued scrape (the "didn't auto-scrape" bug).
             enqueueScrapeIds(newIds, job.actor?.id ?? null);
             console.log(`[auto-scrape] ${newIds.length} new game(s) — scrape queued`);
+          } else {
+            // Manual scan with no follow-up scrape — at least localize the new
+            // games' box art so they aren't art-less. It runs outside the queue,
+            // so pump once it settles to release any job queued behind it.
+            void localizeBoxartForIds(newIds).finally(pump);
           }
         }
       } catch (e) {
@@ -109,7 +117,7 @@ function launch(job: QueuedJob): void {
   } else if (job.kind === "art") {
     startSystemArtJob(job.systems ?? undefined, pump);
   } else if (job.kind === "thumbs") {
-    startThumbRefreshJob(job.systems ?? undefined, pump);
+    startThumbRefreshJob(job.systems ?? undefined, pump, job.force);
   } else {
     // Targets are resolved HERE (not at enqueue) so a scan queued ahead of this
     // scrape is reflected in what gets scraped. An id-scoped job (auto-scrape of
@@ -208,8 +216,8 @@ export function systemArtPendingOrRunning(): boolean {
 }
 
 /** Queue a system-collage image refresh (whole library or selected systems). */
-export function enqueueThumbs(systems?: string[]): EnqueueResult {
-  return enqueue({ kind: "thumbs", systems: systems?.length ? systems : null });
+export function enqueueThumbs(systems?: string[], force = false): EnqueueResult {
+  return enqueue({ kind: "thumbs", systems: systems?.length ? systems : null, force });
 }
 export function thumbsPendingOrRunning(): boolean {
   return getThumbJobStatus().running || q().pending.some((j) => j.kind === "thumbs");

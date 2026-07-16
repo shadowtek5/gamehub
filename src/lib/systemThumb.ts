@@ -167,18 +167,47 @@ async function regenerate(slug: string, kind: Kind, newSig: string): Promise<boo
   }
 }
 
+/** Build BOTH collages (card + hero) for a system from a hand-picked set of cover
+ *  URLs. These are the "custom collage" — they overwrite the auto ones and are
+ *  protected from the drift-refresh (see refreshDriftedThumbs). Returns false when
+ *  no cover resolves to a local file. */
+export async function buildCustomCollages(slug: string, coverUrls: string[]): Promise<boolean> {
+  const row = getSystem(slug);
+  if (!row) return false;
+  const coverPaths = urlsToLocalPaths(coverUrls);
+  if (coverPaths.length === 0) return false;
+  await fs.promises.mkdir(path.join(SYSTEMS_DIR, String(row.id)), { recursive: true });
+  for (const kind of ["card", "hero"] as Kind[]) {
+    const cfg = KINDS[kind];
+    const png = await buildImage(coverPaths, cfg);
+    await fs.promises.writeFile(path.join(SYSTEMS_DIR, String(row.id), cfg.file), png);
+  }
+  return true;
+}
+
 // ---------- fingerprint-driven refresh ----------
 
 const busy = globalThis as unknown as { __ghThumbBusy?: boolean };
 
+/** Does the cached collage file for this system exist on disk? */
+function thumbFileExists(id: number, kind: Kind): boolean {
+  try {
+    return fs.statSync(path.join(SYSTEMS_DIR, String(id), KINDS[kind].file)).isFile();
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Regenerate every collage image whose content fingerprint has drifted from what
- * was last rendered, optionally limited to a set of slugs (e.g. the systems a
- * scan/scrape just touched; omit for the whole library). One pass at a time.
+ * Regenerate collage images that are out of date, optionally limited to a set of
+ * slugs. A collage is rebuilt when its content fingerprint drifted OR its cached
+ * file is missing (so deleting data/systems self-heals on the next refresh), or
+ * unconditionally when `force` is set (a full rebuild). One pass at a time.
  */
 export async function refreshDriftedThumbs(
   limitTo?: string[],
-  hooks?: { isCancelled?: () => boolean; onProgress?: (done: number, total: number, current: string) => void }
+  hooks?: { isCancelled?: () => boolean; onProgress?: (done: number, total: number, current: string) => void },
+  force = false
 ): Promise<{ done: number; skipped?: boolean }> {
   if (busy.__ghThumbBusy) return { done: 0, skipped: true };
   busy.__ghThumbBusy = true;
@@ -189,6 +218,11 @@ export async function refreshDriftedThumbs(
   try {
     for (const row of systems) {
       if (hooks?.isCancelled?.()) break;
+      // Hand-picked custom collages are never auto-overwritten (not even on force).
+      if (row.custom_thumb) {
+        processed++;
+        continue;
+      }
       hooks?.onProgress?.(processed, systems.length, row.slug);
       const checks: [Kind, string | null][] = [
         ["card", row.card_thumb_sig],
@@ -196,7 +230,8 @@ export async function refreshDriftedThumbs(
       ];
       for (const [kind, stored] of checks) {
         const current = sig(getSystemHeroCovers(row.slug, KINDS[kind].covers));
-        if (current !== stored && (await regenerate(row.slug, kind, current))) {
+        const stale = force || current !== stored || !thumbFileExists(row.id, kind);
+        if (stale && (await regenerate(row.slug, kind, current))) {
           done++;
         }
       }
@@ -247,8 +282,8 @@ export function cancelThumbJob(): boolean {
 }
 
 /** Manual, queue-driven collage refresh with progress (whole library or a
- *  subset of systems). */
-export function startThumbRefreshJob(systems?: string[], onComplete?: () => void): boolean {
+ *  subset of systems). `force` rebuilds every collage regardless of fingerprint. */
+export function startThumbRefreshJob(systems?: string[], onComplete?: () => void, force = false): boolean {
   const s = thumbState();
   if (s.running) {
     onComplete?.();
@@ -261,14 +296,18 @@ export function startThumbRefreshJob(systems?: string[], onComplete?: () => void
   });
   void (async () => {
     try {
-      const r = await refreshDriftedThumbs(systems?.length ? systems : undefined, {
-        isCancelled: () => s.cancelRequested,
-        onProgress: (done, total, current) => {
-          s.done = done;
-          s.total = total;
-          s.current = current;
+      const r = await refreshDriftedThumbs(
+        systems?.length ? systems : undefined,
+        {
+          isCancelled: () => s.cancelRequested,
+          onProgress: (done, total, current) => {
+            s.done = done;
+            s.total = total;
+            s.current = current;
+          },
         },
-      });
+        force
+      );
       s.updated = r.done;
       if (s.cancelRequested) s.cancelled = true;
     } finally {

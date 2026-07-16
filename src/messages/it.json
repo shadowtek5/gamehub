@@ -825,7 +825,7 @@
       "cancelledPrefix": "Cancellato — ",
       "updatedSystems": "{updated} di {done} sistemi aggiornati",
       "refreshImages": "Aggiorna immagini di sistema",
-      "refreshImagesDesc": "Ricostruisci le immagini dei browse-card e dei collage hero per i sistemi le cui copertine sono cambiate. Viene eseguito automaticamente dopo scansioni e scraping; usa questo per forzarlo.",
+      "refreshImagesDesc": "Ricostruisci le immagini della scheda di navigazione e del collage hero per i sistemi le cui copertine sono cambiate o la cui immagine in cache è mancante. Viene eseguito automaticamente dopo le scansioni; \"Ricostruisci tutto\" forza una rigenerazione completa di ogni collage.",
       "refreshImagesBtn": "Aggiorna immagini",
       "refreshStarted": "✓ Aggiornamento delle immagini dei collage cambiate in background.",
       "refreshFailed": "✗ Impossibile avviare l'aggiornamento.",
@@ -848,7 +848,8 @@
       "selectedCount": "{count} selezionati",
       "noneSelected": "Nessuno selezionato",
       "pickSystemsHint": "Scegli uno o più sistemi oppure esegui sull'intera libreria.",
-      "noConfiguredSystems": "Nessun sistema configurato ancora."
+      "noConfiguredSystems": "Nessun sistema configurato ancora.",
+      "rebuildAllImages": "Ricostruisci tutto"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Si applica la prossima volta che giochi",
     "add": "Aggiungi",
     "searchPlaceholder": "Cerca cheats…"
+  },
+  "customCollage": {
+    "title": "Collage personalizzato",
+    "subtitle": "{count, plural, =0 {Seleziona i giochi da mostrare} one {# gioco selezionato} other {# giochi selezionati}}",
+    "close": "Chiudi",
+    "loading": "Caricamento giochi…",
+    "noGames": "Nessun gioco con copertina in questo sistema ancora.",
+    "pickSome": "Seleziona almeno un gioco.",
+    "failed": "Impossibile creare il collage. Riprova.",
+    "revert": "Ripristina automatico",
+    "cancel": "Annulla",
+    "generate": "Genera collage",
+    "generating": "Generazione…",
+    "openLabel": "Collage personalizzato",
+    "openDesc": "Seleziona manualmente i giochi mostrati nella scheda e nel collage hero di questo sistema. Ha priorità e non sarà auto-sostituito."
   }
 }

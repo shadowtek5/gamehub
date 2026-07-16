@@ -18,6 +18,7 @@ import { useTranslations } from "next-intl";
 import RomUploadModal from "@/components/RomUploadModal";
 import FirmwareModal from "@/components/FirmwareModal";
 import ControllerLayout from "@/components/ControllerLayout";
+import CustomCollageManager from "@/components/CustomCollageManager";
 import {
   GRefresh, GCloud, GRevert, GBackfill, GHeroArt, GPencil, GIcon, GScrape,
   GInfo, GBroom, GUpload, GFirmware, GGamepad, GList,
@@ -50,7 +51,9 @@ export default function MobileSystemOptions({
   const [uploadOpen, setUploadOpen] = useState(false);
   const [firmwareOpen, setFirmwareOpen] = useState(false);
   const [ctrlLayoutOpen, setCtrlLayoutOpen] = useState(false);
+  const [collageOpen, setCollageOpen] = useState(false);
   const router = useRouter();
+  const tc = useTranslations("customCollage");
   const t = useTranslations("mobileSystemOptions");
   const ts = useTranslations("systemTools"); // reuse the desktop system-tools labels
   const artLabel = (kind: ArtKind) => t(`artLabel.${kind}`);
@@ -298,6 +301,7 @@ export default function MobileSystemOptions({
               <SheetRow onClick={() => openArtPicker("logo")}><GPencil className="text-dim" /> {t("logoMenu")}</SheetRow>
               <SheetRow onClick={() => openArtPicker("icon")}><GIcon className="text-dim" /> {t("iconMenu")}</SheetRow>
               <SheetRow onClick={autofetchArt} disabled={busy}><GScrape className="text-dim" /> {t("autoFetchAll")}</SheetRow>
+              <SheetRow onClick={() => { setOpen(false); setCollageOpen(true); }}><GHeroArt className="text-dim" /> {tc("openLabel")}</SheetRow>
               <SheetSection>{t("sectionSystem")}</SheetSection>
               <SheetRow onClick={updateInfo} disabled={busy}><GInfo className="text-dim" /> {t("updateSystemInfo")}</SheetRow>
               <SheetRow onClick={() => { setOpen(false); setCtrlLayoutOpen(true); }}>
@@ -361,6 +365,7 @@ export default function MobileSystemOptions({
           onClose={() => setCtrlLayoutOpen(false)}
         />
       )}
+      <CustomCollageManager slug={slug} open={collageOpen} onClose={() => setCollageOpen(false)} />
     </>
   );
 }

@@ -11,17 +11,16 @@
 // running core actually exposes them (detected from the hidden bar on open).
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { SHADERS } from "@/lib/shaders";
-import { GHome, GList, GFriends, GGear, GPower } from "@/components/menuGlyphs";
+import { GHome, GList, GFriends, GGear } from "@/components/menuGlyphs";
 
 interface NavItem {
   key: string;
   label: string;
   Icon: (p: { className?: string }) => React.ReactElement;
-  path: string | null; // null = exit the game
+  path: string;
 }
 
 interface StateSlot {
@@ -65,6 +64,8 @@ export default function InGameMenu({
   open,
   romId,
   title,
+  gameLogo,
+  gameCover,
   recording = false,
   currentShader,
   onClose,
@@ -81,11 +82,14 @@ export default function InGameMenu({
   onNetplay,
   onSetShader,
   onApplyCheats,
+  onNavigate,
   onExit,
 }: {
   open: boolean;
   romId: number;
   title: string;
+  gameLogo?: string;
+  gameCover?: string;
   recording?: boolean;
   currentShader?: string | null;
   onClose: () => void;
@@ -102,11 +106,11 @@ export default function InGameMenu({
   onNetplay: () => void;
   onSetShader: (shader: string) => void;
   onApplyCheats: (cheats: { code: string; enabled: number | boolean }[]) => void;
+  onNavigate: (path: string) => void;
   onExit: () => void;
 }) {
   const t = useTranslations("emulator");
   const tv = useTranslations("emuVideo");
-  const router = useRouter();
   const [view, setView] = useState<"main" | "load" | "video" | "cheats">("main");
   const [slots, setSlots] = useState<StateSlot[] | null>(null);
   const [cheats, setCheats] = useState<CheatItem[] | null>(null);
@@ -117,26 +121,21 @@ export default function InGameMenu({
   const [col, setCol] = useState<"nav" | "actions">("actions");
   const [navSel, setNavSel] = useState(0);
 
-  // Left column: global destinations. A path navigates away (leaving the game);
-  // null exits via the game's own save-and-exit.
+  // Left column: global destinations. Selecting one leaves the game entirely —
+  // the Emulator saves the battery and hard-navigates so the emulation is killed
+  // (no lingering game loop / audio in the background).
   const NAV: NavItem[] = [
     { key: "home", label: t("navHome"), Icon: GHome, path: "/" },
     { key: "library", label: t("navLibrary"), Icon: GList, path: "/library" },
     { key: "friends", label: t("navFriends"), Icon: GFriends, path: "/account" },
     { key: "settings", label: t("navSettings"), Icon: GGear, path: "/settings" },
-    { key: "power", label: t("navPower"), Icon: GPower, path: null },
   ];
 
   const activateNav = useCallback(
     (item: NavItem) => {
-      if (item.path === null) {
-        onExit();
-        return;
-      }
-      onClose();
-      router.push(item.path);
+      onNavigate(item.path);
     },
-    [onExit, onClose, router]
+    [onNavigate]
   );
   const [caps, setCaps] = useState<EmuCaps>({
     pause: false,
@@ -346,13 +345,25 @@ export default function InGameMenu({
   if (!open) return null;
 
   return (
-    <div className="absolute inset-0 z-30 flex items-stretch bg-black/55 backdrop-blur-[3px]" data-overlay="open">
-      {/* Left panel — Steam Deck "STEAM MENU" style: dark vertical-gradient
-          column, icon-free text list, A/B glyph bar along the bottom. */}
-      <div className="flex w-[min(94vw,470px)] bg-[linear-gradient(180deg,#15171c_0%,#262b34_50%,#15171c_100%)] shadow-[10px_0_50px_rgba(0,0,0,0.55)] ring-1 ring-white/[0.06]">
-        {/* Left column: game title + global destinations (Steam nav). */}
-        <div className="flex w-[150px] shrink-0 flex-col border-r border-white/[0.06] py-2">
-          <div className="truncate px-4 pb-3 pt-2.5 text-[14px] font-bold text-white/90">{title}</div>
+    <div
+      className="absolute inset-0 z-30 flex items-stretch bg-black/55 pb-[42px] pt-10 backdrop-blur-[3px]"
+      data-overlay="open"
+    >
+      {/* GameHub's real SystemBar (top) and LegendFooter (bottom) lift above the
+          emulator while this menu is open — we inset by their heights (40/42px)
+          so the columns sit cleanly between the real chrome. */}
+      <div className="flex w-[min(94vw,540px)] bg-[#0e141b] shadow-[10px_0_50px_rgba(0,0,0,0.55)]">
+        {/* Left column: running game + global destinations (Steam main menu).
+            Measured off a real Deck: solid #0e141b, 48px rows, 24px left pad,
+            18px/400 text, #b8bcbf idle / white active, #1a9fff select bar. */}
+        <div className="flex w-[210px] shrink-0 flex-col bg-[#0e141b] py-1">
+          <div className="flex h-12 items-center gap-2.5 truncate px-5 text-[18px] font-normal text-white">
+            {gameCover ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={gameCover} alt="" className="h-6 w-6 shrink-0 rounded-[3px] object-cover" />
+            ) : null}
+            <span className="truncate">{title}</span>
+          </div>
           {NAV.map((n, i) => {
             const active = view === "main" && col === "nav" && navSel === i;
             return (
@@ -363,26 +374,35 @@ export default function InGameMenu({
                   setNavSel(i);
                 }}
                 onClick={() => activateNav(n)}
-                className={`mx-2 flex items-center gap-2.5 rounded-[6px] px-3 py-2 text-left text-[14px] outline-none transition-colors ${
-                  active
-                    ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04] text-white"
-                    : "text-white/55 hover:bg-white/[0.05] hover:text-white/90"
+                className={`relative flex h-12 items-center gap-3 pl-6 pr-4 text-left text-[18px] font-normal outline-none transition-colors ${
+                  active ? "bg-[#23262e] text-white" : "text-[#b8bcbf] hover:bg-white/[0.04] hover:text-white"
                 }`}
               >
-                <n.Icon className="h-[17px] w-[17px] shrink-0" />
+                {active && <span className="absolute inset-y-0 left-0 w-[3px] bg-[#1a9fff]" />}
+                <n.Icon className="h-[19px] w-[19px] shrink-0" />
                 <span className="truncate">{n.label}</span>
               </button>
             );
           })}
         </div>
-        {/* Right column: the game actions (or an open sub-view). */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        {/* Right column: the game actions (or an open sub-view). Base #0e141b
+            plus the Deck's exact vertical gradient overlay. */}
+        <div className="flex min-w-0 flex-1 flex-col bg-[linear-gradient(180deg,rgba(148,179,245,0)_0%,rgba(52,70,78,0.624)_30%,rgba(9,14,17,0.42)_78%,rgba(179,179,179,0.18)_100%)]">
           {view !== "main" && (
             <div className="px-5 pb-2 pt-4 text-[12px] font-semibold uppercase tracking-[0.7px] text-white/40">
               {view === "load" ? t("loadState") : view === "video" ? t("videoFilter") : t("cheats")}
             </div>
           )}
-          {view === "main" && <div className="pt-2" />}
+          {view === "main" && (
+            <div className="flex min-h-[72px] items-center justify-center px-6 pb-3 pt-5">
+              {gameLogo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={gameLogo} alt={title} className="max-h-16 max-w-[85%] object-contain drop-shadow" />
+              ) : (
+                <span className="text-[19px] font-medium text-white">{title}</span>
+              )}
+            </div>
+          )}
         <div className="flex-1 overflow-y-auto pb-2">
           {view === "main" ? (
             actions.map((a, i) => {
@@ -395,10 +415,11 @@ export default function InGameMenu({
                     setSel(i);
                   }}
                   onClick={() => activate(i)}
-                  className={`mx-2 flex w-[calc(100%-16px)] items-center rounded-[6px] px-4 py-2.5 text-left text-[16px] font-medium outline-none transition-colors ${
-                    on ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
-                  } ${a.danger ? "text-[#e5776e]" : on ? "text-white" : "text-white/70"}`}
+                  className={`relative flex h-11 w-full items-center pl-[18px] pr-4 text-left text-[16px] font-normal outline-none transition-colors ${
+                    on ? "bg-[#23262e]" : "hover:bg-white/[0.04]"
+                  } ${a.danger ? "text-[#e5776e]" : "text-white"}`}
                 >
+                  {on && <span className="absolute inset-y-0 left-0 w-[3px] bg-[#1a9fff]" />}
                   {a.label}
                 </button>
               );
@@ -409,7 +430,7 @@ export default function InGameMenu({
                 onMouseEnter={() => setSel(0)}
                 onClick={() => activate(0)}
                 className={`flex w-full items-center px-5 py-2.5 text-left text-[13px] font-semibold text-dim outline-none ${
-                  sel === 0 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                  sel === 0 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                 }`}
               >
                 ‹ {t("back")}
@@ -422,7 +443,7 @@ export default function InGameMenu({
                     onMouseEnter={() => setSel(i + 1)}
                     onClick={() => activate(i + 1)}
                     className={`flex w-full items-center justify-between gap-3 px-5 py-2.5 text-left text-[14px] font-semibold outline-none ${
-                      sel === i + 1 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                      sel === i + 1 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                     } ${active ? "text-accent" : "text-body"}`}
                   >
                     <span>{s.key ? tv(s.key) : s.label ?? s.value}</span>
@@ -437,7 +458,7 @@ export default function InGameMenu({
                 onMouseEnter={() => setSel(0)}
                 onClick={() => activate(0)}
                 className={`flex w-full items-center px-5 py-2.5 text-left text-[13px] font-semibold text-dim outline-none ${
-                  sel === 0 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                  sel === 0 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                 }`}
               >
                 ‹ {t("back")}
@@ -457,7 +478,7 @@ export default function InGameMenu({
                       onMouseEnter={() => setSel(i + 1)}
                       onClick={() => activate(i + 1)}
                       className={`flex w-full items-center justify-between gap-3 px-5 py-2.5 text-left text-[14px] font-semibold outline-none ${
-                        sel === i + 1 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                        sel === i + 1 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                       } ${c.enabled ? "text-accent" : "text-body"}`}
                     >
                       <span className="min-w-0 truncate">{c.name}</span>
@@ -477,7 +498,7 @@ export default function InGameMenu({
                         onMouseEnter={() => setSel(idx)}
                         onClick={() => activate(idx)}
                         className={`flex w-full items-center justify-between gap-3 px-5 py-2.5 text-left text-[14px] font-semibold text-body outline-none ${
-                          sel === idx ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                          sel === idx ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                         }`}
                       >
                         <span className="min-w-0 truncate">{p.name}</span>
@@ -494,7 +515,7 @@ export default function InGameMenu({
                   onMouseEnter={() => setSel(0)}
                   onClick={() => activate(0)}
                   className={`flex w-full items-center px-5 py-2.5 text-left text-[13px] font-semibold text-dim outline-none ${
-                    sel === 0 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                    sel === 0 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                   }`}
                 >
                   ‹ {t("back")}
@@ -510,7 +531,7 @@ export default function InGameMenu({
                       onMouseEnter={() => setSel(i + 1)}
                       onClick={() => activate(i + 1)}
                       className={`flex w-full items-center gap-3 px-5 py-2 text-left outline-none ${
-                        sel === i + 1 ? "bg-gradient-to-r from-white/[0.13] to-white/[0.04]" : "hover:bg-white/[0.05]"
+                        sel === i + 1 ? "bg-[#23262e]" : "hover:bg-white/[0.05]"
                       }`}
                     >
                       {s.has_screenshot ? (
@@ -533,22 +554,6 @@ export default function InGameMenu({
                 )}
               </>
             )}
-        </div>
-        {/* Steam-style action bar: MENU pill on the left, A/B button glyphs. */}
-        <div className="mt-auto flex items-center justify-between gap-2 border-t border-white/[0.07] px-4 py-3">
-          <span className="rounded bg-white/10 px-2.5 py-1 text-[11px] font-bold uppercase tracking-[0.6px] text-white/75">
-            {t("menuLabel")}
-          </span>
-          <div className="flex items-center gap-4 text-[12px] font-medium text-white/70">
-            <span className="flex items-center gap-1.5">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-[11px] font-bold text-black">A</span>
-              {t("selectLabel")}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-white text-[11px] font-bold text-black">B</span>
-              {t("back")}
-            </span>
-          </div>
         </div>
         </div>
       </div>

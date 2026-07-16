@@ -11,6 +11,7 @@ import { ssFetch } from "./providers/ssFetch";
 import { sgdbSearchGames, sgdbAssetList } from "./providers/steamgriddb";
 import { lbPlatformArtCandidates } from "./providers/launchbox";
 import { platformBySlug } from "./platforms";
+import { defaultLogoUrl } from "./data/systemDefaultLogos";
 import {
   getAllSystems,
   getSystem,
@@ -105,12 +106,17 @@ export function getSystemArt(slug: string): SystemArt {
     ribbon: row.show_ribbon,
   };
   const read = (k: SystemArtKind) => (shown[k] ? artUrl(row.id, k) : null);
+  // Delivered default: when a system has no scraped logo (but isn't suppressed),
+  // fall back to the bundled full-color logo shipped in public/system-defaults.
+  const scrapedLogo = read("logo");
+  const logo = scrapedLogo ?? (row.show_logo ? defaultLogoUrl(slug) : null);
   return {
     hero: read("hero"),
-    logo: read("logo"),
+    logo,
     icon: read("icon"),
     ribbon: read("ribbon"),
-    logoDark: !!row.logo_dark,
+    // default logos are full-color, never dark wordmarks -> no light-backdrop treatment
+    logoDark: scrapedLogo ? !!row.logo_dark : false,
     heroSource: row.hero_source === "image" ? "image" : "ribbon",
   };
 }

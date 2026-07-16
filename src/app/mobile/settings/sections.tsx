@@ -43,7 +43,6 @@ import SettingsDatDb from "@/components/bpm/SettingsDatDb";
 import SettingsAutomation from "@/components/bpm/SettingsAutomation";
 import SettingsUsers from "@/components/bpm/SettingsUsers";
 import SettingsAgeRestrictions from "@/components/bpm/SettingsAgeRestrictions";
-import SystemMetaScrape from "@/components/SystemMetaScrape";
 import ScraperOptionsPanel from "@/components/ScraperOptions";
 import BulkScrape from "@/components/BulkScrape";
 import InvitesPanel from "@/components/InvitesPanel";
@@ -145,7 +144,6 @@ export async function getMobileSettingsSections(user: SessionUser): Promise<Mobi
             }}
           />
           <BulkScrape systems={scrapeSystems} />
-          <SystemMetaScrape systems={scrapeSystems} />
         </>
       ),
     },

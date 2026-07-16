@@ -292,13 +292,13 @@ export default function QuickAccess({
                 <div className="text-xs text-dim">{resumePlatform?.shortName}</div>
               </div>
             </div>
-            <Link
+            <a
               href={resume.playable ? `/play/${resume.id}` : `/game/${resume.id}`}
               onClick={() => setOpen(false)}
               className="btn-play block px-3 py-2 text-center text-sm"
             >
               ▶ &nbsp;{resume.playable ? t("resume") : t("open")}
-            </Link>
+            </a>
           </div>
         )}
         {more.length > 0 && (

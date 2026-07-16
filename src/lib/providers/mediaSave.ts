@@ -11,6 +11,7 @@ import path from "path";
 import sharp from "sharp";
 import { MediaKey } from "./config";
 import { ssFetch } from "./ssFetch";
+import { ensureThumb, GRID_THUMB_WIDTHS } from "../mediaThumbGen";
 
 const WEBP_ENCODE: Partial<Record<MediaKey, "lossy" | "lossless">> = {
   boxart: "lossy",
@@ -69,14 +70,20 @@ export async function saveMedia(
   try {
     await fs.promises.mkdir(dir, { recursive: true });
     const webp = await encodeWebp(buf, key);
-    if (webp) {
-      const file = `${key}.webp`;
-      await fs.promises.writeFile(path.join(dir, file), webp);
-      return file;
+    // WebP where it shrinks; else keep the original bytes (undecodable/unsupported
+    // source, or a format WebP wouldn't shrink).
+    const file = webp ? `${key}.webp` : `${key}.${srcFormat}`;
+    await fs.promises.writeFile(path.join(dir, file), webp ?? buf);
+    // Box art is rendered in grids at small sizes — pre-build the library WebP
+    // thumbnails now (same widths/encode the /api/media route serves) so cards
+    // paint instantly instead of resizing on first view. Best-effort: the media
+    // route still generates on demand if this fails. Every box-art write path —
+    // bulk scrape, per-game scrape, game-details scrape, the art picker — flows
+    // through here, so all of them get the thumbnails.
+    if (key === "boxart") {
+      const src = path.join(dir, file);
+      for (const w of GRID_THUMB_WIDTHS) await ensureThumb(src, w);
     }
-    // Undecodable/unsupported source, or WebP wouldn't shrink it — keep original.
-    const file = `${key}.${srcFormat}`;
-    await fs.promises.writeFile(path.join(dir, file), buf);
     return file;
   } catch {
     return null;

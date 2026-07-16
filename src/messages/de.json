@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Abgebrochen — ",
       "updatedSystems": "{updated} von {done} Systemen aktualisiert",
       "refreshImages": "Systembilder aktualisieren",
-      "refreshImagesDesc": "Browse-Karten- und Hero-Collage-Bilder für Systeme neu aufbauen, deren Covers sich geändert haben. Läuft automatisch nach Scans und Scrapes; hier zum Erzwingen verwenden.",
+      "refreshImagesDesc": "Erstelle die Such-Karten- und Hero-Collage-Bilder für Systeme, deren Cover sich geändert haben oder deren zwischengespeichertes Bild fehlt, neu. Wird automatisch nach Scans ausgeführt; \"Alle neu erstellen\" erzwingt eine vollständige Neuerstellung jeder Collage.",
       "refreshImagesBtn": "Bilder aktualisieren",
       "refreshStarted": "✓ Geänderte Collage-Bilder werden im Hintergrund aktualisiert.",
       "refreshFailed": "✗ Aktualisierung konnte nicht gestartet werden.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} ausgewählt",
       "noneSelected": "Nichts ausgewählt",
       "pickSystemsHint": "Wähle ein oder mehrere Systeme oder führe es für die gesamte Bibliothek aus.",
-      "noConfiguredSystems": "Noch keine konfigurierten Systeme."
+      "noConfiguredSystems": "Noch keine konfigurierten Systeme.",
+      "rebuildAllImages": "Alle neu erstellen"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Gilt beim nächsten Spielen",
     "add": "Hinzufügen",
     "searchPlaceholder": "Cheats durchsuchen…"
+  },
+  "customCollage": {
+    "title": "Benutzerdefinierte Collage",
+    "subtitle": "{count, plural, =0 {Wähle die anzuzeigenden Spiele} one {# Spiel ausgewählt} other {# Spiele ausgewählt}}",
+    "close": "Schließen",
+    "loading": "Spiele werden geladen…",
+    "noGames": "Noch keine Spiele mit Covern in diesem System.",
+    "pickSome": "Wähle mindestens ein Spiel.",
+    "failed": "Collage konnte nicht erstellt werden. Versuche es erneut.",
+    "revert": "Auf automatisch zurücksetzen",
+    "cancel": "Abbrechen",
+    "generate": "Collage erstellen",
+    "generating": "Wird erstellt…",
+    "openLabel": "Benutzerdefinierte Collage",
+    "openDesc": "Wähle manuell die Spiele aus, die in der Karte und dem Hero-Collage dieses Systems angezeigt werden. Sie haben Vorrang und werden nicht automatisch ersetzt."
   }
 }

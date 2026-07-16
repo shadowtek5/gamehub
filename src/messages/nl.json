@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Geannuleerd — ",
       "updatedSystems": "{updated} van {done} systemen bijgewerkt",
       "refreshImages": "Systeemafbeeldingen vernieuwen",
-      "refreshImagesDesc": "Browse-kaarten en hero-collage-afbeeldingen voor systemen waarvan covers zijn gewijzigd opnieuw opbouwen. Draait automatisch na scans en scrapes; gebruik dit om te forceren.",
+      "refreshImagesDesc": "Bouw de navigatiekaart- en hero-collage-afbeeldingen opnieuw op voor systemen waarvan de hoezen zijn gewijzigd of waarvan de afbeelding in de cache ontbreekt. Wordt automatisch uitgevoerd na scans; \"Alles opnieuw opbouwen\" forceert een volledige regeneratie van elke collage.",
       "refreshImagesBtn": "Afbeeldingen vernieuwen",
       "refreshStarted": "✓ Gewijzigde collage-afbeeldingen worden op de achtergrond vernieuwd.",
       "refreshFailed": "✗ Vernieuwen kon niet worden gestart.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} geselecteerd",
       "noneSelected": "Niets geselecteerd",
       "pickSystemsHint": "Kies een of meer systemen, of voer uit op de hele bibliotheek.",
-      "noConfiguredSystems": "Nog geen geconfigureerde systemen."
+      "noConfiguredSystems": "Nog geen geconfigureerde systemen.",
+      "rebuildAllImages": "Alles opnieuw opbouwen"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Volgende keer dat je speelt",
     "add": "Toevoegen",
     "searchPlaceholder": "Cheats zoeken…"
+  },
+  "customCollage": {
+    "title": "Aangepaste collage",
+    "subtitle": "{count, plural, =0 {Kies de games om weer te geven} one {# game geselecteerd} other {# games geselecteerd}}",
+    "close": "Sluiten",
+    "loading": "Games laden…",
+    "noGames": "Nog geen games met hoesafbeelding in dit systeem.",
+    "pickSome": "Selecteer minimaal één game.",
+    "failed": "Kan collage niet maken. Probeer opnieuw.",
+    "revert": "Terugkeren naar automatisch",
+    "cancel": "Annuleren",
+    "generate": "Collage genereren",
+    "generating": "Genereren…",
+    "openLabel": "Aangepaste collage",
+    "openDesc": "Selecteer handmatig de games die in de kaart en hero-collage van dit systeem worden weergegeven. Dit heeft prioriteit en wordt niet automatisch vervangen."
   }
 }

@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Avbruten — ",
       "updatedSystems": "{updated} av {done} system uppdaterade",
       "refreshImages": "Uppdatera systembilder",
-      "refreshImagesDesc": "Bygg browse-kort och hero-collage-bilder på nytt för system där omslag har ändrats. Körs automatiskt efter skanningar och scrapes; använd detta för att tvinga det.",
+      "refreshImagesDesc": "Återbygga kort- och hjältekollagebilderna för system vars omslag har ändrats eller vars cachelagrad bild saknas. Körs automatiskt efter skanningar; \"Återbygga allt\" tvingar en fullständig regenerering av varje kollage.",
       "refreshImagesBtn": "Uppdatera bilder",
       "refreshStarted": "✓ Ändrade collage-bilder uppdateras i bakgrunden.",
       "refreshFailed": "✗ Kunde inte starta uppdatering.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} valda",
       "noneSelected": "Inget valt",
       "pickSystemsHint": "Välj ett eller flera system, eller kör mot hela biblioteket.",
-      "noConfiguredSystems": "Inga konfigurerade system ännu."
+      "noConfiguredSystems": "Inga konfigurerade system ännu.",
+      "rebuildAllImages": "Återbygga allt"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Tillämpas nästa gång du spelar",
     "add": "Lägg till",
     "searchPlaceholder": "Sök cheats…"
+  },
+  "customCollage": {
+    "title": "Anpassad kollage",
+    "subtitle": "{count, plural, =0 {Välj spel att visa} one {# spel valt} other {# spel valda}}",
+    "close": "Stäng",
+    "loading": "Laddar spel…",
+    "noGames": "Inget spel med omslagkonst i detta system ännu.",
+    "pickSome": "Välj minst ett spel.",
+    "failed": "Kunde inte bygga kollaget. Försök igen.",
+    "revert": "Återgå till auto",
+    "cancel": "Avbryt",
+    "generate": "Skapa kollage",
+    "generating": "Skapar…",
+    "openLabel": "Anpassad kollage",
+    "openDesc": "Välj manuellt vilka spel som visas i detta systems kort- och hjältekollage. Det har prioritet och ersätts inte automatiskt."
   }
 }

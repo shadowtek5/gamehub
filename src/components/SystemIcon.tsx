@@ -27,7 +27,7 @@ const ARCHETYPES: Record<string, Arch> = {
   supergrafx: "console", pcengine: "console", pce: "console", coleco: "console",
   intellivision: "console", channelf: "console", odyssey2: "console",
   arcadia2001: "console", astrocade: "console", vc4000: "console",
-  supervision8000: "console", pv1000: "console", scv: "console", fds: "console",
+  supervision8000: "console", pv1000: "console", pv2000: "console", scv: "console", fds: "console",
   satellaview: "console", sufami: "console", sega32x: "console", segapico: "console",
   jaguar: "console", gx4000: "console",
   // N64-style humped consoles
@@ -41,7 +41,7 @@ const ARCHETYPES: Record<string, Arch> = {
   // towers
   ps2: "tower", pcfx: "tower", xbox360: "tower",
   // slim vertical consoles
-  wii: "slim", wiiware: "slim", ps3: "slim",
+  wii: "slim", wiiware: "slim", ps3: "slim", wiiu: "slim",
   // hybrid
   switch: "hybrid",
   // vertical handhelds (Game Boy family)
@@ -222,9 +222,19 @@ export default function SystemIcon({
   iconUrl?: string | null;
 }) {
   const arch = ARCHETYPES[platform.slug] ?? "console";
+  // Delivered default: the console silhouette sits on a diagonal brand-wash tile
+  // (white glyph reads against the color). A scraped icon keeps the neutral tile.
+  const washTile = !iconUrl
+    ? {
+        background: `linear-gradient(135deg, color-mix(in srgb, ${platform.color} 62%, #e6ecf4) 0%, color-mix(in srgb, ${platform.color} 52%, #0c1017) 55%, #0a0e13 100%)`,
+      }
+    : undefined;
   return (
     <span
-      className={`flex shrink-0 select-none items-center justify-center overflow-hidden bg-[#141a21] ring-1 ring-white/10 ${SIZES[size]}`}
+      className={`flex shrink-0 select-none items-center justify-center overflow-hidden ring-1 ring-white/10 ${
+        iconUrl ? "bg-[#141a21]" : ""
+      } ${SIZES[size]}`}
+      style={washTile}
       title={`${platformVendor(platform.slug)} — ${platform.name}`}
       aria-hidden
     >
@@ -232,8 +242,12 @@ export default function SystemIcon({
         // eslint-disable-next-line @next/next/no-img-element
         <img src={iconUrl} alt="" className="h-full w-full object-cover" />
       ) : (
-        <svg viewBox="0 0 24 24" className="h-[78%] w-[78%]">
-          <Glyph type={arch} color={platform.color} />
+        <svg
+          viewBox="0 0 24 24"
+          className="h-[70%] w-[70%]"
+          style={{ filter: "drop-shadow(0 1px 1px rgba(0,0,0,0.35))" }}
+        >
+          <Glyph type={arch} color="#f3f7fc" />
         </svg>
       )}
     </span>

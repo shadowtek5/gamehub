@@ -5,7 +5,6 @@
 import { getDb, getSystemFolders, getHiddenSystems, getSetting } from "./db";
 import { scanLibrary } from "./scanner";
 import { runCleanup } from "./cleanup";
-import { scrapeSystemArt } from "./systemArt";
 import { refreshDriftedThumbs } from "./systemThumb";
 import { hashRoms } from "./hashJob";
 import { FOLDER_ROM_SLUGS } from "./platforms";
@@ -239,8 +238,6 @@ export function startScanJob(
           }
           if (slug) {
             scannedSlugs.push(slug);
-            // best-effort: grab this system's art (for heroes) if we don't have it
-            await scrapeSystemArt(slug).catch(() => {});
           } else {
             wholeLibrary = true;
           }

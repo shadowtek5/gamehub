@@ -14,7 +14,7 @@ import JobIndicator from "@/components/bpm/JobIndicator";
 import NotificationBell from "@/components/bpm/NotificationBell";
 import MessagesButton from "@/components/MessagesButton";
 import ProfileNavLink from "@/components/ProfileNavLink";
-import { useChromeOverlayOpen } from "@/lib/chromeOverlay";
+import { useChromeOverlayOpen, useInGameMenuOpen } from "@/lib/chromeOverlay";
 
 function Clock() {
   const [time, setTime] = useState("");
@@ -98,11 +98,16 @@ export default function SystemBar({
   // hero pages, where the bar is normally transparent) so the panel reads over a
   // clean header instead of the hero art.
   const dimmed = useChromeOverlayOpen();
-  const headerBg = dimmed
-    ? "color-mix(in oklab, var(--color-black) 96%, transparent)"
-    : heroPage
-      ? undefined
-      : "color-mix(in oklab, var(--color-black) 94%, transparent)";
+  // Over the fullscreen emulator (z-100), the in-game Quick Menu asks us to lift
+  // above it and paint solid black — GameHub's real header for the game menu.
+  const inGame = useInGameMenuOpen();
+  const headerBg = inGame
+    ? "#000"
+    : dimmed
+      ? "color-mix(in oklab, var(--color-black) 96%, transparent)"
+      : heroPage
+        ? undefined
+        : "color-mix(in oklab, var(--color-black) 94%, transparent)";
   // On the library AND on a system's detail page, the header IS the search
   // field (Steam). It drives the grid by a gh-library-query event so the two
   // components stay decoupled.
@@ -110,7 +115,9 @@ export default function SystemBar({
   return (
     <header
       data-nav="chrome"
-      className="fixed inset-x-0 top-0 z-[60] flex h-10 items-center justify-end transition-[background-color] duration-200"
+      className={`fixed inset-x-0 top-0 flex h-10 items-center justify-end transition-[background-color] duration-200 ${
+        inGame ? "z-[110]" : "z-[60]"
+      }`}
       style={headerBg ? { backgroundColor: headerBg } : undefined}
     >
       <div className="flex h-10 min-w-0 flex-1 items-center overflow-hidden pl-10 pr-1">

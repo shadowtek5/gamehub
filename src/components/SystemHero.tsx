@@ -87,15 +87,19 @@ export default async function SystemHero({
   // the collage if there are covers; otherwise the scraped wallpaper, then the
   // screenmarquee (branded landscape) as a backup, then the brand gradient.
   const hasCovers = covers.length > 0;
-  const wantRibbon = art.heroSource !== "image";
   const heroImg = art.hero ?? art.ribbon;
-  const showRibbon = hasCovers && (wantRibbon || !heroImg);
-  const imgSrc = showRibbon ? null : heroImg;
+  // An explicitly-chosen scraped wallpaper/marquee wins.
+  const imgSrc = art.heroSource === "image" && heroImg ? heroImg : null;
+  // The cover-mosaic collage is the default hero whenever the system has games.
+  const showRibbon = !imgSrc && hasCovers;
+  // Delivered fallback: a brand-wash gradient with the system's logo centered,
+  // shown for systems with no covers (empty/unscraped) that still have a logo.
+  const useBrandWash = !imgSrc && !showRibbon && !!art.logo;
   // The screenmarquee already carries the system's branding, so we skip our own
   // logo overlay only when it's what's showing (art.hero is the plainer wallpaper).
   const brandedFallback = !!imgSrc && !art.hero;
   // Real art behind the logo (collage or wallpaper) needs a readability scrim;
-  // the plain brand gradient is already dark enough.
+  // the brand-wash gradient is already tuned for its logo.
   const overArt = showRibbon || !!imgSrc;
   // A dark logo needs the opposite treatment: a light backdrop + white glow so
   // it reads, instead of the dark scrim + dark halo that lifts a light logo.
@@ -164,15 +168,20 @@ export default async function SystemHero({
           </>
         ) : (
           <>
+            {/* Delivered-default backdrop: a diagonal brand-wash gradient. Mid-toned
+                where the centered logo sits, so both dark and light logos read. */}
             <div
               className="absolute inset-0"
               style={{
-                background: `linear-gradient(115deg, #14181f 25%, ${platform.color}55 100%)`,
+                background: `linear-gradient(135deg, color-mix(in srgb, ${platform.color} 58%, #e6ecf4) 0%, color-mix(in srgb, ${platform.color} 55%, #0c1017) 48%, #0a0e13 100%)`,
               }}
             />
-            <div className="pointer-events-none absolute -right-4 -top-10 select-none text-[180px] font-black leading-none text-white/[0.06]">
-              {platform.shortName}
-            </div>
+            {/* the giant shortName watermark only shows when there's no logo to center */}
+            {!art.logo && (
+              <div className="pointer-events-none absolute -right-4 -top-10 select-none text-[180px] font-black leading-none text-white/[0.08]">
+                {platform.shortName}
+              </div>
+            )}
           </>
         )}
 
@@ -205,7 +214,9 @@ export default async function SystemHero({
                 // gets a dark scrim + dark halo; a dark logo gets a light scrim +
                 // white glow. Either way it separates from the art behind it.
                 style={{ filter: logoFilter }}
-                className="sharedappdetailsheader_TitleLogo_gh relative max-h-[55%] max-w-[46%] object-contain"
+                className={`sharedappdetailsheader_TitleLogo_gh relative object-contain ${
+                  useBrandWash ? "max-h-[60%] max-w-[66%]" : "max-h-[55%] max-w-[46%]"
+                }`}
               />
             ) : (
               <h1 className="appdetailsgameinfopanel_Name_gh relative max-w-3xl text-4xl font-black text-bright [text-shadow:0_2px_10px_rgba(0,0,0,0.9),0_0_28px_rgba(0,0,0,0.6)] md:text-5xl">

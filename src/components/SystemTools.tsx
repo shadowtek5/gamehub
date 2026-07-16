@@ -13,6 +13,7 @@ import { useTranslations } from "next-intl";
 import type { ScrapeJobStatus } from "@/lib/providers/scrapeJob";
 import FirmwareModal from "./FirmwareModal";
 import RomUploadModal from "./RomUploadModal";
+import CustomCollageManager from "./CustomCollageManager";
 import RibbonCollage, { HERO_LAYOUT } from "./RibbonCollage";
 import { GpConfirm, GpModal, GpButton } from "@/components/bpm/primitives";
 import ControllerLayout from "./ControllerLayout";
@@ -103,6 +104,8 @@ export default function SystemTools({
   const [firmwareOpen, setFirmwareOpen] = useState(false);
   const [uploadOpen, setUploadOpen] = useState(false);
   const [ctrlLayoutOpen, setCtrlLayoutOpen] = useState(false);
+  const [collageOpen, setCollageOpen] = useState(false);
+  const tc = useTranslations("customCollage");
   // Artwork picker (one kind visible at a time)
   const [artCands, setArtCands] = useState<Candidate[] | null>(null);
   const [artMsg, setArtMsg] = useState("");
@@ -465,6 +468,7 @@ export default function SystemTools({
           onClose={() => setCtrlLayoutOpen(false)}
         />
       )}
+      <CustomCollageManager slug={slug} open={collageOpen} onClose={() => setCollageOpen(false)} />
 
       {open && (
         <div className="fixed inset-0 z-[96]" data-overlay="open">
@@ -652,6 +656,18 @@ export default function SystemTools({
                         <button onClick={autofetchArt} disabled={busy !== ""} className={SUB_ROW}>
                           <GScrape className="opacity-70" />
                           {t("autofetchAll")}
+                        </button>
+                        <button
+                          onClick={() => {
+                            setOpen(false);
+                            setExpand("none");
+                            playSound("modalOpen");
+                            setCollageOpen(true);
+                          }}
+                          className={SUB_ROW}
+                        >
+                          <GHeroArt className="opacity-70" />
+                          {tc("openLabel")}
                         </button>
                       </div>
                     )}

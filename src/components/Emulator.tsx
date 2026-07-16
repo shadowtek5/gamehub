@@ -12,6 +12,7 @@ import {
 } from "@/lib/controllerLayout";
 import { rewindEnabled } from "@/lib/playPrefs";
 import { playSound } from "@/lib/sounds";
+import { setInGameMenu } from "@/lib/chromeOverlay";
 import InGameMenu from "@/components/InGameMenu";
 
 const EJS_CDN = "https://cdn.emulatorjs.org/stable/data/";
@@ -48,6 +49,8 @@ declare global {
         getState?: () => Uint8Array | null;
         /** restart the running game (if the build exposes it) */
         restart?: () => void;
+        /** stop (0) / start (1) the core's emscripten main loop */
+        toggleMainLoop?: (on: number) => void;
         /** clear all active cheats */
         resetCheat?: () => void;
         /** register/enable a cheat: (index, enabled, code) */
@@ -70,6 +73,10 @@ declare global {
       changeSettingOption?: (key: string, value: string) => void;
       /** EJS-created DOM elements; `parent` is where EJS binds keyboard input */
       elements?: { parent?: HTMLElement };
+      /** pause the emulator */
+      pause?: () => void;
+      /** fire an EmulatorJS lifecycle event (e.g. "exit") */
+      callEvent?: (event: string) => void;
     };
   }
 }
@@ -266,6 +273,8 @@ export default function Emulator({
   resumeStateId,
   biosUrl,
   shader,
+  gameLogo,
+  gameCover,
 }: {
   romId: number;
   title: string;
@@ -278,6 +287,10 @@ export default function Emulator({
   biosUrl?: string;
   /** Per-game video shader (EmulatorJS bundled .glslp name), or undefined */
   shader?: string;
+  /** Game clear-logo (wordmark) shown atop the Quick Menu, if scraped */
+  gameLogo?: string;
+  /** Game cover/box art used as the small menu game icon */
+  gameCover?: string;
 }) {
   const t = useTranslations("emulator");
   const started = useRef(false);
@@ -312,6 +325,10 @@ export default function Emulator({
   const menuOpenRef = useRef(false);
   useEffect(() => {
     menuOpenRef.current = menuOpen;
+    // Lift GameHub's real header/footer above the fullscreen emulator while the
+    // Quick Menu is open (and show the footer on /play).
+    setInGameMenu(menuOpen);
+    return () => setInGameMenu(false);
   }, [menuOpen]);
 
   // While the F3 diagnostic overlay is on, sample gamepad + EmulatorJS input
@@ -610,6 +627,16 @@ export default function Emulator({
     }
     raf = requestAnimationFrame(pollPad);
 
+    // Chrome only exposes a gamepad after a button press while the tab is
+    // focused, and drops it on reload. React to (re)connection immediately:
+    // reset the detect cache and reload the layout so the pad works at once.
+    const onPadConnected = (e: GamepadEvent) => {
+      console.log("[GameHub] gamepad connected:", e.gamepad?.id, e.gamepad?.mapping);
+      lastPadId = "";
+      void loadLayout(familyRef.current);
+    };
+    window.addEventListener("gamepadconnected", onPadConnected);
+
     // Inject an "Exit" button at the far left of EmulatorJS's own control bar
     // (there's no GameHub header anymore). The bar is built after the game
     // starts, so watch the mount for it.
@@ -716,7 +743,7 @@ export default function Emulator({
         menuOpenRef.current = !menuOpenRef.current;
         setMenuOpen(menuOpenRef.current);
         playSound(menuOpenRef.current ? "menuOpen" : "menuClose");
-      } else if (e.key === "F3") {
+      } else if (e.key === "F9") {
         e.preventDefault();
         setDebug((d) => !d);
       }
@@ -796,9 +823,26 @@ export default function Emulator({
       resizeObs.disconnect();
       window.removeEventListener(LAYOUT_EVENT, onLayoutChange);
       window.removeEventListener("keydown", onShotKey);
+      window.removeEventListener("gamepadconnected", onPadConnected);
       window.removeEventListener("pagehide", stopPlaying);
       // SPA navigation away (Exit button, back) unmounts us here — clear now-playing.
       stopPlaying();
+      // Forcibly tear EmulatorJS down so leaving the page ANY way (nav to Home,
+      // avatar, Back, browser back) kills the WASM game loop + audio instead of
+      // leaving it running in the background. Guarded on readyRef so React's dev
+      // StrictMode remount (which unmounts before the game has started) doesn't
+      // nuke the instance mid-load.
+      if (readyRef.current) {
+        try {
+          const em = window.EJS_emulator;
+          em?.gameManager?.toggleMainLoop?.(0);
+          em?.pause?.();
+          em?.callEvent?.("exit");
+        } catch {}
+        try {
+          delete (window as { EJS_emulator?: unknown }).EJS_emulator;
+        } catch {}
+      }
     };
   }, [romId, title, core, platformSlug, resumeStateId, biosUrl, shader]);
 
@@ -1104,28 +1148,20 @@ export default function Emulator({
     }
   }
 
-  async function exit() {
-    // Sync the battery save before leaving, then pop the /play entry instead
-    // of pushing the game page on top of it — pushing leaves /play
-    // underneath, so B on the game page (history-based) would walk straight
-    // back into the emulator. The full-page replace after the pop also tears
-    // EmulatorJS down completely.
+  // Leave the game for another part of the app (Home, Library, …). Save the
+  // battery first, then hard-navigate so EmulatorJS is fully torn down (a
+  // client-side push would leave the WASM loop + audio running).
+  async function leaveTo(path: string) {
     await pushBatterySave();
-    const target = `/game/${romId}`;
-    let handled = false;
-    window.addEventListener(
-      "popstate",
-      () => {
-        handled = true;
-        window.location.replace(target);
-      },
-      { once: true }
-    );
-    window.history.back();
-    // Opened directly (nothing to pop)? Replace the /play entry instead.
-    setTimeout(() => {
-      if (!handled) window.location.replace(target);
-    }, 400);
+    window.location.assign(path);
+  }
+
+  async function exit() {
+    // Save the battery, then REPLACE the /play entry with the game page: a full
+    // load tears EmulatorJS down completely, and replacing (not pushing) drops
+    // /play from history so Back on the game page can't walk into the emulator.
+    await pushBatterySave();
+    window.location.replace(`/game/${romId}`);
   }
 
   return (
@@ -1301,9 +1337,8 @@ export default function Emulator({
         </div>
       )}
 
-      {/* The only visible chrome: a single floating opener for the Quick Menu.
-          EmulatorJS's own control bar is hidden for a clean interface; every
-          action lives in the menu (also opens via Select+Start / F1). */}
+      {/* Subtle mouse fallback to open the Quick Menu (controllers use
+          Select+Start, keyboards use F1). Top-right so it's out of the way. */}
       {phase === "ready" && !menuOpen && (
         <button
           onClick={() => {
@@ -1313,9 +1348,9 @@ export default function Emulator({
           }}
           aria-label={t("quickMenu")}
           title={t("quickMenu")}
-          className="absolute bottom-4 left-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-black/55 text-white/80 opacity-60 ring-1 ring-white/15 backdrop-blur-sm transition-all hover:bg-black/80 hover:text-white hover:opacity-100"
+          className="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-black/45 text-white/70 opacity-40 ring-1 ring-white/10 backdrop-blur-sm transition-all hover:bg-black/75 hover:text-white hover:opacity-100"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-5 w-5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="h-[18px] w-[18px]">
             <line x1="4" y1="7" x2="20" y2="7" />
             <line x1="4" y1="12" x2="20" y2="12" />
             <line x1="4" y1="17" x2="20" y2="17" />
@@ -1327,6 +1362,8 @@ export default function Emulator({
         open={menuOpen}
         romId={romId}
         title={title}
+        gameLogo={gameLogo}
+        gameCover={gameCover}
         recording={recording}
         currentShader={activeShader}
         onClose={() => {
@@ -1346,6 +1383,7 @@ export default function Emulator({
         onNetplay={openNetplay}
         onSetShader={(s) => void setShaderPref(s)}
         onApplyCheats={applyCheats}
+        onNavigate={(path) => void leaveTo(path)}
         onExit={() => void exit()}
       />
     </div>

@@ -366,7 +366,7 @@
       "cancelledPrefix": "Cancelado â€” ",
       "updatedSystems": "{updated} de {done} sistemas atualizados",
       "refreshImages": "Atualizar imagens dos sistemas",
-      "refreshImagesDesc": "Reconstruir as imagens de cartÃ£o e a colagem de hero dos sistemas cujas capas mudaram. Roda automaticamente apÃ³s escaneamentos e coletas; use isto para forÃ§ar.",
+      "refreshImagesDesc": "Reconstrua as imagens da carta de navegação e colagem de herói para sistemas cujas capas foram alteradas ou cuja imagem em cache está faltando. Executa automaticamente após varreduras; \"Reconstruir tudo\" força uma regeneração completa de cada colagem.",
       "refreshImagesBtn": "Atualizar imagens",
       "refreshStarted": "âœ“ Atualizando as colagens alteradas em segundo plano.",
       "refreshFailed": "âœ— NÃ£o foi possÃ­vel iniciar a atualizaÃ§Ã£o.",
@@ -389,7 +389,8 @@
       "selectedCount": "{count} selecionados",
       "noneSelected": "Nenhum selecionado",
       "pickSystemsHint": "Escolha um ou mais sistemas, ou execute em toda a biblioteca.",
-      "noConfiguredSystems": "Ainda não há sistemas configurados."
+      "noConfiguredSystems": "Ainda não há sistemas configurados.",
+      "rebuildAllImages": "Reconstruir tudo"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Será aplicado na próxima vez que você jogar",
     "add": "Adicionar",
     "searchPlaceholder": "Procurar cheats…"
+  },
+  "customCollage": {
+    "title": "Colagem personalizada",
+    "subtitle": "{count, plural, =0 {Escolha os jogos para destacar} one {# jogo selecionado} other {# jogos selecionados}}",
+    "close": "Fechar",
+    "loading": "Carregando jogos…",
+    "noGames": "Nenhum jogo com arte de capa neste sistema ainda.",
+    "pickSome": "Selecione pelo menos um jogo.",
+    "failed": "Não foi possível construir a colagem. Tente novamente.",
+    "revert": "Reverter para automático",
+    "cancel": "Cancelar",
+    "generate": "Gerar colagem",
+    "generating": "Gerando…",
+    "openLabel": "Colagem personalizada",
+    "openDesc": "Escolha manualmente os jogos mostrados na carta e colagem de herói deste sistema. Tem prioridade e não será substituída automaticamente."
   }
 }

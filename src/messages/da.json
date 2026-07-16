@@ -1123,7 +1123,7 @@
       "cancelledPrefix": "Annulleret — ",
       "updatedSystems": "Opdaterede {updated} af {done} systemer",
       "refreshImages": "Opdater systembilleder",
-      "refreshImagesDesc": "Genopbyg browse-kort og hero-collage-billeder for systemer, hvis covers ændrede sig. Kører automatisk efter scans og scrapes; brug dette for at tvinge det.",
+      "refreshImagesDesc": "Genopbyg søge-kort og helt collage billeder for systemer, hvis omslag ændret eller hvis cached billede mangler. Kører automatisk efter scanning; \"Genopbygning alt\" tvinger en fuld regenerering af hver collage.",
       "refreshImagesBtn": "Opdater billeder",
       "refreshStarted": "✓ Opdaterer ændrede collage-billeder i baggrunden.",
       "refreshFailed": "✗ Kunne ikke starte opdateringen.",
@@ -1146,7 +1146,8 @@
       "selectedCount": "{count} valgt",
       "noneSelected": "Ingen valgt",
       "pickSystemsHint": "Vælg et eller flere systemer, eller kør mod hele biblioteket.",
-      "noConfiguredSystems": "Ingen konfigurerede systemer endnu."
+      "noConfiguredSystems": "Ingen konfigurerede systemer endnu.",
+      "rebuildAllImages": "Genopbygning alt"
     },
     "backupPanel": {
       "parts": {
@@ -2904,5 +2905,20 @@
     "appliesHint": "Gælder næste gang du spiller",
     "add": "Tilføj",
     "searchPlaceholder": "Søg efter cheats…"
+  },
+  "customCollage": {
+    "title": "Brugerdefineret collage",
+    "subtitle": "{count, plural, =0 {Vælg de spil, du vil vise} one {# spil valgt} other {# spil valgt}}",
+    "close": "Luk",
+    "loading": "Indlæser spil…",
+    "noGames": "Ingen spil med omslag i dette system endnu.",
+    "pickSome": "Vælg mindst ét spil.",
+    "failed": "Kunne ikke bygge collagen. Prøv igen.",
+    "revert": "Vend tilbage til automatisk",
+    "cancel": "Annuller",
+    "generate": "Generer collage",
+    "generating": "Genererer…",
+    "openLabel": "Brugerdefineret collage",
+    "openDesc": "Vælg manuelt de spil, der vises på dette systems kort og helt collage. Det har prioritet og erstattes ikke automatisk."
   }
 }

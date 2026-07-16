@@ -66,3 +66,25 @@ export function useChromeOverlayOpen(): boolean {
   }, []);
   return open;
 }
+
+// The in-game Quick Menu (over the fullscreen emulator, z-100) uses this to ask
+// the real system chrome (SystemBar / LegendFooter) to lift above the emulator
+// and, for the footer, to show on /play — so the running game gets GameHub's
+// actual header/footer instead of bespoke ones.
+const INGAME_EVENT = "gh-ingame-menu";
+export function setInGameMenu(open: boolean) {
+  if (typeof document === "undefined") return;
+  if (open) document.body.dataset.ingamemenu = "open";
+  else delete document.body.dataset.ingamemenu;
+  window.dispatchEvent(new Event(INGAME_EVENT));
+}
+export function useInGameMenuOpen(): boolean {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const read = () => setOpen(document.body.dataset.ingamemenu === "open");
+    read();
+    window.addEventListener(INGAME_EVENT, read);
+    return () => window.removeEventListener(INGAME_EVENT, read);
+  }, []);
+  return open;
+}
