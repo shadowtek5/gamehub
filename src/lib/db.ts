@@ -435,6 +435,21 @@ function migrate(db: Database.Database) {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
     CREATE INDEX IF NOT EXISTS idx_game_cheats_user_rom ON game_cheats (user_id, rom_id);
+
+    -- Device pairing (Steam-style QR login): an app starts a request and shows
+    -- a QR to /pair/<id>; the user scans it on an authenticated device and
+    -- approves, minting a token the app retrieves once by polling with a secret.
+    CREATE TABLE IF NOT EXISTS pair_requests (
+      id TEXT PRIMARY KEY,
+      secret_hash TEXT NOT NULL,
+      device_name TEXT,
+      scope TEXT NOT NULL DEFAULT 'full',
+      status TEXT NOT NULL DEFAULT 'pending',
+      user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+      token TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      expires_at TEXT NOT NULL
+    );
   `);
 
   // Drop the retired ra_unlocks table (RA earning via GameHub Player was
@@ -2550,6 +2565,78 @@ export function setCheatEnabled(userId: number, cheatId: number, enabled: boolea
 /** Delete a cheat (scoped to the owner). */
 export function deleteCheat(userId: number, cheatId: number): void {
   getDb().prepare("DELETE FROM game_cheats WHERE id = ? AND user_id = ?").run(cheatId, userId);
+}
+
+// ---------- device pairing (QR login) ----------
+
+export interface PairRequestRow {
+  id: string;
+  secret_hash: string;
+  device_name: string | null;
+  scope: string;
+  status: "pending" | "approved" | "denied" | "consumed";
+  user_id: number | null;
+  token: string | null;
+  created_at: string;
+  expires_at: string;
+}
+
+/** Start a pairing request. Caller supplies the hashed poll secret. */
+export function createPairRequest(
+  id: string,
+  secretHash: string,
+  deviceName: string,
+  scope: string,
+  expiresAt: string
+): void {
+  getDb()
+    .prepare(
+      "INSERT INTO pair_requests (id, secret_hash, device_name, scope, expires_at) VALUES (?, ?, ?, ?, ?)"
+    )
+    .run(id, secretHash, deviceName.slice(0, 64) || "App", scope, expiresAt);
+}
+
+/** A pairing request by id (expired ones are treated as such by callers). */
+export function getPairRequest(id: string): PairRequestRow | undefined {
+  return getDb().prepare("SELECT * FROM pair_requests WHERE id = ?").get(id) as
+    | PairRequestRow
+    | undefined;
+}
+
+export function pairRequestExpired(row: PairRequestRow): boolean {
+  return new Date(row.expires_at).getTime() < Date.now();
+}
+
+/** Approve a pending request: bind it to the user and store the minted token. */
+export function approvePairRequest(id: string, userId: number, token: string): void {
+  getDb()
+    .prepare(
+      "UPDATE pair_requests SET status = 'approved', user_id = ?, token = ? WHERE id = ? AND status = 'pending'"
+    )
+    .run(userId, token, id);
+}
+
+export function denyPairRequest(id: string): void {
+  getDb()
+    .prepare("UPDATE pair_requests SET status = 'denied' WHERE id = ? AND status = 'pending'")
+    .run(id);
+}
+
+/** Hand the minted token to the polling app exactly once, then clear it. */
+export function consumePairToken(id: string): string | null {
+  const row = getPairRequest(id);
+  if (!row || row.status !== "approved" || !row.token) return null;
+  getDb()
+    .prepare("UPDATE pair_requests SET status = 'consumed', token = NULL WHERE id = ?")
+    .run(id);
+  return row.token;
+}
+
+/** Housekeeping: drop expired/finished requests older than a day. */
+export function purgeOldPairRequests(): void {
+  getDb()
+    .prepare("DELETE FROM pair_requests WHERE expires_at < datetime('now', '-1 day')")
+    .run();
 }
 
 // ---------- direct messages (friend chat) ----------

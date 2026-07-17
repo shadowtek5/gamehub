@@ -855,7 +855,8 @@
       "lastUsed": " · viimeksi käytetty {time}",
       "neverUsed": " · ei koskaan käytetty",
       "revoke": "Peruuta",
-      "noTokens": "Ei vielä tunnuksia."
+      "noTokens": "Ei vielä tunnuksia.",
+      "qrHint": "Skannaa tämä kumppanisovelluksella yhdistääksesi sen palvelimelle automaattisesti — se sisältää osoitteen ja tämän käyttöoikeustunnuksen."
     },
     "oidc": {
       "singleSignOn": "Kertakirjautuminen",
@@ -1137,7 +1138,8 @@
       "expiryNever": "Ei koskaan umpeudu",
       "expiry30": "Umpeutuu 30 päivän kuluttua",
       "expiry90": "Umpeutuu 90 päivän kuluttua",
-      "expiry365": "Umpeutuu 1 vuoden kuluttua"
+      "expiry365": "Umpeutuu 1 vuoden kuluttua",
+      "qrHint": "Skannaa kumppanisovelluksella yhdistääksesi sen palvelimelle automaattisesti — se sisältää osoitteen ja tämän käyttöoikeustunnuksen."
     },
     "retroAchievements": {
       "raIntro1": "Yhdistä",
@@ -2920,5 +2922,21 @@
     "generating": "Luodaan…",
     "openLabel": "Mukautettu kollaasi",
     "openDesc": "Valitse manuaalisesti pelit, jotka näytetään tämän järjestelmän kortissa ja sankareiden kollaasissa. Sillä on etusija eikä se korvaudu automaattisesti."
+  },
+  "pair": {
+    "title": "Yhdistä sovellus",
+    "prompt": "\"{device}\" haluaa muodostaa yhteyden GameHub-tilillesi.",
+    "accessLabel": "Pääsyn taso",
+    "scopeFull": "Täysi — voi tehdä mitä tahansa voit, mukaan lukien hallita kirjastoasi.",
+    "scopeEditor": "Muokkaja — voi tarkastella ja muokata pelejä ja metatietoja, mutta ei tilin asetuksia.",
+    "scopeViewer": "Katsoja — vain luku: selaa ja käynnistä pelejä vain.",
+    "approve": "Hyväksy",
+    "deny": "Kieltäy",
+    "approvedTitle": "Hyväksytty",
+    "approvedHint": "Voit palata sovellukseen — yhteys saadaan pian valmiiksi.",
+    "deniedTitle": "Pyyntö hylätty.",
+    "expiredTitle": "Linkki on vanhentunut",
+    "expiredHint": "Tämä koodi ei ole enää kelvollinen. Aloita yhteys uudelleen sovelluksesta.",
+    "loading": "Ladataan…"
   }
 }

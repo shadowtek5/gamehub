@@ -134,7 +134,8 @@
       "lastUsed": " · zuletzt verwendet {time}",
       "neverUsed": " · nie verwendet",
       "revoke": "Widerrufen",
-      "noTokens": "Noch keine Tokens."
+      "noTokens": "Noch keine Tokens.",
+      "qrHint": "Scannen Sie dies mit einer Begleit-App, um sie automatisch mit diesem Server zu verbinden — sie enthält die Adresse und diesen Zugriffstoken."
     },
     "oidc": {
       "singleSignOn": "Single Sign-On",
@@ -1279,7 +1280,8 @@
       "expiryNever": "Läuft nie ab",
       "expiry30": "Läuft in 30 Tagen ab",
       "expiry90": "Läuft in 90 Tagen ab",
-      "expiry365": "Läuft in 1 Jahr ab"
+      "expiry365": "Läuft in 1 Jahr ab",
+      "qrHint": "Scannen Sie mit einer Begleit-App, um sie automatisch mit diesem Server zu verbinden — sie enthält die Adresse und diesen Zugriffstoken."
     },
     "retroAchievements": {
       "raIntro1": "Verknüpfe dein",
@@ -2920,5 +2922,21 @@
     "generating": "Wird erstellt…",
     "openLabel": "Benutzerdefinierte Collage",
     "openDesc": "Wähle manuell die Spiele aus, die in der Karte und dem Hero-Collage dieses Systems angezeigt werden. Sie haben Vorrang und werden nicht automatisch ersetzt."
+  },
+  "pair": {
+    "title": "App verbinden",
+    "prompt": "\"{device}\" möchte sich mit deinem GameHub-Konto verbinden.",
+    "accessLabel": "Zugriffsstufe",
+    "scopeFull": "Vollständig — kann alles tun, was du kannst, einschließlich deiner Bibliothek verwalten.",
+    "scopeEditor": "Bearbeiter — kann Spiele und Metadaten anzeigen und bearbeiten, aber keine Kontoeinstellungen.",
+    "scopeViewer": "Betrachter — Schreibgeschützt: nur Spiele durchsuchen und starten.",
+    "approve": "Genehmigen",
+    "deny": "Ablehnen",
+    "approvedTitle": "Genehmigt",
+    "approvedHint": "Du kannst zur App zurückkehren — sie stellt jetzt die Verbindung her.",
+    "deniedTitle": "Anfrage abgelehnt.",
+    "expiredTitle": "Link abgelaufen",
+    "expiredHint": "Dieser Code ist nicht mehr gültig. Starten Sie die Verbindung erneut von der App aus.",
+    "loading": "Wird geladen…"
   }
 }

@@ -15,6 +15,18 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-16",
+    title: "Sign in apps by scanning a code",
+    body: "Connecting an app to GameHub is now as easy as Steam's QR login. An app shows a QR code; you scan it on any device where you're already signed in, review what it's asking for, and tap Approve — the app is authenticated, no typing a URL or token. Approvals mint a scoped access token for your account and expire if you don't confirm in a few minutes. Works on desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-07-16",
+    title: "Scan to connect an app",
+    body: "Creating a personal API token now shows a QR code alongside it. Scan it with a companion or external app and it configures itself automatically — the code carries this server's address and the new access token, so there's no copy-pasting a URL and a long token by hand. The QR appears only once, right when the token is created (the token itself is never stored in the clear). On desktop/TV and the mobile app, under Account › API tokens.",
+    art: "automation",
+  },
+  {
     date: "2026-07-15",
     title: "Every system looks great out of the box",
     body: "Systems now ship with a full set of default artwork — no scraping needed. Each console gets its real logo on a brand-colored gradient across the detail hero and browse card, plus a matching square icon with its console silhouette, all tinted to the system's signature color. The logos are bundled in the app (pulled from open logo sources and your cached art), so a fresh library looks polished from the first launch. Your cover-art mosaics still lead for systems with games; the branded default fills in everywhere else. On desktop/TV and the mobile app. Any art you scrape or set yourself still takes over.",

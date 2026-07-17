@@ -134,7 +134,8 @@
       "lastUsed": " · 最后使用于 {time}",
       "neverUsed": " · 从未使用",
       "revoke": "吊销",
-      "noTokens": "暂无令牌。"
+      "noTokens": "暂无令牌。",
+      "qrHint": "使用配套应用扫描此代码可自动将其连接到此服务器 — 它包含地址和此访问令牌。"
     },
     "oidc": {
       "singleSignOn": "单点登录 (SSO)",
@@ -1279,7 +1280,8 @@
       "expiryNever": "永不过期",
       "expiry30": "30天后过期",
       "expiry90": "90天后过期",
-      "expiry365": "1年后过期"
+      "expiry365": "1年后过期",
+      "qrHint": "使用配套应用扫描可自动将其连接到此服务器 — 它包含地址和此访问令牌。"
     },
     "retroAchievements": {
       "raIntro1": "关联",
@@ -2920,5 +2922,21 @@
     "generating": "正在生成…",
     "openLabel": "自定义拼贴",
     "openDesc": "手动选择此系统的卡片和主角拼贴中显示的游戏。它具有优先级，不会被自动替换。"
+  },
+  "pair": {
+    "title": "连接应用",
+    "prompt": "\"{device}\" 想要连接到你的 GameHub 账户。",
+    "accessLabel": "访问级别",
+    "scopeFull": "完整 — 可以执行你能做的任何事，包括管理你的游戏库。",
+    "scopeEditor": "编辑者 — 可以查看和编辑游戏及元数据，但不能更改账户设置。",
+    "scopeViewer": "查看者 — 只读：仅可浏览和启动游戏。",
+    "approve": "批准",
+    "deny": "拒绝",
+    "approvedTitle": "已批准",
+    "approvedHint": "你可以返回应用 — 连接即将完成。",
+    "deniedTitle": "请求已被拒绝。",
+    "expiredTitle": "链接已过期",
+    "expiredHint": "此代码已失效。请从应用中重新开始连接。",
+    "loading": "加载中…"
   }
 }

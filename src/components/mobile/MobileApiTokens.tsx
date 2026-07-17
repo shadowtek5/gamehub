@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpDropdown } from "@/components/bpm/primitives";
+import ConnectQr from "@/components/ConnectQr";
 
 interface TokenRow {
   id: number;
@@ -131,6 +132,7 @@ export default function MobileApiTokens() {
           >
             {copied ? `✓ ${t("apiTokens.copied")}` : t("apiTokens.copyToken")}
           </button>
+          <ConnectQr token={fresh.token} name={fresh.name} hint={t("apiTokens.qrHint")} />
         </div>
       )}
 

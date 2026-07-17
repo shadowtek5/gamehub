@@ -134,7 +134,8 @@
       "lastUsed": " · laatst gebruikt {time}",
       "neverUsed": " · nooit gebruikt",
       "revoke": "Intrekken",
-      "noTokens": "Nog geen tokens."
+      "noTokens": "Nog geen tokens.",
+      "qrHint": "Scan dit met een companion-app om automatisch verbinding te maken met deze server — het bevat het adres en deze toegangstoken."
     },
     "oidc": {
       "singleSignOn": "Single Sign-On",
@@ -1279,7 +1280,8 @@
       "expiryNever": "Verloopt nooit",
       "expiry30": "Verloopt over 30 dagen",
       "expiry90": "Verloopt over 90 dagen",
-      "expiry365": "Verloopt over 1 jaar"
+      "expiry365": "Verloopt over 1 jaar",
+      "qrHint": "Scan met een companion-app om automatisch verbinding te maken met deze server — het bevat het adres en deze toegangstoken."
     },
     "retroAchievements": {
       "raIntro1": "Koppel je",
@@ -2920,5 +2922,21 @@
     "generating": "Genereren…",
     "openLabel": "Aangepaste collage",
     "openDesc": "Selecteer handmatig de games die in de kaart en hero-collage van dit systeem worden weergegeven. Dit heeft prioriteit en wordt niet automatisch vervangen."
+  },
+  "pair": {
+    "title": "Een app verbinden",
+    "prompt": "\"{device}\" wil verbinding maken met uw GameHub-account.",
+    "accessLabel": "Toegangsniveau",
+    "scopeFull": "Volledig — kan alles doen wat u kunt, inclusief uw bibliotheek beheren.",
+    "scopeEditor": "Editor — kan spellen en metadata weergeven en bewerken, maar niet accountinstellingen.",
+    "scopeViewer": "Kijker — alleen-lezen: alleen spellen bladeren en starten.",
+    "approve": "Goedkeuren",
+    "deny": "Weigeren",
+    "approvedTitle": "Goedgekeurd",
+    "approvedHint": "U kunt terugkeren naar de app — de verbinding is bijna voltooid.",
+    "deniedTitle": "Verzoek geweigerd.",
+    "expiredTitle": "Koppeling verlopen",
+    "expiredHint": "Deze code is niet langer geldig. Start de verbinding opnieuw vanuit de app.",
+    "loading": "Laden…"
   }
 }

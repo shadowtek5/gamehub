@@ -125,6 +125,7 @@
       "createToken": "Create token",
       "failed": "Failed",
       "copyNow": "— copy it now; it won't be shown again.",
+      "qrHint": "Scan this with a companion app to connect it to this server automatically — it carries the address and this access token.",
       "copied": "✓ Copied",
       "copy": "Copy",
       "editor": "Editor",
@@ -1272,6 +1273,7 @@
       "creating": "Creating…",
       "createToken": "Create token",
       "copyNow": "— copy it now; it won't be shown again.",
+      "qrHint": "Scan with a companion app to connect it to this server automatically — it carries the address and this access token.",
       "copied": "Copied",
       "copyToken": "Copy token",
       "editorBadge": "Editor",
@@ -1758,6 +1760,22 @@
     "codePlaceholder": "Game Genie or raw code — one per line",
     "appliesHint": "Applies next time you play",
     "add": "Add"
+  },
+  "pair": {
+    "title": "Connect an app",
+    "prompt": "\"{device}\" wants to connect to your GameHub account.",
+    "accessLabel": "Access level",
+    "scopeFull": "Full — can do anything you can, including manage your library.",
+    "scopeEditor": "Editor — can view and edit games and metadata, but not account settings.",
+    "scopeViewer": "Viewer — read-only: browse and launch games only.",
+    "approve": "Approve",
+    "deny": "Deny",
+    "approvedTitle": "Approved",
+    "approvedHint": "You can return to the app — it's finishing connecting now.",
+    "deniedTitle": "Request denied.",
+    "expiredTitle": "Link expired",
+    "expiredHint": "This code is no longer valid. Start the connection again from the app.",
+    "loading": "Loading…"
   },
   "emuVideo": {
     "videoFilter": "Video filter",

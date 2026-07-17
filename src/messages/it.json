@@ -1437,7 +1437,8 @@
       "lastUsed": " · ultimo utilizzo {time}",
       "neverUsed": " · mai utilizzato",
       "revoke": "Revoca",
-      "noTokens": "Nessun token per ora."
+      "noTokens": "Nessun token per ora.",
+      "qrHint": "Scansiona questo con un'app complementare per collegarlo a questo server automaticamente — contiene l'indirizzo e questo token di accesso."
     },
     "oidc": {
       "singleSignOn": "Single Sign-On",
@@ -2081,7 +2082,8 @@
       "expiryNever": "Non scade mai",
       "expiry30": "Scade tra 30 giorni",
       "expiry90": "Scade tra 90 giorni",
-      "expiry365": "Scade tra 1 anno"
+      "expiry365": "Scade tra 1 anno",
+      "qrHint": "Scansiona con un'app complementare per collegarlo a questo server automaticamente — contiene l'indirizzo e questo token di accesso."
     },
     "retroAchievements": {
       "raIntro1": "Collega il tuo",
@@ -2920,5 +2922,21 @@
     "generating": "Generazione…",
     "openLabel": "Collage personalizzato",
     "openDesc": "Seleziona manualmente i giochi mostrati nella scheda e nel collage hero di questo sistema. Ha priorità e non sarà auto-sostituito."
+  },
+  "pair": {
+    "title": "Connetti un'app",
+    "prompt": "\"{device}\" vuole connettersi al tuo account GameHub.",
+    "accessLabel": "Livello di accesso",
+    "scopeFull": "Completo — può fare qualsiasi cosa tu possa fare, inclusa la gestione della libreria.",
+    "scopeEditor": "Editor — può visualizzare e modificare giochi e metadati, ma non le impostazioni dell'account.",
+    "scopeViewer": "Visualizzatore — sola lettura: sfoglia e avvia giochi.",
+    "approve": "Approva",
+    "deny": "Nega",
+    "approvedTitle": "Approvato",
+    "approvedHint": "Puoi tornare all'app — sta terminando la connessione ora.",
+    "deniedTitle": "Richiesta negata.",
+    "expiredTitle": "Link scaduto",
+    "expiredHint": "Questo codice non è più valido. Avvia di nuovo la connessione dall'app.",
+    "loading": "Caricamento…"
   }
 }

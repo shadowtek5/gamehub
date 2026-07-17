@@ -134,7 +134,8 @@
       "lastUsed": " · senast använd {time}",
       "neverUsed": " · aldrig använd",
       "revoke": "Återkalla",
-      "noTokens": "Inga tokens ännu."
+      "noTokens": "Inga tokens ännu.",
+      "qrHint": "Skanna detta med en kompanjonapp för att ansluta den till denna server automatiskt — den innehåller adressen och denna åtkomsttoken."
     },
     "oidc": {
       "singleSignOn": "Single Sign-On",
@@ -1279,7 +1280,8 @@
       "expiryNever": "Upphör aldrig",
       "expiry30": "Upphör om 30 dagar",
       "expiry90": "Upphör om 90 dagar",
-      "expiry365": "Upphör om 1 år"
+      "expiry365": "Upphör om 1 år",
+      "qrHint": "Skanna med en kompanjonapp för att ansluta den till denna server automatiskt — den innehåller adressen och denna åtkomsttoken."
     },
     "retroAchievements": {
       "raIntro1": "Koppla",
@@ -2920,5 +2922,21 @@
     "generating": "Skapar…",
     "openLabel": "Anpassad kollage",
     "openDesc": "Välj manuellt vilka spel som visas i detta systems kort- och hjältekollage. Det har prioritet och ersätts inte automatiskt."
+  },
+  "pair": {
+    "title": "Anslut en app",
+    "prompt": "\"{device}\" vill ansluta till ditt GameHub-konto.",
+    "accessLabel": "Åtkomstnivå",
+    "scopeFull": "Full — kan göra allt du kan, inklusive hantera ditt bibliotek.",
+    "scopeEditor": "Editor — kan visa och redigera spel och metadata, men inte kontoinställningar.",
+    "scopeViewer": "Viewer — skrivskyddad: bläddra och starta spel bara.",
+    "approve": "Godkänn",
+    "deny": "Neka",
+    "approvedTitle": "Godkänd",
+    "approvedHint": "Du kan gå tillbaka till appen — den är på väg att ansluta nu.",
+    "deniedTitle": "Begäran nekad.",
+    "expiredTitle": "Länk utgången",
+    "expiredHint": "Den här koden är inte längre giltig. Starta anslutningen igen från appen.",
+    "loading": "Läser in…"
   }
 }

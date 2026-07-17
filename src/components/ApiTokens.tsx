@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpDropdown, GpButton } from "@/components/bpm/primitives";
+import ConnectQr from "@/components/ConnectQr";
 
 interface TokenRow {
   id: number;
@@ -149,6 +150,7 @@ export default function ApiTokens() {
               {copied ? t("copied") : t("copy")}
             </GpButton>
           </div>
+          <ConnectQr token={fresh.token} name={fresh.name} hint={t("qrHint")} />
         </div>
       )}
 

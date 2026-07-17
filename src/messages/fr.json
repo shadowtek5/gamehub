@@ -855,7 +855,8 @@
       "lastUsed": " Â· derniÃ¨re utilisation {time}",
       "neverUsed": " Â· jamais utilisÃ©",
       "revoke": "RÃ©voquer",
-      "noTokens": "Aucun jeton pour lâ€™instant."
+      "noTokens": "Aucun jeton pour lâ€™instant.",
+      "qrHint": "Scannez ceci avec une application compagnon pour la connecter à ce serveur automatiquement — elle porte l'adresse et ce jeton d'accès."
     },
     "oidc": {
       "singleSignOn": "Authentification unique",
@@ -1137,7 +1138,8 @@
       "expiryNever": "N'expire jamais",
       "expiry30": "Expire dans 30 jours",
       "expiry90": "Expire dans 90 jours",
-      "expiry365": "Expire dans 1 an"
+      "expiry365": "Expire dans 1 an",
+      "qrHint": "Scannez avec une application compagnon pour la connecter à ce serveur automatiquement — elle porte l'adresse et ce jeton d'accès."
     },
     "retroAchievements": {
       "raIntro1": "Liez votre compte",
@@ -2920,5 +2922,21 @@
     "generating": "Génération…",
     "openLabel": "Collage personnalisé",
     "openDesc": "Sélectionnez manuellement les jeux affichés dans la carte et le collage héros de ce système. Il a la priorité et ne sera pas remplacé automatiquement."
+  },
+  "pair": {
+    "title": "Connecter une application",
+    "prompt": "« {device} » veut se connecter à votre compte GameHub.",
+    "accessLabel": "Niveau d'accès",
+    "scopeFull": "Complet — peut faire tout ce que vous pouvez, y compris gérer votre bibliothèque.",
+    "scopeEditor": "Éditeur — peut afficher et modifier les jeux et les métadonnées, mais pas les paramètres du compte.",
+    "scopeViewer": "Spectateur — lecture seule : parcourir et lancer des jeux uniquement.",
+    "approve": "Approuver",
+    "deny": "Refuser",
+    "approvedTitle": "Approuvé",
+    "approvedHint": "Vous pouvez retourner à l'application — elle termine la connexion maintenant.",
+    "deniedTitle": "Demande refusée.",
+    "expiredTitle": "Lien expiré",
+    "expiredHint": "Ce code n'est plus valide. Relancez la connexion depuis l'application.",
+    "loading": "Chargement…"
   }
 }

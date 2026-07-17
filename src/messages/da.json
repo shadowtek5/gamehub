@@ -134,7 +134,8 @@
       "lastUsed": " · sidst brugt {time}",
       "neverUsed": " · aldrig brugt",
       "revoke": "Tilbagekald",
-      "noTokens": "Ingen tokens endnu."
+      "noTokens": "Ingen tokens endnu.",
+      "qrHint": "Skan dette med en ledsager-app for at forbinde den til denne server automatisk — det indeholder adressen og denne adgangstoken."
     },
     "oidc": {
       "singleSignOn": "Single Sign-On",
@@ -1279,7 +1280,8 @@
       "expiryNever": "Udløber aldrig",
       "expiry30": "Udløber om 30 dage",
       "expiry90": "Udløber om 90 dage",
-      "expiry365": "Udløber om 1 år"
+      "expiry365": "Udløber om 1 år",
+      "qrHint": "Skan med en ledsager-app for at forbinde den til denne server automatisk — det indeholder adressen og denne adgangstoken."
     },
     "retroAchievements": {
       "raIntro1": "Link din",
@@ -2920,5 +2922,21 @@
     "generating": "Genererer…",
     "openLabel": "Brugerdefineret collage",
     "openDesc": "Vælg manuelt de spil, der vises på dette systems kort og helt collage. Det har prioritet og erstattes ikke automatisk."
+  },
+  "pair": {
+    "title": "Forbind en app",
+    "prompt": "\"{device}\" vil gerne forbindes til din GameHub-konto.",
+    "accessLabel": "Adgangsniveau",
+    "scopeFull": "Fuld — kan gøre alt, hvad du kan, herunder administrere dit bibliotek.",
+    "scopeEditor": "Redaktør — kan se og redigere spil og metadata, men ikke kontoindstillinger.",
+    "scopeViewer": "Fremviser — skrivebeskyttet: brows og start kun spil.",
+    "approve": "Godkend",
+    "deny": "Afvis",
+    "approvedTitle": "Godkendt",
+    "approvedHint": "Du kan vende tilbage til appen — den slutter forbindelsen nu.",
+    "deniedTitle": "Anmodning afvist.",
+    "expiredTitle": "Link udløb",
+    "expiredHint": "Denne kode er ikke længere gyldig. Start forbindelsen igen fra appen.",
+    "loading": "Indlæser…"
   }
 }
