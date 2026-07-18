@@ -7,7 +7,7 @@
 
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
-import { GpRow, GpSubHeader, GpToggle, GpButton, GpDropdown, GpInfoRow } from "./primitives";
+import { GpRow, GpSubHeader, GpToggle, GpButton, GpInfoRow } from "./primitives";
 import LegalNotices from "./LegalNotices";
 import UpdateManager from "./UpdateManager";
 
@@ -93,20 +93,6 @@ export default function SettingsSystem() {
         </GpRow>
       </div>
       {showUpdates && <UpdateManager onClose={() => setShowUpdates(false)} />}
-
-      <div>
-        <GpSubHeader>{t("betaHeader")}</GpSubHeader>
-        <GpRow label={t("updateChannel")} description={t("updateChannelDesc")}>
-          <GpDropdown
-            value={prefs["channel"] ?? "stable"}
-            options={[
-              { value: "stable", label: t("channelStable") },
-              { value: "dev", label: t("channelDev") },
-            ]}
-            onChange={(v) => setPref("channel", v)}
-          />
-        </GpRow>
-      </div>
 
       <div>
         <GpSubHeader>{t("systemSettingsHeader")}</GpSubHeader>
