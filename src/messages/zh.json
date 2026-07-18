@@ -1493,7 +1493,8 @@
       "title": "库"
     },
     "systems": {
-      "title": "系统"
+      "title": "系统",
+      "unscanned": "{count, plural, other {# 未扫描}}"
     },
     "systemDetail": {
       "backToSystems": "返回系统列表"
@@ -2790,7 +2791,9 @@
       "listViewAria": "列表视图",
       "systemTitle": "{name} —— {count, plural, one {# 个游戏} other {# 个游戏}}",
       "gameCount": "{count, plural, one {# 个游戏} other {# 个游戏}}",
-      "playable": "可玩"
+      "playable": "可玩",
+      "unscanned": "{count, plural, other {# 未扫描}}",
+      "unscannedTitle": "{count, plural, other {# 款游戏尚未被扫描}}"
     },
     "hero": {
       "games": "游戏",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "链接已过期",
     "expiredHint": "此代码已失效。请从应用中重新开始连接。",
     "loading": "加载中…"
+  },
+  "updateManager": {
+    "title": "软件更新",
+    "close": "关闭",
+    "statusHeader": "状态",
+    "runningVersion": "运行版本",
+    "source": "来源",
+    "sourceImage": "Docker 镜像（内置）",
+    "sourceStaged": "暂存版本 {version}",
+    "fallbackFloor": "回退版本",
+    "lastChecked": "最后检查",
+    "never": "从未",
+    "restarting": "GameHub 正在重启…",
+    "restartingHint": "此页面将在返回后自动重新加载。",
+    "restartTimeout": "GameHub 返回需要很长时间 — 稍后手动重新加载页面。",
+    "updatesHeader": "更新",
+    "checkRow": "检查更新",
+    "checkRowDesc": "在 GitHub 上检查较新的 GameHub 版本。",
+    "checkNow": "立即检查",
+    "checking": "正在检查…",
+    "upToDate": "您正在使用最新版本。",
+    "updateAvailable": "可用更新：{version}",
+    "downloadInstall": "下载并安装",
+    "installing": "正在安装…",
+    "releaseNotes": "发行说明",
+    "view": "查看",
+    "uploadRow": "上传版本",
+    "uploadRowDesc": "安装您自己下载的 GameHub 版本 .zip 文件。",
+    "chooseZip": "选择 .zip…",
+    "uploading": "正在上传…",
+    "stagedReady": "版本 {version} 已准备好应用",
+    "stagedHint": "重启 GameHub 以切换到新版本 — 您的数据不会受到影响。",
+    "restartToApply": "重启以应用",
+    "applying": "正在应用…",
+    "discard": "放弃",
+    "autoHeader": "自动更新",
+    "autoCheck": "自动检查",
+    "autoCheckDesc": "定期检查 GitHub 以获取新版本。",
+    "autoApply": "自动安装",
+    "autoApplyDesc": "下载、安装和重启以应用新版本，无需询问。默认关闭。",
+    "channel": "更新频道",
+    "channelDesc": "仅稳定版本，或包括测试版。",
+    "channelStable": "稳定",
+    "channelBeta": "测试版",
+    "interval": "检查间隔",
+    "intervalDesc": "多久检查一次更新。",
+    "hours": "{h} 小时",
+    "advancedHeader": "高级",
+    "rollbackImage": "恢复到内置版本",
+    "rollbackImageDesc": "放弃暂存更新并启动 Docker 镜像版本 ({version})。",
+    "revert": "恢复",
+    "installedVersion": "版本 {version}",
+    "current": "运行中",
+    "switchTo": "切换到",
+    "viewReleases": "查看版本",
+    "notSupportedDesc": "应用内更新需要 Docker 运行时（具有重启策略）。此实例在 Docker 外运行，因此请按照您安装的方式进行更新。",
+    "notSupportedShort": "应用内更新在此运行时环境中不可用。"
   }
 }

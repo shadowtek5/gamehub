@@ -527,7 +527,8 @@
       "title": "Kirjasto"
     },
     "systems": {
-      "title": "Järjestelmät"
+      "title": "Järjestelmät",
+      "unscanned": "{count, plural, one {# skannaamatonta} other {# skannaamatonta}}"
     },
     "systemDetail": {
       "backToSystems": "Takaisin järjestelmiin"
@@ -1297,7 +1298,9 @@
       "listViewAria": "listanäkymä",
       "systemTitle": "{name} — {count, plural, one {# peli} other {# peliä}}",
       "gameCount": "{count, plural, one {# peli} other {# peliä}}",
-      "playable": "pelattavissa"
+      "playable": "pelattavissa",
+      "unscanned": "{count, plural, one {# skannaamatonta} other {# skannaamatonta}}",
+      "unscannedTitle": "{count, plural, one {# peli ei ole vielä haettu} other {# peliä ei ole vielä haettu}}"
     },
     "hero": {
       "games": "Pelit",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Linkki on vanhentunut",
     "expiredHint": "Tämä koodi ei ole enää kelvollinen. Aloita yhteys uudelleen sovelluksesta.",
     "loading": "Ladataan…"
+  },
+  "updateManager": {
+    "title": "Ohjelmistopäivitykset",
+    "close": "Sulje",
+    "statusHeader": "Tila",
+    "runningVersion": "Käynnissä oleva versio",
+    "source": "Lähde",
+    "sourceImage": "Docker-kuva (sisäänrakennettu)",
+    "sourceStaged": "Valmistettu julkaisu {version}",
+    "fallbackFloor": "Varaversio",
+    "lastChecked": "Viimeksi tarkistettu",
+    "never": "Ei koskaan",
+    "restarting": "GameHub käynnistyy uudelleen…",
+    "restartingHint": "Tämä sivu ladataan automaattisesti uudelleen, kun se on takaisin.",
+    "restartTimeout": "GameHub kestää kauemmin palatakseen — lataa sivu manuaalisesti hetken kuluttua.",
+    "updatesHeader": "Päivitykset",
+    "checkRow": "Tarkista päivitykset",
+    "checkRowDesc": "Tarkista GitHubista uudempi GameHub-julkaisu.",
+    "checkNow": "Tarkista nyt",
+    "checking": "Tarkistetaan…",
+    "upToDate": "Olet uusimmalla versiolla.",
+    "updateAvailable": "Päivitys saatavilla: {version}",
+    "downloadInstall": "Lataa ja asenna",
+    "installing": "Asennetaan…",
+    "releaseNotes": "Julkaisun huomautukset",
+    "view": "Näytä",
+    "uploadRow": "Lataa versio",
+    "uploadRowDesc": "Asenna GameHub-julkaisu .zip, jonka olet itse ladannut.",
+    "chooseZip": "Valitse .zip…",
+    "uploading": "Ladataan…",
+    "stagedReady": "Versio {version} on valmis soveltaa",
+    "stagedHint": "Käynnistä GameHub uudelleen vaihtaaksesi uuteen versioon — tietojasi ei kosketa.",
+    "restartToApply": "Käynnistä uudelleen soveltaaksesi",
+    "applying": "Sovelletaan…",
+    "discard": "Hylkää",
+    "autoHeader": "Automaattiset päivitykset",
+    "autoCheck": "Tarkista automaattisesti",
+    "autoCheckDesc": "Tarkista GitHub:ia säännöllisesti uusista julkaisuista.",
+    "autoApply": "Asenna automaattisesti",
+    "autoApplyDesc": "Lataa, asenna ja käynnistä uudelleen soveltaaksesi uusia julkaisuja ilman kysymistä. Oletusarvoisesti poistettu käytöstä.",
+    "channel": "Päivityskanava",
+    "channelDesc": "Vain vakaat julkaisut tai sisältävät betat.",
+    "channelStable": "Vakaa",
+    "channelBeta": "Beta",
+    "interval": "Tarkista joka",
+    "intervalDesc": "Kuinka usein tarkistetaan päivityksiä.",
+    "hours": "{h} t",
+    "advancedHeader": "Edistynyt",
+    "rollbackImage": "Palaa sisäänrakennettuun versioon",
+    "rollbackImageDesc": "Hylkää valmistetut päivitykset ja käynnistä Docker-kuvan versio ({version}).",
+    "revert": "Palauta",
+    "installedVersion": "Versio {version}",
+    "current": "Käynnissä",
+    "switchTo": "Vaihda",
+    "viewReleases": "Näytä julkaisut",
+    "notSupportedDesc": "In-app-päivitykset vaativat Docker-suoritusaikaa (uudelleenkäynnistysperiaatteella). Tämä instanssi toimii Docker:n ulkopuolella, joten päivitä se samalla tavalla kuin asensit sen.",
+    "notSupportedShort": "In-app-päivitykset eivät ole saatavilla tässä suoritusaikassa."
   }
 }

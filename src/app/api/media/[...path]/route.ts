@@ -4,6 +4,7 @@ import path from "path";
 import { Readable } from "stream";
 import { getSessionUser } from "@/lib/auth";
 import { ensureThumb } from "@/lib/mediaThumbGen";
+import { getDataDir } from "../../../../lib/dataDir";
 
 /** Image types we can downscale on the fly for grid thumbnails. */
 const RESIZABLE = new Set([".png", ".jpg", ".jpeg", ".webp"]);
@@ -36,7 +37,7 @@ export async function GET(
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const { path: parts } = await params;
-  const mediaRoot = path.join(process.cwd(), "data", "media");
+  const mediaRoot = path.join(getDataDir(), "media");
   const filePath = path.resolve(mediaRoot, ...parts);
   // Prevent path traversal
   if (!filePath.startsWith(path.resolve(mediaRoot) + path.sep)) {

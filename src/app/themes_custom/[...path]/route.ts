@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import { listInstalledThemes } from "@/lib/themes";
+import { getDataDir } from "../../../lib/dataDir";
 
 export const dynamic = "force-dynamic";
 
@@ -45,7 +46,7 @@ export async function GET(
   const theme = listInstalledThemes().find((t) => t.name === name);
   if (!theme) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const base = path.join(process.cwd(), "data", "themes", theme.id);
+  const base = path.join(getDataDir(), "themes", theme.id);
   const file = path.normalize(path.join(base, ...rest.map(decodeURIComponent)));
   if (!file.startsWith(base + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

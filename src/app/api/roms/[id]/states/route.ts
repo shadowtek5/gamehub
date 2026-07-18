@@ -4,11 +4,12 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageExt } from "@/lib/media";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 const MAX_STATES_PER_GAME = 12;
 
 function statesDir(userId: number, romId: number): string {
-  return path.join(process.cwd(), "data", "saves", String(userId), String(romId));
+  return path.join(getDataDir(), "saves", String(userId), String(romId));
 }
 
 /** List the current user's save states for a game (newest first) */
@@ -57,7 +58,7 @@ export async function POST(
 
   const dir = statesDir(user.id, romId);
   await fs.promises.mkdir(dir, { recursive: true });
-  const dataDir = path.join(process.cwd(), "data");
+  const dataDir = getDataDir();
   const stateFile = path.join(dir, `${stateId}.state`);
   await fs.promises.writeFile(stateFile, Buffer.from(await state.arrayBuffer()));
 

@@ -5,6 +5,7 @@ import { Readable } from "stream";
 import { pipeline } from "stream/promises";
 import { getSessionUser } from "@/lib/auth";
 import { restoreBackupTar } from "@/lib/backup";
+import { getDataDir } from "../../../../lib/dataDir";
 
 export const dynamic = "force-dynamic";
 
@@ -39,7 +40,7 @@ export async function POST(req: NextRequest) {
   }
   if (!req.body) return NextResponse.json({ error: "No backup uploaded" }, { status: 400 });
 
-  const dataDir = path.join(process.cwd(), "data");
+  const dataDir = getDataDir();
   fs.mkdirSync(dataDir, { recursive: true });
   const upload = path.join(dataDir, `.restore-upload-${Date.now()}.tar`);
 

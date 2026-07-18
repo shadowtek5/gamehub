@@ -28,6 +28,7 @@ import { datLookupByHash, datLookupByName } from "./datdb";
 import { ratingLevel } from "../ageRating";
 import { recordRequest, quotaBlocked } from "./quota";
 import type { Client } from "basic-ftp";
+import { getDataDir } from "../dataDir";
 
 export interface ScrapeOutcome {
   romId: number;
@@ -92,7 +93,7 @@ interface HttpRef {
 }
 
 function mediaDir(romId: number): string {
-  return path.join(process.cwd(), "data", "media", String(romId));
+  return path.join(getDataDir(), "media", String(romId));
 }
 
 function mediaUrl(romId: number, file: string): string {

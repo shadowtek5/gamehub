@@ -8,11 +8,12 @@ import { getDb, RomRow } from "./db";
 import { scrapeRom, type ScrapeOutcome, type ScrapeProgress } from "./providers/scrape";
 import type { ScraperItems } from "./providers/config";
 import { logActivity } from "./activity";
+import { getDataDir } from "./dataDir";
 
 function mediaUrlToPath(url: string | null | undefined): string | null {
   if (!url || !url.startsWith("/api/media/")) return null;
   const rel = url.replace(/^\/api\/media\//, "").split("?")[0];
-  return path.join(process.cwd(), "data", "media", ...rel.split("/"));
+  return path.join(getDataDir(), "media", ...rel.split("/"));
 }
 
 export interface ScrapeOneOpts {

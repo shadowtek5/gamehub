@@ -7,12 +7,13 @@ import { ratingLevel } from "./ageRating";
 import { PLATFORMS, PLATFORMS_SORTED, platformPlayable, platformVendor } from "./platforms";
 import { SS_SYSTEM_IDS } from "./providers/ssSystems";
 import { ensureSecretKey } from "./secretbox";
+import { getDataDir } from "./dataDir";
 
 // Singleton across Next.js HMR reloads
 const globalForDb = globalThis as unknown as { __gamehubDb?: Database.Database };
 
 function createDb(): Database.Database {
-  const dataDir = path.join(process.cwd(), "data");
+  const dataDir = getDataDir();
   let db: Database.Database;
   try {
     fs.mkdirSync(dataDir, { recursive: true });
@@ -109,6 +110,10 @@ function migrate(db: Database.Database) {
     );
     CREATE INDEX IF NOT EXISTS idx_roms_platform ON roms(platform_slug);
     CREATE INDEX IF NOT EXISTS idx_roms_sort ON roms(sort_title);
+    -- Library browse always filters missing=0 and orders by sort_title; this
+    -- composite covers the count (missing prefix) and the ordered scan, turning
+    -- the cold-cache 44k-row COUNT from ~700ms into a compact index scan.
+    CREATE INDEX IF NOT EXISTS idx_roms_missing_sort ON roms(missing, sort_title);
 
     CREATE TABLE IF NOT EXISTS user_roms (
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -2831,6 +2836,10 @@ export interface HomeLibraryRow {
   screenshot_url: string | null;
   platform_slug: string;
   added_at: string | null;
+  // Bumped by trigger on any metadata change; == added_at on insert. Used by the
+  // home "recently updated" tier. Optional so LibraryRomRow (which lacks it) stays
+  // assignable where the two row shapes are mixed (e.g. the Recent carousel).
+  updated_at?: string | null;
   genre: string | null;
   rating: string | null;
   favorite: number;
@@ -2841,7 +2850,7 @@ export interface HomeLibraryRow {
 
 const HOME_LIBRARY_SELECT = `
   SELECT r.id, r.title, r.boxart_url, r.hero_url, r.screenshot_url, r.platform_slug,
-         r.added_at, r.genre, r.rating,
+         r.added_at, r.updated_at, r.genre, r.rating,
          COALESCE(ur.favorite, 0) AS favorite,
          COALESCE(ur.play_status, 'none') AS play_status,
          COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
@@ -2849,7 +2858,31 @@ const HOME_LIBRARY_SELECT = `
   FROM roms r
   LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
   WHERE r.missing = 0
+    -- The home page only uses games it can actually recommend/show: ones with
+    -- box art, or ones the user has played. Skipping the (often large) tail of
+    -- unscraped, never-played games keeps this off the full 44k-row hot path.
+    AND ((r.boxart_url IS NOT NULL AND r.boxart_url <> '')
+         OR ur.last_played_at IS NOT NULL
+         OR ur.playtime_seconds > 0)
 `;
+
+/** Does the user have ANY visible library game at all? Cheap existence check
+ *  (index-backed) for the home page's empty-library state — distinct from the
+ *  art/played-filtered set listLibraryForHome returns for recommendations. */
+export function libraryHasGames(userId: number): boolean {
+  const h = hiddenFilter(true, userId);
+  // personal hiddenFilter references ur.hidden, so it needs the user_roms join.
+  const row = getDb()
+    .prepare(
+      `SELECT EXISTS(
+         SELECT 1 FROM roms r
+         LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+         WHERE r.missing = 0${h.sql}
+       ) e`
+    )
+    .get(userId, ...h.params) as { e: number };
+  return row.e === 1;
+}
 
 export function listLibraryForHome(userId: number): HomeLibraryRow[] {
   const h = hiddenFilter(true, userId);

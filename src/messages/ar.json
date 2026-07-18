@@ -527,7 +527,8 @@
       "title": "المكتبة"
     },
     "systems": {
-      "title": "الأنظمة"
+      "title": "الأنظمة",
+      "unscanned": "{count, plural, zero {# لم يتم فحصها} one {# لم يتم فحصها} two {# لم يتم فحصها} few {# لم يتم فحصها} many {# لم يتم فحصها} other {# لم يتم فحصها}}"
     },
     "systemDetail": {
       "backToSystems": "العودة إلى الأنظمة"
@@ -1403,7 +1404,9 @@
       "listViewAria": "عرض قائمة",
       "systemTitle": "{name} — {count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}}",
       "gameCount": "{count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}}",
-      "playable": "قابلة للعب"
+      "playable": "قابلة للعب",
+      "unscanned": "{count, plural, zero {# لم يتم فحصها} one {# لم يتم فحصها} two {# لم يتم فحصها} few {# لم يتم فحصها} many {# لم يتم فحصها} other {# لم يتم فحصها}}",
+      "unscannedTitle": "{count, plural, zero {لا توجد ألعاب تم فحصها بعد} one {# لعبة لم يتم فحصها بعد} two {# لعبتان لم يتم فحصهما بعد} few {# ألعاب لم يتم فحصها بعد} many {# لعبة لم يتم فحصها بعد} other {# لعبة لم يتم فحصها بعد}}"
     },
     "hero": {
       "games": "الألعاب",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "انتهت صلاحية الرابط",
     "expiredHint": "هذا الرمز لم يعد صالحًا. ابدأ الاتصال مرة أخرى من التطبيق.",
     "loading": "جاري التحميل…"
+  },
+  "updateManager": {
+    "title": "تحديثات البرنامج",
+    "close": "إغلاق",
+    "statusHeader": "حالة",
+    "runningVersion": "الإصدار الحالي",
+    "source": "المصدر",
+    "sourceImage": "صورة Docker (مدمجة)",
+    "sourceStaged": "إصدار مرحلي {version}",
+    "fallbackFloor": "إصدار احتياطي",
+    "lastChecked": "آخر فحص",
+    "never": "لم يحدث مطلقاً",
+    "restarting": "GameHub قيد إعادة التشغيل…",
+    "restartingHint": "ستعاد تحميل هذه الصفحة تلقائياً عند عودتها.",
+    "restartTimeout": "GameHub يستغرق وقتاً أطول للعودة — أعد تحميل الصفحة يدوياً في لحظة.",
+    "updatesHeader": "التحديثات",
+    "checkRow": "البحث عن تحديثات",
+    "checkRowDesc": "تحقق من GitHub للحصول على إصدار أحدث من GameHub.",
+    "checkNow": "تحقق الآن",
+    "checking": "جاري البحث…",
+    "upToDate": "أنت على أحدث إصدار.",
+    "updateAvailable": "تحديث متاح: {version}",
+    "downloadInstall": "تحميل وتثبيت",
+    "installing": "جاري التثبيت…",
+    "releaseNotes": "ملاحظات الإصدار",
+    "view": "عرض",
+    "uploadRow": "تحميل إصدار",
+    "uploadRowDesc": "قم بتثبيت ملف GameHub .zip الذي قمت بتحميله بنفسك.",
+    "chooseZip": "اختر ملف .zip…",
+    "uploading": "جاري الرفع…",
+    "stagedReady": "الإصدار {version} جاهز للتطبيق",
+    "stagedHint": "أعد تشغيل GameHub للتبديل إلى الإصدار الجديد — بيانات الاشتراك الخاصة بك لن تتأثر.",
+    "restartToApply": "أعد التشغيل للتطبيق",
+    "applying": "جاري التطبيق…",
+    "discard": "تجاهل",
+    "autoHeader": "التحديثات التلقائية",
+    "autoCheck": "تحقق تلقائياً",
+    "autoCheckDesc": "تحقق دورياً من GitHub للحصول على إصدارات جديدة.",
+    "autoApply": "تثبيت تلقائياً",
+    "autoApplyDesc": "تحميل وتثبيت وإعادة التشغيل لتطبيق إصدارات جديدة بدون طلب. معطل بشكل افتراضي.",
+    "channel": "قناة التحديث",
+    "channelDesc": "إصدارات مستقرة فقط أو تشمل إصدارات تجريبية.",
+    "channelStable": "مستقر",
+    "channelBeta": "تجريبي",
+    "interval": "التحقق كل",
+    "intervalDesc": "مدى تكرار البحث عن التحديثات.",
+    "hours": "{h} س",
+    "advancedHeader": "متقدم",
+    "rollbackImage": "العودة إلى الإصدار المدمج",
+    "rollbackImageDesc": "تجاهل التحديثات المرحلية وبدء تشغيل إصدار صورة Docker ({version}).",
+    "revert": "استرجاع",
+    "installedVersion": "الإصدار {version}",
+    "current": "قيد التشغيل",
+    "switchTo": "التبديل إلى",
+    "viewReleases": "عرض الإصدارات",
+    "notSupportedDesc": "تحديثات داخل التطبيق تحتاج إلى وقت تشغيل Docker (مع سياسة إعادة التشغيل). تعمل هذه الحالة خارج Docker، لذا قم بتحديثها بالطريقة التي قمت بتثبيتها.",
+    "notSupportedShort": "تحديثات داخل التطبيق غير متوفرة في هذا الوقت."
   }
 }

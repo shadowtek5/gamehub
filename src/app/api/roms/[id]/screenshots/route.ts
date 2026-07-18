@@ -4,13 +4,14 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageExt } from "@/lib/media";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 // User-captured in-game screenshots for a game (Steam-style). Files live at
 // data/screenshots/<user>/<rom>/<id>.<ext>; each user keeps up to MAX per game.
 const MAX_SHOTS_PER_GAME = 100;
 
 function shotsDir(userId: number, romId: number): string {
-  return path.join(process.cwd(), "data", "screenshots", String(userId), String(romId));
+  return path.join(getDataDir(), "screenshots", String(userId), String(romId));
 }
 
 /** List the current user's screenshots for a game (newest first). */
@@ -63,7 +64,7 @@ export async function POST(
   await fs.promises.mkdir(dir, { recursive: true });
   const file = path.join(dir, `${shotId}.${ext}`);
   await fs.promises.writeFile(file, bytes);
-  const dataDir = path.join(process.cwd(), "data");
+  const dataDir = getDataDir();
   db.prepare("UPDATE screenshots SET image_path = ? WHERE id = ?").run(
     path.relative(dataDir, file),
     shotId

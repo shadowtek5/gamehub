@@ -527,7 +527,8 @@
       "title": "Βιβλιοθήκη"
     },
     "systems": {
-      "title": "Συστήματα"
+      "title": "Συστήματα",
+      "unscanned": "{count, plural, one {# δεν έχει σαρωθεί} other {# δεν έχουν σαρωθεί}}"
     },
     "systemDetail": {
       "backToSystems": "Πίσω στα συστήματα"
@@ -1297,7 +1298,9 @@
       "listViewAria": "προβολή λίστας",
       "systemTitle": "{name} — {count, plural, one {# παιχνίδι} other {# παιχνίδια}}",
       "gameCount": "{count, plural, one {# παιχνίδι} other {# παιχνίδια}}",
-      "playable": "παίζεται"
+      "playable": "παίζεται",
+      "unscanned": "{count, plural, one {# δεν έχει σαρωθεί} other {# δεν έχουν σαρωθεί}}",
+      "unscannedTitle": "{count, plural, one {# παιχνίδι δεν έχει συλλεχθεί ακόμα} other {# παιχνίδια δεν έχουν συλλεχθεί ακόμα}}"
     },
     "hero": {
       "games": "Παιχνίδια",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Σύνδεσμος που έληξε",
     "expiredHint": "Αυτός ο κωδικός δεν είναι πλέον έγκυρος. Ξεκινήστε τη σύνδεση ξανά από την εφαρμογή.",
     "loading": "Φόρτωση…"
+  },
+  "updateManager": {
+    "title": "Ενημερώσεις λογισμικού",
+    "close": "Κλείσιμο",
+    "statusHeader": "Κατάσταση",
+    "runningVersion": "Τρέχουσα έκδοση",
+    "source": "Πηγή",
+    "sourceImage": "Εικόνα Docker (ενσωματωμένη)",
+    "sourceStaged": "Προετοιμασμένη έκδοση {version}",
+    "fallbackFloor": "Εκδοχή εφεδρείας",
+    "lastChecked": "Τελευταία επιθεώρηση",
+    "never": "Ποτέ",
+    "restarting": "Το GameHub επανεκκινείται…",
+    "restartingHint": "Αυτή η σελίδα θα φορτωθεί ξανά αυτόματα μόλις επιστρέψει.",
+    "restartTimeout": "Το GameHub χρειάζεται περισσότερο χρόνο για να επιστρέψει — φορτώστε τη σελίδα χειροκίνητα σε λίγο.",
+    "updatesHeader": "Ενημερώσεις",
+    "checkRow": "Έλεγχος ενημερώσεων",
+    "checkRowDesc": "Ελέγξτε το GitHub για νεότερη έκδοση GameHub.",
+    "checkNow": "Έλεγχος τώρα",
+    "checking": "Έλεγχος…",
+    "upToDate": "Είστε στην τελευταία έκδοση.",
+    "updateAvailable": "Διαθέσιμη ενημέρωση: {version}",
+    "downloadInstall": "Λήψη και εγκατάσταση",
+    "installing": "Εγκατάσταση…",
+    "releaseNotes": "Σημειώσεις έκδοσης",
+    "view": "Προβολή",
+    "uploadRow": "Μεταφόρτωση έκδοσης",
+    "uploadRowDesc": "Εγκαταστήστε μια έκδοση GameHub .zip που έχετε κατεβάσει μόνοι σας.",
+    "chooseZip": "Επιλέξτε .zip…",
+    "uploading": "Μεταφόρτωση…",
+    "stagedReady": "Η έκδοση {version} είναι έτοιμη για εφαρμογή",
+    "stagedHint": "Επανεκκινήστε το GameHub για να μεταβείτε στη νέα έκδοση — τα δεδομένα σας δεν θα επηρεαστούν.",
+    "restartToApply": "Επανεκκίνηση για εφαρμογή",
+    "applying": "Εφαρμογή…",
+    "discard": "Απόρριψη",
+    "autoHeader": "Αυτόματες ενημερώσεις",
+    "autoCheck": "Αυτόματος έλεγχος",
+    "autoCheckDesc": "Ελέγξτε περιοδικά το GitHub για νέες εκδόσεις.",
+    "autoApply": "Αυτόματη εγκατάσταση",
+    "autoApplyDesc": "Κάντε λήψη, εγκαταστήστε και επανεκκινήστε για να εφαρμόσετε νέες εκδόσεις χωρίς να ρωτάτε. Απενεργοποιημένο από προεπιλογή.",
+    "channel": "Κανάλι ενημέρωσης",
+    "channelDesc": "Μόνο σταθερές εκδόσεις ή συμπεριλήψεις betas.",
+    "channelStable": "Σταθερό",
+    "channelBeta": "Βήτα",
+    "interval": "Έλεγχος κάθε",
+    "intervalDesc": "Πόσο συχνά να ελέγχει ενημερώσεις.",
+    "hours": "{h} ώ",
+    "advancedHeader": "Προχωρημένο",
+    "rollbackImage": "Επιστροφή στην ενσωματωμένη έκδοση",
+    "rollbackImageDesc": "Απορρίψτε προετοιμασμένες ενημερώσεις και ενεργοποιήστε την έκδοση της εικόνας Docker ({version}).",
+    "revert": "Επιστροφή",
+    "installedVersion": "Έκδοση {version}",
+    "current": "Τρέχει",
+    "switchTo": "Αλλαγή σε",
+    "viewReleases": "Προβολή εκδόσεων",
+    "notSupportedDesc": "Οι ενημερώσεις στην εφαρμογή χρειάζονται το Docker runtime (με πολιτική επανεκκίνησης). Αυτό το στιγμιότυπο εκτελείται έξω από το Docker, επομένως ενημερώστε το όπως το εγκαταστήσατε.",
+    "notSupportedShort": "Οι ενημερώσεις στην εφαρμογή δεν είναι διαθέσιμες σε αυτό το runtime."
   }
 }

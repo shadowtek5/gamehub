@@ -5,9 +5,10 @@
 import fs from "fs";
 import path from "path";
 import { getDb } from "./db";
+import { getDataDir } from "./dataDir";
 
 function mediaRoot() {
-  return path.join(process.cwd(), "data", "media");
+  return path.join(getDataDir(), "media");
 }
 
 export function orphanMediaDirs(): string[] {

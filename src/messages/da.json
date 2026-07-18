@@ -1493,7 +1493,8 @@
       "title": "Bibliotek"
     },
     "systems": {
-      "title": "Systemer"
+      "title": "Systemer",
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}"
     },
     "systemDetail": {
       "backToSystems": "Tilbage til systemer"
@@ -2790,7 +2791,9 @@
       "listViewAria": "listevisning",
       "systemTitle": "{name} — {count, plural, one {# spil} other {# spil}}",
       "gameCount": "{count, plural, one {# spil} other {# spil}}",
-      "playable": "kan spilles"
+      "playable": "kan spilles",
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
+      "unscannedTitle": "{count, plural, one {# spil er ikke blevet skrabet endnu} other {# spil er ikke blevet skrabet endnu}}"
     },
     "hero": {
       "games": "Spil",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Link udløb",
     "expiredHint": "Denne kode er ikke længere gyldig. Start forbindelsen igen fra appen.",
     "loading": "Indlæser…"
+  },
+  "updateManager": {
+    "title": "Softwareopdateringer",
+    "close": "Luk",
+    "statusHeader": "Status",
+    "runningVersion": "Kørende version",
+    "source": "Kilde",
+    "sourceImage": "Docker-billede (indbygget)",
+    "sourceStaged": "Iscenesat udgivelse {version}",
+    "fallbackFloor": "Reserveversion",
+    "lastChecked": "Sidst tjekket",
+    "never": "Aldrig",
+    "restarting": "GameHub genstarter…",
+    "restartingHint": "Denne side vil blive genindlæst automatisk når den er tilbage.",
+    "restartTimeout": "GameHub tager længere tid at komme tilbage — genindlæs siden manuelt om et øjeblik.",
+    "updatesHeader": "Opdateringer",
+    "checkRow": "Søg efter opdateringer",
+    "checkRowDesc": "Søg GitHub efter en nyere GameHub-udgivelse.",
+    "checkNow": "Søg nu",
+    "checking": "Søger…",
+    "upToDate": "Du er på den seneste version.",
+    "updateAvailable": "Opdatering tilgængelig: {version}",
+    "downloadInstall": "Download og installer",
+    "installing": "Installerer…",
+    "releaseNotes": "Udgivelsesnoter",
+    "view": "Se",
+    "uploadRow": "Upload en udgivelse",
+    "uploadRowDesc": "Installer en GameHub-udgivelse .zip, som du har downloadet selv.",
+    "chooseZip": "Vælg .zip…",
+    "uploading": "Uploader…",
+    "stagedReady": "Version {version} er klar til at anvende",
+    "stagedHint": "Genstart GameHub for at skifte til den nye version — dine data berøres ikke.",
+    "restartToApply": "Genstart for at anvende",
+    "applying": "Anvender…",
+    "discard": "Kassér",
+    "autoHeader": "Automatiske opdateringer",
+    "autoCheck": "Søg automatisk",
+    "autoCheckDesc": "Søg periodisk GitHub efter nye udgivelser.",
+    "autoApply": "Installer automatisk",
+    "autoApplyDesc": "Download, installer og genstart for at anvende nye udgivelser uden at spørge. Slået fra som standard.",
+    "channel": "Opdateringskanal",
+    "channelDesc": "Kun stabile udgivelser eller inkluderer betaer.",
+    "channelStable": "Stabil",
+    "channelBeta": "Beta",
+    "interval": "Søg hver",
+    "intervalDesc": "Hvor ofte skal der søges efter opdateringer.",
+    "hours": "{h} t",
+    "advancedHeader": "Avanceret",
+    "rollbackImage": "Vend tilbage til indbygget version",
+    "rollbackImageDesc": "Kassér iscenesat opdateringer og start Docker-billedets version ({version}).",
+    "revert": "Gendan",
+    "installedVersion": "Version {version}",
+    "current": "Kørende",
+    "switchTo": "Skift til",
+    "viewReleases": "Se udgivelser",
+    "notSupportedDesc": "In-app-opdateringer kræver Docker-runtime (med en genstartspolity). Denne instans kører uden for Docker, så opdater den på den måde, du installerede den.",
+    "notSupportedShort": "In-app-opdateringer er ikke tilgængelige i denne runtime."
   }
 }

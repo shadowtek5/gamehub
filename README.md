@@ -190,11 +190,50 @@ GameHub is configured in the app, not through env vars. The full list:
 
 ### Updating
 
+**From inside the app (recommended).** Go to **Settings → System → Software
+updates**. GameHub checks GitHub for a newer release and installs it for you —
+click **Download & install**, then **Restart to apply**. Turn on **automatic
+updates** to have it check (and optionally install) new versions on its own, or
+**upload a release `.zip`** you downloaded yourself to install it manually.
+
+How it works and why it's safe:
+
+- Each release is a pre-built bundle (`gamehub-<version>.zip`) staged under
+  `/app/data/app` — your ROMs, database, and media are never touched.
+- Every bundle is verified by **SHA-256** before it's applied.
+- The build baked into the Docker image is kept as a **fallback floor**: if a
+  staged update fails to start three times in a row the entrypoint
+  **automatically reverts** to the previous working version, so an update can't
+  brick your instance. You can also revert to any earlier installed version from
+  the Advanced section.
+- In-app updates require the Docker runtime with `restart: unless-stopped` (the
+  restart is what applies the new version). Non-Docker installs update the
+  classic way below.
+
+**The classic way** (still works, and is how non-Docker installs update):
+
 ```bash
 docker compose pull && docker compose up -d
 ```
 
 The database migrates itself forward automatically; migrations are additive.
+
+#### Publishing a release (maintainers)
+
+In-app / automatic updates pull from this repo's **GitHub Releases**. To cut a
+release, build the bundle **inside the Linux runtime** so the bundled native
+modules (`better-sqlite3`, `sharp`) match the container, then attach the
+artifacts to a GitHub Release tagged `v<version>`:
+
+```bash
+# inside node:22-bookworm-slim (linux-x64) — matches the container
+BUILD_STANDALONE=1 npm run build
+npm run release          # → dist/gamehub-<version>.zip + .sha256 + latest.json
+```
+
+Attach `gamehub-<version>.zip` **and** `gamehub-<version>.zip.sha256` to a
+Release tagged `v<version>` (mark it *pre-release* for the beta channel). Clients
+pick it up on their next check.
 
 ## Quick start (without Docker)
 

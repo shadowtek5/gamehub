@@ -14,11 +14,14 @@ export default async function SystemsPage() {
   const user = await requireUser();
   const counts = getDb()
     .prepare(
-      `SELECT platform_slug, COUNT(*) AS count FROM roms WHERE missing = 0
+      `SELECT platform_slug, COUNT(*) AS count,
+              SUM(CASE WHEN scraped_at IS NULL THEN 1 ELSE 0 END) AS unscanned
+       FROM roms WHERE missing = 0
        GROUP BY platform_slug`
     )
-    .all() as { platform_slug: string; count: number }[];
+    .all() as { platform_slug: string; count: number; unscanned: number }[];
   const countBySlug = new Map(counts.map((c) => [c.platform_slug, c.count]));
+  const unscannedBySlug = new Map(counts.map((c) => [c.platform_slug, c.unscanned]));
 
   // Top-rated covers per system for the live collage fallback (only used before
   // a card thumbnail has been generated).
@@ -48,6 +51,7 @@ export default async function SystemsPage() {
       slug: p.slug,
       name,
       count: countBySlug.get(p.slug) ?? 0,
+      unscanned: unscannedBySlug.get(p.slug) ?? 0,
       thumb: getCardThumbUrl(p.slug) ?? null,
       covers: coversBySlug.get(p.slug) ?? [],
       icon: art.icon ?? null,

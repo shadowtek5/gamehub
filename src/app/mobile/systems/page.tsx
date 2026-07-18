@@ -12,9 +12,14 @@ export default async function MobileSystemsPage() {
   await requireUser();
   const t = await getTranslations("mobilePagesA.systems");
   const counts = getDb()
-    .prepare(`SELECT platform_slug, COUNT(*) AS count FROM roms WHERE missing = 0 GROUP BY platform_slug`)
-    .all() as { platform_slug: string; count: number }[];
+    .prepare(
+      `SELECT platform_slug, COUNT(*) AS count,
+              SUM(CASE WHEN scraped_at IS NULL THEN 1 ELSE 0 END) AS unscanned
+       FROM roms WHERE missing = 0 GROUP BY platform_slug`
+    )
+    .all() as { platform_slug: string; count: number; unscanned: number }[];
   const countBySlug = new Map(counts.map((c) => [c.platform_slug, c.count]));
+  const unscannedBySlug = new Map(counts.map((c) => [c.platform_slug, c.unscanned]));
   const hidden = getHiddenSystems();
   const icons = getSystemIconMap();
   // Scraped console metadata name (from "Update system info"), keyed by slug.
@@ -36,6 +41,11 @@ export default async function MobileSystemsPage() {
           >
             <SystemIcon platform={p} size="sm" iconUrl={icons[p.slug] ?? undefined} />
             <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{name}</span>
+            {(unscannedBySlug.get(p.slug) ?? 0) > 0 && (
+              <span className="shrink-0 text-[11px] tabular-nums text-[#d9a441]">
+                {t("unscanned", { count: unscannedBySlug.get(p.slug) ?? 0 })}
+              </span>
+            )}
             <span className="shrink-0 text-[12px] tabular-nums text-dim">
               {(countBySlug.get(p.slug) ?? 0).toLocaleString()}
             </span>

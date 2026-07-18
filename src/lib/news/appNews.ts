@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-17",
+    title: "Update GameHub from inside GameHub",
+    body: "No more rebuilding or re-pulling the Docker image by hand to update. Settings › System › Software updates now checks GitHub for new GameHub releases and installs them for you — or turn on automatic updates and let it check and apply new versions on its own. Prefer to do it yourself? Upload a release .zip and it installs the same way. Every update is verified by SHA-256 before it's applied, your data is never touched, and if a new version fails to start GameHub automatically rolls back to the built-in one — so an update can't leave you stuck. You can also revert to any earlier installed version at any time. Works on desktop/TV and the mobile app (Docker installs).",
+    art: "automation",
+  },
+  {
     date: "2026-07-16",
     title: "Sign in apps by scanning a code",
     body: "Connecting an app to GameHub is now as easy as Steam's QR login. An app shows a QR code; you scan it on any device where you're already signed in, review what it's asking for, and tap Approve — the app is authenticated, no typing a URL or token. Approvals mint a scoped access token for your account and expire if you don't confirm in a few minutes. Works on desktop/TV and the mobile app.",

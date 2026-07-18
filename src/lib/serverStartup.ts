@@ -7,8 +7,13 @@ import { backfillLogoDark } from "./systemArt";
 import { enqueueScan, scanPendingOrRunning } from "./jobQueue";
 import { maybeRunScheduledBackup } from "./autoBackup";
 import { startWatcher } from "./fsWatcher";
+import { startUpdateBackground } from "./update/background";
 
 export function startup() {
+  // ---- self-update: confirm the booted release healthy + auto-update poll ----
+  // No-ops entirely outside the Docker runtime (selfUpdateSupported()).
+  startUpdateBackground();
+
   // ---- one-time: classify existing system logos as dark/light so the header
   // gives dark wordmarks a light backdrop (no re-scrape needed) ----
   if (getSetting("logo_dark_backfilled") !== "1") {

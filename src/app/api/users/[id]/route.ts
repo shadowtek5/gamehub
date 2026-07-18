@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import { getSessionUser } from "@/lib/auth";
 import { getDb, setUserRestrictionProfile, getRestrictionProfile } from "@/lib/db";
 import { logEvent } from "@/lib/eventLog";
+import { getDataDir } from "../../../../lib/dataDir";
 
 function otherAdminExists(excludeId: number): boolean {
   return !!getDb()
@@ -156,8 +157,8 @@ export async function DELETE(
 
   // Their files: save states and profile media
   for (const dir of [
-    path.join(process.cwd(), "data", "saves", String(targetId)),
-    path.join(process.cwd(), "data", "media", "users", String(targetId)),
+    path.join(getDataDir(), "saves", String(targetId)),
+    path.join(getDataDir(), "media", "users", String(targetId)),
   ]) {
     try {
       fs.rmSync(dir, { recursive: true, force: true });

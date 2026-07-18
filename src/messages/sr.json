@@ -1493,7 +1493,8 @@
       "title": "Библиотека"
     },
     "systems": {
-      "title": "Системи"
+      "title": "Системи",
+      "unscanned": "{count, plural, one {# није скениран} few {# нису скенирани} many {# није скенирано} other {# није скенирано}}"
     },
     "systemDetail": {
       "backToSystems": "Назад на системе"
@@ -2790,7 +2791,9 @@
       "listViewAria": "Приказ листе",
       "systemTitle": "{name} — {count, plural, one {# игра} other {# игара}}",
       "gameCount": "{count, plural, one {# игра} other {# игара}}",
-      "playable": "играбљиво"
+      "playable": "играбљиво",
+      "unscanned": "{count, plural, one {# није скениран} few {# нису скенирани} many {# није скенирано} other {# није скенирано}}",
+      "unscannedTitle": "{count, plural, one {# игра није била скенирана} few {# игре нису биле скениране} many {# игара није било скенирано} other {# игара није било скенирано}}"
     },
     "hero": {
       "games": "Игре",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Веза је истекла",
     "expiredHint": "Овај код више није важећи. Почни повезивање поново из апликације.",
     "loading": "Учитавање…"
+  },
+  "updateManager": {
+    "title": "Ажурирања софтвера",
+    "close": "Затвори",
+    "statusHeader": "Статус",
+    "runningVersion": "Покренута верзија",
+    "source": "Извор",
+    "sourceImage": "Docker слика (уграђена)",
+    "sourceStaged": "Припремљена верзија {version}",
+    "fallbackFloor": "Резервна верзија",
+    "lastChecked": "Последња проверка",
+    "never": "Никад",
+    "restarting": "GameHub се поново покреће…",
+    "restartingHint": "Ова страница ће се аутоматски поново учитати кад се врати.",
+    "restartTimeout": "GameHub дуго не долази назад — ручно поново учитајте страницу за тренутак.",
+    "updatesHeader": "Ажурирања",
+    "checkRow": "Проверите ажурирања",
+    "checkRowDesc": "Проверите на GitHub новију верзију GameHub.",
+    "checkNow": "Проверите сада",
+    "checking": "Проверавање…",
+    "upToDate": "На најновијој сте верзији.",
+    "updateAvailable": "Доступно ажурирање: {version}",
+    "downloadInstall": "Преузми и инсталирај",
+    "installing": "Инсталирање…",
+    "releaseNotes": "Напомене о издању",
+    "view": "Приказ",
+    "uploadRow": "Отпремите издање",
+    "uploadRowDesc": "Инсталирајте GameHub .zip датотеку издања коју сте преузели.",
+    "chooseZip": "Изаберите .zip…",
+    "uploading": "Отпремање…",
+    "stagedReady": "Верзија {version} је спремна за примену",
+    "stagedHint": "Поново покрените GameHub да бисте прешли на нову верзију — ваши подаци неће бити промењени.",
+    "restartToApply": "Поново покрени да би се применило",
+    "applying": "Примена…",
+    "discard": "Одбаци",
+    "autoHeader": "Аутоматска ажурирања",
+    "autoCheck": "Аутоматски проверавај",
+    "autoCheckDesc": "Периодично проверавај GitHub за нова издања.",
+    "autoApply": "Аутоматски инсталирај",
+    "autoApplyDesc": "Преузимај, инсталирај и поново покрени да бисте применили нова издања без питања. По подразумеваню је искључено.",
+    "channel": "Канал ажурирања",
+    "channelDesc": "Само стабилна издања или укључи беге.",
+    "channelStable": "Стабилно",
+    "channelBeta": "Бета",
+    "interval": "Проверавај свих",
+    "intervalDesc": "Колико часто проверавати ажурирања.",
+    "hours": "{h} х",
+    "advancedHeader": "Напредно",
+    "rollbackImage": "Врати се на уграђену верзију",
+    "rollbackImageDesc": "Одбаци припремљена ажурирања и покрени Docker слику верзију ({version}).",
+    "revert": "Врати",
+    "installedVersion": "Верзија {version}",
+    "current": "Покренуто",
+    "switchTo": "Пређи на",
+    "viewReleases": "Погледајте издања",
+    "notSupportedDesc": "Ажурирања у апликацији захтевају Docker време извршавања (са политиком рестарта). Та инстанца се покреће ван Docker-а, па је ажурирајте онако како сте је инсталирали.",
+    "notSupportedShort": "Ажурирања у апликацији нису доступна у овом време извршавања."
   }
 }

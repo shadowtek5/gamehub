@@ -16,13 +16,14 @@
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
+import { getDataDir } from "./dataDir";
 
 const PREFIX = "gcmv1:";
 let cachedKey: Buffer | undefined;
 
 /** Absolute path of the persisted local key (used by backup include/restore). */
 export function secretKeyPath(): string {
-  return path.join(process.cwd(), "data", ".secret.key");
+  return path.join(getDataDir(), ".secret.key");
 }
 
 function keyFilePath(): string {

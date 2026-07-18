@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { getDataDir } from "../../../lib/dataDir";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +36,7 @@ export async function GET(
   const mime = MIME[ext];
   if (!mime) return NextResponse.json({ error: "Not found" }, { status: 404 });
 
-  const base = path.join(process.cwd(), "data", "audio", packDir);
+  const base = path.join(getDataDir(), "audio", packDir);
   const file = path.normalize(path.join(base, ...rest));
   if (!file.startsWith(base + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });

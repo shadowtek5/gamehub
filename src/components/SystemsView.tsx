@@ -18,6 +18,8 @@ export interface SystemCard {
   slug: string;
   name: string; // metadata name
   count: number;
+  /** games in this system with no scraped metadata yet (scraped_at IS NULL) */
+  unscanned: number;
   thumb: string | null;
   covers: string[];
   icon: string | null;
@@ -89,6 +91,14 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
                 <SystemIcon platform={p} size="sm" iconUrl={s.icon} />
                 <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{s.name}</span>
                 {p?.ejsCore && <span className="text-[12px] font-semibold text-accent">{t("playable")}</span>}
+                {s.unscanned > 0 && (
+                  <span
+                    className="shrink-0 text-right text-[12px] tabular-nums text-[#d9a441]"
+                    title={t("unscannedTitle", { count: s.unscanned })}
+                  >
+                    {t("unscanned", { count: s.unscanned })}
+                  </span>
+                )}
                 <span className="w-24 shrink-0 text-right text-[13px] tabular-nums text-dim">
                   {t("gameCount", { count: s.count })}
                 </span>

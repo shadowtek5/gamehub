@@ -1493,7 +1493,8 @@
       "title": "Bibliothek"
     },
     "systems": {
-      "title": "Systeme"
+      "title": "Systeme",
+      "unscanned": "{count, plural, one {# ungescannt} other {# ungescannt}}"
     },
     "systemDetail": {
       "backToSystems": "Zurück zu Systemen"
@@ -2790,7 +2791,9 @@
       "listViewAria": "Listenansicht",
       "systemTitle": "{name} — {count, plural, one {# Spiel} other {# Spiele}}",
       "gameCount": "{count, plural, one {# Spiel} other {# Spiele}}",
-      "playable": "spielbar"
+      "playable": "spielbar",
+      "unscanned": "{count, plural, one {# ungescannt} other {# ungescannt}}",
+      "unscannedTitle": "{count, plural, one {# Spiel wurde noch nicht gescraped} other {# Spiele wurden noch nicht gescraped}}"
     },
     "hero": {
       "games": "Spiele",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Link abgelaufen",
     "expiredHint": "Dieser Code ist nicht mehr gültig. Starten Sie die Verbindung erneut von der App aus.",
     "loading": "Wird geladen…"
+  },
+  "updateManager": {
+    "title": "Softwareupdates",
+    "close": "Schließen",
+    "statusHeader": "Status",
+    "runningVersion": "Aktuelle Version",
+    "source": "Quelle",
+    "sourceImage": "Docker-Image (eingebaut)",
+    "sourceStaged": "Bereitgestellte Veröffentlichung {version}",
+    "fallbackFloor": "Fallback-Version",
+    "lastChecked": "Zuletzt überprüft",
+    "never": "Nie",
+    "restarting": "GameHub wird neu gestartet…",
+    "restartingHint": "Diese Seite wird automatisch neu geladen, sobald sie wieder verfügbar ist.",
+    "restartTimeout": "GameHub dauert länger zu zurückzukehren — laden Sie die Seite in einem Moment manuell neu.",
+    "updatesHeader": "Updates",
+    "checkRow": "Auf Updates prüfen",
+    "checkRowDesc": "Überprüfen Sie GitHub auf eine neuere GameHub-Veröffentlichung.",
+    "checkNow": "Jetzt überprüfen",
+    "checking": "Wird überprüft…",
+    "upToDate": "Du verwendest die neueste Version.",
+    "updateAvailable": "Update verfügbar: {version}",
+    "downloadInstall": "Herunterladen und installieren",
+    "installing": "Wird installiert…",
+    "releaseNotes": "Versionshinweise",
+    "view": "Ansicht",
+    "uploadRow": "Eine Veröffentlichung hochladen",
+    "uploadRowDesc": "Installieren Sie ein GameHub-Release .zip, das Sie selbst heruntergeladen haben.",
+    "chooseZip": "Wählen Sie .zip…",
+    "uploading": "Wird hochgeladen…",
+    "stagedReady": "Version {version} ist bereit zum Anwenden",
+    "stagedHint": "Starten Sie GameHub neu, um zur neuen Version zu wechseln — Ihre Daten werden nicht beeinträchtigt.",
+    "restartToApply": "Neustart zum Anwenden",
+    "applying": "Wird angewendet…",
+    "discard": "Verwerfen",
+    "autoHeader": "Automatische Updates",
+    "autoCheck": "Automatisch überprüfen",
+    "autoCheckDesc": "Überprüfen Sie GitHub regelmäßig auf neue Veröffentlichungen.",
+    "autoApply": "Automatisch installieren",
+    "autoApplyDesc": "Laden Sie herunter, installieren Sie und starten Sie neu, um neue Veröffentlichungen ohne Fragen anzuwenden. Standardmäßig ausgeschaltet.",
+    "channel": "Update-Kanal",
+    "channelDesc": "Nur stabile Veröffentlichungen oder einschließlich Betas.",
+    "channelStable": "Stabil",
+    "channelBeta": "Beta",
+    "interval": "Jede überprüfen",
+    "intervalDesc": "Wie oft soll nach Updates gesucht werden.",
+    "hours": "{h} h",
+    "advancedHeader": "Erweitert",
+    "rollbackImage": "Auf eingebaute Version zurückgehen",
+    "rollbackImageDesc": "Verwerfen Sie bereitgestellte Updates und starten Sie die Version des Docker-Images ({version}).",
+    "revert": "Zurückgehen",
+    "installedVersion": "Version {version}",
+    "current": "Läuft",
+    "switchTo": "Wechseln zu",
+    "viewReleases": "Veröffentlichungen anzeigen",
+    "notSupportedDesc": "In-App-Updates benötigen die Docker-Laufzeit (mit einer Neustart-Richtlinie). Diese Instanz läuft außerhalb von Docker, daher aktualisieren Sie sie auf die gleiche Weise, wie Sie sie installiert haben.",
+    "notSupportedShort": "In-App-Updates sind in dieser Laufzeit nicht verfügbar."
   }
 }

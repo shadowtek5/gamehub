@@ -88,6 +88,11 @@ services:
       # registration/invites, auto-clean/watcher — is configured in the app
       # under Settings and persists in /app/data.
 
+    # `restart: unless-stopped` is REQUIRED for in-app updates (Settings →
+    # System → Software updates). Applying an update restarts the process; the
+    # restart policy is what brings GameHub back on the new version. Updates are
+    # staged under /app/data (the volume above) with the image kept as a
+    # fallback, so a bad update auto-reverts and can't brick the container.
     restart: unless-stopped
 
     # A healthcheck is built into the image (GET /api/heartbeat every 60s).

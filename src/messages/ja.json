@@ -1493,7 +1493,8 @@
       "title": "ライブラリ"
     },
     "systems": {
-      "title": "システム"
+      "title": "システム",
+      "unscanned": "{count, plural, other {# 未スキャン}}"
     },
     "systemDetail": {
       "backToSystems": "システム一覧に戻る"
@@ -2790,7 +2791,9 @@
       "listViewAria": "リスト表示",
       "systemTitle": "{name} — {count, plural, one {# ゲーム} other {# ゲーム}}",
       "gameCount": "{count, plural, one {# ゲーム} other {# ゲーム}}",
-      "playable": "プレイ可能"
+      "playable": "プレイ可能",
+      "unscanned": "{count, plural, other {# 未スキャン}}",
+      "unscannedTitle": "{count, plural, other {# ゲームがまだスクレイプされていません}}"
     },
     "hero": {
       "games": "ゲーム",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "リンクが期限切れです",
     "expiredHint": "このコードはもう有効ではありません。アプリから接続を再度開始してください。",
     "loading": "読み込み中…"
+  },
+  "updateManager": {
+    "title": "ソフトウェア更新",
+    "close": "閉じる",
+    "statusHeader": "ステータス",
+    "runningVersion": "実行中のバージョン",
+    "source": "ソース",
+    "sourceImage": "Dockerイメージ（内蔵）",
+    "sourceStaged": "ステージング版 {version}",
+    "fallbackFloor": "フォールバックバージョン",
+    "lastChecked": "最後に確認した日時",
+    "never": "なし",
+    "restarting": "GameHubを再起動しています…",
+    "restartingHint": "戻ってきたら、このページは自動的に再読み込みされます。",
+    "restartTimeout": "GameHubの復帰に時間がかかっています。少し待ってからページを手動で再読み込みしてください。",
+    "updatesHeader": "更新",
+    "checkRow": "更新を確認",
+    "checkRowDesc": "GitHubで新しいGameHubリリースを確認します。",
+    "checkNow": "今すぐ確認",
+    "checking": "確認中…",
+    "upToDate": "最新バージョンを実行しています。",
+    "updateAvailable": "更新が利用可能です: {version}",
+    "downloadInstall": "ダウンロードしてインストール",
+    "installing": "インストール中…",
+    "releaseNotes": "リリースノート",
+    "view": "表示",
+    "uploadRow": "リリースをアップロード",
+    "uploadRowDesc": "自分でダウンロードしたGameHubリリース.zipをインストールします。",
+    "chooseZip": ".zipを選択…",
+    "uploading": "アップロード中…",
+    "stagedReady": "バージョン {version} は適用準備完了です",
+    "stagedHint": "GameHubを再起動して新しいバージョンに切り替えます。データは変更されません。",
+    "restartToApply": "再起動して適用",
+    "applying": "適用中…",
+    "discard": "破棄",
+    "autoHeader": "自動更新",
+    "autoCheck": "自動的に確認",
+    "autoCheckDesc": "定期的にGitHubで新しいリリースを確認します。",
+    "autoApply": "自動的にインストール",
+    "autoApplyDesc": "新しいリリースをダウンロード、インストール、再起動して適用します（確認なし）。デフォルトではオフです。",
+    "channel": "更新チャネル",
+    "channelDesc": "安定版のみ、またはベータ版を含めます。",
+    "channelStable": "安定版",
+    "channelBeta": "ベータ版",
+    "interval": "確認間隔",
+    "intervalDesc": "更新を確認する頻度。",
+    "hours": "{h} 時間",
+    "advancedHeader": "詳細",
+    "rollbackImage": "内蔵バージョンに戻す",
+    "rollbackImageDesc": "ステージング更新を破棄し、Dockerイメージのバージョン（{version}）で起動します。",
+    "revert": "戻す",
+    "installedVersion": "バージョン {version}",
+    "current": "実行中",
+    "switchTo": "切り替え先",
+    "viewReleases": "リリースを表示",
+    "notSupportedDesc": "アプリ内更新にはDockerランタイム（再起動ポリシー付き）が必要です。このインスタンスはDocker外で実行されているため、インストール方法と同じ方法で更新してください。",
+    "notSupportedShort": "このランタイムではアプリ内更新は利用できません。"
   }
 }

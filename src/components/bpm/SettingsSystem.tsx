@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { GpRow, GpSubHeader, GpToggle, GpButton, GpDropdown, GpInfoRow } from "./primitives";
 import LegalNotices from "./LegalNotices";
+import UpdateManager from "./UpdateManager";
 
 interface SystemInfo {
   hostname: string;
@@ -29,6 +30,7 @@ export default function SettingsSystem() {
   const [info, setInfo] = useState<SystemInfo | null>(null);
   const [gpu, setGpu] = useState<string>("—");
   const [showLegal, setShowLegal] = useState(false);
+  const [showUpdates, setShowUpdates] = useState(false);
 
   useEffect(() => {
     fetch("/api/user-settings", { cache: "no-store" })
@@ -87,11 +89,10 @@ export default function SettingsSystem() {
           label={t("softwareUpdates")}
           description={info ? t("softwareUpdatesDesc", { version: info.version, nodeVersion: info.nodeVersion }) : "…"}
         >
-          <GpButton onClick={() => window.open("https://hub.docker.com/r/shadowtek5/gamehub/tags", "_blank")}>
-            {t("checkForUpdates")}
-          </GpButton>
+          <GpButton onClick={() => setShowUpdates(true)}>{t("checkForUpdates")}</GpButton>
         </GpRow>
       </div>
+      {showUpdates && <UpdateManager onClose={() => setShowUpdates(false)} />}
 
       <div>
         <GpSubHeader>{t("betaHeader")}</GpSubHeader>

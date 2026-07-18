@@ -1,6 +1,7 @@
 import Database from "better-sqlite3";
 import fs from "fs";
 import path from "path";
+import { getDataDir } from "../dataDir";
 
 // Read-only accessor for the standalone cheat database (data/cheats.db), built
 // from a RetroArch/libretro cheat dump by scripts/import-cheats.mjs. Absent DB
@@ -10,7 +11,7 @@ const globalCheats = globalThis as unknown as { __cheatsDb?: Database.Database |
 
 export function cheatsDb(): Database.Database | null {
   if (globalCheats.__cheatsDb !== undefined) return globalCheats.__cheatsDb;
-  const file = path.join(process.cwd(), "data", "cheats.db");
+  const file = path.join(getDataDir(), "cheats.db");
   if (!fs.existsSync(file)) {
     globalCheats.__cheatsDb = null;
     return null;

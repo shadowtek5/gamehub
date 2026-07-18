@@ -13,9 +13,10 @@ import fs from "fs";
 import path from "path";
 import yauzl from "yauzl";
 import { getSetting, setSetting } from "./db";
+import { getDataDir } from "./dataDir";
 
 const API = "https://api.deckthemes.com";
-const AUDIO_DIR = path.join(process.cwd(), "data", "audio");
+const AUDIO_DIR = path.join(getDataDir(), "audio");
 const MAX_ZIP_BYTES = 100 * 1024 * 1024;
 
 export interface AudioPackMeta {

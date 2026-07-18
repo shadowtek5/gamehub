@@ -16,6 +16,7 @@ import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
 import { platformByLibretroName } from "../platforms";
+import { getDataDir } from "../dataDir";
 
 const CONTENTS_API_BASE = "https://api.github.com/repos/libretro/libretro-database/contents/metadat";
 const RAW_BASE = "https://raw.githubusercontent.com/libretro/libretro-database/master/metadat";
@@ -54,7 +55,7 @@ const globalDat = globalThis as unknown as {
 
 function datDb(): Database.Database {
   if (!globalDat.__datDb) {
-    const dir = path.join(process.cwd(), "data");
+    const dir = getDataDir();
     fs.mkdirSync(dir, { recursive: true });
     const db = new Database(path.join(dir, "dat.db"));
     db.pragma("journal_mode = WAL");

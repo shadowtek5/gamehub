@@ -17,7 +17,7 @@ import path from "path";
 import yauzl from "yauzl";
 
 const API = "https://api.deckthemes.com";
-const THEMES_DIR = path.join(process.cwd(), "data", "themes");
+const THEMES_DIR = path.join(getDataDir(), "themes");
 const MAX_ZIP_BYTES = 30 * 1024 * 1024;
 
 export interface ThemePatchComponent {
@@ -457,6 +457,7 @@ export function deleteTheme(id: string) {
 // ---------------------------------------------------------------- compile
 
 import { getSetting, setSetting } from "./db";
+import { getDataDir } from "./dataDir";
 
 export function setCustomCss(css: string) {
   setSetting("custom_css", css);

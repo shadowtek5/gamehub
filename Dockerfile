@@ -22,6 +22,9 @@ ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME=0.0.0.0
+# Absolute data dir — must not be cwd-relative, since a staged self-update
+# release runs from /app/data/app/<version> and Next's server.js chdir()s there.
+ENV GAMEHUB_DATA_DIR=/app/data
 
 # gosu: start as root, fix /app/data ownership (PUID/PGID), drop privileges —
 # required on NAS hosts (Synology/unRAID) where mounted folders belong to a
@@ -37,6 +40,10 @@ COPY --chown=node:node --from=build /app/.next/standalone ./
 COPY --chown=node:node --from=build /app/.next/static ./.next/static
 COPY --chown=node:node --from=build /app/public ./public
 COPY --chown=node:node docker-entrypoint.sh /docker-entrypoint.sh
+
+# Record the baked-in version so the entrypoint/app can report the fallback
+# floor even while a newer staged release is running (GAMEHUB_IMAGE_VERSION).
+RUN node -e "process.stdout.write(require('/app/package.json').version||'0.0.0')" > /app/.image-version
 
 # Everything GameHub writes lives under /app/data — mount a volume here.
 # ROMs are read from wherever you mount them (e.g. /roms); GameHub never

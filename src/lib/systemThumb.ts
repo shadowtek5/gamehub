@@ -23,6 +23,7 @@ import {
   setSystemThumbSig,
 } from "./db";
 import { SYSTEMS_DIR } from "./systemStore";
+import { getDataDir } from "./dataDir";
 
 type Kind = "card" | "hero";
 
@@ -81,7 +82,7 @@ function urlsToLocalPaths(urls: string[]): string[] {
   for (const url of urls) {
     if (!url.startsWith("/api/media/")) continue;
     const rel = url.replace(/^\/api\/media\//, "").split("?")[0];
-    const p = path.join(process.cwd(), "data", "media", ...rel.split("/"));
+    const p = path.join(getDataDir(), "media", ...rel.split("/"));
     if (fs.existsSync(p)) out.push(p);
   }
   return out;

@@ -10,6 +10,7 @@ import { Readable } from "stream";
 import yauzl from "yauzl";
 import { Platform, platformBySlug } from "../platforms";
 import { MediaRefs } from "./config";
+import { getDataDir } from "../dataDir";
 
 const METADATA_URL = "https://gamesdb.launchbox-app.com/Metadata.zip";
 const IMAGE_BASE = "https://images.launchbox-app.com/";
@@ -24,7 +25,7 @@ const globalLb = globalThis as unknown as {
 
 function lbDb(): Database.Database {
   if (!globalLb.__lbDb) {
-    const dir = path.join(process.cwd(), "data");
+    const dir = getDataDir();
     fs.mkdirSync(dir, { recursive: true });
     const db = new Database(path.join(dir, "launchbox.db"));
     db.pragma("journal_mode = WAL");
@@ -193,7 +194,7 @@ export function startLbImport(): boolean {
   globalLb.__lbImport = status;
 
   void (async () => {
-    const zipPath = path.join(process.cwd(), "data", "launchbox-metadata.zip");
+    const zipPath = path.join(getDataDir(), "launchbox-metadata.zip");
     try {
       // ---- download with byte progress ----
       const res = await fetch(METADATA_URL, { signal: AbortSignal.timeout(3_600_000) });

@@ -1609,7 +1609,9 @@
       "listViewAria": "vista elenco",
       "systemTitle": "{name} — {count, plural, one {# gioco} other {# giochi}}",
       "gameCount": "{count, plural, one {# gioco} other {# giochi}}",
-      "playable": "giocabile"
+      "playable": "giocabile",
+      "unscanned": "{count, plural, one {# non esaminato} other {# non esaminati}}",
+      "unscannedTitle": "{count, plural, one {# gioco non è stato ancora analizzato} other {# giochi non sono stati ancora analizzati}}"
     },
     "hero": {
       "games": "Giochi",
@@ -1634,7 +1636,8 @@
       "title": "Libreria"
     },
     "systems": {
-      "title": "Sistemi"
+      "title": "Sistemi",
+      "unscanned": "{count, plural, one {# non esaminato} other {# non esaminati}}"
     },
     "systemDetail": {
       "backToSystems": "Torna ai sistemi"
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Link scaduto",
     "expiredHint": "Questo codice non è più valido. Avvia di nuovo la connessione dall'app.",
     "loading": "Caricamento…"
+  },
+  "updateManager": {
+    "title": "Aggiornamenti software",
+    "close": "Chiudi",
+    "statusHeader": "Stato",
+    "runningVersion": "Versione in esecuzione",
+    "source": "Origine",
+    "sourceImage": "Immagine Docker (integrata)",
+    "sourceStaged": "Versione in staging {version}",
+    "fallbackFloor": "Versione di fallback",
+    "lastChecked": "Ultimo controllo",
+    "never": "Mai",
+    "restarting": "GameHub si sta riavviando…",
+    "restartingHint": "Questa pagina si ricaricherà automaticamente quando sarà di nuovo disponibile.",
+    "restartTimeout": "GameHub sta impiegando del tempo per tornare — ricarica la pagina manualmente tra un momento.",
+    "updatesHeader": "Aggiornamenti",
+    "checkRow": "Controlla aggiornamenti",
+    "checkRowDesc": "Controlla GitHub per una versione GameHub più recente.",
+    "checkNow": "Controlla ora",
+    "checking": "Controllo in corso…",
+    "upToDate": "Hai la versione più recente.",
+    "updateAvailable": "Aggiornamento disponibile: {version}",
+    "downloadInstall": "Scarica e installa",
+    "installing": "Installazione in corso…",
+    "releaseNotes": "Note di rilascio",
+    "view": "Visualizza",
+    "uploadRow": "Carica un rilascio",
+    "uploadRowDesc": "Installa un GameHub release .zip che hai scaricato tu stesso.",
+    "chooseZip": "Scegli .zip…",
+    "uploading": "Caricamento in corso…",
+    "stagedReady": "La versione {version} è pronta per essere applicata",
+    "stagedHint": "Riavvia GameHub per passare alla nuova versione — i tuoi dati non verranno toccati.",
+    "restartToApply": "Riavvia per applicare",
+    "applying": "Applicazione in corso…",
+    "discard": "Scarta",
+    "autoHeader": "Aggiornamenti automatici",
+    "autoCheck": "Controlla automaticamente",
+    "autoCheckDesc": "Controlla periodicamente GitHub per nuovi rilasci.",
+    "autoApply": "Installa automaticamente",
+    "autoApplyDesc": "Scarica, installa e riavvia per applicare i nuovi rilasci senza chiedere. Disabilitato per impostazione predefinita.",
+    "channel": "Canale di aggiornamento",
+    "channelDesc": "Solo rilasci stabili, o includi le beta.",
+    "channelStable": "Stabile",
+    "channelBeta": "Beta",
+    "interval": "Controlla ogni",
+    "intervalDesc": "Frequenza di controllo degli aggiornamenti.",
+    "hours": "{h} h",
+    "advancedHeader": "Avanzate",
+    "rollbackImage": "Ripristina alla versione integrata",
+    "rollbackImageDesc": "Scarta gli aggiornamenti in staging e avvia la versione dell'immagine Docker ({version}).",
+    "revert": "Ripristina",
+    "installedVersion": "Versione {version}",
+    "current": "In esecuzione",
+    "switchTo": "Passa a",
+    "viewReleases": "Visualizza rilasci",
+    "notSupportedDesc": "Gli aggiornamenti in-app richiedono il runtime Docker (con una politica di riavvio). Questa istanza viene eseguita al di fuori di Docker, quindi aggiornala nel modo in cui l'hai installata.",
+    "notSupportedShort": "Gli aggiornamenti in-app non sono disponibili in questo runtime."
   }
 }

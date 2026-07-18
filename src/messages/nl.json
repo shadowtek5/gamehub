@@ -1493,7 +1493,8 @@
       "title": "Bibliotheek"
     },
     "systems": {
-      "title": "Systemen"
+      "title": "Systemen",
+      "unscanned": "{count, plural, one {# niet gescand} other {# niet gescand}}"
     },
     "systemDetail": {
       "backToSystems": "Terug naar systemen"
@@ -2790,7 +2791,9 @@
       "listViewAria": "Lijstweergave",
       "systemTitle": "{name} — {count, plural, one {# spel} other {# spellen}}",
       "gameCount": "{count, plural, one {# spel} other {# spellen}}",
-      "playable": "speelbaar"
+      "playable": "speelbaar",
+      "unscanned": "{count, plural, one {# niet gescand} other {# niet gescand}}",
+      "unscannedTitle": "{count, plural, one {# spel is nog niet gescraped} other {# spelen zijn nog niet gescraped}}"
     },
     "hero": {
       "games": "Spellen",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Koppeling verlopen",
     "expiredHint": "Deze code is niet langer geldig. Start de verbinding opnieuw vanuit de app.",
     "loading": "Laden…"
+  },
+  "updateManager": {
+    "title": "Software-updates",
+    "close": "Sluiten",
+    "statusHeader": "Status",
+    "runningVersion": "Huidige versie",
+    "source": "Bron",
+    "sourceImage": "Docker-afbeelding (ingebouwd)",
+    "sourceStaged": "Gefaseerde release {version}",
+    "fallbackFloor": "Fallback-versie",
+    "lastChecked": "Laatst gecontroleerd",
+    "never": "Nooit",
+    "restarting": "GameHub wordt opnieuw gestart…",
+    "restartingHint": "Deze pagina wordt automatisch opnieuw geladen zodra het terug is.",
+    "restartTimeout": "GameHub duurt lang om terug te keren — laad de pagina over een moment handmatig opnieuw.",
+    "updatesHeader": "Updates",
+    "checkRow": "Op updates controleren",
+    "checkRowDesc": "Controleer GitHub voor een nieuwere GameHub-release.",
+    "checkNow": "Nu controleren",
+    "checking": "Controleren…",
+    "upToDate": "U heeft de nieuwste versie.",
+    "updateAvailable": "Update beschikbaar: {version}",
+    "downloadInstall": "Downloaden en installeren",
+    "installing": "Installeren…",
+    "releaseNotes": "Release-opmerkingen",
+    "view": "Weergeven",
+    "uploadRow": "Een release uploaden",
+    "uploadRowDesc": "Installeer een GameHub-release .zip die u zelf hebt gedownload.",
+    "chooseZip": ".zip kiezen…",
+    "uploading": "Uploaden…",
+    "stagedReady": "Versie {version} is klaar om toe te passen",
+    "stagedHint": "Start GameHub opnieuw op om over te schakelen naar de nieuwe versie — uw gegevens worden niet aangepast.",
+    "restartToApply": "Opnieuw opstarten om toe te passen",
+    "applying": "Toepassen…",
+    "discard": "Verwijderen",
+    "autoHeader": "Automatische updates",
+    "autoCheck": "Automatisch controleren",
+    "autoCheckDesc": "Controleer periodiek GitHub op nieuwe releases.",
+    "autoApply": "Automatisch installeren",
+    "autoApplyDesc": "Download, installeer en start opnieuw op om nieuwe releases automatisch toe te passen. Standaard uitgeschakeld.",
+    "channel": "Updatekanaal",
+    "channelDesc": "Alleen stabiele releases, of betas opnemen.",
+    "channelStable": "Stabiel",
+    "channelBeta": "Beta",
+    "interval": "Controleer elke",
+    "intervalDesc": "Hoe vaak er op updates moet worden gecontroleerd.",
+    "hours": "{h} u",
+    "advancedHeader": "Geavanceerd",
+    "rollbackImage": "Terugkeren naar ingebouwde versie",
+    "rollbackImageDesc": "Verwijder gefaseerde updates en start de Docker-afbeeldingsversie ({version}).",
+    "revert": "Terugkeren",
+    "installedVersion": "Versie {version}",
+    "current": "Wordt uitgevoerd",
+    "switchTo": "Overschakelen naar",
+    "viewReleases": "Releases weergeven",
+    "notSupportedDesc": "In-app-updates vereisen de Docker-runtime (met beleid voor opnieuw opstarten). Dit exemplaar wordt buiten Docker uitgevoerd, dus werk het bij zoals u het hebt geïnstalleerd.",
+    "notSupportedShort": "In-app-updates zijn niet beschikbaar in deze runtime."
   }
 }

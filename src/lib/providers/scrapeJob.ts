@@ -12,6 +12,7 @@ import { ssProbeUser } from "./screenscraper";
 import { getSsThreadLimit } from "./quota";
 import { logEvent, lookupActor } from "../eventLog";
 import { platformBySlug } from "../platforms";
+import { getDataDir } from "../dataDir";
 
 /** One stuck provider must never freeze the whole job — skip after this */
 const PER_GAME_TIMEOUT_MS = 180_000;
@@ -277,7 +278,7 @@ export function startScrapeJob(
         db.transaction((list: number[]) => {
           for (const id of list) reset.run(id);
         })(ids);
-        const mediaRoot = path.join(process.cwd(), "data", "media");
+        const mediaRoot = path.join(getDataDir(), "media");
         for (const id of ids) {
           try {
             fs.rmSync(path.join(mediaRoot, String(id)), { recursive: true, force: true });

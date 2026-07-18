@@ -7,6 +7,7 @@ import { getProviderConfig, emumoviesConfigured } from "@/lib/providers/config";
 import { emSharedClient, emLocate, emDownload } from "@/lib/providers/emumovies";
 import { scrapeRom } from "@/lib/providers/scrape";
 import { setVideoProgress, getVideoProgress } from "@/lib/providers/videoProgress";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 /** Poll live progress of a manual fetch */
 export async function GET(
@@ -60,7 +61,7 @@ export async function POST(
             await emDownload(
               client,
               located.manual.remote,
-              path.join(process.cwd(), "data", "media", String(romId), file)
+              path.join(getDataDir(), "media", String(romId), file)
             );
           } finally {
             client.trackProgress(); // stop tracking

@@ -5,10 +5,11 @@ import { getDb, RomRow } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
 import { saveMedia } from "@/lib/providers/mediaSave";
 import { safeFetch } from "@/lib/ssrfGuard";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 function mediaUrlToPath(url: string): string {
   const rel = url.replace(/^\/api\/media\//, "").split("?")[0];
-  return path.join(process.cwd(), "data", "media", ...rel.split("/"));
+  return path.join(getDataDir(), "media", ...rel.split("/"));
 }
 
 const EXT_BY_TYPE: Record<string, string> = {
@@ -70,7 +71,7 @@ export async function POST(
     const ext = EXT_BY_TYPE[type] ?? (urlExt === "jpeg" ? "jpg" : urlExt) ?? "png";
 
     // Transcodes to WebP (falls back to `ext` if that can't shrink it)
-    const dir = path.join(process.cwd(), "data", "media", String(romId));
+    const dir = path.join(getDataDir(), "media", String(romId));
     const file = await saveMedia(buf, dir, "boxart", ext);
     if (!file) return NextResponse.json({ error: "Save failed" }, { status: 500 });
     const boxartUrl = `/api/media/${romId}/${file}?v=${Date.now()}`;

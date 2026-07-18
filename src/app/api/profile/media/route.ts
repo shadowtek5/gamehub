@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
+import { getDataDir } from "../../../../lib/dataDir";
 
 const TYPES: Record<string, string> = { avatar: "avatar_url", background: "background_url" };
 
@@ -32,7 +33,7 @@ export async function POST(req: NextRequest) {
   const ext = EXT_BY_MIME[file.type.split(";")[0].trim()];
   if (!ext) return NextResponse.json({ error: "Use a PNG, JPG, WebP, or GIF image" }, { status: 400 });
 
-  const dir = path.join(process.cwd(), "data", "media", "users", String(user.id));
+  const dir = path.join(getDataDir(), "media", "users", String(user.id));
   await fs.promises.mkdir(dir, { recursive: true });
   await fs.promises.writeFile(
     path.join(dir, `${type}.${ext}`),

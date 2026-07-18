@@ -1,12 +1,13 @@
 import fs from "fs";
 import path from "path";
 import { getDb } from "./db";
+import { getDataDir } from "./dataDir";
 
 // Per-user activity feed. When an event changes artwork, we snapshot the image
 // to data/activity/<gameId>/<id>.<ext> so the entry keeps its picture for
 // display even after the game's live art changes again.
 
-const ACTIVITY_DIR = path.join(process.cwd(), "data", "activity");
+const ACTIVITY_DIR = path.join(getDataDir(), "activity");
 
 /** Absolute path to a snapshot file, grouped by game id (`_` when none). */
 export function activityImagePath(romId: number | null, id: number, ext: string): string {

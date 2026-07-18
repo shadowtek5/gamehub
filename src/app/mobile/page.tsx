@@ -38,13 +38,31 @@ export default async function MobileHomePage() {
     );
   }
 
-  // Recent: recently played, padded with the newest additions (mirrors desktop).
+  // Recent: three ordered tiers (mirrors desktop) so it stays distinct from the
+  // "New to your library" carousel below: last played → recently updated → added.
   const played = recentlyPlayed(user.id, 12);
   const byAdded = [...all].sort(
     (a, b) => (b.added_at ?? "").localeCompare(a.added_at ?? "") || b.id - a.id
   );
+  // "Recently updated" = metadata changed >1h after the game was added (a real
+  // re-scrape/edit, not the add-time scrape), else it would mirror "recently added".
+  const UPDATE_GAP_MS = 3600e3;
+  const byUpdated = [...all]
+    .filter(
+      (r) =>
+        r.updated_at &&
+        r.added_at &&
+        new Date(r.updated_at).getTime() - new Date(r.added_at).getTime() > UPDATE_GAP_MS
+    )
+    .sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? "") || b.id - a.id);
   const seen = new Set(played.map((r) => r.id));
-  const recent = [...played, ...byAdded.filter((r) => !seen.has(r.id))].slice(0, 12);
+  const recent: HomeLibraryRow[] = [...played];
+  for (const r of [...byUpdated, ...byAdded]) {
+    if (seen.has(r.id)) continue;
+    seen.add(r.id);
+    recent.push(r);
+    if (recent.length >= 12) break;
+  }
 
   // What's New carousel: the latest additions.
   const whatsNew = byAdded.slice(0, 12);

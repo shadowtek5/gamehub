@@ -5,6 +5,7 @@ import path from "path";
 import { getDb, getLibraryRom, RomRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { sortTitle } from "@/lib/scanner";
+import { getDataDir } from "../../../../lib/dataDir";
 
 /** Read one game, including the caller's personal data */
 export async function GET(
@@ -149,7 +150,7 @@ export async function DELETE(
   // Row + favorites/collection entries/save states cascade; media folder too
   getDb().prepare("DELETE FROM roms WHERE id = ?").run(rom.id);
   try {
-    fs.rmSync(path.join(process.cwd(), "data", "media", String(rom.id)), {
+    fs.rmSync(path.join(getDataDir(), "media", String(rom.id)), {
       recursive: true,
       force: true,
     });

@@ -1493,7 +1493,8 @@
       "title": "라이브러리"
     },
     "systems": {
-      "title": "시스템"
+      "title": "시스템",
+      "unscanned": "{count, plural, other {# 미스캔}}"
     },
     "systemDetail": {
       "backToSystems": "시스템으로 돌아가기"
@@ -2790,7 +2791,9 @@
       "listViewAria": "목록 보기",
       "systemTitle": "{name} — {count, plural, one {#개 게임} other {#개 게임}}",
       "gameCount": "{count, plural, one {#개 게임} other {#개 게임}}",
-      "playable": "플레이 가능"
+      "playable": "플레이 가능",
+      "unscanned": "{count, plural, other {# 미스캔}}",
+      "unscannedTitle": "{count, plural, other {# 게임이 아직 스크레이프되지 않았습니다}}"
     },
     "hero": {
       "games": "게임",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "링크 만료됨",
     "expiredHint": "이 코드는 더 이상 유효하지 않습니다. 앱에서 다시 연결을 시작하세요.",
     "loading": "로드 중…"
+  },
+  "updateManager": {
+    "title": "소프트웨어 업데이트",
+    "close": "닫기",
+    "statusHeader": "상태",
+    "runningVersion": "현재 버전",
+    "source": "소스",
+    "sourceImage": "Docker 이미지(기본 내장)",
+    "sourceStaged": "준비된 릴리스 {version}",
+    "fallbackFloor": "폴백 버전",
+    "lastChecked": "마지막 확인",
+    "never": "없음",
+    "restarting": "GameHub를 다시 시작하는 중…",
+    "restartingHint": "돌아온 후 이 페이지가 자동으로 다시 로드됩니다.",
+    "restartTimeout": "GameHub가 돌아오는 데 시간이 걸리고 있습니다. 잠시 후 페이지를 수동으로 다시 로드하세요.",
+    "updatesHeader": "업데이트",
+    "checkRow": "업데이트 확인",
+    "checkRowDesc": "GitHub에서 새로운 GameHub 릴리스를 확인합니다.",
+    "checkNow": "지금 확인",
+    "checking": "확인 중…",
+    "upToDate": "최신 버전을 사용 중입니다.",
+    "updateAvailable": "업데이트 가능: {version}",
+    "downloadInstall": "다운로드 및 설치",
+    "installing": "설치 중…",
+    "releaseNotes": "릴리스 노트",
+    "view": "보기",
+    "uploadRow": "릴리스 업로드",
+    "uploadRowDesc": "직접 다운로드한 GameHub 릴리스 .zip을 설치합니다.",
+    "chooseZip": ".zip 선택…",
+    "uploading": "업로드 중…",
+    "stagedReady": "버전 {version}이(가) 적용 준비됨",
+    "stagedHint": "GameHub를 다시 시작하여 새 버전으로 전환합니다. 데이터는 변경되지 않습니다.",
+    "restartToApply": "다시 시작하여 적용",
+    "applying": "적용 중…",
+    "discard": "취소",
+    "autoHeader": "자동 업데이트",
+    "autoCheck": "자동 확인",
+    "autoCheckDesc": "주기적으로 GitHub에서 새 릴리스를 확인합니다.",
+    "autoApply": "자동 설치",
+    "autoApplyDesc": "새 릴리스를 다운로드, 설치 및 다시 시작하여 자동으로 적용합니다. 기본적으로 꺼짐.",
+    "channel": "업데이트 채널",
+    "channelDesc": "안정 버전만 또는 베타 포함.",
+    "channelStable": "안정",
+    "channelBeta": "베타",
+    "interval": "확인 간격",
+    "intervalDesc": "업데이트 확인 빈도.",
+    "hours": "{h}시간",
+    "advancedHeader": "고급",
+    "rollbackImage": "기본 버전으로 되돌리기",
+    "rollbackImageDesc": "준비된 업데이트를 취소하고 Docker 이미지 버전({version})으로 부팅합니다.",
+    "revert": "되돌리기",
+    "installedVersion": "버전 {version}",
+    "current": "실행 중",
+    "switchTo": "전환",
+    "viewReleases": "릴리스 보기",
+    "notSupportedDesc": "인앱 업데이트는 Docker 런타임(다시 시작 정책 포함)이 필요합니다. 이 인스턴스는 Docker 외부에서 실행되므로 설치할 때와 같은 방법으로 업데이트하세요.",
+    "notSupportedShort": "이 런타임에서는 인앱 업데이트를 사용할 수 없습니다."
   }
 }

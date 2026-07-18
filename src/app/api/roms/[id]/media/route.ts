@@ -6,6 +6,7 @@ import { getDb } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
 import { MediaKey } from "@/lib/providers/config";
 import { saveMedia } from "@/lib/providers/mediaSave";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 const MEDIA_LABELS: Record<string, string> = {
   boxart: "box art",
@@ -92,7 +93,7 @@ export async function POST(
   const ext = EXT_BY_MIME[mime] ?? (nameExt === "jpeg" ? "jpg" : nameExt);
   if (!ext) return NextResponse.json({ error: "Unsupported file format" }, { status: 400 });
 
-  const dir = path.join(process.cwd(), "data", "media", String(romId));
+  const dir = path.join(getDataDir(), "media", String(romId));
   const buf = Buffer.from(await file.arrayBuffer());
   // Image uploads are transcoded to WebP to match scraped art; video/audio/pdf
   // are written as-is (saveMedia is a no-op transcode for non-image keys anyway,
@@ -143,7 +144,7 @@ export async function DELETE(
 
   // Remove the on-disk file if this was an uploaded copy (/api/media/<id>/…)
   const m = row.url?.match(new RegExp(`^/api/media/${romId}/([^?]+)`));
-  const localFile = m ? path.join(process.cwd(), "data", "media", String(romId), m[1]) : null;
+  const localFile = m ? path.join(getDataDir(), "media", String(romId), m[1]) : null;
 
   const label = MEDIA_LABELS[type] ?? type;
   logActivity({

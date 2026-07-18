@@ -1493,7 +1493,8 @@
       "title": "Library"
     },
     "systems": {
-      "title": "Systems"
+      "title": "Systems",
+      "unscanned": "{count, plural, one {# unscanned} other {# unscanned}}"
     },
     "systemDetail": {
       "backToSystems": "Back to systems"
@@ -2924,6 +2925,8 @@
       "listViewAria": "list view",
       "systemTitle": "{name} — {count, plural, one {# game} other {# games}}",
       "gameCount": "{count, plural, one {# game} other {# games}}",
+      "unscanned": "{count, plural, one {# unscanned} other {# unscanned}}",
+      "unscannedTitle": "{count, plural, one {# game hasn't been scraped yet} other {# games haven't been scraped yet}}",
       "playable": "playable"
     },
     "hero": {
@@ -2939,5 +2942,62 @@
       "playableInBrowser": "Playable in your browser",
       "downloadToPlay": "{name} — download to play"
     }
+  },
+  "updateManager": {
+    "title": "Software updates",
+    "close": "Close",
+    "statusHeader": "Status",
+    "runningVersion": "Running version",
+    "source": "Source",
+    "sourceImage": "Docker image (built-in)",
+    "sourceStaged": "Staged release {version}",
+    "fallbackFloor": "Fallback version",
+    "lastChecked": "Last checked",
+    "never": "Never",
+    "restarting": "GameHub is restarting…",
+    "restartingHint": "This page will reload automatically once it's back.",
+    "restartTimeout": "GameHub is taking a while to come back — reload the page manually in a moment.",
+    "updatesHeader": "Updates",
+    "checkRow": "Check for updates",
+    "checkRowDesc": "Check GitHub for a newer GameHub release.",
+    "checkNow": "Check now",
+    "checking": "Checking…",
+    "upToDate": "You're on the latest version.",
+    "updateAvailable": "Update available: {version}",
+    "downloadInstall": "Download & install",
+    "installing": "Installing…",
+    "releaseNotes": "Release notes",
+    "view": "View",
+    "uploadRow": "Upload a release",
+    "uploadRowDesc": "Install a GameHub release .zip you downloaded yourself.",
+    "chooseZip": "Choose .zip…",
+    "uploading": "Uploading…",
+    "stagedReady": "Version {version} is ready to apply",
+    "stagedHint": "Restart GameHub to switch to the new version — your data isn't touched.",
+    "restartToApply": "Restart to apply",
+    "applying": "Applying…",
+    "discard": "Discard",
+    "autoHeader": "Automatic updates",
+    "autoCheck": "Check automatically",
+    "autoCheckDesc": "Periodically check GitHub for new releases.",
+    "autoApply": "Install automatically",
+    "autoApplyDesc": "Download, install and restart to apply new releases without asking. Off by default.",
+    "channel": "Update channel",
+    "channelDesc": "Stable releases only, or include betas.",
+    "channelStable": "Stable",
+    "channelBeta": "Beta",
+    "interval": "Check every",
+    "intervalDesc": "How often to check for updates.",
+    "hours": "{h} h",
+    "advancedHeader": "Advanced",
+    "rollbackImage": "Revert to built-in version",
+    "rollbackImageDesc": "Discard staged updates and boot the Docker image's version ({version}).",
+    "revert": "Revert",
+    "installedVersion": "Version {version}",
+    "current": "Running",
+    "switchTo": "Switch to",
+    "viewReleases": "View releases",
+    "notSupportedDesc": "In-app updates need the Docker runtime (with a restart policy). This instance runs outside Docker, so update it the way you installed it.",
+    "notSupportedShort": "In-app updates aren't available in this runtime."
   }
 }

@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { encodeWebp } from "./providers/mediaSave";
 import { MediaKey } from "./providers/config";
+import { getDataDir } from "./dataDir";
 
 /**
  * A console's art files live under data/systems/<id>/ — the folder is keyed by
@@ -9,7 +10,7 @@ import { MediaKey } from "./providers/config";
  * files are served by /api/systems/media/<id>/<file>. All other system data
  * (show flags, metadata, hiding) lives in the systems table.
  */
-export const SYSTEMS_DIR = path.join(process.cwd(), "data", "systems");
+export const SYSTEMS_DIR = path.join(getDataDir(), "systems");
 
 // WebP transcode policy per system-art kind, mirroring the game/scraper media
 // pipeline: photographic art (hero banner, screenmarquee ribbon) is lossy;

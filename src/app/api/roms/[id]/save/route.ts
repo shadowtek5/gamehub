@@ -4,15 +4,16 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageExt, imageContentType } from "@/lib/media";
+import { getDataDir } from "../../../../../lib/dataDir";
 
 // Battery save (.srm): one live slot per user per game — loaded into the
 // emulator on start, synced back on exit and periodically while playing.
 
 function saveFile(userId: number, romId: number): string {
-  return path.join(process.cwd(), "data", "battery", String(userId), `${romId}.srm`);
+  return path.join(getDataDir(), "battery", String(userId), `${romId}.srm`);
 }
 function shotFile(userId: number, romId: number, ext: string): string {
-  return path.join(process.cwd(), "data", "battery", String(userId), `${romId}.${ext}`);
+  return path.join(getDataDir(), "battery", String(userId), `${romId}.${ext}`);
 }
 
 /** Download your battery save (?type=screenshot for its thumbnail). 404 if none. */
@@ -29,7 +30,7 @@ export async function GET(
     .get(user.id, Number(id)) as { save_path: string | null; screenshot_path: string | null } | undefined;
   const stored = wantShot ? row?.screenshot_path : row?.save_path;
   const file = stored
-    ? path.join(process.cwd(), "data", stored)
+    ? path.join(getDataDir(), stored)
     : wantShot
       ? shotFile(user.id, Number(id), "png")
       : saveFile(user.id, Number(id));
@@ -83,7 +84,7 @@ export async function POST(
   await fs.promises.writeFile(file, data);
   const shotPath = shot ? shotFile(user.id, romId, imageExt(shot)) : null;
   if (shot && shotPath) await fs.promises.writeFile(shotPath, shot);
-  const dataDir = path.join(process.cwd(), "data");
+  const dataDir = getDataDir();
   getDb()
     .prepare(
       `INSERT INTO battery_saves (user_id, rom_id, size_bytes, save_path, screenshot_path, updated_at)

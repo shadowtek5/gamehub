@@ -13,8 +13,9 @@ import fs from "fs";
 import path from "path";
 import { getDb, closeDb } from "./db";
 import packageJson from "../../package.json";
+import { getDataDir } from "./dataDir";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR = getDataDir();
 const BLOCK = 512;
 
 export interface BackupParts {

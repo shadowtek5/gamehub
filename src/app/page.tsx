@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
-import { getDb, getSetting, listLibraryForHome, recentlyPlayed, friendIds, HomeLibraryRow } from "@/lib/db";
+import { getDb, getSetting, listLibraryForHome, libraryHasGames, recentlyPlayed, friendIds, HomeLibraryRow } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { needsSetup } from "@/lib/setup";
 import Home, { HomeRom, HomeActivity, HomeShelf } from "@/components/bpm/Home";
@@ -30,7 +30,9 @@ export default async function HomePage() {
   if (user.isAdmin && needsSetup() && getSetting("setup_prompted") !== "on") redirect("/setup");
 
   const all = listLibraryForHome(user.id);
-  if (all.length === 0) {
+  // Empty-library welcome keys off having NO games at all — not the art/played
+  // filtered `all` (a scanned-but-unscraped library still has games to show).
+  if (!libraryHasGames(user.id)) {
     // While setup is still incomplete, lead with the wizard (we only auto-redirect
     // there once); otherwise point at Settings.
     const showWizard = user.isAdmin && needsSetup();
@@ -70,13 +72,35 @@ export default async function HomePage() {
     );
   }
 
-  // Recent Games: recently played, padded with the newest additions
+  // Recent Games carousel: three ordered tiers so it stays distinct from the
+  // "New to your library" shelf below (which is purely newest-added):
+  //   1. last played   2. recently updated   3. recently added
   const played = recentlyPlayed(user.id, 8);
   const byAdded = [...all].sort(
     (a, b) => (b.added_at ?? "").localeCompare(a.added_at ?? "") || b.id - a.id
   );
+  // "Recently updated" = metadata genuinely changed AFTER the game was added
+  // (re-scrape, art pick, manual edit). On insert updated_at == added_at, and a
+  // fresh scan scrapes seconds later, so require a real gap (>1h) to exclude
+  // brand-new adds — otherwise this tier would just mirror "recently added".
+  const UPDATE_GAP_MS = 3600e3;
+  const byUpdated = [...all]
+    .filter(
+      (r) =>
+        r.updated_at &&
+        r.added_at &&
+        new Date(r.updated_at).getTime() - new Date(r.added_at).getTime() > UPDATE_GAP_MS
+    )
+    .sort((a, b) => (b.updated_at ?? "").localeCompare(a.updated_at ?? "") || b.id - a.id);
+
   const seen = new Set(played.map((r) => r.id));
-  const recent = [...played, ...byAdded.filter((r) => !seen.has(r.id))].slice(0, 8);
+  const recent: HomeLibraryRow[] = [...played];
+  for (const r of [...byUpdated, ...byAdded]) {
+    if (seen.has(r.id)) continue;
+    seen.add(r.id);
+    recent.push(r);
+    if (recent.length >= 8) break;
+  }
 
   // What's New feed: the latest additions
   const whatsNew = byAdded.slice(0, 10);

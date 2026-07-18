@@ -10,8 +10,9 @@ import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
 import { getSetting, setSetting } from "./db";
 import { streamBackupTar, type BackupParts } from "./backup";
+import { getDataDir } from "./dataDir";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const DATA_DIR = getDataDir();
 const DEFAULT_DIR = path.join(DATA_DIR, "backups");
 const DEFAULT_PARTS: BackupParts = { saves: true, firmware: true, media: false, launchbox: true };
 

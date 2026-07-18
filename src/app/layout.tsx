@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
-import { headers } from "next/headers";
+import { headers, cookies } from "next/headers";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { dirFor, type Locale } from "@/i18n/locales";
@@ -68,6 +68,9 @@ export default async function RootLayout({
   // The /mobile app is a separate shell (its own chrome) — skip all the Big
   // Picture chrome/behaviors for it. proxy.ts provides the path.
   const isMobile = ((await headers()).get("x-gh-path") ?? "").startsWith("/mobile");
+  // Reduce Motion is stored in a cookie so it can be applied on the server,
+  // before first paint — no inline pre-hydration script needed.
+  const reduceMotion = (await cookies()).get("gh-reduce-motion")?.value === "on";
 
   let avatarUrl: string | null = null;
   let recent: QuickResume[] = [];
@@ -88,19 +91,17 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} dir={dirFor(locale as Locale)} className={`${geistSans.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      dir={dirFor(locale as Locale)}
+      className={`${geistSans.variable} h-full antialiased`}
+      data-reduce-motion={reduceMotion ? "on" : undefined}
+    >
       {/* GamepadMode + BasicUI: Steam's stable root classes — the hooks
           deckthemes.com (CSS Loader) themes scope their rules to */}
       <body className={`GamepadMode BasicUI min-h-screen ${isMobile ? "" : "flex flex-col"}`}>
         {/* deckthemes / custom CSS — compiled from data/themes */}
         {themeCss && <style id="gh-theme-css" dangerouslySetInnerHTML={{ __html: themeCss }} />}
-        {/* apply the Reduce Motion preference before first paint */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "try{if(localStorage.getItem('gh-reduce-motion')==='on')document.documentElement.dataset.reduceMotion='on';}catch(e){}",
-          }}
-        />
         {/* i18n: makes the active locale + messages available to every server
             AND client component below (nav chrome, settings, etc.) */}
         <NextIntlClientProvider>

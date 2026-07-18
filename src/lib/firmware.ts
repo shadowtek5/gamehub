@@ -12,6 +12,7 @@ import zlib from "zlib";
 import { getDb } from "./db";
 import { platformBySlug } from "./platforms";
 import { BIOS_MANIFEST, type BiosFile, type BiosSystem } from "./biosManifest";
+import { getDataDir } from "./dataDir";
 
 export interface FirmwareRow {
   id: number;
@@ -24,7 +25,7 @@ export interface FirmwareRow {
 }
 
 export function firmwareDir(slug: string): string {
-  return path.join(process.cwd(), "data", "firmware", slug);
+  return path.join(getDataDir(), "firmware", slug);
 }
 
 export function listFirmware(slug?: string): FirmwareRow[] {

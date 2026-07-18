@@ -15,6 +15,7 @@ import { imageExt } from "./media";
 import { platformBySlug } from "./platforms";
 import { libretroBoxartUrl, libretroBoxartUrlFromTitle } from "./boxart";
 import { ensureThumb, GRID_THUMB_WIDTHS } from "./mediaThumbGen";
+import { getDataDir } from "./dataDir";
 
 const LIBRETRO_PREFIX = "https://thumbnails.libretro.com/";
 const UA = "GameHub/0.1 (self-hosted ROM library; box-art localizer)";
@@ -25,7 +26,7 @@ export function isLibretroUrl(url: string | null | undefined): url is string {
 }
 
 function mediaDir(romId: number): string {
-  return path.join(process.cwd(), "data", "media", String(romId));
+  return path.join(getDataDir(), "media", String(romId));
 }
 function localMediaUrl(romId: number, file: string): string {
   return `/api/media/${romId}/${file}?v=${Date.now()}`;
@@ -35,7 +36,7 @@ function localMediaUrl(romId: number, file: string): string {
 function localSourcePath(url: string): string | null {
   if (!url.startsWith("/api/media/")) return null;
   const rel = url.replace(/^\/api\/media\//, "").split("?")[0];
-  return path.join(process.cwd(), "data", "media", ...rel.split("/"));
+  return path.join(getDataDir(), "media", ...rel.split("/"));
 }
 
 /** Pre-build the small grid thumbnails so first views never pay the resize. */

@@ -4,6 +4,7 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageContentType } from "@/lib/media";
+import { getDataDir } from "../../../../lib/dataDir";
 
 interface ShotRow {
   id: number;
@@ -20,7 +21,7 @@ function shotRow(id: number): ShotRow | undefined {
 
 function fileFor(row: ShotRow): string | null {
   if (!row.image_path) return null;
-  return path.join(process.cwd(), "data", row.image_path);
+  return path.join(getDataDir(), row.image_path);
 }
 
 /** Serve a screenshot image (owner or admin). */

@@ -20,6 +20,9 @@
 # production
 /build
 
+# release artifacts (scripts/build-release.mjs)
+/dist
+
 # misc
 .DS_Store
 *.pem

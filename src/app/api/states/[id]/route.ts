@@ -4,6 +4,7 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageContentType } from "@/lib/media";
+import { getDataDir } from "../../../../lib/dataDir";
 
 interface StateRow {
   id: number;
@@ -18,8 +19,8 @@ interface StateRow {
  *  location for legacy rows written before paths were tracked. */
 function stateFile(row: StateRow, ext: "state" | "png"): string {
   const stored = ext === "png" ? row.screenshot_path : row.state_path;
-  if (stored) return path.join(process.cwd(), "data", stored);
-  return path.join(process.cwd(), "data", "saves", String(row.user_id), String(row.rom_id), `${row.id}.${ext}`);
+  if (stored) return path.join(getDataDir(), stored);
+  return path.join(getDataDir(), "saves", String(row.user_id), String(row.rom_id), `${row.id}.${ext}`);
 }
 
 function ownState(userId: number, stateId: number): StateRow | undefined {

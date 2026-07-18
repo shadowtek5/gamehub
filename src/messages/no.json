@@ -1493,7 +1493,8 @@
       "title": "Bibliotek"
     },
     "systems": {
-      "title": "Systemer"
+      "title": "Systemer",
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}"
     },
     "systemDetail": {
       "backToSystems": "Tilbake til systemer"
@@ -2790,7 +2791,9 @@
       "listViewAria": "Listevisning",
       "systemTitle": "{name} — {count, plural, one {# spill} other {# spill}}",
       "gameCount": "{count, plural, one {# spill} other {# spill}}",
-      "playable": "spillbar"
+      "playable": "spillbar",
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
+      "unscannedTitle": "{count, plural, one {# spill er ikke blitt skrapet} other {# spill er ikke blitt skrapet}}"
     },
     "hero": {
       "games": "Spill",
@@ -2938,5 +2941,62 @@
     "expiredTitle": "Lenke utløpt",
     "expiredHint": "Denne koden er ikke lenger gyldig. Start tilkoblingen på nytt fra appen.",
     "loading": "Laster…"
+  },
+  "updateManager": {
+    "title": "Programvareoppdateringer",
+    "close": "Lukk",
+    "statusHeader": "Status",
+    "runningVersion": "Kjørende versjon",
+    "source": "Kilde",
+    "sourceImage": "Docker-avbildning (innebygd)",
+    "sourceStaged": "Fastsatt utgivelse {version}",
+    "fallbackFloor": "Fallback-versjon",
+    "lastChecked": "Sist kontrollert",
+    "never": "Aldri",
+    "restarting": "GameHub starter på nytt…",
+    "restartingHint": "Denne siden vil laste inn på nytt automatisk når den er tilbake.",
+    "restartTimeout": "GameHub tar lang tid på å komme tilbake — last siden inn manuelt om et øyeblikk.",
+    "updatesHeader": "Oppdateringer",
+    "checkRow": "Se etter oppdateringer",
+    "checkRowDesc": "Kontroller GitHub for en nyere GameHub-utgivelse.",
+    "checkNow": "Kontroller nå",
+    "checking": "Kontrollerer…",
+    "upToDate": "Du er på den nyeste versjonen.",
+    "updateAvailable": "Oppdatering tilgjengelig: {version}",
+    "downloadInstall": "Last ned og installer",
+    "installing": "Installerer…",
+    "releaseNotes": "Utgivelsesmerknader",
+    "view": "Vis",
+    "uploadRow": "Last opp en utgivelse",
+    "uploadRowDesc": "Installer en GameHub-utgivelse .zip som du lastet ned selv.",
+    "chooseZip": "Velg .zip…",
+    "uploading": "Laster opp…",
+    "stagedReady": "Versjon {version} er klar til å brukes",
+    "stagedHint": "Start GameHub på nytt for å bytte til den nye versjonen — dataene dine påvirkes ikke.",
+    "restartToApply": "Start på nytt for å bruke",
+    "applying": "Bruker…",
+    "discard": "Forkast",
+    "autoHeader": "Automatiske oppdateringer",
+    "autoCheck": "Kontroller automatisk",
+    "autoCheckDesc": "Kontroller GitHub med jevne mellomrom for nye utgivelser.",
+    "autoApply": "Installer automatisk",
+    "autoApplyDesc": "Last ned, installer og start på nytt for å bruke nye utgivelser uten å spørre. Av som standard.",
+    "channel": "Oppdateringskanal",
+    "channelDesc": "Bare stabile utgivelser, eller inkluder betatester.",
+    "channelStable": "Stabil",
+    "channelBeta": "Beta",
+    "interval": "Kontroller hver",
+    "intervalDesc": "Hvor ofte det skal kontrolleres for oppdateringer.",
+    "hours": "{h} t",
+    "advancedHeader": "Avansert",
+    "rollbackImage": "Gå tilbake til innebygd versjon",
+    "rollbackImageDesc": "Forkast fastsatte oppdateringer og start Docker-avbildningsversjonen ({version}).",
+    "revert": "Gå tilbake",
+    "installedVersion": "Versjon {version}",
+    "current": "Kjøres",
+    "switchTo": "Bytt til",
+    "viewReleases": "Vis utgivelser",
+    "notSupportedDesc": "Oppdateringer i appen krever Docker-kjøretiden (med en omstartspolicy). Denne instansen kjøres utenfor Docker, så oppdater den på samme måte som du installerte den.",
+    "notSupportedShort": "Oppdateringer i appen er ikke tilgjengelig i denne kjøretiden."
   }
 }
