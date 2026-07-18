@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Välj hero-artwork — {title}",
     "chooseBoxartTitle": "Välj box-art — {title}",
     "chooseLogoTitle": "Välj logotyp — {title}",
-    "fixMatchTitle": "Korrigera metadata-matchning — {title}"
+    "fixMatchTitle": "Korrigera metadata-matchning — {title}",
+    "heroArtOnly": "Visa endast hjältekonst",
+    "heroShowInfo": "Visa logotyp och titel på hjälten",
+    "heroArtOnlyTooltip": "Dölj logotypen och titeln överlagd på denna spelhjältebild — visa bara konstverk"
   },
   "gamePage": {
     "achievements": "Achievements",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "System",
-      "unscanned": "{count, plural, one {# oskannad} other {# oskannade}}"
+      "unscanned": "{count, plural, one {# oskannad} other {# oskannade}}",
+      "countsLabel": "{total, number} totalt · {unscanned, number} ej skannade · {notFound, number} inte hittade"
     },
     "systemDetail": {
       "backToSystems": "Tillbaka till system"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# spel} other {# spel}}",
       "playable": "spelbar",
       "unscanned": "{count, plural, one {# oskannad} other {# oskannade}}",
-      "unscannedTitle": "{count, plural, one {# spel har ännu inte skannats} other {# spel har ännu inte skannats}}"
+      "unscannedTitle": "{count, plural, one {# spel har ännu inte skannats} other {# spel har ännu inte skannats}}",
+      "countsLabel": "{total, number} totalt · {unscanned, number} ej skannade · {notFound, number} inte hittade"
     },
     "hero": {
       "games": "Spel",

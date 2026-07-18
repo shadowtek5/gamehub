@@ -11,7 +11,8 @@ import { LANGUAGE_NAMES } from "@/lib/language";
 import { PLATFORMS_SORTED } from "@/lib/platforms";
 import { playSound } from "@/lib/sounds";
 import { previousPath } from "@/lib/routePath";
-import { useRouter } from "next/navigation";
+import { saveCountFor, savedCountFor } from "@/lib/scrollMemory";
+import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
   GpDropdown,
@@ -175,6 +176,11 @@ export default function LibraryBrowser({
   const [saveName, setSaveName] = useState("");
   const [saving, setSaving] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  // When returning from a game detail, re-request the item count we'd loaded
+  // (not just the first chunk) so the grid is tall enough for ScrollRestorer to
+  // land you back where you were. Set during restore, consumed by the first fetch.
+  const restoreCount = useRef<number | null>(null);
   const [limit, setLimit] = useState(CHUNK);
   // Filters persist while you stay in this browse area — including a round-trip
   // into a game's detail page — but reset to empty when you enter fresh from
@@ -200,6 +206,9 @@ export default function LibraryBrowser({
       setRestored(true);
       return;
     }
+    // Returning from a game: reload as many items as were loaded before so the
+    // page height (and thus your scroll position) is restored.
+    restoreCount.current = savedCountFor(pathname);
     try {
       const saved = JSON.parse(sessionStorage.getItem(storageKey) ?? "null");
       if (saved && typeof saved === "object") {
@@ -233,7 +242,7 @@ export default function LibraryBrowser({
       }
     } catch {}
     setRestored(true);
-  }, [storageKey, chromeMode]);
+  }, [storageKey, chromeMode, pathname]);
   useEffect(() => {
     if (!restored) return;
     try {
@@ -406,20 +415,38 @@ export default function LibraryBrowser({
       setLoading(false);
       return;
     }
+    // Normally the first chunk; on a return-from-detail, page through up to the
+    // previously-loaded count so the restored scroll has somewhere to land.
+    const want = restoreCount.current && restoreCount.current > CHUNK ? restoreCount.current : CHUNK;
+    restoreCount.current = null;
     const seq = ++fetchSeq.current;
     setLoading(true);
-    fetch(`/api/library?${buildParams(0)}`, { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => {
+    (async () => {
+      const rows: BrowseRomRow[] = [];
+      let tot = 0;
+      for (let off = 0; off < want; off += CHUNK) {
+        const res = await fetch(`/api/library?${buildParams(off)}`, { cache: "no-store" });
+        const d = await res.json();
         if (seq !== fetchSeq.current) return;
-        setItems(d.rows ?? []);
-        setTotal(d.total ?? 0);
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (seq === fetchSeq.current) setLoading(false);
-      });
+        rows.push(...(d.rows ?? []));
+        tot = d.total ?? 0;
+        if (rows.length >= tot) break;
+      }
+      if (seq !== fetchSeq.current) return;
+      setItems(rows);
+      setTotal(tot);
+      setLoading(false);
+    })().catch(() => {
+      if (seq === fetchSeq.current) setLoading(false);
+    });
   }, [remote, restored, buildParams, collection]);
+
+  // Remember how many items are loaded (per page path) so a return-from-detail
+  // can restore the same window height for scroll restoration.
+  useEffect(() => {
+    if (!remote || !restored) return;
+    saveCountFor(pathname, items.length);
+  }, [remote, restored, pathname, items.length]);
 
   // Local: changing any filter starts a fresh window
   useEffect(() => {

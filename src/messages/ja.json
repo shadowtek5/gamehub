@@ -898,7 +898,10 @@
     "chooseHeroTitle": "ヒーローアートワークを選択 — {title}",
     "chooseBoxartTitle": "ボックスアートを選択 — {title}",
     "chooseLogoTitle": "ロゴを選択 — {title}",
-    "fixMatchTitle": "メタデータマッチを修正 — {title}"
+    "fixMatchTitle": "メタデータマッチを修正 — {title}",
+    "heroArtOnly": "アートワークのみ表示",
+    "heroShowInfo": "ロゴ & タイトルを表示",
+    "heroArtOnlyTooltip": "このゲームのアートワークに重ねられたロゴとタイトルを非表示にします — アートワークのみを表示"
   },
   "gamePage": {
     "achievements": "アチーブメント",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "システム",
-      "unscanned": "{count, plural, other {# 未スキャン}}"
+      "unscanned": "{count, plural, other {# 未スキャン}}",
+      "countsLabel": "{total, number} 合計 · {unscanned, number} 未スクレイプ · {notFound, number} 未検出"
     },
     "systemDetail": {
       "backToSystems": "システム一覧に戻る"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# ゲーム} other {# ゲーム}}",
       "playable": "プレイ可能",
       "unscanned": "{count, plural, other {# 未スキャン}}",
-      "unscannedTitle": "{count, plural, other {# ゲームがまだスクレイプされていません}}"
+      "unscannedTitle": "{count, plural, other {# ゲームがまだスクレイプされていません}}",
+      "countsLabel": "{total, number} 合計 · {unscanned, number} 未スクレイプ · {notFound, number} 未検出"
     },
     "hero": {
       "games": "ゲーム",

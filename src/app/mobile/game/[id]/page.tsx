@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
+import MobileBackLink from "@/components/mobile/MobileBackLink";
 import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { formatBytes, formatPlaytime, timeAgo } from "@/lib/format";
@@ -216,11 +217,11 @@ export default async function MobileGamePage({
           <div className="h-full w-full" style={{ background: `linear-gradient(120deg, #12161c 30%, ${platform?.color ?? "#1a9fff"}55)` }} />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)]/40 to-transparent" />
-        <Link href="/mobile/library" className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur active:bg-black/70" aria-label={t("back")}>
+        <MobileBackLink href="/mobile/library" className="absolute left-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur active:bg-black/70" aria-label={t("back")}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} className="h-5 w-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 5l-7 7 7 7" />
           </svg>
-        </Link>
+        </MobileBackLink>
       </div>
 
       <div className="px-4">

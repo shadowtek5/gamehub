@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Wybierz hero-artwork — {title}",
     "chooseBoxartTitle": "Wybierz box-art — {title}",
     "chooseLogoTitle": "Wybierz logo — {title}",
-    "fixMatchTitle": "Popraw dopasowanie metadanych — {title}"
+    "fixMatchTitle": "Popraw dopasowanie metadanych — {title}",
+    "heroArtOnly": "Pokaż tylko obraz heros",
+    "heroShowInfo": "Pokaż logo i tytuł na heroie",
+    "heroArtOnlyTooltip": "Ukryj logo i tytuł nałożone na heros tej gry — pokaż tylko pracę artystyczną"
   },
   "gamePage": {
     "achievements": "Osiągnięcia",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systemy",
-      "unscanned": "{count, plural, one {# nieskanowany} few {# nie zeskanowane} many {# nie zeskanowanych} other {# nie zeskanowanych}}"
+      "unscanned": "{count, plural, one {# nieskanowany} few {# nie zeskanowane} many {# nie zeskanowanych} other {# nie zeskanowanych}}",
+      "countsLabel": "{total, number} razem · {unscanned, number} nie wyekstrahowano · {notFound, number} nie znalezione"
     },
     "systemDetail": {
       "backToSystems": "Powrót do systemów"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# gra} other {# gier}}",
       "playable": "grywalna",
       "unscanned": "{count, plural, one {# nieskanowany} few {# nie zeskanowane} many {# nie zeskanowanych} other {# nie zeskanowanych}}",
-      "unscannedTitle": "{count, plural, one {# gra nie została zeskanowana} few {# gry nie zostały zeskanowane} many {# gier nie zostało zeskanowanych} other {# gier nie zostało zeskanowanych}}"
+      "unscannedTitle": "{count, plural, one {# gra nie została zeskanowana} few {# gry nie zostały zeskanowane} many {# gier nie zostało zeskanowanych} other {# gier nie zostało zeskanowanych}}",
+      "countsLabel": "{total, number} razem · {unscanned, number} nie wyekstrahowano · {notFound, number} nie znalezione"
     },
     "hero": {
       "games": "Gry",

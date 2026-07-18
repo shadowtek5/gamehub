@@ -869,6 +869,9 @@
     "hideTooltip": "Hidden games disappear from your grids and shelves — find them under the Hidden tab in Library",
     "unhide": "Unhide from my library",
     "hide": "Hide from my library",
+    "heroArtOnly": "Show hero art only",
+    "heroShowInfo": "Show logo & title on hero",
+    "heroArtOnlyTooltip": "Hide the logo and title overlaid on this game's hero — show just the artwork",
     "collections": "Collections",
     "noCollections": "No collections yet.",
     "newCollectionItem": "+ New collection…",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systems",
-      "unscanned": "{count, plural, one {# unscanned} other {# unscanned}}"
+      "unscanned": "{count, plural, one {# unscanned} other {# unscanned}}",
+      "countsLabel": "{total, number} total · {unscanned, number} not scraped · {notFound, number} not found"
     },
     "systemDetail": {
       "backToSystems": "Back to systems"
@@ -2927,6 +2931,7 @@
       "gameCount": "{count, plural, one {# game} other {# games}}",
       "unscanned": "{count, plural, one {# unscanned} other {# unscanned}}",
       "unscannedTitle": "{count, plural, one {# game hasn't been scraped yet} other {# games haven't been scraped yet}}",
+      "countsLabel": "{total, number} total · {unscanned, number} not scraped · {notFound, number} not found",
       "playable": "playable"
     },
     "hero": {

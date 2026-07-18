@@ -528,7 +528,8 @@
     },
     "systems": {
       "title": "SystÃ¨mes",
-      "unscanned": "{count, plural, one {# non analysé} other {# non analysés}}"
+      "unscanned": "{count, plural, one {# non analysé} other {# non analysés}}",
+      "countsLabel": "{total, number} au total · {unscanned, number} non analysés · {notFound, number} introuvables"
     },
     "systemDetail": {
       "backToSystems": "Retour aux systÃ¨mes"
@@ -1089,7 +1090,10 @@
     "chooseHeroTitle": "Choisir le visuel hero â€” {title}",
     "chooseBoxartTitle": "Choisir la jaquette â€” {title}",
     "chooseLogoTitle": "Choisir le logo â€” {title}",
-    "fixMatchTitle": "Corriger la correspondance des mÃ©tadonnÃ©es â€” {title}"
+    "fixMatchTitle": "Corriger la correspondance des mÃ©tadonnÃ©es â€” {title}",
+    "heroArtOnly": "Afficher seulement l'illustration",
+    "heroShowInfo": "Afficher le logo & le titre",
+    "heroArtOnlyTooltip": "Masquer le logo et le titre superposés à l'illustration de ce jeu — afficher uniquement l'artwork"
   },
   "mobileAccount": {
     "common": {
@@ -1406,7 +1410,8 @@
       "gameCount": "{count, plural, one {# jeu} other {# jeux}}",
       "playable": "jouable",
       "unscanned": "{count, plural, one {# non analysé} other {# non analysés}}",
-      "unscannedTitle": "{count, plural, one {# jeu n'a pas encore été analysé} other {# jeux n'ont pas encore été analysés}}"
+      "unscannedTitle": "{count, plural, one {# jeu n'a pas encore été analysé} other {# jeux n'ont pas encore été analysés}}",
+      "countsLabel": "{total, number} au total · {unscanned, number} non analysés · {notFound, number} introuvables"
     },
     "hero": {
       "games": "Jeux",

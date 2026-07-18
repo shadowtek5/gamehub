@@ -528,7 +528,8 @@
     },
     "systems": {
       "title": "الأنظمة",
-      "unscanned": "{count, plural, zero {# لم يتم فحصها} one {# لم يتم فحصها} two {# لم يتم فحصها} few {# لم يتم فحصها} many {# لم يتم فحصها} other {# لم يتم فحصها}}"
+      "unscanned": "{count, plural, zero {# لم يتم فحصها} one {# لم يتم فحصها} two {# لم يتم فحصها} few {# لم يتم فحصها} many {# لم يتم فحصها} other {# لم يتم فحصها}}",
+      "countsLabel": "{total, number} إجمالي · {unscanned, number} لم يتم كشطها · {notFound, number} غير موجود"
     },
     "systemDetail": {
       "backToSystems": "العودة إلى الأنظمة"
@@ -1089,7 +1090,10 @@
     "chooseHeroTitle": "اختيار صورة البطل — {title}",
     "chooseBoxartTitle": "اختيار صورة الغلاف — {title}",
     "chooseLogoTitle": "اختيار الشعار — {title}",
-    "fixMatchTitle": "تصحيح مطابقة البيانات الوصفية — {title}"
+    "fixMatchTitle": "تصحيح مطابقة البيانات الوصفية — {title}",
+    "heroArtOnly": "عرض الفن فقط",
+    "heroShowInfo": "عرض الشعار والعنوان على الفن",
+    "heroArtOnlyTooltip": "إخفاء الشعار والعنوان المعروضة على فن اللعبة — عرض الفن فقط"
   },
   "mobileAccount": {
     "common": {
@@ -1406,7 +1410,8 @@
       "gameCount": "{count, plural, zero {# لعبة} one {لعبة واحدة} two {لعبتان} few {# ألعاب} many {# لعبة} other {# لعبة}}",
       "playable": "قابلة للعب",
       "unscanned": "{count, plural, zero {# لم يتم فحصها} one {# لم يتم فحصها} two {# لم يتم فحصها} few {# لم يتم فحصها} many {# لم يتم فحصها} other {# لم يتم فحصها}}",
-      "unscannedTitle": "{count, plural, zero {لا توجد ألعاب تم فحصها بعد} one {# لعبة لم يتم فحصها بعد} two {# لعبتان لم يتم فحصهما بعد} few {# ألعاب لم يتم فحصها بعد} many {# لعبة لم يتم فحصها بعد} other {# لعبة لم يتم فحصها بعد}}"
+      "unscannedTitle": "{count, plural, zero {لا توجد ألعاب تم فحصها بعد} one {# لعبة لم يتم فحصها بعد} two {# لعبتان لم يتم فحصهما بعد} few {# ألعاب لم يتم فحصها بعد} many {# لعبة لم يتم فحصها بعد} other {# لعبة لم يتم فحصها بعد}}",
+      "countsLabel": "{total, number} إجمالي · {unscanned, number} لم يتم كشطها · {notFound, number} غير موجود"
     },
     "hero": {
       "games": "الألعاب",

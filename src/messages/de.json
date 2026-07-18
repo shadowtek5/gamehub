@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Hero-Artwork auswählen — {title}",
     "chooseBoxartTitle": "Box-Art auswählen — {title}",
     "chooseLogoTitle": "Logo auswählen — {title}",
-    "fixMatchTitle": "Metadaten-Match korrigieren — {title}"
+    "fixMatchTitle": "Metadaten-Match korrigieren — {title}",
+    "heroArtOnly": "Nur Artwork anzeigen",
+    "heroShowInfo": "Logo & Titel auf Artwork anzeigen",
+    "heroArtOnlyTooltip": "Logo und Titel überlagert auf dem Spiel-Artwork verbergen — nur das Artwork anzeigen"
   },
   "gamePage": {
     "achievements": "Achievements",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systeme",
-      "unscanned": "{count, plural, one {# ungescannt} other {# ungescannt}}"
+      "unscanned": "{count, plural, one {# ungescannt} other {# ungescannt}}",
+      "countsLabel": "{total, number} gesamt · {unscanned, number} nicht gescannt · {notFound, number} nicht gefunden"
     },
     "systemDetail": {
       "backToSystems": "Zurück zu Systemen"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# Spiel} other {# Spiele}}",
       "playable": "spielbar",
       "unscanned": "{count, plural, one {# ungescannt} other {# ungescannt}}",
-      "unscannedTitle": "{count, plural, one {# Spiel wurde noch nicht gescraped} other {# Spiele wurden noch nicht gescraped}}"
+      "unscannedTitle": "{count, plural, one {# Spiel wurde noch nicht gescraped} other {# Spiele wurden noch nicht gescraped}}",
+      "countsLabel": "{total, number} gesamt · {unscanned, number} nicht gescannt · {notFound, number} nicht gefunden"
     },
     "hero": {
       "games": "Spiele",

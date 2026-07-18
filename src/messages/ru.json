@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Выбрать hero-арт — {title}",
     "chooseBoxartTitle": "Выбрать box-art — {title}",
     "chooseLogoTitle": "Выбрать логотип — {title}",
-    "fixMatchTitle": "Исправить совпадение метаданных — {title}"
+    "fixMatchTitle": "Исправить совпадение метаданных — {title}",
+    "heroArtOnly": "Показать только изображение героя",
+    "heroShowInfo": "Показать логотип и название на герое",
+    "heroArtOnlyTooltip": "Скрыть логотип и название, наложенные на героя этой игры — показать только изображение"
   },
   "gamePage": {
     "achievements": "Достижения",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Системы",
-      "unscanned": "{count, plural, one {# не отсканировано} few {# не отсканированы} many {# не отсканировано} other {# не отсканировано}}"
+      "unscanned": "{count, plural, one {# не отсканировано} few {# не отсканированы} many {# не отсканировано} other {# не отсканировано}}",
+      "countsLabel": "{total, number} всего · {unscanned, number} не извлечено · {notFound, number} не найдено"
     },
     "systemDetail": {
       "backToSystems": "Назад к системам"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# игра} other {# игр}}",
       "playable": "играбельна",
       "unscanned": "{count, plural, one {# не отсканировано} few {# не отсканированы} many {# не отсканировано} other {# не отсканировано}}",
-      "unscannedTitle": "{count, plural, one {# игра не была отсканирована} few {# игры не были отсканированы} many {# игр не было отсканировано} other {# игр не было отсканировано}}"
+      "unscannedTitle": "{count, plural, one {# игра не была отсканирована} few {# игры не были отсканированы} many {# игр не было отсканировано} other {# игр не было отсканировано}}",
+      "countsLabel": "{total, number} всего · {unscanned, number} не извлечено · {notFound, number} не найдено"
     },
     "hero": {
       "games": "Игры",

@@ -140,6 +140,11 @@ export default async function GamePage({
   const systemHero = getSystemArt(rom.platform_slug).hero;
   const heroBg = rom.hero_url ?? rom.screenshot_url ?? systemHero ?? rom.boxart_url;
   const heroIsWideArt = !!(rom.hero_url ?? rom.screenshot_url ?? systemHero);
+  // Per-game "art only" hero (toggled from the game's ⚙ menu): show just the hero
+  // art with no logo/title/caption overlaid. Only honored when there's real wide
+  // art to show — otherwise we keep the title so an assetless header isn't blank.
+  const heroPlain = rom.hero_plain === 1;
+  const showHeroOverlay = !heroPlain || !heroIsWideArt;
 
   // A "fully scraped" game has a complete store page — description + art +
   // release info — which earns the green GAME INFO check (the Deck shows it
@@ -599,7 +604,9 @@ export default async function GamePage({
         {/* scrims: top black fade + bottom fade into the page surface */}
         <div className="absolute inset-x-0 top-0 h-[75px] bg-gradient-to-b from-black/50 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#24282f]/85 to-transparent" />
-        {/* centered logo (or title fallback) + subtle platform caption */}
+        {/* centered logo (or title fallback) + subtle platform caption —
+            suppressed when the user opts for a clean, art-only hero */}
+        {showHeroOverlay && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 px-8 text-center">
           {rom.logo_url ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -625,6 +632,7 @@ export default async function GamePage({
             </div>
           )}
         </div>
+        )}
       </div>
 
       {/* Play bar — Deck geometry (appdetailsplaysection): 24px gutter, 48px
@@ -691,6 +699,7 @@ export default async function GamePage({
             favorite={rom.favorite === 1}
             isAdmin={user.isEditor}
             hidden={rom.hidden === 1}
+            heroPlain={rom.hero_plain === 1}
             filename={rom.filename}
             hasManual={!!rom.manual_url}
             collections={collections.map((c) => ({

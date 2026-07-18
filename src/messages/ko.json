@@ -898,7 +898,10 @@
     "chooseHeroTitle": "히어로 아트워크 선택 — {title}",
     "chooseBoxartTitle": "박스 아트 선택 — {title}",
     "chooseLogoTitle": "로고 선택 — {title}",
-    "fixMatchTitle": "메타데이터 매치 수정 — {title}"
+    "fixMatchTitle": "메타데이터 매치 수정 — {title}",
+    "heroArtOnly": "아트워크만 표시",
+    "heroShowInfo": "로고 & 제목 표시",
+    "heroArtOnlyTooltip": "이 게임의 아트워크에 겹쳐진 로고와 제목을 숨깁니다 — 아트워크만 표시"
   },
   "gamePage": {
     "achievements": "업적",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "시스템",
-      "unscanned": "{count, plural, other {# 미스캔}}"
+      "unscanned": "{count, plural, other {# 미스캔}}",
+      "countsLabel": "{total, number} 총 · {unscanned, number} 미스크래핑 · {notFound, number} 미발견"
     },
     "systemDetail": {
       "backToSystems": "시스템으로 돌아가기"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {#개 게임} other {#개 게임}}",
       "playable": "플레이 가능",
       "unscanned": "{count, plural, other {# 미스캔}}",
-      "unscannedTitle": "{count, plural, other {# 게임이 아직 스크레이프되지 않았습니다}}"
+      "unscannedTitle": "{count, plural, other {# 게임이 아직 스크레이프되지 않았습니다}}",
+      "countsLabel": "{total, number} 총 · {unscanned, number} 미스크래핑 · {notFound, number} 미발견"
     },
     "hero": {
       "games": "게임",

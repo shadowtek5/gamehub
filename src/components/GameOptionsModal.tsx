@@ -43,6 +43,7 @@ export default function GameOptionsModal({
   favorite: initialFavorite,
   isAdmin,
   hidden: initialHidden = false,
+  heroPlain: initialHeroPlain = false,
   collections: initialCollections,
   hasManual = false,
   open: openProp,
@@ -55,6 +56,8 @@ export default function GameOptionsModal({
   favorite: boolean;
   isAdmin: boolean;
   hidden?: boolean;
+  /** Per-user "art only" hero: hide the logo/title overlaid on game details. */
+  heroPlain?: boolean;
   collections: CollectionOpt[];
   hasManual?: boolean;
   /** Controlled open state (opened as a per-card context menu from a grid). */
@@ -79,6 +82,7 @@ export default function GameOptionsModal({
   }, [open]);
   const [favorite, setFavorite] = useState(initialFavorite);
   const [hidden, setHidden] = useState(initialHidden);
+  const [heroPlain, setHeroPlain] = useState(initialHeroPlain);
   const [patcherOpen, setPatcherOpen] = useState(false);
   const [collections, setCollections] = useState(initialCollections);
   const [expand, setExpand] = useState<"none" | "addto" | "manage">("none");
@@ -357,6 +361,18 @@ export default function GameOptionsModal({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ hidden: next }),
+    });
+    router.refresh();
+  }
+
+  async function toggleHeroPlain() {
+    const next = !heroPlain;
+    setHeroPlain(next);
+    playSound(next ? "toggleOn" : "toggleOff");
+    await fetch(`/api/roms/${romId}/personal`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ hero_plain: next }),
     });
     router.refresh();
   }
@@ -855,6 +871,13 @@ export default function GameOptionsModal({
                 title={t("hideTooltip")}
               >
                 {hidden ? t("unhide") : t("hide")}
+              </button>
+              <button
+                onClick={toggleHeroPlain}
+                className={ROW}
+                title={t("heroArtOnlyTooltip")}
+              >
+                {heroPlain ? t("heroShowInfo") : t("heroArtOnly")}
               </button>
 
               {/* Collections › — submenu flies out to the right, SteamOS style */}

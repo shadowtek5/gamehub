@@ -61,6 +61,10 @@ export async function POST(
     sets.push("hidden = ?");
     values.push(body.hidden === true ? 1 : 0);
   }
+  if ("hero_plain" in body) {
+    sets.push("hero_plain = ?");
+    values.push(body.hero_plain === true ? 1 : 0);
+  }
 
   if (sets.length === 0) {
     return NextResponse.json({ error: "Nothing to update" }, { status: 400 });

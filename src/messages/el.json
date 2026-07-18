@@ -528,7 +528,8 @@
     },
     "systems": {
       "title": "Συστήματα",
-      "unscanned": "{count, plural, one {# δεν έχει σαρωθεί} other {# δεν έχουν σαρωθεί}}"
+      "unscanned": "{count, plural, one {# δεν έχει σαρωθεί} other {# δεν έχουν σαρωθεί}}",
+      "countsLabel": "{total, number} σύνολο · {unscanned, number} δεν σκράφηκε · {notFound, number} δεν βρέθηκε"
     },
     "systemDetail": {
       "backToSystems": "Πίσω στα συστήματα"
@@ -1089,7 +1090,10 @@
     "chooseHeroTitle": "Επιλογή εικαστικού hero — {title}",
     "chooseBoxartTitle": "Επιλογή εξωφύλλου — {title}",
     "chooseLogoTitle": "Επιλογή λογοτύπου — {title}",
-    "fixMatchTitle": "Διόρθωση αντιστοίχισης μεταδεδομένων — {title}"
+    "fixMatchTitle": "Διόρθωση αντιστοίχισης μεταδεδομένων — {title}",
+    "heroArtOnly": "Εμφάνιση μόνο του καλλιτεχνήματος",
+    "heroShowInfo": "Εμφάνιση λογότυπου & τίτλου στο καλλιτέχνημα",
+    "heroArtOnlyTooltip": "Απόκρυψη του λογότυπου και του τίτλου που επικαλύπτουν το καλλιτέχνημα του παιχνιδιού — εμφάνιση μόνο του καλλιτεχνήματος"
   },
   "mobileAccount": {
     "common": {
@@ -1300,7 +1304,8 @@
       "gameCount": "{count, plural, one {# παιχνίδι} other {# παιχνίδια}}",
       "playable": "παίζεται",
       "unscanned": "{count, plural, one {# δεν έχει σαρωθεί} other {# δεν έχουν σαρωθεί}}",
-      "unscannedTitle": "{count, plural, one {# παιχνίδι δεν έχει συλλεχθεί ακόμα} other {# παιχνίδια δεν έχουν συλλεχθεί ακόμα}}"
+      "unscannedTitle": "{count, plural, one {# παιχνίδι δεν έχει συλλεχθεί ακόμα} other {# παιχνίδια δεν έχουν συλλεχθεί ακόμα}}",
+      "countsLabel": "{total, number} σύνολο · {unscanned, number} δεν σκράφηκε · {notFound, number} δεν βρέθηκε"
     },
     "hero": {
       "games": "Παιχνίδια",

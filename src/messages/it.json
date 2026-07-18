@@ -1611,7 +1611,8 @@
       "gameCount": "{count, plural, one {# gioco} other {# giochi}}",
       "playable": "giocabile",
       "unscanned": "{count, plural, one {# non esaminato} other {# non esaminati}}",
-      "unscannedTitle": "{count, plural, one {# gioco non è stato ancora analizzato} other {# giochi non sono stati ancora analizzati}}"
+      "unscannedTitle": "{count, plural, one {# gioco non è stato ancora analizzato} other {# giochi non sono stati ancora analizzati}}",
+      "countsLabel": "{total, number} totale · {unscanned, number} non scansionati · {notFound, number} non trovati"
     },
     "hero": {
       "games": "Giochi",
@@ -1637,7 +1638,8 @@
     },
     "systems": {
       "title": "Sistemi",
-      "unscanned": "{count, plural, one {# non esaminato} other {# non esaminati}}"
+      "unscanned": "{count, plural, one {# non esaminato} other {# non esaminati}}",
+      "countsLabel": "{total, number} totale · {unscanned, number} non scansionati · {notFound, number} non trovati"
     },
     "systemDetail": {
       "backToSystems": "Torna ai sistemi"
@@ -2346,7 +2348,10 @@
     "chooseHeroTitle": "Scegli hero artwork — {title}",
     "chooseBoxartTitle": "Scegli copertina — {title}",
     "chooseLogoTitle": "Scegli logo — {title}",
-    "fixMatchTitle": "Ripristina corrispondenza metadati — {title}"
+    "fixMatchTitle": "Ripristina corrispondenza metadati — {title}",
+    "heroArtOnly": "Mostra solo l'illustrazione",
+    "heroShowInfo": "Mostra il logo & il titolo",
+    "heroArtOnlyTooltip": "Nascondi il logo e il titolo sovrapposti all'illustrazione di questo gioco — mostra solo l'artwork"
   },
   "activityComps": {
     "log": {

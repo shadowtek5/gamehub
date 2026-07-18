@@ -12,6 +12,7 @@ import { sgdbSearchGames, sgdbAssetList } from "./providers/steamgriddb";
 import { lbPlatformArtCandidates } from "./providers/launchbox";
 import { platformBySlug } from "./platforms";
 import { defaultLogoUrl } from "./data/systemDefaultLogos";
+import { defaultIconUrl } from "./data/systemDefaultIcons";
 import {
   getAllSystems,
   getSystem,
@@ -110,10 +111,13 @@ export function getSystemArt(slug: string): SystemArt {
   // fall back to the bundled full-color logo shipped in public/system-defaults.
   const scrapedLogo = read("logo");
   const logo = scrapedLogo ?? (row.show_logo ? defaultLogoUrl(slug) : null);
+  // Same deal for the icon: fall back to the bundled monochrome console glyph
+  // shipped in public/system-defaults/icon when nothing has been scraped.
+  const icon = read("icon") ?? (row.show_icon ? defaultIconUrl(slug) : null);
   return {
     hero: read("hero"),
     logo,
-    icon: read("icon"),
+    icon,
     ribbon: read("ribbon"),
     // default logos are full-color, never dark wordmarks -> no light-backdrop treatment
     logoDark: scrapedLogo ? !!row.logo_dark : false,
@@ -126,7 +130,9 @@ export function getSystemArt(slug: string): SystemArt {
 export function getSystemIconMap(): Record<string, string | null> {
   const out: Record<string, string | null> = {};
   for (const row of getAllSystems()) {
-    out[row.slug] = row.show_icon ? artUrl(row.id, "icon") : null;
+    out[row.slug] = row.show_icon
+      ? artUrl(row.id, "icon") ?? defaultIconUrl(row.slug)
+      : null;
   }
   return out;
 }
@@ -136,7 +142,10 @@ export function getSystemIconMap(): Record<string, string | null> {
 export function getSystemDisplayMap(): Record<string, { icon: string | null; name: string }> {
   const out: Record<string, { icon: string | null; name: string }> = {};
   for (const row of getAllSystems()) {
-    out[row.slug] = { icon: row.show_icon ? artUrl(row.id, "icon") : null, name: row.name };
+    out[row.slug] = {
+      icon: row.show_icon ? artUrl(row.id, "icon") ?? defaultIconUrl(row.slug) : null,
+      name: row.name,
+    };
   }
   return out;
 }

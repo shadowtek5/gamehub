@@ -8,8 +8,15 @@
 
 import { playSound } from "./sounds";
 import { backTarget } from "./navTrail";
+import { markBackTo } from "./scrollMemory";
 
 export function goBackSmart(push: (href: string) => void) {
+  // Push-to-parent Back: flag the destination so ScrollRestorer knows this is a
+  // Back (restore the list's scroll) and not a fresh forward entry.
+  const back = (href: string) => {
+    markBackTo(href);
+    push(href);
+  };
   const handledByOverlay = !window.dispatchEvent(
     new CustomEvent("gh-b", { cancelable: true })
   );
@@ -61,7 +68,7 @@ export function goBackSmart(push: (href: string) => void) {
     // knows exactly where we came from; only fall back to history when it's
     // unknown (deep link / fresh tab).
     const target = backTarget();
-    if (target && target !== p) push(target);
+    if (target && target !== p) back(target);
     else window.history.back();
     return;
   }
@@ -73,11 +80,11 @@ export function goBackSmart(push: (href: string) => void) {
     return;
   }
   if (/^\/systems\/.+/.test(p)) {
-    push("/systems");
+    back("/systems");
     return;
   }
   if (/^\/collections\/.+/.test(p)) {
-    push("/collections");
+    back("/collections");
     return;
   }
   // /library, /systems, /collections, /settings, anything else -> Home

@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Изабери hero-уметнички рад — {title}",
     "chooseBoxartTitle": "Изабери box-art — {title}",
     "chooseLogoTitle": "Изабери логотип — {title}",
-    "fixMatchTitle": "Исправи поклапање метаподатака — {title}"
+    "fixMatchTitle": "Исправи поклапање метаподатака — {title}",
+    "heroArtOnly": "Prikaži samo herosku umetnost",
+    "heroShowInfo": "Prikaži logo i naslov na herskoj slici",
+    "heroArtOnlyTooltip": "Sakrijte logo i naslov superponiran na hersku sliku ove igre — prikazujte samo umetničko delo"
   },
   "gamePage": {
     "achievements": "Достигнућа",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Системи",
-      "unscanned": "{count, plural, one {# није скениран} few {# нису скенирани} many {# није скенирано} other {# није скенирано}}"
+      "unscanned": "{count, plural, one {# није скениран} few {# нису скенирани} many {# није скенирано} other {# није скенирано}}",
+      "countsLabel": "{total, number} укупно · {unscanned, number} није извучено · {notFound, number} није пронађено"
     },
     "systemDetail": {
       "backToSystems": "Назад на системе"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# игра} other {# игара}}",
       "playable": "играбљиво",
       "unscanned": "{count, plural, one {# није скениран} few {# нису скенирани} many {# није скенирано} other {# није скенирано}}",
-      "unscannedTitle": "{count, plural, one {# игра није била скенирана} few {# игре нису биле скениране} many {# игара није било скенирано} other {# игара није било скенирано}}"
+      "unscannedTitle": "{count, plural, one {# игра није била скенирана} few {# игре нису биле скениране} many {# игара није било скенирано} other {# игара није било скенирано}}",
+      "countsLabel": "{total, number} укупно · {unscanned, number} није извучено · {notFound, number} није пронађено"
     },
     "hero": {
       "games": "Игре",

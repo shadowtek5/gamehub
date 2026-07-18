@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { browseFacets } from "@/lib/db";
@@ -7,6 +6,7 @@ import { getSystemArt } from "@/lib/systemArt";
 import { getHeroCollageUrl } from "@/lib/systemThumb";
 import MobileLibrary from "@/components/mobile/MobileLibrary";
 import MobileSystemOptions from "@/components/mobile/MobileSystemOptions";
+import MobileBackLink from "@/components/mobile/MobileBackLink";
 import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
@@ -66,7 +66,7 @@ export default async function MobileSystemPage({
           </div>
         )}
         <div className="absolute inset-x-0 top-0 z-20 flex items-start justify-between p-3">
-          <Link
+          <MobileBackLink
             href="/mobile/systems"
             className="flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur"
             aria-label={t("backToSystems")}
@@ -74,7 +74,7 @@ export default async function MobileSystemPage({
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} className="h-5 w-5">
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 5l-7 7 7 7" />
             </svg>
-          </Link>
+          </MobileBackLink>
           {user.isEditor && <MobileSystemOptions slug={slug} shortName={platform.shortName} />}
         </div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-black/80 to-transparent" />

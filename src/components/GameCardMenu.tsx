@@ -16,6 +16,7 @@ interface GameOpts {
   filename: string;
   favorite: boolean;
   hidden: boolean;
+  heroPlain: boolean;
   hasManual: boolean;
   isAdmin: boolean;
   collections: { id: number; name: string; hasRom: boolean }[];
@@ -49,6 +50,7 @@ export default function GameCardMenu() {
       filename={data.filename}
       favorite={data.favorite}
       hidden={data.hidden}
+      heroPlain={data.heroPlain}
       hasManual={data.hasManual}
       isAdmin={data.isAdmin}
       collections={data.collections}

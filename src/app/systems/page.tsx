@@ -12,16 +12,21 @@ export const dynamic = "force-dynamic";
 export default async function SystemsPage() {
   const t = await getTranslations("systemsPages");
   const user = await requireUser();
+  // Three per-system counts: present games (total), of which not-yet-scraped,
+  // plus files that have gone missing (not found on disk, missing = 1).
   const counts = getDb()
     .prepare(
-      `SELECT platform_slug, COUNT(*) AS count,
-              SUM(CASE WHEN scraped_at IS NULL THEN 1 ELSE 0 END) AS unscanned
-       FROM roms WHERE missing = 0
+      `SELECT platform_slug,
+              SUM(CASE WHEN missing = 0 THEN 1 ELSE 0 END) AS count,
+              SUM(CASE WHEN missing = 0 AND scraped_at IS NULL THEN 1 ELSE 0 END) AS unscanned,
+              SUM(CASE WHEN missing = 1 THEN 1 ELSE 0 END) AS not_found
+       FROM roms
        GROUP BY platform_slug`
     )
-    .all() as { platform_slug: string; count: number; unscanned: number }[];
+    .all() as { platform_slug: string; count: number; unscanned: number; not_found: number }[];
   const countBySlug = new Map(counts.map((c) => [c.platform_slug, c.count]));
   const unscannedBySlug = new Map(counts.map((c) => [c.platform_slug, c.unscanned]));
+  const notFoundBySlug = new Map(counts.map((c) => [c.platform_slug, c.not_found]));
 
   // Top-rated covers per system for the live collage fallback (only used before
   // a card thumbnail has been generated).
@@ -52,6 +57,7 @@ export default async function SystemsPage() {
       name,
       count: countBySlug.get(p.slug) ?? 0,
       unscanned: unscannedBySlug.get(p.slug) ?? 0,
+      notFound: notFoundBySlug.get(p.slug) ?? 0,
       thumb: getCardThumbUrl(p.slug) ?? null,
       covers: coversBySlug.get(p.slug) ?? [],
       icon: art.icon ?? null,

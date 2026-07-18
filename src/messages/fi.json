@@ -528,7 +528,8 @@
     },
     "systems": {
       "title": "Järjestelmät",
-      "unscanned": "{count, plural, one {# skannaamatonta} other {# skannaamatonta}}"
+      "unscanned": "{count, plural, one {# skannaamatonta} other {# skannaamatonta}}",
+      "countsLabel": "{total, number} yhteensä · {unscanned, number} ei haettu · {notFound, number} ei löytynyt"
     },
     "systemDetail": {
       "backToSystems": "Takaisin järjestelmiin"
@@ -1089,7 +1090,10 @@
     "chooseHeroTitle": "Valitse hero-kuva — {title}",
     "chooseBoxartTitle": "Valitse kansikuva — {title}",
     "chooseLogoTitle": "Valitse logo — {title}",
-    "fixMatchTitle": "Korjaa metatietojen osuma — {title}"
+    "fixMatchTitle": "Korjaa metatietojen osuma — {title}",
+    "heroArtOnly": "Näytä vain kuvitusta",
+    "heroShowInfo": "Näytä logo ja otsikko kuvituksessa",
+    "heroArtOnlyTooltip": "Piilota pelin kuvitukselle päällekkäin asetettu logo ja otsikko — näytä vain kuvitus"
   },
   "mobileAccount": {
     "common": {
@@ -1300,7 +1304,8 @@
       "gameCount": "{count, plural, one {# peli} other {# peliä}}",
       "playable": "pelattavissa",
       "unscanned": "{count, plural, one {# skannaamatonta} other {# skannaamatonta}}",
-      "unscannedTitle": "{count, plural, one {# peli ei ole vielä haettu} other {# peliä ei ole vielä haettu}}"
+      "unscannedTitle": "{count, plural, one {# peli ei ole vielä haettu} other {# peliä ei ole vielä haettu}}",
+      "countsLabel": "{total, number} yhteensä · {unscanned, number} ei haettu · {notFound, number} ei löytynyt"
     },
     "hero": {
       "games": "Pelit",

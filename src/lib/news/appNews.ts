@@ -15,6 +15,24 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-18",
+    title: "Back keeps your place",
+    body: "Working through a long list is smoother now. When you open a game and go back, the library (or system) returns to exactly where you were scrolled — and the same for going back from a system to the systems grid. No more being bounced to the top and losing your spot every time. It restores your position even deep into a big list, and works on desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-07-18",
+    title: "Distinct icons for every system",
+    body: "Each console now has its own real icon out of the box. Where the default square icon used to draw a generic silhouette by hardware type — so the NES, SNES and Genesis all looked the same — every system now ships with a distinct monochrome console glyph bundled in the app, no scraping needed. They're tinted onto each system's brand-colored tile so a fresh library looks polished from the first launch, and cover 97 systems including obscure ones. Any icon you scrape or set yourself still takes over. On desktop/TV and the mobile app.",
+    art: "artwork",
+  },
+  {
+    date: "2026-07-18",
+    title: "Art-only game hero",
+    body: "Have a game whose hero artwork speaks for itself? Open the game's ⚙ menu and pick \"Show hero art only\" to hide the logo and title overlaid on its detail header — leaving just the artwork for a cleaner, more art-forward look. It's a per-game choice (set it on the games you want), applies wherever a game actually has wide hero art, and assetless games still show their title so the header is never blank.",
+    art: "artwork",
+  },
+  {
     date: "2026-07-17",
     title: "Update GameHub from inside GameHub",
     body: "No more rebuilding or re-pulling the Docker image by hand to update. Settings › System › Software updates now checks GitHub for new GameHub releases and installs them for you — or turn on automatic updates and let it check and apply new versions on its own. Prefer to do it yourself? Upload a release .zip and it installs the same way. Every update is verified by SHA-256 before it's applied, your data is never touched, and if a new version fails to start GameHub automatically rolls back to the built-in one — so an update can't leave you stuck. You can also revert to any earlier installed version at any time. Works on desktop/TV and the mobile app (Docker installs).",

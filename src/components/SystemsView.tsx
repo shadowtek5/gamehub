@@ -20,6 +20,8 @@ export interface SystemCard {
   count: number;
   /** games in this system with no scraped metadata yet (scraped_at IS NULL) */
   unscanned: number;
+  /** games whose file is missing from disk (missing = 1, "not found") */
+  notFound: number;
   thumb: string | null;
   covers: string[];
   icon: string | null;
@@ -91,16 +93,21 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
                 <SystemIcon platform={p} size="sm" iconUrl={s.icon} />
                 <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{s.name}</span>
                 {p?.ejsCore && <span className="text-[12px] font-semibold text-accent">{t("playable")}</span>}
-                {s.unscanned > 0 && (
-                  <span
-                    className="shrink-0 text-right text-[12px] tabular-nums text-[#d9a441]"
-                    title={t("unscannedTitle", { count: s.unscanned })}
-                  >
-                    {t("unscanned", { count: s.unscanned })}
+                {/* total games / not scraped / not found — zeros dimmed, problems
+                    colored (amber = unscraped, red = missing file) */}
+                <span
+                  className="shrink-0 text-right text-[13px] tabular-nums"
+                  title={t("countsLabel", { total: s.count, unscanned: s.unscanned, notFound: s.notFound })}
+                >
+                  <span className="text-dim">{s.count.toLocaleString()}</span>
+                  <span className="text-dim/40"> / </span>
+                  <span className={s.unscanned > 0 ? "text-[#d9a441]" : "text-dim/40"}>
+                    {s.unscanned.toLocaleString()}
                   </span>
-                )}
-                <span className="w-24 shrink-0 text-right text-[13px] tabular-nums text-dim">
-                  {t("gameCount", { count: s.count })}
+                  <span className="text-dim/40"> / </span>
+                  <span className={s.notFound > 0 ? "text-[#e5534b]" : "text-dim/40"}>
+                    {s.notFound.toLocaleString()}
+                  </span>
                 </span>
               </Link>
             );

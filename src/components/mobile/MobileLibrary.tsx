@@ -1,8 +1,10 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { previousPath } from "@/lib/routePath";
+import { saveCountFor, savedCountFor } from "@/lib/scrollMemory";
 import MobileGameCard, { MOBILE_COVER_THUMB_W } from "./MobileGameCard";
 import { MobileSheet } from "./primitives";
 import { platformBySlug } from "@/lib/platforms";
@@ -54,6 +56,7 @@ export default function MobileLibrary({
   const t = useTranslations("mobileLibrary");
   const tl = useTranslations("library"); // reused desktop filter labels
   const search = useSearchParams();
+  const pathname = usePathname();
   const [query, setQuery] = useState("");
   const [debounced, setDebounced] = useState("");
   const [sort, setSort] = useState("name");
@@ -72,6 +75,19 @@ export default function MobileLibrary({
   const [loading, setLoading] = useState(true);
   const seq = useRef(0);
   const searchRef = useRef<HTMLInputElement>(null);
+
+  // Returning from a game detail: reload the item count we'd loaded so the grid
+  // is tall enough for ScrollRestorer to land you back where you were. Resolved
+  // once on mount (before the first fetch) from the path we arrived from.
+  const restoreCount = useRef<number | null>(null);
+  const [restored, setRestored] = useState(false);
+  useEffect(() => {
+    const from = previousPath();
+    if (from && /^\/mobile\/game\//.test(from)) restoreCount.current = savedCountFor(pathname);
+    // One-shot init after reading the arrival path — not a cascading render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setRestored(true);
+  }, [pathname]);
 
   useEffect(() => {
     if (search?.get("focus")) searchRef.current?.focus();
@@ -109,21 +125,38 @@ export default function MobileLibrary({
 
   // Reload from the top whenever a filter changes
   useEffect(() => {
+    if (!restored) return;
     const s = ++seq.current;
+    // On a return-from-detail, page through up to the previously-loaded count so
+    // the restored scroll has somewhere to land; otherwise just the first chunk.
+    const want = restoreCount.current && restoreCount.current > CHUNK ? restoreCount.current : CHUNK;
+    restoreCount.current = null;
     // Toggling the loading flag before a fetch is a data-load effect, not a
     // cascading render.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
-    fetch(`/api/library?${buildParams(0)}`, { cache: "no-store" })
-      .then((r) => r.json())
-      .then((d) => {
+    (async () => {
+      const rows: BrowseRomRow[] = [];
+      let tot = 0;
+      for (let off = 0; off < want; off += CHUNK) {
+        const res = await fetch(`/api/library?${buildParams(off)}`, { cache: "no-store" });
+        const d = await res.json();
         if (s !== seq.current) return;
-        setItems(d.rows ?? []);
-        setTotal(d.total ?? 0);
-        setLoading(false);
-      })
-      .catch(() => s === seq.current && setLoading(false));
-  }, [buildParams]);
+        rows.push(...(d.rows ?? []));
+        tot = d.total ?? 0;
+        if (rows.length >= tot) break;
+      }
+      if (s !== seq.current) return;
+      setItems(rows);
+      setTotal(tot);
+      setLoading(false);
+    })().catch(() => s === seq.current && setLoading(false));
+  }, [restored, buildParams]);
+
+  // Remember how many items are loaded (per page path) for scroll restoration.
+  useEffect(() => {
+    if (restored) saveCountFor(pathname, items.length);
+  }, [restored, pathname, items.length]);
 
   const loadMore = useCallback(() => {
     if (loading || items.length >= total) return;

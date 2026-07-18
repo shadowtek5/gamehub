@@ -695,6 +695,7 @@ function migrate(db: Database.Database) {
   addUrCol("difficulty", "INTEGER"); // 1..10
   addUrCol("completion", "INTEGER"); // 0..100 percent
   addUrCol("hidden", "INTEGER NOT NULL DEFAULT 0"); // hide from this user's grids
+  addUrCol("hero_plain", "INTEGER NOT NULL DEFAULT 0"); // show game-details hero as art only (no logo/title)
 
   const stateCols = new Set(
     (db.prepare("PRAGMA table_info(save_states)").all() as { name: string }[]).map((c) => c.name)
@@ -1708,6 +1709,7 @@ export interface LibraryRomRow extends RomRow {
   playtime_seconds: number;
   last_played_at: string | null;
   hidden: number;
+  hero_plain: number;
   notes: string | null;
   user_rating: number | null;
   difficulty: number | null;
@@ -1735,6 +1737,7 @@ const LIBRARY_SELECT = `
          COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
          ur.last_played_at AS last_played_at,
          COALESCE(ur.hidden, 0) AS hidden,
+         COALESCE(ur.hero_plain, 0) AS hero_plain,
          ur.notes AS notes,
          ur.user_rating AS user_rating,
          ur.difficulty AS difficulty,

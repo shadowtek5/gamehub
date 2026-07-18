@@ -79,6 +79,7 @@ const GROUPS: Group[] = [
   {
     heading: "Assets",
     items: [
+      { name: "RetroArch XMB “Monochrome” system icons", by: "libretro", license: "CC-BY-4.0", url: "https://github.com/libretro/retroarch-assets" },
       { name: "Gamepad Asset Pack", by: "AL2009man", license: "MIT", url: "https://github.com/AL2009man/Gamepad-Asset-Pack" },
       { name: "GameHub UI sounds", license: "Original (CC0)", url: "https://creativecommons.org/publicdomain/zero/1.0/" },
     ],

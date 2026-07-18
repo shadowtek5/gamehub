@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Velg hero-artwork — {title}",
     "chooseBoxartTitle": "Velg box-art — {title}",
     "chooseLogoTitle": "Velg logo — {title}",
-    "fixMatchTitle": "Korriger metadatamatch — {title}"
+    "fixMatchTitle": "Korriger metadatamatch — {title}",
+    "heroArtOnly": "Vis kun illustrasjonen",
+    "heroShowInfo": "Vis logo & tittel",
+    "heroArtOnlyTooltip": "Skjul logoen og tittelen som ligger over illustrasjonen for dette spillet — vis bare illustrasjonen"
   },
   "gamePage": {
     "achievements": "Achievements",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systemer",
-      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}"
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
+      "countsLabel": "{total, number} total · {unscanned, number} ikke skrapt · {notFound, number} ikke funnet"
     },
     "systemDetail": {
       "backToSystems": "Tilbake til systemer"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# spill} other {# spill}}",
       "playable": "spillbar",
       "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
-      "unscannedTitle": "{count, plural, one {# spill er ikke blitt skrapet} other {# spill er ikke blitt skrapet}}"
+      "unscannedTitle": "{count, plural, one {# spill er ikke blitt skrapet} other {# spill er ikke blitt skrapet}}",
+      "countsLabel": "{total, number} total · {unscanned, number} ikke skrapt · {notFound, number} ikke funnet"
     },
     "hero": {
       "games": "Spill",

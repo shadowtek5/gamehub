@@ -898,7 +898,10 @@
     "chooseHeroTitle": "选择横幅图 —— {title}",
     "chooseBoxartTitle": "选择封面图 —— {title}",
     "chooseLogoTitle": "选择标志 —— {title}",
-    "fixMatchTitle": "修正元数据匹配 —— {title}"
+    "fixMatchTitle": "修正元数据匹配 —— {title}",
+    "heroArtOnly": "仅显示英雄艺术",
+    "heroShowInfo": "在英雄上显示徽标和标题",
+    "heroArtOnlyTooltip": "隐藏覆盖在此游戏英雄上的徽标和标题 — 仅显示作品"
   },
   "gamePage": {
     "achievements": "成就",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "系统",
-      "unscanned": "{count, plural, other {# 未扫描}}"
+      "unscanned": "{count, plural, other {# 未扫描}}",
+      "countsLabel": "{total, number} 总计 · {unscanned, number} 未扫描 · {notFound, number} 未找到"
     },
     "systemDetail": {
       "backToSystems": "返回系统列表"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# 个游戏} other {# 个游戏}}",
       "playable": "可玩",
       "unscanned": "{count, plural, other {# 未扫描}}",
-      "unscannedTitle": "{count, plural, other {# 款游戏尚未被扫描}}"
+      "unscannedTitle": "{count, plural, other {# 款游戏尚未被扫描}}",
+      "countsLabel": "{total, number} 总计 · {unscanned, number} 未扫描 · {notFound, number} 未找到"
     },
     "hero": {
       "games": "游戏",

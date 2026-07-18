@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Vælg hero-kunst — {title}",
     "chooseBoxartTitle": "Vælg box art — {title}",
     "chooseLogoTitle": "Vælg logo — {title}",
-    "fixMatchTitle": "Ret metadata-match — {title}"
+    "fixMatchTitle": "Ret metadata-match — {title}",
+    "heroArtOnly": "Vis kun kunstværket",
+    "heroShowInfo": "Vis logo & titel på kunstværket",
+    "heroArtOnlyTooltip": "Skjul logoet og titlen overlejret på spillets kunstværk — vis kun kunstværket"
   },
   "gamePage": {
     "achievements": "Achievements",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systemer",
-      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}"
+      "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
+      "countsLabel": "{total, number} i alt · {unscanned, number} ikke skrabet · {notFound, number} ikke fundet"
     },
     "systemDetail": {
       "backToSystems": "Tilbage til systemer"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# spil} other {# spil}}",
       "playable": "kan spilles",
       "unscanned": "{count, plural, one {# ikke skannet} other {# ikke skannet}}",
-      "unscannedTitle": "{count, plural, one {# spil er ikke blevet skrabet endnu} other {# spil er ikke blevet skrabet endnu}}"
+      "unscannedTitle": "{count, plural, one {# spil er ikke blevet skrabet endnu} other {# spil er ikke blevet skrabet endnu}}",
+      "countsLabel": "{total, number} i alt · {unscanned, number} ikke skrabet · {notFound, number} ikke fundet"
     },
     "hero": {
       "games": "Spil",

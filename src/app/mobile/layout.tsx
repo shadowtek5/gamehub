@@ -4,6 +4,8 @@ import MobileTopBar from "@/components/mobile/MobileTopBar";
 import MobileBottomNav from "@/components/mobile/MobileBottomNav";
 import PwaRegister from "@/components/mobile/PwaRegister";
 import CommandPalette from "@/components/CommandPalette";
+import ScrollRestorer from "@/components/ScrollRestorer";
+import RoutePathTracker from "@/components/RoutePathTracker";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +23,7 @@ export default async function MobileLayout({ children }: { children: React.React
 
   return (
     <div className="min-h-[100dvh] bg-[var(--bg)] text-body">
+      <RoutePathTracker />
       <MobileTopBar avatarUrl={avatarUrl} />
       <main
         className="mx-auto w-full max-w-[720px] overflow-x-hidden px-4"
@@ -33,6 +36,7 @@ export default async function MobileLayout({ children }: { children: React.React
       </main>
       <MobileBottomNav showDownloads={user.isEditor} />
       <CommandPalette mobile isAdmin={user.isAdmin} />
+      <ScrollRestorer />
       <PwaRegister />
     </div>
   );

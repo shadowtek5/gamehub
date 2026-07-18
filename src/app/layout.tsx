@@ -23,6 +23,7 @@ import QuickAccess, { QuickResume } from "@/components/QuickAccess";
 import CommandPalette from "@/components/CommandPalette";
 import GameCardMenu from "@/components/GameCardMenu";
 import RoutePathTracker from "@/components/RoutePathTracker";
+import ScrollRestorer from "@/components/ScrollRestorer";
 import LanguageSync from "@/components/LanguageSync";
 
 const geistSans = Geist({
@@ -128,6 +129,7 @@ export default async function RootLayout({
             {user && <GameCardMenu />}
             {user && <CommandPalette mobile={false} isAdmin={user.isAdmin} />}
             <RoutePathTracker />
+            <ScrollRestorer />
             <GamepadNav />
             <OnScreenKeyboard />
             <SteamosShim />

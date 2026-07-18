@@ -898,7 +898,10 @@
     "chooseHeroTitle": "Hero-artwork kiezen — {title}",
     "chooseBoxartTitle": "Box-art kiezen — {title}",
     "chooseLogoTitle": "Logo kiezen — {title}",
-    "fixMatchTitle": "Metadatamatch corrigeren — {title}"
+    "fixMatchTitle": "Metadatamatch corrigeren — {title}",
+    "heroArtOnly": "Alleen artwork tonen",
+    "heroShowInfo": "Logo & titel tonen",
+    "heroArtOnlyTooltip": "Het logo en de titel die over deze spelafbeelding liggen verbergen — alleen het artwork tonen"
   },
   "gamePage": {
     "achievements": "Achievements",
@@ -1494,7 +1497,8 @@
     },
     "systems": {
       "title": "Systemen",
-      "unscanned": "{count, plural, one {# niet gescand} other {# niet gescand}}"
+      "unscanned": "{count, plural, one {# niet gescand} other {# niet gescand}}",
+      "countsLabel": "{total, number} totaal · {unscanned, number} niet gescraped · {notFound, number} niet gevonden"
     },
     "systemDetail": {
       "backToSystems": "Terug naar systemen"
@@ -2793,7 +2797,8 @@
       "gameCount": "{count, plural, one {# spel} other {# spellen}}",
       "playable": "speelbaar",
       "unscanned": "{count, plural, one {# niet gescand} other {# niet gescand}}",
-      "unscannedTitle": "{count, plural, one {# spel is nog niet gescraped} other {# spelen zijn nog niet gescraped}}"
+      "unscannedTitle": "{count, plural, one {# spel is nog niet gescraped} other {# spelen zijn nog niet gescraped}}",
+      "countsLabel": "{total, number} totaal · {unscanned, number} niet gescraped · {notFound, number} niet gevonden"
     },
     "hero": {
       "games": "Spellen",

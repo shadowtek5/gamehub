@@ -30,6 +30,7 @@ export async function GET(
     filename: rom.filename ?? "",
     favorite: rom.favorite === 1,
     hidden: rom.hidden === 1,
+    heroPlain: rom.hero_plain === 1,
     hasManual: !!rom.manual_url,
     isAdmin: user.isEditor,
     collections: collections.map((c) => ({ id: c.id, name: c.name, hasRom: c.has_rom === 1 })),

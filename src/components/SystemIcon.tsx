@@ -222,9 +222,13 @@ export default function SystemIcon({
   iconUrl?: string | null;
 }) {
   const arch = ARCHETYPES[platform.slug] ?? "console";
-  // Delivered default: the console silhouette sits on a diagonal brand-wash tile
-  // (white glyph reads against the color). A scraped icon keeps the neutral tile.
-  const washTile = !iconUrl
+  // A bundled default icon is a white monochrome console glyph (shipped in
+  // public/system-defaults/icon) — it gets the same diagonal brand-wash tile as
+  // the drawn silhouette so the two read as one system, whereas a scraped icon
+  // (usually a full-bleed console photo) keeps the neutral tile + cover crop.
+  const isBundled = !!iconUrl && iconUrl.startsWith("/system-defaults/icon/");
+  const glyphish = !iconUrl || isBundled; // wants the brand-wash tile
+  const washTile = glyphish
     ? {
         background: `linear-gradient(135deg, color-mix(in srgb, ${platform.color} 62%, #e6ecf4) 0%, color-mix(in srgb, ${platform.color} 52%, #0c1017) 55%, #0a0e13 100%)`,
       }
@@ -232,7 +236,7 @@ export default function SystemIcon({
   return (
     <span
       className={`flex shrink-0 select-none items-center justify-center overflow-hidden ring-1 ring-white/10 ${
-        iconUrl ? "bg-[#141a21]" : ""
+        iconUrl && !isBundled ? "bg-[#141a21]" : ""
       } ${SIZES[size]}`}
       style={washTile}
       title={`${platformVendor(platform.slug)} — ${platform.name}`}
@@ -240,7 +244,15 @@ export default function SystemIcon({
     >
       {iconUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={iconUrl} alt="" className="h-full w-full object-cover" />
+        <img
+          src={iconUrl}
+          alt=""
+          className={
+            isBundled
+              ? "h-[70%] w-[70%] object-contain [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.35))]"
+              : "h-full w-full object-cover"
+          }
+        />
       ) : (
         <svg
           viewBox="0 0 24 24"
