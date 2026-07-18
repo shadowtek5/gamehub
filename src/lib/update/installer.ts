@@ -17,10 +17,15 @@ import {
 } from "./paths";
 import { parseManifest, checkCompatible, imageVersion, type ReleaseManifest } from "./manifest";
 
+const S_IFLNK = 0o120000;
+
 /**
- * Extract a zip into destDir. Guards every entry against Zip-Slip: the resolved
- * output path must stay within destDir. Directory entries create folders; file
- * entries stream to disk.
+ * Extract a zip into destDir, one entry at a time. Guards every entry against
+ * Zip-Slip: the resolved output path must stay within destDir. Directory entries
+ * create folders; file entries stream to disk; SYMLINK entries (unix mode
+ * S_IFLNK in the external attributes) are recreated as symlinks — required for
+ * Next.js's serverExternalPackages aliases under .next/node_modules (better-
+ * sqlite3, sharp), whose targets are also validated to stay within destDir.
  */
 export function extractZip(zipPath: string, destDir: string): Promise<void> {
   return new Promise((resolve, reject) => {
@@ -28,7 +33,6 @@ export function extractZip(zipPath: string, destDir: string): Promise<void> {
     const destRoot = path.resolve(destDir);
     yauzl.open(zipPath, { lazyEntries: true }, (err, zip) => {
       if (err || !zip) return reject(err ?? new Error("Cannot open zip"));
-      let pending = 0;
       let done = false;
       const fail = (e: Error) => {
         if (!done) {
@@ -39,39 +43,61 @@ export function extractZip(zipPath: string, destDir: string): Promise<void> {
           reject(e);
         }
       };
+      const within = (p: string) => p === destRoot || p.startsWith(destRoot + path.sep);
+
       zip.on("entry", (entry: yauzl.Entry) => {
         const name = entry.fileName.replace(/\\/g, "/");
-        // reject absolute paths and any traversal outside destDir
         const target = path.resolve(destRoot, name);
-        if (target !== destRoot && !target.startsWith(destRoot + path.sep)) {
-          return fail(new Error(`Unsafe path in zip: ${entry.fileName}`));
-        }
+        if (!within(target)) return fail(new Error(`Unsafe path in zip: ${entry.fileName}`));
+
+        // directory
         if (/\/$/.test(name)) {
           fs.mkdirSync(target, { recursive: true });
           zip.readEntry();
           return;
         }
+
+        const unixMode = (entry.externalFileAttributes ?? 0) >>> 16;
+        const isSymlink = (unixMode & 0o170000) === S_IFLNK;
+
         fs.mkdirSync(path.dirname(target), { recursive: true });
-        pending++;
+
+        if (isSymlink) {
+          // the entry body is the link target string
+          zip.openReadStream(entry, (err2, rs) => {
+            if (err2 || !rs) return fail(err2 ?? new Error("Cannot read zip entry"));
+            const chunks: Buffer[] = [];
+            rs.on("error", fail);
+            rs.on("data", (d: Buffer) => chunks.push(d));
+            rs.on("end", () => {
+              try {
+                const linkTarget = Buffer.concat(chunks).toString("utf8");
+                // a symlink target must not escape the release dir
+                const resolved = path.resolve(path.dirname(target), linkTarget);
+                if (!within(resolved)) throw new Error(`Unsafe symlink target: ${name} -> ${linkTarget}`);
+                fs.rmSync(target, { force: true });
+                fs.symlinkSync(linkTarget, target);
+              } catch (e) {
+                return fail(e as Error);
+              }
+              zip.readEntry();
+            });
+          });
+          return;
+        }
+
+        // regular file
         zip.openReadStream(entry, (err2, rs) => {
           if (err2 || !rs) return fail(err2 ?? new Error("Cannot read zip entry"));
           const ws = fs.createWriteStream(target);
           rs.on("error", fail);
           ws.on("error", fail);
-          ws.on("close", () => {
-            pending--;
-            if (done) return;
-            if (pending === 0 && zip.entriesRead === zip.entryCount) {
-              done = true;
-              resolve();
-            }
-          });
+          ws.on("close", () => zip.readEntry());
           rs.pipe(ws);
-          zip.readEntry();
         });
       });
       zip.on("end", () => {
-        if (!done && pending === 0) {
+        if (!done) {
           done = true;
           resolve();
         }

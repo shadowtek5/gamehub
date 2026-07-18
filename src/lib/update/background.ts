@@ -35,6 +35,9 @@ function confirmHealthyLater(): void {
       if (readMarker("current") === booted) {
         writeMarker("healthy", booted);
         writeMarker("trials", "0");
+        // release has stayed up through the grace period — stop treating stray
+        // runtime errors as boot failures (disarm the probation guard).
+        (globalThis as unknown as { __ghProbation?: { disarm: () => void } }).__ghProbation?.disarm();
       }
     } catch {
       /* markers are best-effort */

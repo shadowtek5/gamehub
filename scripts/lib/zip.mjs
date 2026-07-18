@@ -35,7 +35,16 @@ function dosDateTime(d) {
   return { time: time & 0xffff, date: date & 0xffff };
 }
 
-/** Recursively list files (posix zip paths) under `root`. */
+const S_IFREG = 0o100000;
+const S_IFLNK = 0o120000;
+
+/**
+ * Recursively list entries under `root`. Symlinks are preserved as symlink
+ * entries (NOT followed) — Next.js's standalone output puts directory symlinks
+ * under .next/node_modules/<pkg>-<hash> pointing at ../../node_modules/<pkg> for
+ * every serverExternalPackages native module (better-sqlite3, sharp). Dropping
+ * them breaks `require("<pkg>-<hash>")` at runtime, so they must survive.
+ */
 function walk(root) {
   const out = [];
   const stack = [root];
@@ -44,12 +53,12 @@ function walk(root) {
     for (const name of fs.readdirSync(dir)) {
       const abs = path.join(dir, name);
       const st = fs.lstatSync(abs);
-      if (st.isDirectory()) stack.push(abs);
-      else if (st.isFile()) out.push(abs);
-      // symlinks are skipped: standalone output contains none
+      if (st.isSymbolicLink()) out.push({ abs, type: "symlink" });
+      else if (st.isDirectory()) stack.push(abs);
+      else if (st.isFile()) out.push({ abs, type: "file" });
     }
   }
-  out.sort();
+  out.sort((a, b) => (a.abs < b.abs ? -1 : a.abs > b.abs ? 1 : 0));
   return out;
 }
 
@@ -70,16 +79,24 @@ export function zipDir(srcDir, outFile) {
   const { time, date } = dosDateTime(now);
 
   try {
-    for (const abs of files) {
+    for (const entry of files) {
+      const abs = entry.abs;
       const rel = path.relative(srcDir, abs).split(path.sep).join("/");
       const nameBuf = Buffer.from(rel, "utf8");
-      const raw = fs.readFileSync(abs);
+
+      // symlinks: content is the link target string; unix mode marks it S_IFLNK
+      // so the extractor recreates a symlink instead of a plain file.
+      const isLink = entry.type === "symlink";
+      const raw = isLink
+        ? Buffer.from(fs.readlinkSync(abs).split(path.sep).join("/"), "utf8")
+        : fs.readFileSync(abs);
       const crc = crc32(raw);
-      const deflated = zlib.deflateRawSync(raw, { level: 6 });
-      // store if deflate didn't help (already-compressed assets, tiny files)
+      const deflated = isLink ? raw : zlib.deflateRawSync(raw, { level: 6 });
+      // store if deflate didn't help (already-compressed assets, tiny files, links)
       const useStore = deflated.length >= raw.length;
       const method = useStore ? 0 : 8;
       const body = useStore ? raw : deflated;
+      const externalAttrs = (((isLink ? S_IFLNK | 0o777 : S_IFREG | 0o644) << 16) >>> 0);
 
       const local = Buffer.alloc(30);
       local.writeUInt32LE(0x04034b50, 0);
@@ -96,9 +113,19 @@ export function zipDir(srcDir, outFile) {
 
       fs.writeSync(fd, local);
       fs.writeSync(fd, nameBuf);
-      fs.writeSync(fd, body);
+      if (body.length) fs.writeSync(fd, body);
 
-      central.push({ nameBuf, crc, method, time, date, compSize: body.length, rawSize: raw.length, offset });
+      central.push({
+        nameBuf,
+        crc,
+        method,
+        time,
+        date,
+        compSize: body.length,
+        rawSize: raw.length,
+        offset,
+        externalAttrs,
+      });
       offset += local.length + nameBuf.length + body.length;
       if (offset > 0xffffffff) throw new Error("Archive exceeds 4 GB; ZIP64 not implemented.");
     }
@@ -121,7 +148,7 @@ export function zipDir(srcDir, outFile) {
       cd.writeUInt16LE(0, 32); // comment
       cd.writeUInt16LE(0, 34); // disk start
       cd.writeUInt16LE(0, 36); // internal attrs
-      cd.writeUInt32LE(0o644 << 16, 38); // external attrs (regular file)
+      cd.writeUInt32LE(e.externalAttrs, 38); // external attrs (unix mode in high 16 bits)
       cd.writeUInt32LE(e.offset, 42); // local header offset
       fs.writeSync(fd, cd);
       fs.writeSync(fd, e.nameBuf);

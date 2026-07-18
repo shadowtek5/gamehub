@@ -53,8 +53,13 @@ fs.rmSync(stage, { recursive: true, force: true });
 fs.mkdirSync(stage, { recursive: true });
 
 console.log(`Assembling gamehub ${version} (${TARGET_PLATFORM})…`);
-// standalone carries server.js, package.json, node_modules and a pruned .next
-fs.cpSync(standalone, stage, { recursive: true });
+// standalone carries server.js, package.json, node_modules and a pruned .next.
+// verbatimSymlinks keeps the RELATIVE symlink targets Next emits under
+// .next/node_modules/<pkg>-<hash> -> ../../node_modules/<pkg> for each
+// serverExternalPackages native module. Without it, cpSync rewrites them to
+// absolute build-time paths that don't exist in the installed release, so
+// `require("<pkg>-<hash>")` fails at runtime (better-sqlite3, sharp).
+fs.cpSync(standalone, stage, { recursive: true, verbatimSymlinks: true });
 // standalone does NOT include static assets or public/ — add them
 fs.cpSync(staticDir, path.join(stage, ".next", "static"), { recursive: true });
 if (fs.existsSync(publicDir)) fs.cpSync(publicDir, path.join(stage, "public"), { recursive: true });
