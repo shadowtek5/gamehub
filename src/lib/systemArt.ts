@@ -13,6 +13,7 @@ import { lbPlatformArtCandidates } from "./providers/launchbox";
 import { platformBySlug } from "./platforms";
 import { defaultLogoUrl } from "./data/systemDefaultLogos";
 import { defaultIconUrl } from "./data/systemDefaultIcons";
+import { readBodyWithProgress } from "./downloadProgress";
 import {
   getAllSystems,
   getSystem,
@@ -33,13 +34,18 @@ import {
 
 export type { SystemArtKind };
 
-async function download(url: string): Promise<{ buf: Buffer; ext: string } | null> {
+async function download(
+  url: string,
+  onBytes?: (bytes: number, total: number) => void
+): Promise<{ buf: Buffer; ext: string } | null> {
   try {
     const res = await ssFetch(url, { signal: AbortSignal.timeout(60_000) });
     if (!res.ok) return null;
     const ct = (res.headers.get("content-type") || "").split(";")[0].trim();
     if (!ct.startsWith("image/")) return null;
-    const buf = Buffer.from(await res.arrayBuffer());
+    const buf = onBytes
+      ? await readBodyWithProgress(res, onBytes)
+      : Buffer.from(await res.arrayBuffer());
     if (buf.length === 0) return null;
     const ext = ct === "image/png" ? "png" : ct === "image/webp" ? "webp" : "jpg";
     return { buf, ext };
@@ -219,7 +225,8 @@ async function sgdbSystemAssets(
  */
 export async function scrapeSystemArt(
   slug: string,
-  force = false
+  force = false,
+  onProgress?: (done: number, total: number, label?: string) => void
 ): Promise<{ got: string[] }> {
   const row = getSystem(slug);
   if (!row) return { got: [] };
@@ -232,6 +239,9 @@ export async function scrapeSystemArt(
     icon: (force || !existing.icon) && show.icon,
     ribbon: (force || !existing.ribbon) && show.ribbon,
   };
+  // Progress is measured in pieces we intend to fetch (hero/logo/icon/ribbon).
+  const needTotal = ART_KINDS.filter((k) => need[k]).length;
+  onProgress?.(0, needTotal);
 
   const config = getProviderConfig();
   const got: string[] = [];
@@ -241,6 +251,7 @@ export async function scrapeSystemArt(
     await writeArtFile(id, kind, res.buf, res.ext);
     if (kind === "logo") setSystemLogoDark(slug, await isLogoDark(res.buf));
     got.push(kind);
+    onProgress?.(got.length, needTotal, kind);
     return true;
   }
 
@@ -371,7 +382,8 @@ export async function setSystemArt(
   slug: string,
   kind: SystemArtKind,
   url: string | null,
-  suppress = false
+  suppress = false,
+  onBytes?: (bytes: number, total: number) => void
 ): Promise<{ ok: boolean; error?: string }> {
   const row = getSystem(slug);
   if (!row) return { ok: false, error: "Unknown system" };
@@ -396,7 +408,7 @@ export async function setSystemArt(
   if (!/^https?:\/\//i.test(url)) {
     return { ok: false, error: "Only http(s) image URLs are supported" };
   }
-  const res = await download(url);
+  const res = await download(url, onBytes);
   if (!res) return { ok: false, error: "Download failed" };
   await writeArtFile(id, kind, res.buf, res.ext);
   // Choosing a hero image makes it the hero, overriding the generated collage.

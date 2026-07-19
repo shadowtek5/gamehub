@@ -15,6 +15,18 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-19",
+    title: "Find and clean up problem games",
+    body: "A new Review & clean up page (admins, from the library) puts the games that need attention in one place, split into two tabs. Unidentified lists games GameHub couldn't match — the hash isn't in any DAT, or it matched but the stored name differs — as art cards you can scan quickly. Duplicates has two views: exact byte-identical copies (same file hash) and the same game held as multiple region/revision copies, each grouped with the copy we suggest keeping so you can hide the rest in one click. Select any games to handle them in bulk — hide (reversible), re-scrape, or delete from disk — or open a game's ⚙ menu to re-identify it. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-07-19",
+    title: "See downloads as they happen",
+    body: "Scraping a game's metadata or picking artwork from the ⚙ menu now shows a progress modal instead of a silent wait. Metadata scrapes show each step as it runs (matching the game, then fetching details and media); artwork downloads show a real filling bar with the size as it streams in. It's there for both game and system cogs, on desktop/TV and the mobile app, so you always know it's working and how far along it is.",
+    art: "automation",
+  },
+  {
     date: "2026-07-18",
     title: "Back keeps your place",
     body: "Working through a long list is smoother now. When you open a game and go back, the library (or system) returns to exactly where you were scrolled — and the same for going back from a system to the systems grid. No more being bounced to the top and losing your spot every time. It restores your position even deep into a big list, and works on desktop/TV and the mobile app.",

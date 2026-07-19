@@ -10,7 +10,8 @@
     "save": "Guardar",
     "close": "Cerrar",
     "back": "Atrás",
-    "loading": "Cargando…"
+    "loading": "Cargando…",
+    "scrollToTop": "Ir arriba"
   },
   "nav": {
     "searchPlaceholder": "Busca en tu biblioteca…",
@@ -248,7 +249,8 @@
       "statusThumbs": "Actualizando imágenes…",
       "hashingFiles": "Calculando hashes",
       "scrapingArt": "Volviendo a extraer arte",
-      "refreshingImages": "Actualizando imágenes"
+      "refreshingImages": "Actualizando imágenes",
+      "statusFinalizing": "Finalizando…"
     },
     "quota": {
       "providerRequestLimits": "Límites de solicitudes del proveedor",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Ver versiones",
     "notSupportedDesc": "Las actualizaciones en la aplicación requieren el tiempo de ejecución de Docker (con una política de reinicio). Esta instancia se ejecuta fuera de Docker, así que actualízala de la manera que la instalaste.",
     "notSupportedShort": "Las actualizaciones en la aplicación no están disponibles en este runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Descargando ilustraciones",
+    "scrapeTitle": "Obteniendo metadatos",
+    "searching": "Buscando proveedores…",
+    "matching": "Coincidiendo juego…",
+    "metadata": "Obteniendo detalles…",
+    "media": "Descargando medios…",
+    "downloading": "Descargando…",
+    "saving": "Guardando…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Revisar y limpiar",
+    "intro": "Encuentra y maneja juegos que GameHub no pudo identificar, además de copias duplicadas.",
+    "tabUnidentified": "Sin identificar",
+    "tabDuplicates": "Duplicados",
+    "subExact": "Copias exactas",
+    "subSameGame": "Mismo juego",
+    "statusUnknown": "Hash desconocido",
+    "statusMismatch": "Desajuste de nombre",
+    "selectedCount": "{count, plural, one {# seleccionado} other {# seleccionados}}",
+    "hide": "Ocultar",
+    "scrape": "Raspar",
+    "delete": "Eliminar",
+    "clear": "Limpiar",
+    "hideExtras": "Ocultar extras",
+    "keeper": "Mantener",
+    "identicalCopies": "{count, plural, one {# copia idéntica} other {# copias idénticas}}",
+    "copies": "{count, plural, one {# copia} other {# copias}}",
+    "confirmDelete": "¿Eliminar permanentemente {count, plural, one {# archivo} other {# archivos}} del disco? Esto no se puede deshacer.",
+    "working": "Funcionando… {done}/{total}",
+    "loading": "Cargando…",
+    "noUnidentified": "Sin juegos sin identificar — todo está emparejado.",
+    "noExact": "No se encontraron archivos de duplicados exactos.",
+    "noSameGame": "No se encontraron copias duplicadas del mismo juego.",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "page": "Página {page} de {pages}"
   }
 }

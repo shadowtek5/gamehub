@@ -10,7 +10,8 @@
     "save": "Opslaan",
     "close": "Sluiten",
     "back": "Terug",
-    "loading": "Laden…"
+    "loading": "Laden…",
+    "scrollToTop": "Naar boven"
   },
   "nav": {
     "searchPlaceholder": "Doorzoek je bibliotheek…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Afbeeldingen vernieuwen…",
       "hashingFiles": "Hashes berekenen",
       "scrapingArt": "Afbeeldingen opnieuw ophalen",
-      "refreshingImages": "Afbeeldingen vernieuwen"
+      "refreshingImages": "Afbeeldingen vernieuwen",
+      "statusFinalizing": "Afronden…"
     },
     "quota": {
       "providerRequestLimits": "Provider-verzoeklimieten",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Releases weergeven",
     "notSupportedDesc": "In-app-updates vereisen de Docker-runtime (met beleid voor opnieuw opstarten). Dit exemplaar wordt buiten Docker uitgevoerd, dus werk het bij zoals u het hebt geïnstalleerd.",
     "notSupportedShort": "In-app-updates zijn niet beschikbaar in deze runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Afbeelding wordt gedownload",
+    "scrapeTitle": "Metagegevens worden opgehaald",
+    "searching": "Providers zoeken…",
+    "matching": "Spel matchen…",
+    "metadata": "Details worden opgehaald…",
+    "media": "Media worden gedownload…",
+    "downloading": "Bezig met downloaden…",
+    "saving": "Bezig met opslaan…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Controleren en opschonen",
+    "intro": "Vind en beheer spellen die GameHub niet kon identificeren, plus duplicate kopieën.",
+    "tabUnidentified": "Niet geïdentificeerd",
+    "tabDuplicates": "Duplicaten",
+    "subExact": "Exacte kopieën",
+    "subSameGame": "Zelfde spel",
+    "statusUnknown": "Onbekende hash",
+    "statusMismatch": "Naam komt niet overeen",
+    "selectedCount": "{count, plural, one {# geselecteerd} other {# geselecteerd}}",
+    "hide": "Verbergen",
+    "scrape": "Scrapen",
+    "delete": "Verwijderen",
+    "clear": "Wissen",
+    "hideExtras": "Extra's verbergen",
+    "keeper": "Behouden",
+    "identicalCopies": "{count, plural, one {# identieke kopie} other {# identieke kopieën}}",
+    "copies": "{count, plural, one {# kopie} other {# kopieën}}",
+    "confirmDelete": "Permanent {count, plural, one {# bestand} other {# bestanden}} van schijf verwijderen? Dit kan niet ongedaan gemaakt worden.",
+    "working": "Bezig… {done}/{total}",
+    "loading": "Laden…",
+    "noUnidentified": "Geen niet-geïdentificeerde spellen — alles is gematched.",
+    "noExact": "Geen exacte duplicate bestanden gevonden.",
+    "noSameGame": "Geen duplicaten van dezelfde spel gevonden.",
+    "prev": "Vorige",
+    "next": "Volgende",
+    "page": "Pagina {page} van {pages}"
   }
 }

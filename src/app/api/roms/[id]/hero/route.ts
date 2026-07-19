@@ -4,8 +4,20 @@ import { getSessionUser } from "@/lib/auth";
 import { getDb, RomRow } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
 import { saveMedia } from "@/lib/providers/mediaSave";
-import { safeFetch } from "@/lib/ssrfGuard";
+import { fetchImageWithProgress } from "@/lib/downloadProgress";
+import { romOpKey, setOpProgress, finishOpProgress, getOpProgress } from "@/lib/opProgress";
 import { getDataDir } from "../../../../../lib/dataDir";
+
+/** Poll live progress of a hero art download. */
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const user = await getSessionUser();
+  if (!user?.isEditor) return NextResponse.json({ error: "Editor access required" }, { status: 403 });
+  const { id } = await params;
+  return NextResponse.json(getOpProgress(romOpKey(id, "hero")) ?? { phase: "idle" });
+}
 
 /** Resolve a local /api/media/<...> URL to its file on disk. */
 function mediaUrlToPath(url: string): string {
@@ -59,23 +71,20 @@ export async function POST(
     return NextResponse.json({ error: "Only http(s) or local media URLs" }, { status: 400 });
   }
 
+  const key = romOpKey(romId, "hero");
   try {
-    const res = await safeFetch(url, { signal: AbortSignal.timeout(120_000) });
-    if (!res.ok) {
-      return NextResponse.json({ error: `Download failed (HTTP ${res.status})` }, { status: 502 });
-    }
-    const buf = Buffer.from(await res.arrayBuffer());
-    if (buf.length === 0) {
-      return NextResponse.json({ error: "Empty image" }, { status: 502 });
-    }
-    const type = res.headers.get("content-type")?.split(";")[0].trim() ?? "";
+    const { buf, contentType: type } = await fetchImageWithProgress(url, key);
     const urlExt = url.match(/\.(png|jpe?g|webp|gif)(?:\?|$)/i)?.[1]?.toLowerCase();
     const ext = EXT_BY_TYPE[type] ?? (urlExt === "jpeg" ? "jpg" : urlExt) ?? "png";
 
     // Transcodes to WebP (falls back to `ext` if that can't shrink it)
     const dir = path.join(getDataDir(), "media", String(romId));
+    setOpProgress(key, { phase: "saving" });
     const file = await saveMedia(buf, dir, "hero", ext);
-    if (!file) return NextResponse.json({ error: "Save failed" }, { status: 500 });
+    if (!file) {
+      finishOpProgress(key, "Save failed");
+      return NextResponse.json({ error: "Save failed" }, { status: 500 });
+    }
     // Version stamp busts the browser cache — the filename is reused
     const heroUrl = `/api/media/${romId}/${file}?v=${Date.now()}`;
     getDb().prepare("UPDATE roms SET hero_url = ? WHERE id = ?").run(heroUrl, romId);
@@ -83,8 +92,10 @@ export async function POST(
       userId: user.id, romId, type: "hero",
       summary: "Updated hero artwork", imageSourcePath: path.join(dir, file),
     });
+    finishOpProgress(key);
     return NextResponse.json({ ok: true, hero_url: heroUrl });
   } catch (e) {
+    finishOpProgress(key, e instanceof Error ? e.message : "Download failed");
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "Download failed" },
       { status: 502 }

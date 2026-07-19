@@ -75,6 +75,27 @@ export function markRead(userId: number, keys: string[], validKeys: string[]): v
   setUserSetting(userId, READ_KEY, JSON.stringify([...merged]));
 }
 
+/** Drop read-state keys that are no longer in the live feed (an acknowledged
+ *  alert whose event has since aged out of the log, a stale social/friend item),
+ *  keeping badge keys forever. Runs on every feed build so read-state is cleared
+ *  out eventually even for users who never explicitly dismiss — without it,
+ *  pruning only happened on mark-read (POST). Writes back only when something
+ *  actually changed, so the common (already-clean) poll does no DB write. Never
+ *  throws into the feed. */
+function pruneReadState(userId: number, validKeys: string[]): void {
+  try {
+    const current = getReadKeys(userId);
+    if (current.size === 0) return;
+    const valid = new Set(validKeys);
+    const kept = [...current].filter((k) => valid.has(k) || k.startsWith("badge:"));
+    if (kept.length !== current.size) {
+      setUserSetting(userId, READ_KEY, JSON.stringify(kept));
+    }
+  } catch {
+    /* best-effort — never break the feed over housekeeping */
+  }
+}
+
 // ---------- update check (Docker Hub tags, cached) ----------
 
 const UPDATE_CACHE_KEY = "update_check";
@@ -309,8 +330,15 @@ export async function getNotifications(user: SessionUser): Promise<Notification[
     }
   }
 
-  return items
+  const feed = items
     .sort((a, b) => (a.createdAt < b.createdAt ? 1 : a.createdAt > b.createdAt ? -1 : 0))
     .slice(0, MAX_ITEMS)
     .map((it) => ({ ...it, read: read.has(it.key) }));
+
+  // Housekeeping: clear acknowledged/stale read-keys that have dropped out of
+  // the live feed, so read-state can't accumulate for users who never actively
+  // dismiss. No-op write when already clean.
+  pruneReadState(user.id, feed.map((f) => f.key));
+
+  return feed;
 }

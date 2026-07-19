@@ -4,8 +4,20 @@ import { getSessionUser } from "@/lib/auth";
 import { getDb, RomRow } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
 import { saveMedia } from "@/lib/providers/mediaSave";
-import { safeFetch } from "@/lib/ssrfGuard";
+import { fetchImageWithProgress } from "@/lib/downloadProgress";
+import { romOpKey, setOpProgress, finishOpProgress, getOpProgress } from "@/lib/opProgress";
 import { getDataDir } from "../../../../../lib/dataDir";
+
+/** Poll live progress of a box art download. */
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const user = await getSessionUser();
+  if (!user?.isEditor) return NextResponse.json({ error: "Editor access required" }, { status: 403 });
+  const { id } = await params;
+  return NextResponse.json(getOpProgress(romOpKey(id, "boxart")) ?? { phase: "idle" });
+}
 
 function mediaUrlToPath(url: string): string {
   const rel = url.replace(/^\/api\/media\//, "").split("?")[0];
@@ -57,31 +69,30 @@ export async function POST(
     return NextResponse.json({ error: "Only http(s) or local media URLs" }, { status: 400 });
   }
 
+  const key = romOpKey(romId, "boxart");
   try {
-    const res = await safeFetch(url, { signal: AbortSignal.timeout(120_000) });
-    if (!res.ok) {
-      return NextResponse.json({ error: `Download failed (HTTP ${res.status})` }, { status: 502 });
-    }
-    const buf = Buffer.from(await res.arrayBuffer());
-    if (buf.length === 0) {
-      return NextResponse.json({ error: "Empty image" }, { status: 502 });
-    }
-    const type = res.headers.get("content-type")?.split(";")[0].trim() ?? "";
+    const { buf, contentType: type } = await fetchImageWithProgress(url, key);
     const urlExt = url.match(/\.(png|jpe?g|webp|gif)(?:\?|$)/i)?.[1]?.toLowerCase();
     const ext = EXT_BY_TYPE[type] ?? (urlExt === "jpeg" ? "jpg" : urlExt) ?? "png";
 
     // Transcodes to WebP (falls back to `ext` if that can't shrink it)
+    setOpProgress(key, { phase: "saving" });
     const dir = path.join(getDataDir(), "media", String(romId));
     const file = await saveMedia(buf, dir, "boxart", ext);
-    if (!file) return NextResponse.json({ error: "Save failed" }, { status: 500 });
+    if (!file) {
+      finishOpProgress(key, "Save failed");
+      return NextResponse.json({ error: "Save failed" }, { status: 500 });
+    }
     const boxartUrl = `/api/media/${romId}/${file}?v=${Date.now()}`;
     getDb().prepare("UPDATE roms SET boxart_url = ? WHERE id = ?").run(boxartUrl, romId);
     logActivity({
       userId: user.id, romId, type: "boxart",
       summary: "Updated box art", imageSourcePath: path.join(dir, file),
     });
+    finishOpProgress(key);
     return NextResponse.json({ ok: true, boxart_url: boxartUrl });
   } catch (e) {
+    finishOpProgress(key, e instanceof Error ? e.message : "Download failed");
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "Download failed" },
       { status: 502 }

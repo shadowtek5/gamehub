@@ -2,6 +2,7 @@ import { requireUser } from "@/lib/auth";
 import { browseFacets, listLibraryCollections, searchLibraryBrowse } from "@/lib/db";
 import { getSystemIconMap } from "@/lib/systemArt";
 import LibraryBrowser from "@/components/LibraryBrowser";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const dynamic = "force-dynamic";
 
@@ -29,6 +30,7 @@ export default async function LibraryPage() {
         languages={languages}
         systemIcons={systemIcons}
       />
+      <ScrollToTop />
     </main>
   );
 }

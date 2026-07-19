@@ -7,7 +7,8 @@
 // provider request-limit strip. Reached from the top-bar job indicator.
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { formatDurationShort } from "@/lib/format";
 import { platformBySlug } from "@/lib/platforms";
 import SystemIcon from "@/components/SystemIcon";
 import ActivityGraph from "@/components/bpm/ActivityGraph";
@@ -29,6 +30,7 @@ interface JobView {
   kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   running: boolean;
+  finalizing?: boolean;
   currentSystem: string;
   done: number;
   total: number;
@@ -60,13 +62,15 @@ const POLL_MS = 1500;
 const PER_MIN = 60000 / POLL_MS;
 const pct = (d: number, t: number) => (t > 0 ? Math.min(100, Math.round((d / t) * 100)) : 0);
 
-function eta(startedAt: string | null, done: number, total: number): string {
+// Returns the human-readable, locale-aware remaining duration (e.g. "5 min
+// 30 sec"), or "" when not estimable. The caller wraps it in the localized
+// "Estimated {time} remaining" string.
+function etaDuration(locale: string, startedAt: string | null, done: number, total: number): string {
   if (!startedAt || done <= 0 || done >= total) return "";
   const elapsed = (Date.now() - new Date(startedAt).getTime()) / 1000;
   const rate = done / elapsed;
   if (!isFinite(rate) || rate <= 0) return "";
-  const remain = Math.round((total - done) / rate);
-  return `~${Math.floor(remain / 60)}:${String(remain % 60).padStart(2, "0")} left`;
+  return formatDurationShort(locale, Math.round((total - done) / rate));
 }
 
 function Bar({ label, right, value, color = "bg-[#3a86ff]" }: { label: string; right: string; value: number; color?: string }) {
@@ -104,6 +108,10 @@ const BAR_KEY: Record<string, string> = {
 
 export default function MobileDownloads() {
   const t = useTranslations("mobileDownloads");
+  // Reuse the desktop downloads wrapper string for the ETA (already translated in
+  // all locales) instead of adding a mobile-only key.
+  const tdl = useTranslations("downloads.page");
+  const locale = useLocale();
   const [jobs, setJobs] = useState<JobView[]>([]);
   const [queued, setQueued] = useState<QueuedView[]>([]);
   const [automatic, setAutomatic] = useState<AutoTask[]>([]);
@@ -189,7 +197,8 @@ export default function MobileDownloads() {
     active?.kind === "scan" || active?.kind === "art" || active?.kind === "thumbs"
       ? t("unitSystems")
       : t("unitGames");
-  const etaStr = active ? eta(active.startedAt, active.done, active.total) : "";
+  const etaDur = active ? etaDuration(locale, active.startedAt, active.done, active.total) : "";
+  const etaStr = etaDur ? tdl("etaRemaining", { time: etaDur }) : "";
 
   return (
     <div className="flex flex-col gap-5">
@@ -236,7 +245,9 @@ export default function MobileDownloads() {
             {plat?.name ?? t("library")}
           </div>
           <div className="mt-1 truncate text-[12px] text-white/75">
-            {active.kind === "scrape"
+            {active.finalizing
+              ? tdl("statusFinalizing")
+              : active.kind === "scrape"
               ? active.current
                 ? t("nowScraping", { current: active.current })
                 : t("scrapingMetadata")
@@ -283,7 +294,7 @@ export default function MobileDownloads() {
         {curSys && curSys.total > 1 && (
           <Bar
             label={t("currentSystem", { name: plat?.name ?? active.currentSystem })}
-            right={`${pct(curSys.done, curSys.total)}%`}
+            right={`${t("sysGamesProgress", { done: curSys.done, total: curSys.total })} · ${pct(curSys.done, curSys.total)}%`}
             value={pct(curSys.done, curSys.total)}
             color="bg-[#59bf40]"
           />

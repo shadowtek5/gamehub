@@ -305,6 +305,29 @@ body {
     0 0 24px rgba(255, 255, 255, 0.45),
     0 12px 32px rgba(0, 0, 0, 0.7);
 }
+/* The home "What's New / new to library" cards are a .deck-card <Link> nested
+   inside a flex-item wrapper, so the card's own z-index can't lift it above the
+   NEXT flex item — the neighbor paints over the focused card's right-edge ring
+   (most visible on narrow widths, where the next card sits closer). Lift the
+   whole flex item on focus so the highlight sits above its neighbors. */
+.gamepadhomewhatsnew_OuterWrapper_gh:focus-within {
+  position: relative;
+  z-index: 10;
+}
+/* "New to your library" cards keep their category label as a sibling ABOVE the
+   card, so the default center-origin scale(1.08) grows the card UP over its own
+   label. Scale these from the TOP (label stays put) and a touch gentler (1.04, ~
+   the Recent Games carousel), so the growth goes downward into the shelf padding
+   instead of clipping or covering. Scoped to the home EventCarousel only. */
+.gamepadhomewhatsnew_EventCarousel_gh .deck-card:hover,
+.gamepadhomewhatsnew_EventCarousel_gh .deck-card:focus,
+.gamepadhomewhatsnew_EventCarousel_gh .deck-card:focus-visible {
+  transform-origin: top center;
+}
+.gamepadhomewhatsnew_EventCarousel_gh .deck-card:focus,
+.gamepadhomewhatsnew_EventCarousel_gh .deck-card:focus-visible {
+  transform: scale(1.04);
+}
 
 /* Library/grid capsule focus — measured 1:1 from Big Picture's
    appportrait_LibraryItemBox. A 2px white outline snaps in from 12px, then
@@ -367,6 +390,16 @@ body {
   background-repeat: no-repeat;
   opacity: 0;
   animation: deck-cap-shimmer 0.9s ease;
+}
+/* Recent Games carousel capsules reserve a 12px gap on the RIGHT of the slot
+   (the art is w-[calc(100%-12px)]), but deck-shimmer sits on the full-width
+   capsule Link — so the glass streak (inset:0) sweeps 12px past the art's right
+   edge into the gap. Pull the streak's right edge in to match the art. Scoped to
+   the Recent Games carousel (home only); other shimmer cards fill their box. */
+.appportrait_InRecentGames_gh.deck-shimmer:hover::after,
+.appportrait_InRecentGames_gh.deck-shimmer:focus::after,
+.appportrait_InRecentGames_gh.deck-shimmer:focus-visible::after {
+  right: 12px;
 }
 @keyframes deck-cap-ringin {
   0% {

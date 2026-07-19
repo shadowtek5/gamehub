@@ -10,7 +10,8 @@
     "save": "保存",
     "close": "閉じる",
     "back": "戻る",
-    "loading": "読み込み中…"
+    "loading": "読み込み中…",
+    "scrollToTop": "トップへ戻る"
   },
   "nav": {
     "searchPlaceholder": "ライブラリを検索…",
@@ -623,7 +624,8 @@
       "statusThumbs": "画像を更新中…",
       "hashingFiles": "ハッシュを計算",
       "scrapingArt": "アートを再取得",
-      "refreshingImages": "画像を更新"
+      "refreshingImages": "画像を更新",
+      "statusFinalizing": "仕上げ中…"
     },
     "quota": {
       "providerRequestLimits": "プロバイダー要求制限",
@@ -3003,5 +3005,45 @@
     "viewReleases": "リリースを表示",
     "notSupportedDesc": "アプリ内更新にはDockerランタイム（再起動ポリシー付き）が必要です。このインスタンスはDocker外で実行されているため、インストール方法と同じ方法で更新してください。",
     "notSupportedShort": "このランタイムではアプリ内更新は利用できません。"
+  },
+  "downloadProgress": {
+    "artTitle": "アートワークをダウンロード中",
+    "scrapeTitle": "メタデータをスクレイピング中",
+    "searching": "プロバイダーを検索中…",
+    "matching": "ゲームをマッチング中…",
+    "metadata": "詳細を取得中…",
+    "media": "メディアをダウンロード中…",
+    "downloading": "ダウンロード中…",
+    "saving": "保存中…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "レビュー＆クリーンアップ",
+    "intro": "GameHubが識別できなかったゲーム、および重複コピーを検索して処理します。",
+    "tabUnidentified": "未識別",
+    "tabDuplicates": "重複",
+    "subExact": "正確なコピー",
+    "subSameGame": "同じゲーム",
+    "statusUnknown": "不明なハッシュ",
+    "statusMismatch": "名前の不一致",
+    "selectedCount": "{count, plural, other {# 選択されました}}",
+    "hide": "非表示",
+    "scrape": "スクレイピング",
+    "delete": "削除",
+    "clear": "クリア",
+    "hideExtras": "追加機能を非表示",
+    "keeper": "保持",
+    "identicalCopies": "{count, plural, other {# 個の同一コピー}}",
+    "copies": "{count, plural, other {# コピー}}",
+    "confirmDelete": "ディスクから {count, plural, other {# ファイル}} を永続的に削除しますか？この操作は取り消せません。",
+    "working": "処理中… {done}/{total}",
+    "loading": "読み込み中…",
+    "noUnidentified": "未識別のゲームなし — すべてが一致しています。",
+    "noExact": "完全重複ファイルは見つかりません。",
+    "noSameGame": "同じゲームの重複は見つかりません。",
+    "prev": "前へ",
+    "next": "次へ",
+    "page": "ページ {page} / {pages}"
   }
 }

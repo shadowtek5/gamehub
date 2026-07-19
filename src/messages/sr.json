@@ -10,7 +10,8 @@
     "save": "Сачувај",
     "close": "Затвори",
     "back": "Назад",
-    "loading": "Учитавање…"
+    "loading": "Учитавање…",
+    "scrollToTop": "Врати на врх"
   },
   "nav": {
     "searchPlaceholder": "Претражи библиотеку…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Освежавање слика…",
       "hashingFiles": "Израчунавање хешева",
       "scrapingArt": "Поновно преузимање графике",
-      "refreshingImages": "Освежавање слика"
+      "refreshingImages": "Освежавање слика",
+      "statusFinalizing": "Завршавање…"
     },
     "quota": {
       "providerRequestLimits": "Лимити захтева провајдера",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Погледајте издања",
     "notSupportedDesc": "Ажурирања у апликацији захтевају Docker време извршавања (са политиком рестарта). Та инстанца се покреће ван Docker-а, па је ажурирајте онако како сте је инсталирали.",
     "notSupportedShort": "Ажурирања у апликацији нису доступна у овом време извршавања."
+  },
+  "downloadProgress": {
+    "artTitle": "Preuzimanje ilustracije",
+    "scrapeTitle": "Prikupljanje metapodataka",
+    "searching": "Pretraga pružalaca…",
+    "matching": "Usklađivanje igre…",
+    "metadata": "Preuzimanje detalja…",
+    "media": "Preuzimanje medija…",
+    "downloading": "Preuzimanje…",
+    "saving": "Čuvanje…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Pregledaj i očisti",
+    "intro": "Pronađi i upravljaj igrama koje GameHub nije mogao da identifikuje, kao i duplirane kopije.",
+    "tabUnidentified": "Neidentifikovane",
+    "tabDuplicates": "Duplikati",
+    "subExact": "Tačne kopije",
+    "subSameGame": "Ista igra",
+    "statusUnknown": "Nepoznat heš",
+    "statusMismatch": "Neusklađenost imena",
+    "selectedCount": "{count, plural, one {# izabran} few {# izabrana} many {# izabranih} other {# izabranih}}",
+    "hide": "Sakrij",
+    "scrape": "Preuzmi",
+    "delete": "Obriši",
+    "clear": "Očisti",
+    "hideExtras": "Sakrij dodatne",
+    "keeper": "Zadrži",
+    "identicalCopies": "{count, plural, one {# tačna kopija} few {# tačne kopije} many {# tačnih kopija} other {# tačnih kopija}}",
+    "copies": "{count, plural, one {# kopija} few {# kopije} many {# kopija} other {# kopija}}",
+    "confirmDelete": "Trajno obrisati {count, plural, one {# fajl} few {# fajla} many {# fajlova} other {# fajlova}} sa diska? Ovo se ne može poništiti.",
+    "working": "Obrada… {done}/{total}",
+    "loading": "Učitavanje…",
+    "noUnidentified": "Nema neidentifikovanih igara — sve se podudara.",
+    "noExact": "Nema pronađenih tačnih duplikatnih fajlova.",
+    "noSameGame": "Nema pronađenih duplikata iste igre.",
+    "prev": "Prethodno",
+    "next": "Sledeće",
+    "page": "Stranica {page} od {pages}"
   }
 }

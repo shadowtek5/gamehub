@@ -10,7 +10,8 @@
     "save": "Enregistrer",
     "close": "Fermer",
     "back": "Retour",
-    "loading": "Chargementâ€¦"
+    "loading": "Chargementâ€¦",
+    "scrollToTop": "Revenir en haut"
   },
   "nav": {
     "searchPlaceholder": "Rechercher dans votre bibliothÃ¨queâ€¦",
@@ -248,7 +249,8 @@
       "statusThumbs": "Actualisation des images…",
       "hashingFiles": "Calcul des empreintes",
       "scrapingArt": "Récupération des visuels",
-      "refreshingImages": "Actualisation des images"
+      "refreshingImages": "Actualisation des images",
+      "statusFinalizing": "Finalisation…"
     },
     "quota": {
       "providerRequestLimits": "Limites de requÃªtes du fournisseur",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Afficher les versions",
     "notSupportedDesc": "Les mises à jour intégrées nécessitent le runtime Docker (avec une politique de redémarrage). Cette instance s'exécute en dehors de Docker, mettez-la à jour comme vous l'avez installée.",
     "notSupportedShort": "Les mises à jour intégrées ne sont pas disponibles dans ce runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Téléchargement des illustrations",
+    "scrapeTitle": "Récupération des métadonnées",
+    "searching": "Recherche des fournisseurs…",
+    "matching": "Correspondance du jeu…",
+    "metadata": "Récupération des détails…",
+    "media": "Téléchargement des médias…",
+    "downloading": "Téléchargement…",
+    "saving": "Enregistrement…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Examiner et nettoyer",
+    "intro": "Trouver et traiter les jeux que GameHub n'a pas pu identifier, ainsi que les copies dupliquées.",
+    "tabUnidentified": "Non identifiés",
+    "tabDuplicates": "Doublons",
+    "subExact": "Copies exactes",
+    "subSameGame": "Même jeu",
+    "statusUnknown": "Hash inconnu",
+    "statusMismatch": "Nom ne correspond pas",
+    "selectedCount": "{count, plural, one {# sélectionné} other {# sélectionnés}}",
+    "hide": "Masquer",
+    "scrape": "Récupérer",
+    "delete": "Supprimer",
+    "clear": "Effacer",
+    "hideExtras": "Masquer les extras",
+    "keeper": "Garder",
+    "identicalCopies": "{count, plural, one {# copie identique} other {# copies identiques}}",
+    "copies": "{count, plural, one {# copie} other {# copies}}",
+    "confirmDelete": "Supprimer définitivement {count, plural, one {# fichier} other {# fichiers}} du disque ? Cela ne peut pas être annulé.",
+    "working": "En cours… {done}/{total}",
+    "loading": "Chargement…",
+    "noUnidentified": "Aucun jeu non identifié — tout est appairé.",
+    "noExact": "Aucun fichier en doublon exact trouvé.",
+    "noSameGame": "Aucun doublon du même jeu trouvé.",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "page": "Page {page} sur {pages}"
   }
 }

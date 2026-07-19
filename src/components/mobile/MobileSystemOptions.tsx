@@ -15,6 +15,8 @@ import MobileArtPicker, {
 } from "./MobileArtPicker";
 import { MobileSheet, SheetRow, SheetSection, SheetCloseButton } from "./primitives";
 import { useTranslations } from "next-intl";
+import { useOpProgress } from "@/lib/useOpProgress";
+import MobileDownloadProgress from "./MobileDownloadProgress";
 import RomUploadModal from "@/components/RomUploadModal";
 import FirmwareModal from "@/components/FirmwareModal";
 import ControllerLayout from "@/components/ControllerLayout";
@@ -55,6 +57,8 @@ export default function MobileSystemOptions({
   const router = useRouter();
   const tc = useTranslations("customCollage");
   const t = useTranslations("mobileSystemOptions");
+  const td = useTranslations("downloadProgress");
+  const { job: dlJob, run: runDl } = useOpProgress();
   const ts = useTranslations("systemTools"); // reuse the desktop system-tools labels
   const artLabel = (kind: ArtKind) => t(`artLabel.${kind}`);
 
@@ -94,11 +98,16 @@ export default function MobileSystemOptions({
     setPicking(true);
     setArtMsg(suppress ? t("turningOff") : url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/systems/${slug}/art`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind: artKind, url, suppress }),
-      });
+      const doFetch = () =>
+        fetch(`/api/systems/${slug}/art`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ kind: artKind, url, suppress }),
+        });
+      const res =
+        url && !suppress && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: shortName, pollUrl: `/api/systems/${slug}/art?progress=${artKind}`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         playSound("toast");
@@ -147,7 +156,12 @@ export default function MobileSystemOptions({
     setBusy(true);
     setMsg(t("fetchingSystemArtwork"));
     try {
-      const res = await fetch(`/api/systems/${slug}/art?force=1`, { method: "POST" });
+      const res = await runDl({
+        title: td("artTitle"),
+        subtitle: shortName,
+        pollUrl: `/api/systems/${slug}/art?progress=artall`,
+        work: () => fetch(`/api/systems/${slug}/art?force=1`, { method: "POST" }),
+      });
       const data = await res.json();
       setMsg(
         res.ok
@@ -366,6 +380,8 @@ export default function MobileSystemOptions({
         />
       )}
       <CustomCollageManager slug={slug} open={collageOpen} onClose={() => setCollageOpen(false)} />
+
+      <MobileDownloadProgress job={dlJob} />
     </>
   );
 }

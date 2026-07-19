@@ -8,6 +8,7 @@ import { getSystemMeta } from "@/lib/systemMeta";
 import LibraryBrowser from "@/components/LibraryBrowser";
 import SystemTools from "@/components/SystemTools";
 import SystemHero from "@/components/SystemHero";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const dynamic = "force-dynamic";
 
@@ -74,6 +75,7 @@ export default async function SystemPage({
           hidePlatformFilter
         />
       </div>
+      <ScrollToTop />
     </main>
   );
 }

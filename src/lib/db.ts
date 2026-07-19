@@ -2904,6 +2904,107 @@ export function getLibraryRom(userId: number, romId: number): LibraryRomRow | un
   return row;
 }
 
+// ---- Library review / cleanup: unidentified games + duplicate groups --------
+
+/** A card row for the review page — CardRom fields plus filename + dat_status. */
+export interface ReviewRomRow {
+  id: number;
+  title: string;
+  boxart_url: string | null;
+  video_url: string | null;
+  platform_slug: string;
+  variant: string | null;
+  language: string | null;
+  filename: string;
+  dat_status: string | null;
+  favorite: number;
+  playtime_seconds: number;
+}
+
+const REVIEW_ROM_COLS = `r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant,
+  r.language, r.filename, r.dat_status,
+  COALESCE(ur.favorite, 0) AS favorite, COALESCE(ur.playtime_seconds, 0) AS playtime_seconds`;
+
+/** Games GameHub couldn't identify: hash not in any DAT (unknown) or hash matched
+ *  but the stored name differs (mismatch). Paginated; hidden games excluded. */
+export function listUnidentified(
+  userId: number,
+  opts: { offset?: number; limit?: number; platform?: string } = {}
+): { rows: ReviewRomRow[]; total: number } {
+  const db = getDb();
+  const h = hiddenFilter(true, userId);
+  const extra: string[] = [];
+  const params: (string | number)[] = [];
+  if (opts.platform) {
+    extra.push("r.platform_slug = ?");
+    params.push(opts.platform);
+  }
+  const where = `r.missing = 0 AND r.dat_status IN ('unknown','mismatch')${
+    extra.length ? " AND " + extra.join(" AND ") : ""
+  }${h.sql}`;
+  const total = (
+    db
+      .prepare(
+        `SELECT COUNT(*) c FROM roms r
+         LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+         WHERE ${where}`
+      )
+      .get(userId, ...params, ...h.params) as { c: number }
+  ).c;
+  const rows = db
+    .prepare(
+      `SELECT ${REVIEW_ROM_COLS} FROM roms r
+       LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+       WHERE ${where}
+       ORDER BY r.platform_slug, r.sort_title, r.id
+       LIMIT ? OFFSET ?`
+    )
+    .all(userId, ...params, ...h.params, opts.limit ?? 60, opts.offset ?? 0) as ReviewRomRow[];
+  return { rows, total };
+}
+
+export interface HashDupGroup {
+  md5: string;
+  count: number;
+  items: ReviewRomRow[];
+}
+
+/** Byte-identical duplicates: groups of present files sharing an md5. Paginated
+ *  by group (largest first). */
+export function listHashDupGroups(
+  opts: { offset?: number; limit?: number } = {}
+): { groups: HashDupGroup[]; total: number } {
+  const db = getDb();
+  const total = (
+    db
+      .prepare(
+        `SELECT COUNT(*) c FROM (
+           SELECT md5 FROM roms WHERE missing = 0 AND md5 IS NOT NULL AND md5 <> ''
+           GROUP BY md5 HAVING COUNT(*) > 1)`
+      )
+      .get() as { c: number }
+  ).c;
+  const heads = db
+    .prepare(
+      `SELECT md5, COUNT(*) c FROM roms
+       WHERE missing = 0 AND md5 IS NOT NULL AND md5 <> ''
+       GROUP BY md5 HAVING c > 1 ORDER BY c DESC, md5
+       LIMIT ? OFFSET ?`
+    )
+    .all(opts.limit ?? 25, opts.offset ?? 0) as { md5: string; c: number }[];
+  const itemStmt = db.prepare(
+    `SELECT ${REVIEW_ROM_COLS} FROM roms r
+     LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = 0
+     WHERE r.missing = 0 AND r.md5 = ? ORDER BY r.platform_slug, r.filename`
+  );
+  const groups = heads.map((g) => ({
+    md5: g.md5,
+    count: g.c,
+    items: itemStmt.all(g.md5) as ReviewRomRow[],
+  }));
+  return { groups, total };
+}
+
 export function recentlyAdded(userId: number, limit = 15): LibraryRomRow[] {
   const h = hiddenFilter(true, userId);
   return getDb()

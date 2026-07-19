@@ -5,6 +5,7 @@ import { PLATFORMS_SORTED } from "@/lib/platforms";
 import { getSystemIconMap } from "@/lib/systemArt";
 import { getTranslations } from "next-intl/server";
 import SystemIcon from "@/components/SystemIcon";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const dynamic = "force-dynamic";
 
@@ -40,13 +41,13 @@ export default async function MobileSystemsPage() {
           <Link
             key={p.slug}
             href={`/mobile/systems/${p.slug}`}
-            className="flex items-center gap-3 rounded-[10px] bg-[#1a1f27] px-3 py-2.5 ring-1 ring-white/5 active:bg-[#232a34]"
+            className="flex items-center gap-3 rounded-[10px] bg-[#1a1f27] px-3 py-2.5 ring-1 ring-white/5 transition-transform active:scale-[0.98] active:bg-[#232a34]"
           >
             <SystemIcon platform={p} size="sm" iconUrl={icons[p.slug] ?? undefined} />
             <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{name}</span>
             {/* total games / not scraped / not found */}
             <span
-              className="shrink-0 text-[12px] tabular-nums"
+              className="flex shrink-0 items-center gap-1.5 whitespace-nowrap pl-2 text-[12px] tabular-nums"
               aria-label={t("countsLabel", {
                 total: countBySlug.get(p.slug) ?? 0,
                 unscanned: unscannedBySlug.get(p.slug) ?? 0,
@@ -54,11 +55,11 @@ export default async function MobileSystemsPage() {
               })}
             >
               <span className="text-dim">{(countBySlug.get(p.slug) ?? 0).toLocaleString()}</span>
-              <span className="text-dim/40"> / </span>
+              <span className="text-dim/30">/</span>
               <span className={(unscannedBySlug.get(p.slug) ?? 0) > 0 ? "text-[#d9a441]" : "text-dim/40"}>
                 {(unscannedBySlug.get(p.slug) ?? 0).toLocaleString()}
               </span>
-              <span className="text-dim/40"> / </span>
+              <span className="text-dim/30">/</span>
               <span className={(notFoundBySlug.get(p.slug) ?? 0) > 0 ? "text-[#e5534b]" : "text-dim/40"}>
                 {(notFoundBySlug.get(p.slug) ?? 0).toLocaleString()}
               </span>
@@ -66,6 +67,7 @@ export default async function MobileSystemsPage() {
           </Link>
         ))}
       </div>
+      <ScrollToTop className="bottom-[84px] right-4" />
     </div>
   );
 }

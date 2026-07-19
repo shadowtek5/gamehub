@@ -2,6 +2,9 @@ node_modules
 .next
 data
 data-docker
+dist
+refs
+docs
 .git
 .gitignore
 *.md

@@ -10,7 +10,8 @@
     "save": "저장",
     "close": "닫기",
     "back": "뒤로",
-    "loading": "로딩 중…"
+    "loading": "로딩 중…",
+    "scrollToTop": "맨 위로"
   },
   "nav": {
     "searchPlaceholder": "라이브러리 검색…",
@@ -623,7 +624,8 @@
       "statusThumbs": "이미지 새로 고침 중…",
       "hashingFiles": "해시 계산",
       "scrapingArt": "아트 다시 스크래핑",
-      "refreshingImages": "이미지 새로 고침"
+      "refreshingImages": "이미지 새로 고침",
+      "statusFinalizing": "마무리 중…"
     },
     "quota": {
       "providerRequestLimits": "제공자 요청 제한",
@@ -3003,5 +3005,45 @@
     "viewReleases": "릴리스 보기",
     "notSupportedDesc": "인앱 업데이트는 Docker 런타임(다시 시작 정책 포함)이 필요합니다. 이 인스턴스는 Docker 외부에서 실행되므로 설치할 때와 같은 방법으로 업데이트하세요.",
     "notSupportedShort": "이 런타임에서는 인앱 업데이트를 사용할 수 없습니다."
+  },
+  "downloadProgress": {
+    "artTitle": "아트워크 다운로드 중",
+    "scrapeTitle": "메타데이터 스크래핑 중",
+    "searching": "제공자 검색 중…",
+    "matching": "게임 매칭 중…",
+    "metadata": "세부 정보 가져오는 중…",
+    "media": "미디어 다운로드 중…",
+    "downloading": "다운로드 중…",
+    "saving": "저장 중…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "검토 및 정리",
+    "intro": "GameHub가 식별하지 못한 게임 및 중복 사본을 찾아서 처리합니다.",
+    "tabUnidentified": "미식별",
+    "tabDuplicates": "중복",
+    "subExact": "정확한 사본",
+    "subSameGame": "같은 게임",
+    "statusUnknown": "알 수 없는 해시",
+    "statusMismatch": "이름 불일치",
+    "selectedCount": "{count, plural, other {# 선택됨}}",
+    "hide": "숨기기",
+    "scrape": "스크레이핑",
+    "delete": "삭제",
+    "clear": "지우기",
+    "hideExtras": "추가 항목 숨기기",
+    "keeper": "유지",
+    "identicalCopies": "{count, plural, other {# 개의 동일한 복사본}}",
+    "copies": "{count, plural, other {# 사본}}",
+    "confirmDelete": "디스크에서 {count, plural, other {# 파일}} 을(를) 영구적으로 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "working": "처리 중… {done}/{total}",
+    "loading": "로드 중…",
+    "noUnidentified": "미식별 게임 없음 — 모든 것이 일치합니다.",
+    "noExact": "정확한 중복 파일을 찾을 수 없습니다.",
+    "noSameGame": "같은 게임의 중복을 찾을 수 없습니다.",
+    "prev": "이전",
+    "next": "다음",
+    "page": "페이지 {page}/{pages}"
   }
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import MobileCollectionsView from "@/components/mobile/MobileCollectionsView";
+import ScrollToTop from "@/components/ScrollToTop";
 import NewCollectionForm from "@/components/NewCollectionForm";
 import {
   getDb,
@@ -93,6 +94,7 @@ export default async function MobileCollectionsPage() {
           </section>
         ) : null
       )}
+      <ScrollToTop className="bottom-[84px] right-4" />
     </div>
   );
 }

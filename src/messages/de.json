@@ -10,7 +10,8 @@
     "save": "Speichern",
     "close": "Schließen",
     "back": "Zurück",
-    "loading": "Lädt…"
+    "loading": "Lädt…",
+    "scrollToTop": "Nach oben scrollen"
   },
   "nav": {
     "searchPlaceholder": "Durchsuche deine Bibliothek…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Bilder werden aktualisiert…",
       "hashingFiles": "Hashes berechnen",
       "scrapingArt": "Artwork neu scrapen",
-      "refreshingImages": "Bilder aktualisieren"
+      "refreshingImages": "Bilder aktualisieren",
+      "statusFinalizing": "Wird abgeschlossen…"
     },
     "quota": {
       "providerRequestLimits": "Anbieter-Anfragelimits",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Veröffentlichungen anzeigen",
     "notSupportedDesc": "In-App-Updates benötigen die Docker-Laufzeit (mit einer Neustart-Richtlinie). Diese Instanz läuft außerhalb von Docker, daher aktualisieren Sie sie auf die gleiche Weise, wie Sie sie installiert haben.",
     "notSupportedShort": "In-App-Updates sind in dieser Laufzeit nicht verfügbar."
+  },
+  "downloadProgress": {
+    "artTitle": "Kunstwerk wird heruntergeladen",
+    "scrapeTitle": "Metadaten werden abgerufen",
+    "searching": "Anbieter durchsuchen…",
+    "matching": "Spiel wird abgeglichen…",
+    "metadata": "Details werden abgerufen…",
+    "media": "Medien werden heruntergeladen…",
+    "downloading": "Wird heruntergeladen…",
+    "saving": "Wird gespeichert…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Überprüfen und aufräumen",
+    "intro": "Finde und verwalte Spiele, die GameHub nicht identifizieren konnte, sowie doppelte Kopien.",
+    "tabUnidentified": "Unidentifiziert",
+    "tabDuplicates": "Duplikate",
+    "subExact": "Exakte Kopien",
+    "subSameGame": "Gleiches Spiel",
+    "statusUnknown": "Unbekannter Hash",
+    "statusMismatch": "Namensfehler",
+    "selectedCount": "{count, plural, one {# ausgewählt} other {# ausgewählt}}",
+    "hide": "Ausblenden",
+    "scrape": "Scrapen",
+    "delete": "Löschen",
+    "clear": "Löschen",
+    "hideExtras": "Extras ausblenden",
+    "keeper": "Behalten",
+    "identicalCopies": "{count, plural, one {# identische Kopie} other {# identische Kopien}}",
+    "copies": "{count, plural, one {# Kopie} other {# Kopien}}",
+    "confirmDelete": "{count, plural, one {# Datei} other {# Dateien}} permanent von der Festplatte löschen? Dies kann nicht rückgängig gemacht werden.",
+    "working": "Lädt… {done}/{total}",
+    "loading": "Lädt…",
+    "noUnidentified": "Keine unidentifizierten Spiele — alles ist zugeordnet.",
+    "noExact": "Keine exakten Duplikatdateien gefunden.",
+    "noSameGame": "Keine doppelten Kopien desselben Spiels gefunden.",
+    "prev": "Zurück",
+    "next": "Weiter",
+    "page": "Seite {page} von {pages}"
   }
 }

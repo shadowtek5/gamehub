@@ -10,7 +10,8 @@
     "save": "Spara",
     "close": "Stäng",
     "back": "Tillbaka",
-    "loading": "Laddar…"
+    "loading": "Laddar…",
+    "scrollToTop": "Rulla till toppen"
   },
   "nav": {
     "searchPlaceholder": "Sök i biblioteket…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Uppdaterar bilder…",
       "hashingFiles": "Beräknar hashar",
       "scrapingArt": "Skrapar om grafik",
-      "refreshingImages": "Uppdaterar bilder"
+      "refreshingImages": "Uppdaterar bilder",
+      "statusFinalizing": "Slutför…"
     },
     "quota": {
       "providerRequestLimits": "Provider-förfrågningsgränser",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Visa utgåvor",
     "notSupportedDesc": "Uppdateringar i appen kräver Docker-körning (med en omstartprincip). Den här instansen körs utanför Docker, så uppdatera den på det sätt du installerade den.",
     "notSupportedShort": "Uppdateringar i appen är inte tillgängliga i denna körning."
+  },
+  "downloadProgress": {
+    "artTitle": "Hämtar material",
+    "scrapeTitle": "Skrapar metadata",
+    "searching": "Söker leverantörer…",
+    "matching": "Matchar spel…",
+    "metadata": "Hämtar detaljer…",
+    "media": "Laddar ner media…",
+    "downloading": "Laddar ner…",
+    "saving": "Sparar…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Granska och rensa",
+    "intro": "Hitta och hantera spel som GameHub inte kunde identifiera, plus duplicerade kopior.",
+    "tabUnidentified": "Oidentifierade",
+    "tabDuplicates": "Duplikat",
+    "subExact": "Exakta kopior",
+    "subSameGame": "Samma spel",
+    "statusUnknown": "Okänd hash",
+    "statusMismatch": "Namnmismatch",
+    "selectedCount": "{count, plural, one {# vald} other {# valda}}",
+    "hide": "Dölj",
+    "scrape": "Hämta",
+    "delete": "Radera",
+    "clear": "Rensa",
+    "hideExtras": "Dölj extra",
+    "keeper": "Behåll",
+    "identicalCopies": "{count, plural, one {# identisk kopia} other {# identiska kopior}}",
+    "copies": "{count, plural, one {# kopia} other {# kopior}}",
+    "confirmDelete": "Radera permanent {count, plural, one {# fil} other {# filer}} från disk? Detta kan inte ångras.",
+    "working": "Arbetar… {done}/{total}",
+    "loading": "Laddar…",
+    "noUnidentified": "Inga oidentifierade spel — allt är matchat.",
+    "noExact": "Inga exakta duplicerade filer hittades.",
+    "noSameGame": "Inga duplicerat av samma spel hittades.",
+    "prev": "Tidigare",
+    "next": "Nästa",
+    "page": "Sida {page} av {pages}"
   }
 }

@@ -10,7 +10,8 @@
     "save": "Gem",
     "close": "Luk",
     "back": "Tilbage",
-    "loading": "Indlæser…"
+    "loading": "Indlæser…",
+    "scrollToTop": "Rul til toppen"
   },
   "nav": {
     "searchPlaceholder": "Søg i dit bibliotek…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Opdaterer billeder…",
       "hashingFiles": "Beregner hashes",
       "scrapingArt": "Genindsamler kunst",
-      "refreshingImages": "Opdaterer billeder"
+      "refreshingImages": "Opdaterer billeder",
+      "statusFinalizing": "Afslutter…"
     },
     "quota": {
       "providerRequestLimits": "Udbyderanmodningsgrænser",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Se udgivelser",
     "notSupportedDesc": "In-app-opdateringer kræver Docker-runtime (med en genstartspolity). Denne instans kører uden for Docker, så opdater den på den måde, du installerede den.",
     "notSupportedShort": "In-app-opdateringer er ikke tilgængelige i denne runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Downloader grafik",
+    "scrapeTitle": "Skraber metadata",
+    "searching": "Søger udbydere…",
+    "matching": "Matcher spil…",
+    "metadata": "Henter detaljer…",
+    "media": "Downloader medier…",
+    "downloading": "Downloader…",
+    "saving": "Gemmer…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Gennemgå og ryd op",
+    "intro": "Find og håndter spil, som GameHub ikke kunne identificere, plus duplikerede kopier.",
+    "tabUnidentified": "Uidentificeret",
+    "tabDuplicates": "Dubletter",
+    "subExact": "Eksakte kopier",
+    "subSameGame": "Samme spil",
+    "statusUnknown": "Ukendt hash",
+    "statusMismatch": "Navn uoverensstemmelse",
+    "selectedCount": "{count, plural, one {# valgt} other {# valgt}}",
+    "hide": "Skjul",
+    "scrape": "Skrab",
+    "delete": "Slet",
+    "clear": "Ryd",
+    "hideExtras": "Skjul ekstraer",
+    "keeper": "Behold",
+    "identicalCopies": "{count, plural, one {# identisk kopi} other {# identiske kopier}}",
+    "copies": "{count, plural, one {# kopi} other {# kopier}}",
+    "confirmDelete": "Slet {count, plural, one {# fil} other {# filer}} permanent fra disken? Dette kan ikke fortrydes.",
+    "working": "Arbejder… {done}/{total}",
+    "loading": "Indlæser…",
+    "noUnidentified": "Ingen uidentificerede spil — alt er matchet.",
+    "noExact": "Ingen eksakte dubletfiler fundet.",
+    "noSameGame": "Ingen duplikerede kopier af samme spil fundet.",
+    "prev": "Forrige",
+    "next": "Næste",
+    "page": "Side {page} af {pages}"
   }
 }

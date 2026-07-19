@@ -6,6 +6,7 @@ import { getSystemArt } from "@/lib/systemArt";
 import { getCardThumbUrl } from "@/lib/systemThumb";
 import SystemsCardMenu, { SystemMenuInfo } from "@/components/SystemsCardMenu";
 import SystemsView, { SystemCard } from "@/components/SystemsView";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export const dynamic = "force-dynamic";
 
@@ -93,6 +94,7 @@ export default async function SystemsPage() {
       {/* Tracks the focused/hovered card and hosts its cog menu (opened by the
           footer Options chip / gamepad Select). */}
       <SystemsCardMenu systems={menuData} />
+      <ScrollToTop />
     </main>
   );
 }

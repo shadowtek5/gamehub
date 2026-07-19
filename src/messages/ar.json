@@ -10,7 +10,8 @@
     "save": "حفظ",
     "close": "إغلاق",
     "back": "رجوع",
-    "loading": "جارٍ التحميل…"
+    "loading": "جارٍ التحميل…",
+    "scrollToTop": "التمرير إلى الأعلى"
   },
   "nav": {
     "searchPlaceholder": "ابحث في مكتبتك…",
@@ -248,7 +249,8 @@
       "statusThumbs": "تحديث الصور…",
       "hashingFiles": "حساب التجزئات",
       "scrapingArt": "إعادة كشط الصور",
-      "refreshingImages": "تحديث الصور"
+      "refreshingImages": "تحديث الصور",
+      "statusFinalizing": "جارٍ الإنهاء…"
     },
     "quota": {
       "providerRequestLimits": "حدود طلبات المزوّد",
@@ -3003,5 +3005,45 @@
     "viewReleases": "عرض الإصدارات",
     "notSupportedDesc": "تحديثات داخل التطبيق تحتاج إلى وقت تشغيل Docker (مع سياسة إعادة التشغيل). تعمل هذه الحالة خارج Docker، لذا قم بتحديثها بالطريقة التي قمت بتثبيتها.",
     "notSupportedShort": "تحديثات داخل التطبيق غير متوفرة في هذا الوقت."
+  },
+  "downloadProgress": {
+    "artTitle": "تحميل الأعمال الفنية",
+    "scrapeTitle": "جلب البيانات الوصفية",
+    "searching": "البحث في مقدمي الخدمات…",
+    "matching": "مطابقة اللعبة…",
+    "metadata": "جلب التفاصيل…",
+    "media": "تحميل الوسائط…",
+    "downloading": "التحميل…",
+    "saving": "الحفظ…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "استعراض وتنظيف",
+    "intro": "ابحث عن الألعاب التي لم تتمكن GameHub من تحديدها، بالإضافة إلى النسخ المكررة.",
+    "tabUnidentified": "غير محدد",
+    "tabDuplicates": "تكرار",
+    "subExact": "نسخ متطابقة",
+    "subSameGame": "نفس اللعبة",
+    "statusUnknown": "تجزئة مجهولة",
+    "statusMismatch": "عدم توافق الأسماء",
+    "selectedCount": "{count, plural, zero {# محدد} one {# محدد} two {# محددة} few {# محددة} many {# محددة} other {# محددة}}",
+    "hide": "إخفاء",
+    "scrape": "جلب",
+    "delete": "حذف",
+    "clear": "مسح",
+    "hideExtras": "إخفاء الإضافات",
+    "keeper": "احتفظ",
+    "identicalCopies": "{count, plural, zero {# نسخة متطابقة} one {# نسخة متطابقة} two {# نسختان متطابقتان} few {# نسخ متطابقة} many {# نسخة متطابقة} other {# نسخة متطابقة}}",
+    "copies": "{count, plural, zero {# نسخة} one {# نسخة} two {# نسختان} few {# نسخ} many {# نسخة} other {# نسخة}}",
+    "confirmDelete": "هل تريد حذف {count, plural, zero {# ملف} one {# ملف} two {# ملفين} few {# ملفات} many {# ملف} other {# ملف}} بشكل دائم من القرص؟ لا يمكن التراجع عن هذا.",
+    "working": "جاري العمل… {done}/{total}",
+    "loading": "جاري التحميل…",
+    "noUnidentified": "لا توجد ألعاب غير محددة — كل شيء متطابق.",
+    "noExact": "لم يتم العثور على ملفات نسخ متطابقة تماماً.",
+    "noSameGame": "لم يتم العثور على نسخ مكررة من نفس اللعبة.",
+    "prev": "السابق",
+    "next": "التالي",
+    "page": "الصفحة {page} من {pages}"
   }
 }

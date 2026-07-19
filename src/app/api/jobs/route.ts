@@ -37,6 +37,9 @@ export interface JobView {
   finishedAt: string | null;
   cancelled: boolean;
   errors: string[];
+  /** post-loop finalization after everything's processed (scan only) — the UI
+   *  shows "Finishing up…" instead of a frozen 100% state */
+  finalizing?: boolean;
   /** the game currently being scraped (scrape only) */
   current?: string;
   /** art of the current game, for the downloads hero (scrape only) */
@@ -140,6 +143,7 @@ export async function GET() {
       kind: "scan",
       label: "Scanning",
       running: scan.running,
+      finalizing: scan.finalizing,
       currentSystem: scan.currentSystem,
       done: scan.done,
       total: scan.total,

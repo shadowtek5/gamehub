@@ -5,6 +5,29 @@ export function formatPlaytime(seconds: number): string {
   return `${Math.max(1, Math.round(seconds / 60))} min`;
 }
 
+/** Human-readable, locale-aware duration for ETAs — e.g. "1 hr 20 min",
+ *  "5 min 30 sec", "45 sec". Shows at most the two largest non-zero units. Units
+ *  are localized via Intl (no per-language strings needed). */
+export function formatDurationShort(locale: string, totalSeconds: number): string {
+  const s = Math.max(0, Math.round(totalSeconds));
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  const unit = (n: number, u: "hour" | "minute" | "second") =>
+    new Intl.NumberFormat(locale, { style: "unit", unit: u, unitDisplay: "short" }).format(n);
+  const parts: string[] = [];
+  if (h > 0) {
+    parts.push(unit(h, "hour"));
+    if (m > 0) parts.push(unit(m, "minute"));
+  } else if (m > 0) {
+    parts.push(unit(m, "minute"));
+    if (sec > 0) parts.push(unit(sec, "second"));
+  } else {
+    parts.push(unit(Math.max(1, sec), "second"));
+  }
+  return parts.join(" ");
+}
+
 export function formatBytes(bytes: number): string {
   if (bytes >= 1 << 30) return `${(bytes / (1 << 30)).toFixed(2)} GB`;
   if (bytes >= 1 << 20) return `${(bytes / (1 << 20)).toFixed(1)} MB`;

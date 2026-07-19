@@ -31,6 +31,10 @@ export interface ScanJobStatus {
   startedAt: string | null;
   finishedAt: string | null;
   cancelled: boolean;
+  /** True during post-loop finalization (regenerating collage art) after every
+   *  system has been scanned — so the UI shows "Finishing up…" instead of a
+   *  frozen "Scanning files" at 100%. */
+  finalizing: boolean;
 }
 
 interface JobState extends ScanJobStatus {
@@ -63,6 +67,7 @@ function state(): JobState {
       startedAt: null,
       finishedAt: null,
       cancelled: false,
+      finalizing: false,
       cancelRequested: false,
       actor: null,
       addedIds: [],
@@ -95,6 +100,7 @@ export function getScanJobStatus(): ScanJobStatus {
     startedAt: s.startedAt,
     finishedAt: s.finishedAt,
     cancelled: s.cancelled,
+    finalizing: s.finalizing,
   };
 }
 
@@ -177,6 +183,7 @@ export function startScanJob(
   s.startedAt = new Date().toISOString();
   s.finishedAt = null;
   s.cancelled = false;
+  s.finalizing = false;
   s.cancelRequested = false;
   s.actor = actor;
 
@@ -258,12 +265,17 @@ export function startScanJob(
 
       // Regenerate any collage images whose content fingerprint drifted (games
       // added/removed, art changed), scoped to what this scan touched. Best-
-      // effort — a failure just leaves the surface on its live collage.
+      // effort — a failure just leaves the surface on its live collage. All
+      // systems are scanned by now (bar at 100%), so flag finalization: the UI
+      // shows "Finishing up…" instead of a frozen "Scanning files" here.
       if (!s.cancelRequested) {
+        s.currentSystem = "";
+        s.finalizing = true;
         await refreshDriftedThumbs(wholeLibrary ? undefined : scannedSlugs).catch(() => {});
       }
     } finally {
       s.running = false;
+      s.finalizing = false;
       s.currentSystem = "";
       s.finishedAt = new Date().toISOString();
       const failed = s.errors.length > 0;

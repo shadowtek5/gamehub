@@ -9,6 +9,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { animated, useSpring } from "@react-spring/web";
 import { platformBySlug } from "@/lib/platforms";
 import { playSound } from "@/lib/sounds";
 import SystemIcon from "@/components/SystemIcon";
@@ -28,6 +29,53 @@ export interface SystemCard {
   ribbon: string | null;
   /** resolved system logo (scraped or the bundled default) — the primary card art */
   logo: string | null;
+}
+
+/** One list-view row with a tactile press spring. It scales DOWN on press only —
+ *  a full-width row scaling UP would balloon past the viewport (why the grid
+ *  cards' deck-card scale isn't reused here). Squishy on the way down (overshoots
+ *  below 1, which is safe), clamped on release so it can never exceed 1. */
+function SystemListRow({ s }: { s: SystemCard }) {
+  const t = useTranslations("systemsView.view");
+  const p = platformBySlug(s.slug);
+  const [pressed, setPressed] = useState(false);
+  const spring = useSpring({
+    scale: pressed ? 0.97 : 1,
+    config: pressed ? { tension: 420, friction: 12 } : { tension: 340, friction: 26, clamp: true },
+  });
+  if (!p) return null;
+  return (
+    <animated.div
+      style={{ scale: spring.scale }}
+      onPointerDown={() => setPressed(true)}
+      onPointerUp={() => setPressed(false)}
+      onPointerLeave={() => setPressed(false)}
+      onPointerCancel={() => setPressed(false)}
+    >
+      <Link
+        href={`/systems/${s.slug}`}
+        data-system-slug={s.slug}
+        className="group flex items-center gap-3 rounded-[4px] bg-[#23262e] px-4 py-2.5 outline-none transition-colors hover:bg-[#2b2f38] focus:bg-[#2b2f38] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/50"
+        title={t("systemTitle", { name: s.name, count: s.count })}
+      >
+        <SystemIcon platform={p} size="sm" iconUrl={s.icon} />
+        <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{s.name}</span>
+        {p?.ejsCore && <span className="text-[12px] font-semibold text-accent">{t("playable")}</span>}
+        {/* total games / not scraped / not found — zeros dimmed, problems colored
+            (amber = unscraped, red = missing file). ml-auto pins it to the right. */}
+        <span
+          className="ml-auto flex shrink-0 items-center gap-1.5 whitespace-nowrap pl-3 text-[13px] tabular-nums"
+          title={t("countsLabel", { total: s.count, unscanned: s.unscanned, notFound: s.notFound })}
+        >
+          <span className="text-dim">{s.count.toLocaleString()}</span>
+          <span className="text-dim/30">/</span>
+          <span className={s.unscanned > 0 ? "text-[#d9a441]" : "text-dim/40"}>{s.unscanned.toLocaleString()}</span>
+          <span className="text-dim/30">/</span>
+          <span className={s.notFound > 0 ? "text-[#e5534b]" : "text-dim/40"}>{s.notFound.toLocaleString()}</span>
+        </span>
+      </Link>
+    </animated.div>
+  );
 }
 
 const VIEW_KEY = "gh-systems-view";
@@ -79,39 +127,9 @@ export default function SystemsView({ systems }: { systems: SystemCard[] }) {
 
       {view === "list" ? (
         <div className="flex flex-col gap-1.5">
-          {systems.map((s) => {
-            const p = platformBySlug(s.slug);
-            if (!p) return null;
-            return (
-              <Link
-                key={s.slug}
-                href={`/systems/${s.slug}`}
-                data-system-slug={s.slug}
-                className="deck-card group flex items-center gap-3 rounded-[4px] bg-[#23262e] px-4 py-2.5 transition-colors hover:bg-[#2b2f38]"
-                title={t("systemTitle", { name: s.name, count: s.count })}
-              >
-                <SystemIcon platform={p} size="sm" iconUrl={s.icon} />
-                <span className="min-w-0 flex-1 truncate text-[15px] font-semibold text-bright">{s.name}</span>
-                {p?.ejsCore && <span className="text-[12px] font-semibold text-accent">{t("playable")}</span>}
-                {/* total games / not scraped / not found — zeros dimmed, problems
-                    colored (amber = unscraped, red = missing file) */}
-                <span
-                  className="shrink-0 text-right text-[13px] tabular-nums"
-                  title={t("countsLabel", { total: s.count, unscanned: s.unscanned, notFound: s.notFound })}
-                >
-                  <span className="text-dim">{s.count.toLocaleString()}</span>
-                  <span className="text-dim/40"> / </span>
-                  <span className={s.unscanned > 0 ? "text-[#d9a441]" : "text-dim/40"}>
-                    {s.unscanned.toLocaleString()}
-                  </span>
-                  <span className="text-dim/40"> / </span>
-                  <span className={s.notFound > 0 ? "text-[#e5534b]" : "text-dim/40"}>
-                    {s.notFound.toLocaleString()}
-                  </span>
-                </span>
-              </Link>
-            );
-          })}
+          {systems.map((s) => (
+            <SystemListRow key={s.slug} s={s} />
+          ))}
         </div>
       ) : (
         <div className="allcollections_Collections_gh grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">

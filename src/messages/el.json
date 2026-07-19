@@ -10,7 +10,8 @@
     "save": "Αποθήκευση",
     "close": "Κλείσιμο",
     "back": "Πίσω",
-    "loading": "Φόρτωση…"
+    "loading": "Φόρτωση…",
+    "scrollToTop": "Μετάβαση στην κορυφή"
   },
   "nav": {
     "searchPlaceholder": "Αναζήτηση στη βιβλιοθήκη σας…",
@@ -248,7 +249,8 @@
       "statusThumbs": "Ανανέωση εικόνων…",
       "hashingFiles": "Υπολογισμός κατακερματισμών",
       "scrapingArt": "Επανάληψη λήψης εικόνων",
-      "refreshingImages": "Ανανέωση εικόνων"
+      "refreshingImages": "Ανανέωση εικόνων",
+      "statusFinalizing": "Ολοκλήρωση…"
     },
     "quota": {
       "providerRequestLimits": "Όρια αιτημάτων παρόχων",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Προβολή εκδόσεων",
     "notSupportedDesc": "Οι ενημερώσεις στην εφαρμογή χρειάζονται το Docker runtime (με πολιτική επανεκκίνησης). Αυτό το στιγμιότυπο εκτελείται έξω από το Docker, επομένως ενημερώστε το όπως το εγκαταστήσατε.",
     "notSupportedShort": "Οι ενημερώσεις στην εφαρμογή δεν είναι διαθέσιμες σε αυτό το runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Λήψη έργου τέχνης",
+    "scrapeTitle": "Διαδρομή μεταδεδομένων",
+    "searching": "Αναζήτηση παρόχων…",
+    "matching": "Αντιστοίχιση παιχνιδιού…",
+    "metadata": "Ανάκτηση λεπτομερειών…",
+    "media": "Λήψη μέσων…",
+    "downloading": "Λήψη…",
+    "saving": "Αποθήκευση…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Αναθεώρηση και καθαρισμός",
+    "intro": "Βρες και διαχειρίσου παιχνίδια που το GameHub δεν μπόρεσε να αναγνωρίσει, συν διπλότυπα αντίγραφα.",
+    "tabUnidentified": "Μη αναγνωρισμένο",
+    "tabDuplicates": "Διπλότυπα",
+    "subExact": "Ακριβή αντίγραφα",
+    "subSameGame": "Ίδιο παιχνίδι",
+    "statusUnknown": "Άγνωστο hash",
+    "statusMismatch": "Αναντιστοιχία ονόματος",
+    "selectedCount": "{count, plural, one {# επιλεγμένο} other {# επιλεγμένα}}",
+    "hide": "Απόκρυψη",
+    "scrape": "Κατάσκευη",
+    "delete": "Διαγραφή",
+    "clear": "Καθαρισμός",
+    "hideExtras": "Απόκρυψη επιπλέον",
+    "keeper": "Διατήρηση",
+    "identicalCopies": "{count, plural, one {# πανομοιότυπο αντίγραφο} other {# πανομοιότυπα αντίγραφα}}",
+    "copies": "{count, plural, one {# αντίγραφο} other {# αντίγραφα}}",
+    "confirmDelete": "Διαγραφή {count, plural, one {# αρχείου} other {# αρχείων}} μόνιμα από το δίσκο; Αυτό δεν μπορεί να αναιρεθεί.",
+    "working": "Λειτουργία… {done}/{total}",
+    "loading": "Φόρτωση…",
+    "noUnidentified": "Κανένα μη αναγνωρισμένο παιχνίδι — όλα ταιριάζουν.",
+    "noExact": "Δεν βρέθηκαν αρχεία ακριβών διπλοτύπων.",
+    "noSameGame": "Δεν βρέθηκαν διπλότυπα αντίγραφα του ίδιου παιχνιδιού.",
+    "prev": "Προηγούμενο",
+    "next": "Επόμενο",
+    "page": "Σελίδα {page} από {pages}"
   }
 }

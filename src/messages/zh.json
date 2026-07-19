@@ -10,7 +10,8 @@
     "save": "保存",
     "close": "关闭",
     "back": "返回",
-    "loading": "加载中…"
+    "loading": "加载中…",
+    "scrollToTop": "回到顶部"
   },
   "nav": {
     "searchPlaceholder": "搜索库…",
@@ -623,7 +624,8 @@
       "statusThumbs": "正在刷新图像…",
       "hashingFiles": "计算哈希",
       "scrapingArt": "重新抓取图像",
-      "refreshingImages": "刷新图像"
+      "refreshingImages": "刷新图像",
+      "statusFinalizing": "正在完成…"
     },
     "quota": {
       "providerRequestLimits": "提供商请求限制",
@@ -3003,5 +3005,45 @@
     "viewReleases": "查看版本",
     "notSupportedDesc": "应用内更新需要 Docker 运行时（具有重启策略）。此实例在 Docker 外运行，因此请按照您安装的方式进行更新。",
     "notSupportedShort": "应用内更新在此运行时环境中不可用。"
+  },
+  "downloadProgress": {
+    "artTitle": "正在下载美术资源",
+    "scrapeTitle": "正在爬取元数据",
+    "searching": "正在搜索提供商…",
+    "matching": "正在匹配游戏…",
+    "metadata": "正在获取详情…",
+    "media": "正在下载媒体…",
+    "downloading": "正在下载…",
+    "saving": "正在保存…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "审查和清理",
+    "intro": "查找并处理GameHub无法识别的游戏，以及重复的副本。",
+    "tabUnidentified": "未识别",
+    "tabDuplicates": "重复",
+    "subExact": "完全相同的副本",
+    "subSameGame": "同一游戏",
+    "statusUnknown": "未知哈希值",
+    "statusMismatch": "名称不匹配",
+    "selectedCount": "{count, plural, other {# 个已选中}}",
+    "hide": "隐藏",
+    "scrape": "获取",
+    "delete": "删除",
+    "clear": "清除",
+    "hideExtras": "隐藏多余的",
+    "keeper": "保留",
+    "identicalCopies": "{count, plural, other {# 个完全相同的副本}}",
+    "copies": "{count, plural, other {# 个副本}}",
+    "confirmDelete": "永久删除磁盘上的 {count, plural, other {# 个文件}}？这无法撤销。",
+    "working": "处理中… {done}/{total}",
+    "loading": "加载中…",
+    "noUnidentified": "没有未识别的游戏——一切都已匹配。",
+    "noExact": "未找到完全相同的重复文件。",
+    "noSameGame": "未找到同一游戏的重复项。",
+    "prev": "上一个",
+    "next": "下一个",
+    "page": "第 {page} 页，共 {pages} 页"
   }
 }

@@ -10,7 +10,8 @@
     "save": "Lagre",
     "close": "Lukk",
     "back": "Tilbake",
-    "loading": "Laster…"
+    "loading": "Laster…",
+    "scrollToTop": "Rull til toppen"
   },
   "nav": {
     "searchPlaceholder": "Søk i biblioteket…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Oppdaterer bilder…",
       "hashingFiles": "Beregner hasher",
       "scrapingArt": "Henter kunst på nytt",
-      "refreshingImages": "Oppdaterer bilder"
+      "refreshingImages": "Oppdaterer bilder",
+      "statusFinalizing": "Fullfører…"
     },
     "quota": {
       "providerRequestLimits": "Provider-forespørselsgrenser",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Vis utgivelser",
     "notSupportedDesc": "Oppdateringer i appen krever Docker-kjøretiden (med en omstartspolicy). Denne instansen kjøres utenfor Docker, så oppdater den på samme måte som du installerte den.",
     "notSupportedShort": "Oppdateringer i appen er ikke tilgjengelig i denne kjøretiden."
+  },
+  "downloadProgress": {
+    "artTitle": "Laster ned illustrasjon",
+    "scrapeTitle": "Skraper metadata",
+    "searching": "Søker leverandører…",
+    "matching": "Matcher spill…",
+    "metadata": "Henter detaljer…",
+    "media": "Laster ned media…",
+    "downloading": "Laster ned…",
+    "saving": "Lagrer…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Gjennomgå og rydd opp",
+    "intro": "Finn og håndter spill som GameHub ikke kunne identifisere, pluss dupliserte kopier.",
+    "tabUnidentified": "Ikke identifisert",
+    "tabDuplicates": "Duplikater",
+    "subExact": "Eksakte kopier",
+    "subSameGame": "Samme spill",
+    "statusUnknown": "Ukjent hash",
+    "statusMismatch": "Navneavvik",
+    "selectedCount": "{count, plural, one {# valgt} other {# valgt}}",
+    "hide": "Skjul",
+    "scrape": "Hent",
+    "delete": "Slett",
+    "clear": "Nullstill",
+    "hideExtras": "Skjul ekstra",
+    "keeper": "Behold",
+    "identicalCopies": "{count, plural, one {# identisk kopi} other {# identiske kopier}}",
+    "copies": "{count, plural, one {# kopi} other {# kopier}}",
+    "confirmDelete": "Permanent slette {count, plural, one {# fil} other {# filer}} fra disk? Dette kan ikke angres.",
+    "working": "Arbeider… {done}/{total}",
+    "loading": "Laster…",
+    "noUnidentified": "Ingen ikke-identifiserte spill — alt stemmer overens.",
+    "noExact": "Ingen eksakte duplikatfiler funnet.",
+    "noSameGame": "Ingen duplikater av samme spill funnet.",
+    "prev": "Forrige",
+    "next": "Neste",
+    "page": "Side {page} av {pages}"
   }
 }

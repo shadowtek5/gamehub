@@ -10,7 +10,8 @@
     "save": "Сохранить",
     "close": "Закрыть",
     "back": "Назад",
-    "loading": "Загрузка…"
+    "loading": "Загрузка…",
+    "scrollToTop": "Наверх"
   },
   "nav": {
     "searchPlaceholder": "Поиск по библиотеке…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Обновление изображений…",
       "hashingFiles": "Вычисление хешей",
       "scrapingArt": "Повторный сбор обложек",
-      "refreshingImages": "Обновление изображений"
+      "refreshingImages": "Обновление изображений",
+      "statusFinalizing": "Завершение…"
     },
     "quota": {
       "providerRequestLimits": "Лимиты запросов провайдера",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Просмотр выпусков",
     "notSupportedDesc": "Обновления в приложении требуют среды выполнения Docker (с политикой перезапуска). Этот экземпляр работает вне Docker, поэтому обновите его так, как вы его установили.",
     "notSupportedShort": "Обновления в приложении недоступны в этой среде выполнения."
+  },
+  "downloadProgress": {
+    "artTitle": "Загрузка изображений",
+    "scrapeTitle": "Получение метаданных",
+    "searching": "Поиск поставщиков…",
+    "matching": "Сопоставление игры…",
+    "metadata": "Получение информации…",
+    "media": "Загрузка медиа…",
+    "downloading": "Загрузка…",
+    "saving": "Сохранение…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} МБ ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Проверить и очистить",
+    "intro": "Найдите и обработайте игры, которые GameHub не смог идентифицировать, а также дублирующиеся копии.",
+    "tabUnidentified": "Неидентифицированные",
+    "tabDuplicates": "Дубликаты",
+    "subExact": "Точные копии",
+    "subSameGame": "Одна и та же игра",
+    "statusUnknown": "Неизвестный хеш",
+    "statusMismatch": "Несовпадение имени",
+    "selectedCount": "{count, plural, one {# выбран} few {# выбрано} many {# выбрано} other {# выбрано}}",
+    "hide": "Скрыть",
+    "scrape": "Загрузить",
+    "delete": "Удалить",
+    "clear": "Очистить",
+    "hideExtras": "Скрыть дополнительные",
+    "keeper": "Сохранить",
+    "identicalCopies": "{count, plural, one {# точная копия} few {# точные копии} many {# точных копий} other {# точных копий}}",
+    "copies": "{count, plural, one {# копия} few {# копии} many {# копий} other {# копий}}",
+    "confirmDelete": "Безвозвратно удалить {count, plural, one {# файл} few {# файла} many {# файлов} other {# файлов}} с диска? Это не может быть отменено.",
+    "working": "Обработка… {done}/{total}",
+    "loading": "Загрузка…",
+    "noUnidentified": "Нет неидентифицированных игр — все совпадает.",
+    "noExact": "Точных дублирующихся файлов не найдено.",
+    "noSameGame": "Дубликатов одной и той же игры не найдено.",
+    "prev": "Предыдущий",
+    "next": "Следующий",
+    "page": "Страница {page} из {pages}"
   }
 }

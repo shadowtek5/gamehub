@@ -10,7 +10,8 @@
     "save": "Save",
     "close": "Close",
     "back": "Back",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "scrollToTop": "Scroll to top"
   },
   "nav": {
     "searchPlaceholder": "Search your library…",
@@ -590,6 +591,7 @@
       "nowScraping": "Now scraping · {current}",
       "statusScraping": "Scraping metadata…",
       "statusScanning": "Scanning files…",
+      "statusFinalizing": "Finishing up…",
       "statusOptimizing": "Optimizing box art…",
       "optimizingArt": "Optimizing box art",
       "statusHashing": "Computing hashes…",
@@ -809,6 +811,18 @@
       "legendSelect": "Select",
       "legendBack": "Back"
     }
+  },
+  "downloadProgress": {
+    "artTitle": "Downloading artwork",
+    "scrapeTitle": "Scraping metadata",
+    "searching": "Searching providers…",
+    "matching": "Matching game…",
+    "metadata": "Fetching details…",
+    "media": "Downloading media…",
+    "downloading": "Downloading…",
+    "saving": "Saving…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
   },
   "gameOptions": {
     "gameOptionsAria": "Game options",
@@ -1097,6 +1111,34 @@
     "collectionNamePlaceholder": "Collection name",
     "sortByTitle": "Sort by",
     "filteredGamesDefault": "Filtered games"
+  },
+  "libraryReview": {
+    "title": "Review & clean up",
+    "intro": "Find and handle games GameHub couldn't identify, plus duplicate copies.",
+    "tabUnidentified": "Unidentified",
+    "tabDuplicates": "Duplicates",
+    "subExact": "Exact copies",
+    "subSameGame": "Same game",
+    "statusUnknown": "Unknown hash",
+    "statusMismatch": "Name mismatch",
+    "selectedCount": "{count, plural, one {# selected} other {# selected}}",
+    "hide": "Hide",
+    "scrape": "Scrape",
+    "delete": "Delete",
+    "clear": "Clear",
+    "hideExtras": "Hide extras",
+    "keeper": "Keep",
+    "identicalCopies": "{count, plural, one {# identical copy} other {# identical copies}}",
+    "copies": "{count, plural, one {# copy} other {# copies}}",
+    "confirmDelete": "Permanently delete {count, plural, one {# file} other {# files}} from disk? This cannot be undone.",
+    "working": "Working… {done}/{total}",
+    "loading": "Loading…",
+    "noUnidentified": "No unidentified games — everything's matched.",
+    "noExact": "No exact-duplicate files found.",
+    "noSameGame": "No same-game duplicates found.",
+    "prev": "Previous",
+    "next": "Next",
+    "page": "Page {page} of {pages}"
   },
   "maintenance": {
     "maintenancePanel": {

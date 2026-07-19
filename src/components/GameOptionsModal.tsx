@@ -17,6 +17,8 @@ import {
 } from "./menuGlyphs";
 import { playSound } from "@/lib/sounds";
 import { useTranslations } from "next-intl";
+import { useOpProgress } from "@/lib/useOpProgress";
+import DownloadProgressModal from "./DownloadProgressModal";
 
 interface CollectionOpt {
   id: number;
@@ -122,6 +124,8 @@ export default function GameOptionsModal({
   const firstRow = useRef<HTMLButtonElement>(null);
   const router = useRouter();
   const t = useTranslations("gameOptions");
+  const td = useTranslations("downloadProgress");
+  const { job: dlJob, run: runDl } = useOpProgress();
 
   useEffect(() => {
     const onB = (e: Event) => {
@@ -186,11 +190,16 @@ export default function GameOptionsModal({
     setPicking(true);
     setHeroMsg(url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/roms/${romId}/hero`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
+      const doFetch = () =>
+        fetch(`/api/roms/${romId}/hero`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+      const res =
+        url && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: title, pollUrl: `/api/roms/${romId}/hero`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         setOpen(false);
@@ -228,11 +237,16 @@ export default function GameOptionsModal({
     setPicking(true);
     setBoxMsg(url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/roms/${romId}/boxart`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
+      const doFetch = () =>
+        fetch(`/api/roms/${romId}/boxart`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+      const res =
+        url && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: title, pollUrl: `/api/roms/${romId}/boxart`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         setOpen(false);
@@ -270,11 +284,16 @@ export default function GameOptionsModal({
     setPicking(true);
     setLogoMsg(url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/roms/${romId}/logo`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
+      const doFetch = () =>
+        fetch(`/api/roms/${romId}/logo`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+      const res =
+        url && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: title, pollUrl: `/api/roms/${romId}/logo`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         setOpen(false);
@@ -438,10 +457,16 @@ export default function GameOptionsModal({
 
   async function scrape(metadataOnly = false) {
     setScrapeMsg(t("fetching"));
-    const res = await fetch(`/api/roms/${romId}/scrape`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(metadataOnly ? { mode: "metadata" } : {}),
+    const res = await runDl({
+      title: td("scrapeTitle"),
+      subtitle: title,
+      pollUrl: `/api/roms/${romId}/scrape`,
+      work: () =>
+        fetch(`/api/roms/${romId}/scrape`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(metadataOnly ? { mode: "metadata" } : {}),
+        }),
     });
     const outcome: ScrapeOutcome = await res.json();
     setScrapeMsg(
@@ -573,6 +598,8 @@ export default function GameOptionsModal({
           </div>
         </div>
       )}
+
+      <DownloadProgressModal job={dlJob} />
 
       {patcherOpen && (
         <RomPatcherModal

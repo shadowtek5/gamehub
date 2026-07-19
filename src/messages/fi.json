@@ -10,7 +10,8 @@
     "save": "Tallenna",
     "close": "Sulje",
     "back": "Takaisin",
-    "loading": "Ladataan…"
+    "loading": "Ladataan…",
+    "scrollToTop": "Vieritä ylös"
   },
   "nav": {
     "searchPlaceholder": "Hae kirjastostasi…",
@@ -248,7 +249,8 @@
       "statusThumbs": "Päivitetään kuvia…",
       "hashingFiles": "Lasketaan tiivisteitä",
       "scrapingArt": "Haetaan kuvia uudelleen",
-      "refreshingImages": "Päivitetään kuvia"
+      "refreshingImages": "Päivitetään kuvia",
+      "statusFinalizing": "Viimeistellään…"
     },
     "quota": {
       "providerRequestLimits": "Palveluntarjoajan pyyntörajat",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Näytä julkaisut",
     "notSupportedDesc": "In-app-päivitykset vaativat Docker-suoritusaikaa (uudelleenkäynnistysperiaatteella). Tämä instanssi toimii Docker:n ulkopuolella, joten päivitä se samalla tavalla kuin asensit sen.",
     "notSupportedShort": "In-app-päivitykset eivät ole saatavilla tässä suoritusaikassa."
+  },
+  "downloadProgress": {
+    "artTitle": "Ladataan taidetta",
+    "scrapeTitle": "Haetaan metatietoja",
+    "searching": "Haetaan palveluntarjoajia…",
+    "matching": "Etsitään peliä…",
+    "metadata": "Haetaan tietoja…",
+    "media": "Ladataan mediaa…",
+    "downloading": "Ladataan…",
+    "saving": "Tallennetaan…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Tarkista ja siivoa",
+    "intro": "Etsi ja hallitse pelejä, joita GameHub ei pystynyt tunnistamaan, sekä kopioita.",
+    "tabUnidentified": "Tunnistamaton",
+    "tabDuplicates": "Kopiot",
+    "subExact": "Tarkat kopiot",
+    "subSameGame": "Sama peli",
+    "statusUnknown": "Tuntematon hash",
+    "statusMismatch": "Nimen epäsuhta",
+    "selectedCount": "{count, plural, one {# valittu} other {# valittu}}",
+    "hide": "Piilota",
+    "scrape": "Kaapa",
+    "delete": "Poista",
+    "clear": "Tyhjennä",
+    "hideExtras": "Piilota ylimääräiset",
+    "keeper": "Pidä",
+    "identicalCopies": "{count, plural, one {# identtinen kopio} other {# identtisiä kopioita}}",
+    "copies": "{count, plural, one {# kopio} other {# kopioita}}",
+    "confirmDelete": "Poista {count, plural, one {# tiedosto} other {# tiedostoa}} pysyvästi levyltä? Tätä ei voi kumota.",
+    "working": "Käynnissä… {done}/{total}",
+    "loading": "Ladataan…",
+    "noUnidentified": "Ei tunnistamattomia pelejä — kaikki on yhteensovitettu.",
+    "noExact": "Ei tarkkoja kopiotiedostoja löytynyt.",
+    "noSameGame": "Ei löytynyt kaksoiskopiota samasta pelistä.",
+    "prev": "Edellinen",
+    "next": "Seuraava",
+    "page": "Sivu {page} / {pages}"
   }
 }

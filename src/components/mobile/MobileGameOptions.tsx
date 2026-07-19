@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useOpProgress } from "@/lib/useOpProgress";
+import MobileDownloadProgress from "./MobileDownloadProgress";
 import { playSound } from "@/lib/sounds";
 import MobileArtPicker, {
   ArtHeaderButton,
@@ -74,6 +76,8 @@ export default function MobileGameOptions({
   const pickingRef = useRef(false); // synchronous guard against double-taps
   const router = useRouter();
   const t = useTranslations("mobileGameOptions");
+  const td = useTranslations("downloadProgress");
+  const { job: dlJob, run: runDl } = useOpProgress();
   const tg = useTranslations("gameOptions"); // reuse the desktop action labels
 
   const show = () => {
@@ -111,11 +115,16 @@ export default function MobileGameOptions({
     setPicking(true);
     setArtMsg(url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/roms/${romId}/${artKind}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
+      const doFetch = () =>
+        fetch(`/api/roms/${romId}/${artKind}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url }),
+        });
+      const res =
+        url && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: title, pollUrl: `/api/roms/${romId}/${artKind}`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         playSound("toast");
@@ -163,10 +172,16 @@ export default function MobileGameOptions({
   }
   async function scrape(metadataOnly = false) {
     setMsg(t("scraping"));
-    const res = await fetch(`/api/roms/${romId}/scrape`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(metadataOnly ? { mode: "metadata" } : {}),
+    const res = await runDl({
+      title: td("scrapeTitle"),
+      subtitle: title,
+      pollUrl: `/api/roms/${romId}/scrape`,
+      work: () =>
+        fetch(`/api/roms/${romId}/scrape`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(metadataOnly ? { mode: "metadata" } : {}),
+        }),
     });
     const o = await res.json();
     setMsg(
@@ -410,6 +425,8 @@ export default function MobileGameOptions({
       {patcherOpen && (
         <RomPatcherModal romId={romId} title={title} filename={filename} onClose={() => setPatcherOpen(false)} />
       )}
+
+      <MobileDownloadProgress job={dlJob} />
     </>
   );
 }

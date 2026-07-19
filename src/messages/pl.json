@@ -10,7 +10,8 @@
     "save": "Zapisz",
     "close": "Zamknij",
     "back": "Wstecz",
-    "loading": "Ładowanie…"
+    "loading": "Ładowanie…",
+    "scrollToTop": "Przewiń do góry"
   },
   "nav": {
     "searchPlaceholder": "Szukaj w bibliotece…",
@@ -623,7 +624,8 @@
       "statusThumbs": "Odświeżanie obrazów…",
       "hashingFiles": "Obliczanie skrótów",
       "scrapingArt": "Ponowne pobieranie grafiki",
-      "refreshingImages": "Odświeżanie obrazów"
+      "refreshingImages": "Odświeżanie obrazów",
+      "statusFinalizing": "Kończenie…"
     },
     "quota": {
       "providerRequestLimits": "Limity żądań dostawcy",
@@ -3003,5 +3005,45 @@
     "viewReleases": "Wyświetl wydania",
     "notSupportedDesc": "Aktualizacje w aplikacji wymagają środowiska runtime Docker (z zasadą ponownego uruchomienia). Ta instancja działa poza Docker, więc zaktualizuj ją tak, jak ją zainstalowałeś.",
     "notSupportedShort": "Aktualizacje w aplikacji nie są dostępne w tym środowisku runtime."
+  },
+  "downloadProgress": {
+    "artTitle": "Pobieranie grafiki",
+    "scrapeTitle": "Pobieranie metadanych",
+    "searching": "Wyszukiwanie dostawców…",
+    "matching": "Dopasowywanie gry…",
+    "metadata": "Pobieranie szczegółów…",
+    "media": "Pobieranie mediów…",
+    "downloading": "Pobieranie…",
+    "saving": "Zapisywanie…",
+    "itemsProgress": "{done} / {total} ({pct}%)",
+    "mbProgress": "{done} / {total} MB ({pct}%)"
+  },
+  "libraryReview": {
+    "title": "Przejrzyj i oczyść",
+    "intro": "Znajdź i obsługuj gry, których GameHub nie mógł zidentyfikować, oraz zduplikowane kopie.",
+    "tabUnidentified": "Niezidentyfikowane",
+    "tabDuplicates": "Duplikaty",
+    "subExact": "Dokładne kopie",
+    "subSameGame": "Ta sama gra",
+    "statusUnknown": "Nieznany hash",
+    "statusMismatch": "Niezgodna nazwa",
+    "selectedCount": "{count, plural, one {# wybrany} few {# wybrane} many {# wybranych} other {# wybranych}}",
+    "hide": "Ukryj",
+    "scrape": "Pobierz",
+    "delete": "Usuń",
+    "clear": "Wyczyść",
+    "hideExtras": "Ukryj dodatkowe",
+    "keeper": "Zachowaj",
+    "identicalCopies": "{count, plural, one {# dokładna kopia} few {# dokładne kopie} many {# dokładnych kopii} other {# dokładnych kopii}}",
+    "copies": "{count, plural, one {# kopia} few {# kopie} many {# kopii} other {# kopii}}",
+    "confirmDelete": "Trwale usunąć {count, plural, one {# plik} few {# pliki} many {# plików} other {# plików}} z dysku? Nie można tego cofnąć.",
+    "working": "Pracuję… {done}/{total}",
+    "loading": "Ładowanie…",
+    "noUnidentified": "Brak niezidentyfikowanych gier — wszystko pasuje.",
+    "noExact": "Nie znaleziono dokładnych zduplikowanych plików.",
+    "noSameGame": "Nie znaleziono duplikatów tej samej gry.",
+    "prev": "Poprzedni",
+    "next": "Następny",
+    "page": "Strona {page} z {pages}"
   }
 }

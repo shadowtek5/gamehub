@@ -7,6 +7,7 @@ import { getHeroCollageUrl } from "@/lib/systemThumb";
 import MobileLibrary from "@/components/mobile/MobileLibrary";
 import MobileSystemOptions from "@/components/mobile/MobileSystemOptions";
 import MobileBackLink from "@/components/mobile/MobileBackLink";
+import ScrollToTop from "@/components/ScrollToTop";
 import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
@@ -83,6 +84,7 @@ export default async function MobileSystemPage({
         </h1>
       </div>
       <MobileLibrary platformLock={slug} genres={genres} languages={languages} />
+      <ScrollToTop className="bottom-[84px] right-4" />
     </div>
   );
 }

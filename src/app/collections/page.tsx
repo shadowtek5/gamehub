@@ -11,6 +11,7 @@ import {
 } from "@/lib/db";
 import NewCollectionForm from "@/components/NewCollectionForm";
 import CollectionsView, { type CollectionCardData, type DimensionSection } from "@/components/CollectionsView";
+import ScrollToTop from "@/components/ScrollToTop";
 import { getTranslations } from "next-intl/server";
 
 export const dynamic = "force-dynamic";
@@ -175,7 +176,7 @@ export default async function CollectionsPage() {
           />
         }
       />
-
+      <ScrollToTop />
     </main>
   );
 }

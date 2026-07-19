@@ -6,8 +6,9 @@
 // queue: Up Next (this job) and Scheduled (jobs queued behind).
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { platformBySlug } from "@/lib/platforms";
+import { formatDurationShort } from "@/lib/format";
 import SystemIcon from "@/components/SystemIcon";
 import ActivityGraph from "@/components/bpm/ActivityGraph";
 import {
@@ -24,6 +25,7 @@ interface JobView {
   kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
   label: string;
   running: boolean;
+  finalizing?: boolean;
   currentSystem: string;
   done: number;
   total: number;
@@ -57,13 +59,19 @@ const PER_MIN = 60000 / POLL_MS;
 
 const pct = (d: number, t: number) => (t > 0 ? Math.min(100, Math.round((d / t) * 100)) : 0);
 
-function eta(t: ReturnType<typeof useTranslations>, startedAt: string | null, done: number, total: number): string {
+function eta(
+  t: ReturnType<typeof useTranslations>,
+  locale: string,
+  startedAt: string | null,
+  done: number,
+  total: number
+): string {
   if (!startedAt || done <= 0 || done >= total) return "";
   const elapsed = (Date.now() - new Date(startedAt).getTime()) / 1000;
   const rate = done / elapsed;
   if (!isFinite(rate) || rate <= 0) return "";
   const remain = Math.round((total - done) / rate);
-  return t("etaRemaining", { time: `${Math.floor(remain / 60)}:${String(remain % 60).padStart(2, "0")}` });
+  return t("etaRemaining", { time: formatDurationShort(locale, remain) });
 }
 
 function SectionHead({ title, count, right }: { title: string; count?: number; right?: string }) {
@@ -143,6 +151,7 @@ const BAR_KEY: Record<string, string> = {
 
 export default function DownloadsPage() {
   const t = useTranslations("downloads.page");
+  const locale = useLocale();
   const [jobs, setJobs] = useState<JobView[]>([]);
   const [queued, setQueued] = useState<QueuedView[]>([]);
   const [automatic, setAutomatic] = useState<AutoTask[]>([]);
@@ -268,7 +277,9 @@ export default function DownloadsPage() {
             </div>
             <div className="mt-2 text-[42px] font-black leading-none text-white drop-shadow">{cur?.name ?? t("library")}</div>
             <div className="mt-2 truncate text-[15px] text-white/75">
-              {active.kind === "scrape"
+              {active.finalizing
+                ? t("statusFinalizing")
+                : active.kind === "scrape"
                 ? active.current ? t("nowScraping", { current: active.current }) : t("statusScraping")
                 : t(STATUS_KEY[active.kind] ?? "statusScanning")}
             </div>
@@ -310,14 +321,14 @@ export default function DownloadsPage() {
             <Bar
               label={t("currentSystem", { name: cur?.name ?? active.currentSystem })}
               value={pct(curSys.done, curSys.total)}
-              valueRight={`${pct(curSys.done, curSys.total)}%`}
+              valueRight={`${curSys.done} / ${curSys.total} ${t("games")} · ${pct(curSys.done, curSys.total)}%`}
               colorClass="bg-[#59bf40]"
             />
           )}
           {active.kind === "scrape" && <QuotaStrip quota={quota} />}
           <div className="flex items-center justify-between gap-4">
             <span className="text-[13px] text-dim" suppressHydrationWarning>
-              {eta(t, active.startedAt, active.done, active.total)}
+              {eta(t, locale, active.startedAt, active.done, active.total)}
             </span>
             <button
               onClick={() => void cancel(active.kind)}

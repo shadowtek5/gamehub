@@ -10,6 +10,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useOpProgress } from "@/lib/useOpProgress";
+import DownloadProgressModal from "./DownloadProgressModal";
 import type { ScrapeJobStatus } from "@/lib/providers/scrapeJob";
 import FirmwareModal from "./FirmwareModal";
 import RomUploadModal from "./RomUploadModal";
@@ -61,6 +63,8 @@ export default function SystemTools({
   hideTrigger?: boolean;
 }) {
   const t = useTranslations("systemTools");
+  const td = useTranslations("downloadProgress");
+  const { job: dlJob, run: runDl } = useOpProgress();
   const ART_LABEL: Record<ArtKind, string> = {
     hero: t("artLabel.hero"),
     logo: t("artLabel.logo"),
@@ -309,11 +313,16 @@ export default function SystemTools({
     setPicking(true);
     setArtMsg(suppress ? t("turningOff") : url ? t("downloading") : t("clearing"));
     try {
-      const res = await fetch(`/api/systems/${slug}/art`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ kind, url, suppress }),
-      });
+      const doFetch = () =>
+        fetch(`/api/systems/${slug}/art`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ kind, url, suppress }),
+        });
+      const res =
+        url && !suppress && /^https?:\/\//i.test(url)
+          ? await runDl({ title: td("artTitle"), subtitle: shortName, pollUrl: `/api/systems/${slug}/art?progress=${kind}`, work: doFetch })
+          : await doFetch();
       const data = await res.json();
       if (res.ok) {
         playSound("toast");
@@ -365,7 +374,12 @@ export default function SystemTools({
     setBusy("art");
     setMsg(t("fetchingArtwork"));
     try {
-      const res = await fetch(`/api/systems/${slug}/art?force=1`, { method: "POST" });
+      const res = await runDl({
+        title: td("artTitle"),
+        subtitle: shortName,
+        pollUrl: `/api/systems/${slug}/art?progress=artall`,
+        work: () => fetch(`/api/systems/${slug}/art?force=1`, { method: "POST" }),
+      });
       const data = await res.json();
       setMsg(
         res.ok
@@ -788,6 +802,8 @@ export default function SystemTools({
           <div className="text-[15px] leading-relaxed text-body">{msg}</div>
         </GpModal>
       )}
+
+      <DownloadProgressModal job={dlJob} />
     </>
   );
 }

@@ -194,7 +194,7 @@ function RecommendedShelf({ shelf }: { shelf: HomeShelf }) {
       <p className="gamepadhomerecommended_PlayNextCarouselSubHeading_gh mb-4 text-[13px] text-dim">
         {shelf.subtitle}
       </p>
-      <div className="no-scrollbar flex gap-3 overflow-x-auto pb-1">
+      <div className="no-scrollbar flex gap-3 overflow-x-auto -m-3 p-3">
         {shelf.roms.map((rom) => (
           <PortraitCard key={rom.id} rom={rom} />
         ))}
@@ -297,7 +297,7 @@ function NewsShelf({ section, moreHref }: { section: NewsSection; moreHref?: str
   return (
     <section className="mt-8">
       <h3 className="mb-3 text-[18px] font-bold text-bright">{section.title}</h3>
-      <div className="no-scrollbar flex gap-3 overflow-x-auto pb-1">
+      <div className="no-scrollbar flex gap-3 overflow-x-auto -m-3 p-3">
         {section.items.map((item) => (
           <NewsCard key={item.id} item={item} />
         ))}
@@ -559,7 +559,11 @@ export default function Home({
                             <h3 className="mb-3 text-[18px] font-bold text-bright">
                               {t("newToYourLibrary")}
                             </h3>
-                            <div className="gamepadhomewhatsnew_EventCarousel_gh no-scrollbar flex gap-3 overflow-x-auto pb-1">
+                            {/* extra BOTTOM clip room (pb-5 with matched -mb-5 =
+                                net-zero layout) so the focus ring under a card —
+                                which now grows downward from the top — isn't cut
+                                off by the shelf's overflow clip. */}
+                            <div className="gamepadhomewhatsnew_EventCarousel_gh no-scrollbar flex gap-3 overflow-x-auto -mx-3 -mt-3 -mb-5 px-3 pt-3 pb-5">
                         {whatsNew.map((rom) => {
                           const platform = platformBySlug(rom.platform_slug);
                           const art = rom.hero_url ?? rom.screenshot_url;
