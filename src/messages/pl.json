@@ -3044,6 +3044,46 @@
     "noSameGame": "Nie znaleziono duplikatów tej samej gry.",
     "prev": "Poprzedni",
     "next": "Następny",
-    "page": "Strona {page} z {pages}"
+    "page": "Strona {page} z {pages}",
+    "tabHealth": "Stan",
+    "totalGames": "Gry w bibliotece",
+    "covScraped": "Metadane pobrane",
+    "covArt": "Grafika pudełka",
+    "covHashed": "Plik zhaszowany",
+    "covVerified": "Zweryfikowano w DAT",
+    "covMismatch": "Niezgodna nazwa",
+    "missingFiles": "Brakujące pliki"
+  },
+  "stats": {
+    "title": "Twoje statystyki",
+    "allTime": "Wszystko razem",
+    "totalPlaytime": "Czas gry",
+    "gamesPlayed": "Gry rozegrane",
+    "systemsPlayed": "Systemy",
+    "topGame": "Najczęściej grany",
+    "activity": "Aktywność",
+    "noActivity": "Brak historii gry — zagraj w coś, a pojawi się tutaj.",
+    "nothingPlayed": "nic nie grano",
+    "mostPlayed": "Najczęściej grany",
+    "bySystem": "Czas według systemu",
+    "backlogTitle": "Gotowe do ukończenia",
+    "backlogSubtitle": "Najkrótsze gry, które jeszcze nie ukończyłeś.",
+    "backlogEmpty": "Brak danych o długości — pobierz więcej gier, aby to uzupełnić.",
+    "aboutHours": "~{hours}h do ukończenia"
+  },
+  "roulette": {
+    "title": "Zaskocz mnie",
+    "close": "Zamknij",
+    "rolling": "Losowanie…",
+    "noMatch": "Żadna gra nie spełnia tych filtrów.",
+    "playableOnly": "Grywalne tylko w przeglądarce",
+    "unplayedOnly": "Tylko nigdy nie grany",
+    "maxLength": "Długość",
+    "anyLength": "Dowolna długość",
+    "underHours": "Poniżej {hours}h",
+    "aboutHours": "~{hours}h do ukończenia",
+    "reroll": "Losuj ponownie",
+    "open": "Otwórz",
+    "play": "Zagraj"
   }
 }

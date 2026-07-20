@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { listUnidentified, listHashDupGroups } from "@/lib/db";
+import { listUnidentified, listHashDupGroups, getLibraryHealth } from "@/lib/db";
 import { findTitleDuplicates } from "@/lib/audit";
 import { platformBySlug } from "@/lib/platforms";
 
@@ -29,6 +29,10 @@ export async function GET(req: NextRequest) {
     hash: listHashDupGroups({ limit: 0 }).total,
     title: titleGroups.length,
   };
+
+  if (tab === "health") {
+    return NextResponse.json({ tab, counts, health: getLibraryHealth() });
+  }
 
   if (tab === "hash") {
     const { groups, total } = listHashDupGroups({ offset, limit: Math.min(limit, 40) });

@@ -53,6 +53,11 @@ const ICONS: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M13 3l1.9 5.1L20 10l-5.1 1.9L13 17l-1.9-5.1L6 10l5.1-1.9L13 3zM5 15v3M3.5 16.5h3" />
     </svg>
   ),
+  stats: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={ICON}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+    </svg>
+  ),
   settings: (
     <svg viewBox="0 0 24 24" fill="currentColor" className={ICON}>
       <path d="m10.3 3 .4 2.2a7 7 0 0 0-1.9 1.1L6.7 5.5 5 8.5l1.8 1.4a7 7 0 0 0 0 2.2L5 13.5l1.7 3 2.1-.8a7 7 0 0 0 1.9 1.1L10.3 19h3.4l.4-2.2a7 7 0 0 0 1.9-1.1l2.1.8 1.7-3-1.8-1.4a7 7 0 0 0 0-2.2L19.8 8.5l-1.7-3-2.1.8a7 7 0 0 0-1.9-1.1L13.7 3h-3.4ZM12 8.8a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4Z" />
@@ -80,14 +85,16 @@ export default function MainMenu({
   const pathname = usePathname();
   const router = useRouter();
   const t = useTranslations("nav");
-  // Reuse the review page's own (already-translated) title for the menu label.
+  // Reuse each page's own (already-translated) title for its menu label.
   const tr = useTranslations("libraryReview");
+  const ts = useTranslations("stats");
 
   const items = [
     { href: "/", label: t("home"), icon: "home" },
     { href: "/library", label: t("library"), icon: "library" },
     { href: "/systems", label: t("systems"), icon: "systems" },
     { href: "/collections", label: t("collections"), icon: "collections" },
+    { href: "/stats", label: ts("title"), icon: "stats" },
     ...(isAdmin
       ? [
           { href: "/downloads", label: t("downloads"), icon: "downloads" },

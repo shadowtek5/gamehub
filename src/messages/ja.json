@@ -3044,6 +3044,46 @@
     "noSameGame": "同じゲームの重複は見つかりません。",
     "prev": "前へ",
     "next": "次へ",
-    "page": "ページ {page} / {pages}"
+    "page": "ページ {page} / {pages}",
+    "tabHealth": "ヘルス",
+    "totalGames": "ライブラリ内のゲーム",
+    "covScraped": "メタデータスクレイプ済み",
+    "covArt": "ボックスアート",
+    "covHashed": "ファイルハッシュ済み",
+    "covVerified": "DAT検証済み",
+    "covMismatch": "名前の不一致",
+    "missingFiles": "ファイルが見つかりません"
+  },
+  "stats": {
+    "title": "あなたの統計",
+    "allTime": "すべての時間",
+    "totalPlaytime": "プレイ時間",
+    "gamesPlayed": "プレイしたゲーム",
+    "systemsPlayed": "システム",
+    "topGame": "最も遊んだ",
+    "activity": "アクティビティ",
+    "noActivity": "プレイアクティビティはまだ記録されていません — 何かプレイすればここに表示されます。",
+    "nothingPlayed": "プレイなし",
+    "mostPlayed": "最も遊んだ",
+    "bySystem": "システム別の時間",
+    "backlogTitle": "終わらせる準備ができている",
+    "backlogSubtitle": "まだ終わらせていない最も短いゲーム。",
+    "backlogEmpty": "まだ長さのデータがありません — より多くのゲームをスクレイプして埋めてください。",
+    "aboutHours": "~{hours}時間でクリア"
+  },
+  "roulette": {
+    "title": "驚かせてください",
+    "close": "閉じる",
+    "rolling": "抽選中…",
+    "noMatch": "これらのフィルターに一致するゲームはありません。",
+    "playableOnly": "ブラウザでのみプレイ可能",
+    "unplayedOnly": "未プレイのみ",
+    "maxLength": "プレイ時間",
+    "anyLength": "任意の長さ",
+    "underHours": "{hours}時間以下",
+    "aboutHours": "~{hours}時間でクリア",
+    "reroll": "もう一度抽選する",
+    "open": "開く",
+    "play": "プレイ"
   }
 }

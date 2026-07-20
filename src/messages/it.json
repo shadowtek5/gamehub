@@ -3044,6 +3044,46 @@
     "noSameGame": "Nessun duplicato dello stesso gioco trovato.",
     "prev": "Precedente",
     "next": "Successivo",
-    "page": "Pagina {page} di {pages}"
+    "page": "Pagina {page} di {pages}",
+    "tabHealth": "Salute",
+    "totalGames": "Giochi in libreria",
+    "covScraped": "Metadati scrapati",
+    "covArt": "Copertina",
+    "covHashed": "File hashato",
+    "covVerified": "DAT verificato",
+    "covMismatch": "Nome non corrispondente",
+    "missingFiles": "File mancanti"
+  },
+  "stats": {
+    "title": "Le tue statistiche",
+    "allTime": "Di tutti i tempi",
+    "totalPlaytime": "Tempo di gioco",
+    "gamesPlayed": "Giochi giocati",
+    "systemsPlayed": "Sistemi",
+    "topGame": "Più giocato",
+    "activity": "Attività",
+    "noActivity": "Nessuna attività di gioco registrata ancora — gioca qualcosa e apparirà qui.",
+    "nothingPlayed": "niente giocato",
+    "mostPlayed": "Più giocato",
+    "bySystem": "Tempo per sistema",
+    "backlogTitle": "Pronto per finire",
+    "backlogSubtitle": "I giochi più brevi che non hai ancora finito.",
+    "backlogEmpty": "Nessun dato di lunghezza ancora — scrapa più giochi per riempire.",
+    "aboutHours": "~{hours}h per finire"
+  },
+  "roulette": {
+    "title": "Sorprendimi",
+    "close": "Chiudi",
+    "rolling": "Estrazione in corso…",
+    "noMatch": "Nessun gioco corrisponde a questi filtri.",
+    "playableOnly": "Giocabile solo nel browser",
+    "unplayedOnly": "Solo mai giocato",
+    "maxLength": "Durata",
+    "anyLength": "Qualsiasi durata",
+    "underHours": "Meno di {hours}h",
+    "aboutHours": "~{hours}h per finire",
+    "reroll": "Estrai di nuovo",
+    "open": "Apri",
+    "play": "Gioca"
   }
 }

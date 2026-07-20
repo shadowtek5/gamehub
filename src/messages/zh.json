@@ -3044,6 +3044,46 @@
     "noSameGame": "未找到同一游戏的重复项。",
     "prev": "上一个",
     "next": "下一个",
-    "page": "第 {page} 页，共 {pages} 页"
+    "page": "第 {page} 页，共 {pages} 页",
+    "tabHealth": "健康",
+    "totalGames": "库中的游戏",
+    "covScraped": "元数据已抓取",
+    "covArt": "盒子艺术",
+    "covHashed": "文件已哈希",
+    "covVerified": "DAT 已验证",
+    "covMismatch": "名称不匹配",
+    "missingFiles": "缺少文件"
+  },
+  "stats": {
+    "title": "您的统计数据",
+    "allTime": "所有时间",
+    "totalPlaytime": "游戏时间",
+    "gamesPlayed": "已玩游戏",
+    "systemsPlayed": "系统",
+    "topGame": "最常玩的",
+    "activity": "活动",
+    "noActivity": "尚未记录游戏活动——玩点什么，它就会显示在这里。",
+    "nothingPlayed": "没有玩过",
+    "mostPlayed": "最常玩的",
+    "bySystem": "按系统分类的时间",
+    "backlogTitle": "准备完成",
+    "backlogSubtitle": "您尚未完成的最短游戏。",
+    "backlogEmpty": "还没有长度数据——抓取更多游戏来填充此信息。",
+    "aboutHours": "~{hours}小时才能完成"
+  },
+  "roulette": {
+    "title": "惊喜我",
+    "close": "关闭",
+    "rolling": "抽奖中…",
+    "noMatch": "没有游戏符合这些过滤条件。",
+    "playableOnly": "仅在浏览器中可玩",
+    "unplayedOnly": "仅从未玩过",
+    "maxLength": "长度",
+    "anyLength": "任意长度",
+    "underHours": "低于 {hours} 小时",
+    "aboutHours": "~{hours}小时才能完成",
+    "reroll": "再次抽奖",
+    "open": "打开",
+    "play": "玩"
   }
 }

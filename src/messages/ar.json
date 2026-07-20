@@ -3044,6 +3044,46 @@
     "noSameGame": "لم يتم العثور على نسخ مكررة من نفس اللعبة.",
     "prev": "السابق",
     "next": "التالي",
-    "page": "الصفحة {page} من {pages}"
+    "page": "الصفحة {page} من {pages}",
+    "tabHealth": "الصحة",
+    "totalGames": "الألعاب في المكتبة",
+    "covScraped": "البيانات الوصفية المحصودة",
+    "covArt": "فن الصندوق",
+    "covHashed": "الملف المجزأ",
+    "covVerified": "تم التحقق من DAT",
+    "covMismatch": "عدم تطابق الاسم",
+    "missingFiles": "الملفات المفقودة"
+  },
+  "stats": {
+    "title": "إحصائياتك",
+    "allTime": "الكل",
+    "totalPlaytime": "وقت اللعب",
+    "gamesPlayed": "الألعاب التي تم لعبها",
+    "systemsPlayed": "الأنظمة",
+    "topGame": "الأكثر لعباً",
+    "activity": "النشاط",
+    "noActivity": "لم يتم تسجيل أي نشاط لعب حتى الآن — العب شيئًا ما وسيظهر هنا.",
+    "nothingPlayed": "لم يتم لعب شيء",
+    "mostPlayed": "الأكثر لعباً",
+    "bySystem": "الوقت حسب النظام",
+    "backlogTitle": "جاهز للانتهاء",
+    "backlogSubtitle": "أقصر الألعاب التي لم تنتهِ منها بعد.",
+    "backlogEmpty": "لا توجد بيانات طول حتى الآن — قم بالكشط لمزيد من الألعاب لملء هذا.",
+    "aboutHours": "~{hours}س للانتهاء"
+  },
+  "roulette": {
+    "title": "فاجئني",
+    "close": "إغلاق",
+    "rolling": "يتم الاختيار…",
+    "noMatch": "لا توجد لعبة تطابق تلك المرشحات.",
+    "playableOnly": "قابل للعب في المتصفح فقط",
+    "unplayedOnly": "لم يتم لعبها فقط",
+    "maxLength": "المدة",
+    "anyLength": "أي مدة",
+    "underHours": "أقل من {hours}س",
+    "aboutHours": "~{hours}س للانتهاء",
+    "reroll": "اختر مجددًا",
+    "open": "فتح",
+    "play": "العب"
   }
 }

@@ -3044,6 +3044,46 @@
     "noSameGame": "Keine doppelten Kopien desselben Spiels gefunden.",
     "prev": "Zurück",
     "next": "Weiter",
-    "page": "Seite {page} von {pages}"
+    "page": "Seite {page} von {pages}",
+    "tabHealth": "Gesundheit",
+    "totalGames": "Spiele in Bibliothek",
+    "covScraped": "Metadaten gescraped",
+    "covArt": "Schachtkunst",
+    "covHashed": "Datei gehasht",
+    "covVerified": "DAT verifiziert",
+    "covMismatch": "Namensfehler",
+    "missingFiles": "Fehlende Dateien"
+  },
+  "stats": {
+    "title": "Deine Statistiken",
+    "allTime": "Gesamte Zeit",
+    "totalPlaytime": "Spielzeit",
+    "gamesPlayed": "Spiele gespielt",
+    "systemsPlayed": "Systeme",
+    "topGame": "Am häufigsten gespielt",
+    "activity": "Aktivität",
+    "noActivity": "Bisher keine Spielaktivität aufgezeichnet — spielen Sie etwas und es wird hier angezeigt.",
+    "nothingPlayed": "nichts gespielt",
+    "mostPlayed": "Am häufigsten gespielt",
+    "bySystem": "Zeit nach System",
+    "backlogTitle": "Fertig zu spielen",
+    "backlogSubtitle": "Die kürzesten Spiele, die du noch nicht beendet hast.",
+    "backlogEmpty": "Noch keine Längendaten — scrapen Sie mehr Spiele, um dies zu füllen.",
+    "aboutHours": "~{hours} Std. zum Durchspielen"
+  },
+  "roulette": {
+    "title": "Überrasche mich",
+    "close": "Schließen",
+    "rolling": "wird gedreht…",
+    "noMatch": "Kein Spiel passt zu diesen Filtern.",
+    "playableOnly": "Nur im Browser spielbar",
+    "unplayedOnly": "Nur ungespielt",
+    "maxLength": "Länge",
+    "anyLength": "Beliebige Länge",
+    "underHours": "Unter {hours} Std.",
+    "aboutHours": "~{hours} Std. zum Durchspielen",
+    "reroll": "Nochmal drehen",
+    "open": "Öffnen",
+    "play": "Spielen"
   }
 }

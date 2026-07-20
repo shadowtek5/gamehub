@@ -23,6 +23,8 @@ const CARD = "rounded-[12px] bg-[#1a1f27] ring-1 ring-white/5";
 
 export default function MobileAccount({ user }: { user: AccountData }) {
   const t = useTranslations("mobileAccount");
+  // Reuse the stats page's own translated title for the link row.
+  const tStats = useTranslations("stats");
   const STATUS_LABELS: Record<string, string> = {
     online: t("account.statusOnline"),
     away: t("account.statusAway"),
@@ -120,6 +122,15 @@ export default function MobileAccount({ user }: { user: AccountData }) {
           </Link>
         </div>
       </div>
+
+      {/* Your stats — playtime, activity heatmap, most played, backlog */}
+      <Link href="/mobile/stats" className={`${CARD} flex items-center gap-3 p-4 active:bg-[#2c3540]`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5 text-dim">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+        </svg>
+        <span className="flex-1 text-[14px] font-semibold text-bright">{tStats("title")}</span>
+        <span className="text-dim">›</span>
+      </Link>
 
       {/* Status */}
       <div className={`${CARD} p-4`}>

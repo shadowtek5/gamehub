@@ -3044,6 +3044,46 @@
     "noSameGame": "Inga duplicerat av samma spel hittades.",
     "prev": "Tidigare",
     "next": "Nästa",
-    "page": "Sida {page} av {pages}"
+    "page": "Sida {page} av {pages}",
+    "tabHealth": "Hälsa",
+    "totalGames": "Spel i biblioteket",
+    "covScraped": "Metadata skrapad",
+    "covArt": "Låd art",
+    "covHashed": "Fil hasherad",
+    "covVerified": "Verifierad i DAT",
+    "covMismatch": "Namnskillnad",
+    "missingFiles": "Saknade filer"
+  },
+  "stats": {
+    "title": "Din statistik",
+    "allTime": "Hela tiden",
+    "totalPlaytime": "Speltid",
+    "gamesPlayed": "Spelade spel",
+    "systemsPlayed": "System",
+    "topGame": "Mest spelade",
+    "activity": "Aktivitet",
+    "noActivity": "Ingen spelaktivitet registrerad än — spela något och det dyker upp här.",
+    "nothingPlayed": "inget spelat",
+    "mostPlayed": "Mest spelade",
+    "bySystem": "Tid per system",
+    "backlogTitle": "Klara att slutföra",
+    "backlogSubtitle": "De kortaste spelen som du inte har slutfört än.",
+    "backlogEmpty": "Ingen längddata än — skrapa fler spel för att fylla i detta.",
+    "aboutHours": "~{hours}h att klara"
+  },
+  "roulette": {
+    "title": "Överraska mig",
+    "close": "Stäng",
+    "rolling": "Lottar…",
+    "noMatch": "Inget spel matchar dessa filter.",
+    "playableOnly": "Spelbar endast i webbläsare",
+    "unplayedOnly": "Aldrig spelat bara",
+    "maxLength": "Längd",
+    "anyLength": "Vilken längd som helst",
+    "underHours": "Under {hours}h",
+    "aboutHours": "~{hours}h att klara",
+    "reroll": "Lotta igen",
+    "open": "Öppna",
+    "play": "Spela"
   }
 }

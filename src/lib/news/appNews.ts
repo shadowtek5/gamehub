@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-07-20",
+    title: "Know your library: stats, a backlog and a dice roll",
+    body: "A new Your stats page (in the menu; on mobile from your profile) shows how much you've actually played — total playtime, games and systems, an activity heatmap of the last year, your most-played games, and time broken down by system, with a year picker once you've played across more than one. Underneath it, \"Ready to finish\" surfaces the shortest games you haven't completed yet, using HowLongToBeat times, so a huge library stops being paralysing. Can't decide at all? Hit \"Surprise me\" for a random pick you can filter to browser-playable, never-played, or games under a couple of hours — then roll again until something sticks. The Review & clean up page also gained a Health tab: metadata, box art, hashing and DAT-verification coverage across the whole library at a glance, with the problem counts one click away.",
+    art: "automation",
+  },
+  {
     date: "2026-07-19",
     title: "Find and clean up problem games",
     body: "A new Review & clean up page (admins, from the library) puts the games that need attention in one place, split into two tabs. Unidentified lists games GameHub couldn't match — the hash isn't in any DAT, or it matched but the stored name differs — as art cards you can scan quickly. Duplicates has two views: exact byte-identical copies (same file hash) and the same game held as multiple region/revision copies, each grouped with the copy we suggest keeping so you can hide the rest in one click. Select any games to handle them in bulk — hide (reversible), re-scrape, or delete from disk — or open a game's ⚙ menu to re-identify it. On desktop/TV and the mobile app.",

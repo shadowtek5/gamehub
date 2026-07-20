@@ -3044,6 +3044,46 @@
     "noSameGame": "No se encontraron copias duplicadas del mismo juego.",
     "prev": "Anterior",
     "next": "Siguiente",
-    "page": "Página {page} de {pages}"
+    "page": "Página {page} de {pages}",
+    "tabHealth": "Salud",
+    "totalGames": "Juegos en la biblioteca",
+    "covScraped": "Metadatos extraídos",
+    "covArt": "Arte de caja",
+    "covHashed": "Archivo hasheado",
+    "covVerified": "DAT verificado",
+    "covMismatch": "Discrepancia de nombre",
+    "missingFiles": "Archivos faltantes"
+  },
+  "stats": {
+    "title": "Tus estadísticas",
+    "allTime": "Todo el tiempo",
+    "totalPlaytime": "Tiempo de juego",
+    "gamesPlayed": "Juegos jugados",
+    "systemsPlayed": "Sistemas",
+    "topGame": "Más jugado",
+    "activity": "Actividad",
+    "noActivity": "Aún no hay actividad de juego registrada — juega algo y aparecerá aquí.",
+    "nothingPlayed": "nada jugado",
+    "mostPlayed": "Más jugado",
+    "bySystem": "Tiempo por sistema",
+    "backlogTitle": "Listo para terminar",
+    "backlogSubtitle": "Los juegos más cortos que aún no has terminado.",
+    "backlogEmpty": "Aún no hay datos de duración — raspea más juegos para llenar esto.",
+    "aboutHours": "~{hours}h para terminar"
+  },
+  "roulette": {
+    "title": "Sorpréndeme",
+    "close": "Cerrar",
+    "rolling": "Girando…",
+    "noMatch": "Ningún juego coincide con esos filtros.",
+    "playableOnly": "Solo jugable en el navegador",
+    "unplayedOnly": "Solo no jugados",
+    "maxLength": "Duración",
+    "anyLength": "Cualquier duración",
+    "underHours": "Menos de {hours}h",
+    "aboutHours": "~{hours}h para terminar",
+    "reroll": "Girar de nuevo",
+    "open": "Abrir",
+    "play": "Jugar"
   }
 }

@@ -3044,6 +3044,46 @@
     "noSameGame": "Ingen duplikerede kopier af samme spil fundet.",
     "prev": "Forrige",
     "next": "Næste",
-    "page": "Side {page} af {pages}"
+    "page": "Side {page} af {pages}",
+    "tabHealth": "Sundhed",
+    "totalGames": "Spil i bibliotek",
+    "covScraped": "Metadata skrabet",
+    "covArt": "Kasseart",
+    "covHashed": "Fil hasheret",
+    "covVerified": "DAT verificeret",
+    "covMismatch": "Navnefejlmatch",
+    "missingFiles": "Manglende filer"
+  },
+  "stats": {
+    "title": "Dine statistikker",
+    "allTime": "Alt tid",
+    "totalPlaytime": "Spilletid",
+    "gamesPlayed": "Spil spillet",
+    "systemsPlayed": "Systemer",
+    "topGame": "Mest spillet",
+    "activity": "Aktivitet",
+    "noActivity": "Der er ikke registreret nogen spilleaktivitet endnu — spil noget og det vises her.",
+    "nothingPlayed": "intet spillet",
+    "mostPlayed": "Mest spillet",
+    "bySystem": "Tid efter system",
+    "backlogTitle": "Klar til at færdiggøre",
+    "backlogSubtitle": "De korteste spil, som du ikke har afsluttet endnu.",
+    "backlogEmpty": "Ingen længdedata endnu — skrab flere spil for at udfylde dette.",
+    "aboutHours": "~{hours}t til at besejre"
+  },
+  "roulette": {
+    "title": "Overrask mig",
+    "close": "Luk",
+    "rolling": "Ruller…",
+    "noMatch": "Intet spil passer til disse filtre.",
+    "playableOnly": "Kun spilleligt i browser",
+    "unplayedOnly": "Kun uspillede",
+    "maxLength": "Længde",
+    "anyLength": "Hvilken som helst længde",
+    "underHours": "Under {hours}t",
+    "aboutHours": "~{hours}t til at besejre",
+    "reroll": "Rul igen",
+    "open": "Åbn",
+    "play": "Spil"
   }
 }

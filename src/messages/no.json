@@ -3044,6 +3044,46 @@
     "noSameGame": "Ingen duplikater av samme spill funnet.",
     "prev": "Forrige",
     "next": "Neste",
-    "page": "Side {page} av {pages}"
+    "page": "Side {page} av {pages}",
+    "tabHealth": "Status",
+    "totalGames": "Spill i bibliotek",
+    "covScraped": "Metadata hentet",
+    "covArt": "Kassekart",
+    "covHashed": "Fil hashet",
+    "covVerified": "DAT verifisert",
+    "covMismatch": "Navn samsvarer ikke",
+    "missingFiles": "Manglende filer"
+  },
+  "stats": {
+    "title": "Dine statistikker",
+    "allTime": "Hele tiden",
+    "totalPlaytime": "Spiltid",
+    "gamesPlayed": "Spill spilt",
+    "systemsPlayed": "Systemer",
+    "topGame": "Mest spilt",
+    "activity": "Aktivitet",
+    "noActivity": "Ingen spillaktivitet registrert ennå — spill noe og det vises her.",
+    "nothingPlayed": "ingenting spilt",
+    "mostPlayed": "Mest spilt",
+    "bySystem": "Tid per system",
+    "backlogTitle": "Klar til å fullføre",
+    "backlogSubtitle": "De korteste spillene du ikke har fullført ennå.",
+    "backlogEmpty": "Ingen lengdedata ennå — skrap flere spill for å fylle dette ut.",
+    "aboutHours": "~{hours}t til fullføring"
+  },
+  "roulette": {
+    "title": "Overrask meg",
+    "close": "Lukk",
+    "rolling": "Trekker…",
+    "noMatch": "Ingen spill samsvarer med disse filtrene.",
+    "playableOnly": "Bare mulig å spille i nettleser",
+    "unplayedOnly": "Bare aldri spilt",
+    "maxLength": "Lengde",
+    "anyLength": "Enhver lengde",
+    "underHours": "Under {hours}t",
+    "aboutHours": "~{hours}t til fullføring",
+    "reroll": "Trekk igjen",
+    "open": "Åpne",
+    "play": "Spill"
   }
 }

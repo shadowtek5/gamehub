@@ -3044,6 +3044,46 @@
     "noSameGame": "Geen duplicaten van dezelfde spel gevonden.",
     "prev": "Vorige",
     "next": "Volgende",
-    "page": "Pagina {page} van {pages}"
+    "page": "Pagina {page} van {pages}",
+    "tabHealth": "Status",
+    "totalGames": "Spellen in bibliotheek",
+    "covScraped": "Metagegevens gescraped",
+    "covArt": "Hoesje",
+    "covHashed": "Bestand gehasht",
+    "covVerified": "DAT geverifieerd",
+    "covMismatch": "Naam komt niet overeen",
+    "missingFiles": "Ontbrekende bestanden"
+  },
+  "stats": {
+    "title": "Uw statistieken",
+    "allTime": "Altijd",
+    "totalPlaytime": "Speeltijd",
+    "gamesPlayed": "Gespeelde spellen",
+    "systemsPlayed": "Systemen",
+    "topGame": "Meest gespeeld",
+    "activity": "Activiteit",
+    "noActivity": "Nog geen speelactiviteit geregistreerd — speel iets en het verschijnt hier.",
+    "nothingPlayed": "niets gespeeld",
+    "mostPlayed": "Meest gespeeld",
+    "bySystem": "Tijd per systeem",
+    "backlogTitle": "Klaar om af te maken",
+    "backlogSubtitle": "De kortste spellen die je nog niet hebt afgemaakt.",
+    "backlogEmpty": "Nog geen lengtegegevens — scrap meer spellen om dit in te vullen.",
+    "aboutHours": "~{hours}u om af te maken"
+  },
+  "roulette": {
+    "title": "Verrast mij",
+    "close": "Sluiten",
+    "rolling": "Draaiend…",
+    "noMatch": "Geen spel komt overeen met deze filters.",
+    "playableOnly": "Alleen in browser speelbaar",
+    "unplayedOnly": "Alleen nooit gespeeld",
+    "maxLength": "Duur",
+    "anyLength": "Elke duur",
+    "underHours": "Minder dan {hours}u",
+    "aboutHours": "~{hours}u om af te maken",
+    "reroll": "Opnieuw draaien",
+    "open": "Openen",
+    "play": "Spelen"
   }
 }

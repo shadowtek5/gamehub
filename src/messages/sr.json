@@ -3044,6 +3044,46 @@
     "noSameGame": "Nema pronađenih duplikata iste igre.",
     "prev": "Prethodno",
     "next": "Sledeće",
-    "page": "Stranica {page} od {pages}"
+    "page": "Stranica {page} od {pages}",
+    "tabHealth": "Zdravlje",
+    "totalGames": "Igre u biblioteci",
+    "covScraped": "Metapodaci preuzeti",
+    "covArt": "Grafika kutije",
+    "covHashed": "Datoteka heširana",
+    "covVerified": "Verifikovano u DAT-u",
+    "covMismatch": "Neslaganje imena",
+    "missingFiles": "Nedostaju datoteke"
+  },
+  "stats": {
+    "title": "Vaša statistika",
+    "allTime": "Sve vreme",
+    "totalPlaytime": "Vreme igranja",
+    "gamesPlayed": "Igre odigrane",
+    "systemsPlayed": "Sistemi",
+    "topGame": "Najčešće igrane",
+    "activity": "Aktivnost",
+    "noActivity": "Nema zabeležene aktivnosti igranja — igrajte nešto i pojaviće se ovde.",
+    "nothingPlayed": "ništa nije odigrano",
+    "mostPlayed": "Najčešće igrane",
+    "bySystem": "Vreme po sistemu",
+    "backlogTitle": "Spremno za završetak",
+    "backlogSubtitle": "Najkraće igre koje još niste završili.",
+    "backlogEmpty": "Nema podataka o dužini — preuzmi više igara da popuniš ovo.",
+    "aboutHours": "~{hours}h za završetak"
+  },
+  "roulette": {
+    "title": "Iznenadite me",
+    "close": "Zatvori",
+    "rolling": "Vrtim…",
+    "noMatch": "Nema igre koja odgovara tim filterima.",
+    "playableOnly": "Moguće igranje samo u pregledniku",
+    "unplayedOnly": "Nikad nije igrana samo",
+    "maxLength": "Dužina",
+    "anyLength": "Bilo koja dužina",
+    "underHours": "Manje od {hours}h",
+    "aboutHours": "~{hours}h za završetak",
+    "reroll": "Vrti ponovo",
+    "open": "Otvori",
+    "play": "Igraj"
   }
 }

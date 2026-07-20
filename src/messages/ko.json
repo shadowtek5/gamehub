@@ -3044,6 +3044,46 @@
     "noSameGame": "같은 게임의 중복을 찾을 수 없습니다.",
     "prev": "이전",
     "next": "다음",
-    "page": "페이지 {page}/{pages}"
+    "page": "페이지 {page}/{pages}",
+    "tabHealth": "상태",
+    "totalGames": "라이브러리의 게임",
+    "covScraped": "메타데이터 스크랩됨",
+    "covArt": "박스 아트",
+    "covHashed": "파일 해시됨",
+    "covVerified": "DAT 검증됨",
+    "covMismatch": "이름 불일치",
+    "missingFiles": "누락된 파일"
+  },
+  "stats": {
+    "title": "당신의 통계",
+    "allTime": "모든 시간",
+    "totalPlaytime": "플레이 시간",
+    "gamesPlayed": "플레이한 게임",
+    "systemsPlayed": "시스템",
+    "topGame": "가장 많이 플레이",
+    "activity": "활동",
+    "noActivity": "아직 플레이 활동이 기록되지 않았습니다 — 뭔가를 플레이하면 여기에 표시됩니다.",
+    "nothingPlayed": "플레이한 것 없음",
+    "mostPlayed": "가장 많이 플레이",
+    "bySystem": "시스템별 시간",
+    "backlogTitle": "완료할 준비가 됨",
+    "backlogSubtitle": "아직 완료하지 않은 가장 짧은 게임입니다.",
+    "backlogEmpty": "아직 길이 데이터가 없습니다 — 더 많은 게임을 스크랩하여 채우세요.",
+    "aboutHours": "~{hours}시간 플레이 필요"
+  },
+  "roulette": {
+    "title": "놀라게 해주세요",
+    "close": "닫기",
+    "rolling": "추첨 중…",
+    "noMatch": "이 필터와 일치하는 게임이 없습니다.",
+    "playableOnly": "브라우저에서만 플레이 가능",
+    "unplayedOnly": "미플레이만",
+    "maxLength": "길이",
+    "anyLength": "모든 길이",
+    "underHours": "{hours}시간 미만",
+    "aboutHours": "~{hours}시간 플레이 필요",
+    "reroll": "다시 추첨",
+    "open": "열기",
+    "play": "플레이"
   }
 }

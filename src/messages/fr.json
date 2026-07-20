@@ -3044,6 +3044,46 @@
     "noSameGame": "Aucun doublon du même jeu trouvé.",
     "prev": "Précédent",
     "next": "Suivant",
-    "page": "Page {page} sur {pages}"
+    "page": "Page {page} sur {pages}",
+    "tabHealth": "Santé",
+    "totalGames": "Jeux dans la bibliothèque",
+    "covScraped": "Métadonnées scrapées",
+    "covArt": "Couverture",
+    "covHashed": "Fichier hashé",
+    "covVerified": "DAT vérifié",
+    "covMismatch": "Nom incompatible",
+    "missingFiles": "Fichiers manquants"
+  },
+  "stats": {
+    "title": "Vos statistiques",
+    "allTime": "Tous les temps",
+    "totalPlaytime": "Temps de jeu",
+    "gamesPlayed": "Jeux joués",
+    "systemsPlayed": "Systèmes",
+    "topGame": "Plus joué",
+    "activity": "Activité",
+    "noActivity": "Aucune activité de jeu enregistrée pour l'instant — jouez quelque chose et ça apparaîtra ici.",
+    "nothingPlayed": "rien joué",
+    "mostPlayed": "Plus joué",
+    "bySystem": "Temps par système",
+    "backlogTitle": "Prêt à terminer",
+    "backlogSubtitle": "Les jeux les plus courts que vous n'avez pas terminés.",
+    "backlogEmpty": "Pas encore de données de durée — scrapez plus de jeux pour compléter.",
+    "aboutHours": "~{hours}h à terminer"
+  },
+  "roulette": {
+    "title": "Surprenez-moi",
+    "close": "Fermer",
+    "rolling": "Tirage en cours…",
+    "noMatch": "Aucun jeu ne correspond à ces filtres.",
+    "playableOnly": "Jouable dans le navigateur uniquement",
+    "unplayedOnly": "Jamais joué uniquement",
+    "maxLength": "Durée",
+    "anyLength": "Toute durée",
+    "underHours": "Moins de {hours}h",
+    "aboutHours": "~{hours}h à terminer",
+    "reroll": "Relancer",
+    "open": "Ouvrir",
+    "play": "Jouer"
   }
 }

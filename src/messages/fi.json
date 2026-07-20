@@ -3044,6 +3044,46 @@
     "noSameGame": "Ei löytynyt kaksoiskopiota samasta pelistä.",
     "prev": "Edellinen",
     "next": "Seuraava",
-    "page": "Sivu {page} / {pages}"
+    "page": "Sivu {page} / {pages}",
+    "tabHealth": "Terveys",
+    "totalGames": "Pelit kirjastossa",
+    "covScraped": "Metatiedot napattu",
+    "covArt": "Laatikko-taide",
+    "covHashed": "Tiedosto hajautettu",
+    "covVerified": "DAT vahvistettu",
+    "covMismatch": "Nimen ristiriita",
+    "missingFiles": "Puuttuvat tiedostot"
+  },
+  "stats": {
+    "title": "Tilastosi",
+    "allTime": "Koko ajan",
+    "totalPlaytime": "Peliaikaa",
+    "gamesPlayed": "Pelejä pelattu",
+    "systemsPlayed": "Järjestelmät",
+    "topGame": "Eniten pelattu",
+    "activity": "Aktiviteetti",
+    "noActivity": "Pelitoimintoa ei ole vielä kirjattu — pelaa jotain niin se näkyy täällä.",
+    "nothingPlayed": "mitään ei pelattu",
+    "mostPlayed": "Eniten pelattu",
+    "bySystem": "Aika järjestelmittäin",
+    "backlogTitle": "Valmiina viimeistelemään",
+    "backlogSubtitle": "Lyhyimmät pelit, joita et ole vielä suorittanut.",
+    "backlogEmpty": "Ei vielä pituustietoja — raapii lisää pelejä täyttääksesi tämän.",
+    "aboutHours": "~{hours}h voittamiseen"
+  },
+  "roulette": {
+    "title": "Ylläpidä minua",
+    "close": "Sulje",
+    "rolling": "Pyöritetään…",
+    "noMatch": "Yksikään peli ei vastaa näitä suodattimia.",
+    "playableOnly": "Pelattavissa vain selaimessa",
+    "unplayedOnly": "Vain pelaamattomat",
+    "maxLength": "Pituus",
+    "anyLength": "Mikä tahansa pituus",
+    "underHours": "Alle {hours}h",
+    "aboutHours": "~{hours}h voittamiseen",
+    "reroll": "Pyöritä uudelleen",
+    "open": "Avata",
+    "play": "Pelata"
   }
 }

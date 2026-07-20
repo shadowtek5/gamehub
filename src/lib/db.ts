@@ -3005,6 +3005,193 @@ export function listHashDupGroups(
   return { groups, total };
 }
 
+export interface LibraryHealth {
+  total: number;
+  scraped: number;
+  withArt: number;
+  hashed: number;
+  datVerified: number;
+  datMismatch: number;
+  datUnknown: number;
+  missingFiles: number;
+}
+
+/** Library-wide coverage counters for the Review page's Health tab. One grouped
+ *  scan over roms — cheap enough for an admin page. */
+export function getLibraryHealth(): LibraryHealth {
+  const db = getDb();
+  const r = db
+    .prepare(
+      `SELECT COUNT(*) total,
+              SUM(CASE WHEN scraped_at IS NOT NULL THEN 1 ELSE 0 END) scraped,
+              SUM(CASE WHEN boxart_url IS NOT NULL AND boxart_url <> '' THEN 1 ELSE 0 END) withArt,
+              SUM(CASE WHEN md5 IS NOT NULL AND md5 <> '' THEN 1 ELSE 0 END) hashed,
+              SUM(CASE WHEN dat_status = 'verified' THEN 1 ELSE 0 END) datVerified,
+              SUM(CASE WHEN dat_status = 'mismatch' THEN 1 ELSE 0 END) datMismatch,
+              SUM(CASE WHEN dat_status = 'unknown' THEN 1 ELSE 0 END) datUnknown
+       FROM roms WHERE missing = 0`
+    )
+    .get() as Omit<LibraryHealth, "missingFiles">;
+  const missing = db.prepare("SELECT COUNT(*) c FROM roms WHERE missing = 1").get() as { c: number };
+  return { ...r, missingFiles: missing.c };
+}
+
+// ---- Play stats, backlog and roulette --------------------------------------
+// NOTE: roms.hltb is JSON ({"main":secs,...}) but can be an empty string, which
+// makes json_extract throw "malformed JSON" — every read is guarded by
+// json_valid(r.hltb).
+
+export interface PlayStatsRom {
+  id: number;
+  title: string;
+  platform_slug: string;
+  boxart_url: string | null;
+  playtime_seconds: number;
+}
+
+export interface PlayStats {
+  /** lifetime total, or the selected year's total when `year` is given */
+  totalSeconds: number;
+  gamesPlayed: number;
+  systemsPlayed: number;
+  /** per-day totals — drives the activity heatmap */
+  daily: { day: string; seconds: number }[];
+  mostPlayed: PlayStatsRom[];
+  bySystem: { slug: string; seconds: number; games: number }[];
+  /** years that have any recorded play, newest first (for the year picker) */
+  years: number[];
+  firstDay: string | null;
+  lastPlayedAt: string | null;
+}
+
+export function getPlayStats(userId: number, year?: number): PlayStats {
+  const db = getDb();
+  const h = hiddenFilter(true, userId);
+  // daily_play holds per-day seconds (heatmap + per-year totals); user_roms
+  // .playtime_seconds is a LIFETIME per-game total, so it drives most-played.
+  const daily = db
+    .prepare(
+      `SELECT day, seconds FROM daily_play
+       WHERE user_id = ?${year ? " AND substr(day, 1, 4) = ?" : ""}
+       ORDER BY day`
+    )
+    .all(userId, ...(year ? [String(year)] : [])) as { day: string; seconds: number }[];
+  const years = (
+    db
+      .prepare("SELECT DISTINCT substr(day, 1, 4) y FROM daily_play WHERE user_id = ? ORDER BY y DESC")
+      .all(userId) as { y: string }[]
+  ).map((r) => Number(r.y));
+  const played = db
+    .prepare(
+      `SELECT r.id, r.title, r.platform_slug, r.boxart_url, ur.playtime_seconds
+       FROM user_roms ur
+       JOIN roms r ON r.id = ur.rom_id AND r.missing = 0
+       WHERE ur.user_id = ? AND ur.playtime_seconds > 0${h.sql}
+       ORDER BY ur.playtime_seconds DESC`
+    )
+    .all(userId, ...h.params) as PlayStatsRom[];
+
+  const bySystem = new Map<string, { slug: string; seconds: number; games: number }>();
+  for (const p of played) {
+    const e = bySystem.get(p.platform_slug) ?? { slug: p.platform_slug, seconds: 0, games: 0 };
+    e.seconds += p.playtime_seconds;
+    e.games++;
+    bySystem.set(p.platform_slug, e);
+  }
+  const lifetime = played.reduce((n, p) => n + p.playtime_seconds, 0);
+  const dailyTotal = daily.reduce((n, d) => n + d.seconds, 0);
+  const last = db
+    .prepare("SELECT MAX(last_played_at) m FROM user_roms WHERE user_id = ?")
+    .get(userId) as { m: string | null } | undefined;
+
+  return {
+    totalSeconds: year ? dailyTotal : lifetime,
+    gamesPlayed: played.length,
+    systemsPlayed: bySystem.size,
+    daily,
+    mostPlayed: played.slice(0, 12),
+    bySystem: [...bySystem.values()].sort((a, b) => b.seconds - a.seconds),
+    years,
+    firstDay: daily[0]?.day ?? null,
+    lastPlayedAt: last?.m ?? null,
+  };
+}
+
+export interface BacklogRow extends PlayStatsRom {
+  /** HowLongToBeat "main story" seconds */
+  hltb_main: number;
+  play_status: string;
+}
+
+/** Games worth starting: known length, not finished — shortest first. */
+export function getBacklog(
+  userId: number,
+  opts: { limit?: number; maxSeconds?: number } = {}
+): BacklogRow[] {
+  const h = hiddenFilter(true, userId);
+  const params: (string | number)[] = [];
+  let cond = "";
+  if (opts.maxSeconds) {
+    cond = " AND json_extract(r.hltb, '$.main') <= ?";
+    params.push(opts.maxSeconds);
+  }
+  return getDb()
+    .prepare(
+      `SELECT r.id, r.title, r.platform_slug, r.boxart_url,
+              json_extract(r.hltb, '$.main') AS hltb_main,
+              COALESCE(ur.play_status, 'none') AS play_status,
+              COALESCE(ur.playtime_seconds, 0) AS playtime_seconds
+       FROM roms r
+       LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+       WHERE r.missing = 0 AND json_valid(r.hltb)
+         AND json_extract(r.hltb, '$.main') IS NOT NULL
+         AND COALESCE(ur.play_status, 'none') <> 'completed'${cond}${h.sql}
+       ORDER BY hltb_main ASC, r.sort_title
+       LIMIT ?`
+    )
+    .all(userId, ...params, ...h.params, opts.limit ?? 40) as BacklogRow[];
+}
+
+export interface RouletteRom extends PlayStatsRom {
+  hero_url: string | null;
+  genre: string | null;
+  hltb_main: number | null;
+}
+
+/** One random game matching the filters — the "Surprise me" pick. */
+export function randomGame(
+  userId: number,
+  f: { platforms?: string[]; genre?: string; unplayedOnly?: boolean; maxSeconds?: number } = {}
+): RouletteRom | undefined {
+  const h = hiddenFilter(true, userId);
+  const conds = ["r.missing = 0"];
+  const params: (string | number)[] = [];
+  if (f.platforms?.length) {
+    conds.push(`r.platform_slug IN (${f.platforms.map(() => "?").join(",")})`);
+    params.push(...f.platforms);
+  }
+  if (f.genre) {
+    conds.push("r.genre LIKE ?");
+    params.push(`%${f.genre}%`);
+  }
+  if (f.unplayedOnly) conds.push("COALESCE(ur.playtime_seconds, 0) = 0");
+  if (f.maxSeconds) {
+    conds.push("json_valid(r.hltb) AND json_extract(r.hltb, '$.main') <= ?");
+    params.push(f.maxSeconds);
+  }
+  return getDb()
+    .prepare(
+      `SELECT r.id, r.title, r.platform_slug, r.boxart_url, r.hero_url, r.genre,
+              CASE WHEN json_valid(r.hltb) THEN json_extract(r.hltb, '$.main') END AS hltb_main,
+              COALESCE(ur.playtime_seconds, 0) AS playtime_seconds
+       FROM roms r
+       LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+       WHERE ${conds.join(" AND ")}${h.sql}
+       ORDER BY RANDOM() LIMIT 1`
+    )
+    .get(userId, ...params, ...h.params) as RouletteRom | undefined;
+}
+
 export function recentlyAdded(userId: number, limit = 15): LibraryRomRow[] {
   const h = hiddenFilter(true, userId);
   return getDb()

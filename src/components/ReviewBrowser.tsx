@@ -49,8 +49,18 @@ interface TitleGroup {
   members: TitleMember[];
 }
 type Counts = { unidentified: number; hash: number; title: number };
+interface Health {
+  total: number;
+  scraped: number;
+  withArt: number;
+  hashed: number;
+  datVerified: number;
+  datMismatch: number;
+  datUnknown: number;
+  missingFiles: number;
+}
 
-type Top = "unidentified" | "duplicates";
+type Top = "unidentified" | "duplicates" | "health";
 type Sub = "hash" | "title";
 
 const UNI_LIMIT = 60;
@@ -66,12 +76,13 @@ export default function ReviewBrowser() {
   const [titleGroups, setTitleGroups] = useState<TitleGroup[]>([]);
   const [total, setTotal] = useState(0);
   const [counts, setCounts] = useState<Counts>({ unidentified: 0, hash: 0, title: 0 });
+  const [health, setHealth] = useState<Health | null>(null);
   const [loading, setLoading] = useState(true);
   const [sel, setSel] = useState<Set<number>>(new Set());
   const [busy, setBusy] = useState<string>("");
 
-  const apiTab: "unidentified" | "hash" | "title" =
-    top === "unidentified" ? "unidentified" : sub;
+  const apiTab: "unidentified" | "hash" | "title" | "health" =
+    top === "unidentified" ? "unidentified" : top === "health" ? "health" : sub;
   const limit = top === "unidentified" ? UNI_LIMIT : GROUP_LIMIT;
 
   const load = useCallback(async () => {
@@ -84,7 +95,8 @@ export default function ReviewBrowser() {
       const data = await res.json();
       setCounts(data.counts ?? { unidentified: 0, hash: 0, title: 0 });
       setTotal(data.total ?? 0);
-      if (apiTab === "unidentified") setRows(data.rows ?? []);
+      if (apiTab === "health") setHealth(data.health ?? null);
+      else if (apiTab === "unidentified") setRows(data.rows ?? []);
       else if (apiTab === "hash") setHashGroups(data.groups ?? []);
       else setTitleGroups(data.groups ?? []);
     } finally {
@@ -195,6 +207,15 @@ export default function ReviewBrowser() {
       <div className="flex flex-wrap items-center gap-2">
         <TopTab id="unidentified" label={t("tabUnidentified")} count={counts.unidentified} />
         <TopTab id="duplicates" label={t("tabDuplicates")} count={counts.hash + counts.title} />
+        <button
+          type="button"
+          onClick={() => setTop("health")}
+          className={`rounded-[3px] px-4 py-2 text-[15px] font-semibold transition-colors ${
+            top === "health" ? "bg-[#1a9fff] text-white" : "bg-white/[0.06] text-body hover:bg-white/10"
+          }`}
+        >
+          {t("tabHealth")}
+        </button>
       </div>
 
       {top === "duplicates" && (
@@ -222,6 +243,29 @@ export default function ReviewBrowser() {
       <div className="mt-5">
         {loading ? (
           <p className="py-16 text-center text-dim">{t("loading")}</p>
+        ) : apiTab === "health" ? (
+          !health ? (
+            <Empty msg={t("loading")} />
+          ) : (
+            <div className="max-w-3xl">
+              <div className="mb-5 rounded-[6px] bg-white/[0.04] px-4 py-3">
+                <div className="text-[11px] font-bold uppercase tracking-widest text-dim">{t("totalGames")}</div>
+                <div className="text-[24px] font-semibold tabular-nums text-bright">{health.total.toLocaleString()}</div>
+              </div>
+              <div className="flex flex-col gap-3">
+                <CoverageBar label={t("covScraped")} done={health.scraped} total={health.total} />
+                <CoverageBar label={t("covArt")} done={health.withArt} total={health.total} />
+                <CoverageBar label={t("covHashed")} done={health.hashed} total={health.total} />
+                <CoverageBar label={t("covVerified")} done={health.datVerified} total={health.total} color="bg-[#59bf40]" />
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                <Tile label={t("tabUnidentified")} value={counts.unidentified} tone="warn" onClick={() => setTop("unidentified")} />
+                <Tile label={t("tabDuplicates")} value={counts.hash + counts.title} tone="warn" onClick={() => setTop("duplicates")} />
+                <Tile label={t("missingFiles")} value={health.missingFiles} tone={health.missingFiles > 0 ? "bad" : "ok"} />
+                <Tile label={t("covMismatch")} value={health.datMismatch} tone={health.datMismatch > 0 ? "warn" : "ok"} />
+              </div>
+            </div>
+          )
         ) : apiTab === "unidentified" ? (
           rows.length === 0 ? (
             <Empty msg={t("noUnidentified")} />
@@ -345,6 +389,68 @@ const PAGER =
 
 function Empty({ msg }: { msg: string }) {
   return <p className="py-16 text-center text-[15px] text-dim">{msg}</p>;
+}
+
+/** One library-coverage bar: "Scraped  2,710 / 44,081  6%". */
+function CoverageBar({
+  label,
+  done,
+  total,
+  color = "bg-[#1a9fff]",
+}: {
+  label: string;
+  done: number;
+  total: number;
+  color?: string;
+}) {
+  const pctv = total > 0 ? Math.round((done / total) * 100) : 0;
+  return (
+    <div>
+      <div className="flex items-baseline justify-between text-[14px]">
+        <span className="text-body">{label}</span>
+        <span className="tabular-nums text-dim">
+          {done.toLocaleString()} / {total.toLocaleString()} · {pctv}%
+        </span>
+      </div>
+      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-white/10">
+        <div className={`h-full rounded-full ${color} transition-[width] duration-500`} style={{ width: `${pctv}%` }} />
+      </div>
+    </div>
+  );
+}
+
+const TONE = {
+  ok: "text-[#59bf40]",
+  warn: "text-[#d9a441]",
+  bad: "text-[#e5534b]",
+} as const;
+
+function Tile({
+  label,
+  value,
+  tone,
+  onClick,
+}: {
+  label: string;
+  value: number;
+  tone: keyof typeof TONE;
+  onClick?: () => void;
+}) {
+  const body = (
+    <>
+      <div className="text-[11px] font-bold uppercase tracking-widest text-dim">{label}</div>
+      <div className={`mt-1 text-[22px] font-semibold tabular-nums ${value > 0 ? TONE[tone] : "text-dim"}`}>
+        {value.toLocaleString()}
+      </div>
+    </>
+  );
+  return onClick ? (
+    <button type="button" onClick={onClick} className="rounded-[6px] bg-white/[0.04] px-4 py-3 text-left transition-colors hover:bg-white/[0.08]">
+      {body}
+    </button>
+  ) : (
+    <div className="rounded-[6px] bg-white/[0.04] px-4 py-3">{body}</div>
+  );
 }
 
 function GroupBox({
