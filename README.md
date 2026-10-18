@@ -219,10 +219,10 @@ docker compose pull && docker compose up -d
 
 The database migrates itself forward automatically; migrations are additive.
 
-> The PS Vita decrypt tool (`vita-pfsdec`) lives in the Docker image, not the
-> release bundle — pull the new image once (the classic way) to get it. Non-Docker
-> installs can build it from `tools/vita-pfsdec` (CMake, OpenSSL 3, zlib) and point
-> `GAMEHUB_VITA_PFSDEC` at the binary.
+> The PS Vita decrypt tool (`vita-pfsdec`) ships both in the Docker image and,
+> statically linked, in each release bundle (`bin/vita-pfsdec`, 0.1.6+), so in-app
+> updates bring it too. Non-Docker installs on other platforms can build it from
+> `tools/vita-pfsdec` (CMake, OpenSSL 3, zlib) and point `GAMEHUB_VITA_PFSDEC` at it.
 
 #### Publishing a release (maintainers)
 

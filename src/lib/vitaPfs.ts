@@ -15,21 +15,41 @@ import { zipDirectory } from "./zipWrite";
 const PARAM_SFO = "sce_sys/param.sfo";
 const WORK_BIN = "sce_sys/package/work.bin";
 
-/** Absolute path of the vita-pfsdec tool, or null when it isn't installed. */
+/**
+ * Absolute path of the vita-pfsdec tool, or null when it isn't installed. Looked up in
+ * GAMEHUB_VITA_PFSDEC, the running release's bin/ (self-update bundles ship it there — Next's
+ * server.js chdir()s into the release), the Docker image's /usr/local/bin, then PATH.
+ */
 export function findPfsdec(): string | null {
   const exe = process.platform === "win32" ? "vita-pfsdec.exe" : "vita-pfsdec";
+  const bundled = path.join(process.cwd(), "bin", exe);
   const candidates = [
     process.env.GAMEHUB_VITA_PFSDEC?.trim(),
+    bundled,
     "/usr/local/bin/vita-pfsdec",
     ...(process.env.PATH ?? "").split(path.delimiter).filter(Boolean).map((d) => path.join(d, exe)),
   ].filter((p): p is string => !!p);
-  return candidates.find((p) => {
+  for (const p of candidates) {
     try {
-      return fs.statSync(p).isFile();
+      if (!fs.statSync(p).isFile()) continue;
     } catch {
-      return false;
+      continue;
     }
-  }) ?? null;
+    if (process.platform === "win32") return p;
+    try {
+      fs.accessSync(p, fs.constants.X_OK);
+      return p;
+    } catch {
+      // The update bundle's zip doesn't keep the executable bit; restore it on our own copy.
+      if (p === bundled) {
+        try {
+          fs.chmodSync(p, 0o755);
+          return p;
+        } catch {}
+      }
+    }
+  }
+  return null;
 }
 
 export interface NoNpDrmLayout {

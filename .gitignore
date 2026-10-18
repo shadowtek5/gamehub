@@ -72,3 +72,6 @@ scratchpad/*
 
 # local reference captures (Valve UI snapshots — never commit/redistribute)
 /refs/
+
+# native tools staged for the release bundle (Dockerfile.release)
+.release-bin

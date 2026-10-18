@@ -63,6 +63,13 @@ fs.cpSync(standalone, stage, { recursive: true, verbatimSymlinks: true });
 // standalone does NOT include static assets or public/ — add them
 fs.cpSync(staticDir, path.join(stage, ".next", "static"), { recursive: true });
 if (fs.existsSync(publicDir)) fs.cpSync(publicDir, path.join(stage, "public"), { recursive: true });
+// Native helper tools built by Dockerfile.release (e.g. vita-pfsdec) → bin/ in the
+// bundle. The zip stores them 0644; the app marks them executable when used.
+const releaseBin = path.join(ROOT, ".release-bin");
+if (fs.existsSync(releaseBin)) {
+  fs.cpSync(releaseBin, path.join(stage, "bin"), { recursive: true });
+  console.log(`Including tools: ${fs.readdirSync(releaseBin).join(", ")}`);
+}
 
 const manifest = {
   schema: 1,
