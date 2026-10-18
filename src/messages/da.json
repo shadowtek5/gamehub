@@ -625,7 +625,9 @@
       "hashingFiles": "Beregner hashes",
       "scrapingArt": "Genindsamler kunst",
       "refreshingImages": "Opdaterer billeder",
-      "statusFinalizing": "Afslutter…"
+      "statusFinalizing": "Afslutter…",
+      "statusVitaDecrypt": "Dekrypterer PS Vita-dumps…",
+      "decryptingVita": "Dekrypterer PS Vita-dumps"
     },
     "quota": {
       "providerRequestLimits": "Udbyderanmodningsgrænser",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Genererer rapport…",
       "failedToGenerate": "Kunne ikke generere rapport",
       "generatedAt": "Genereret {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Dekrypter PS Vita-dumps",
+      "desc": "Omdanner rå NoNpDRM-zip-filer (med sce_pfs) til dekrypterede zip-filer, der kan installeres direkte i Vita3K, ligesom Vita3K's egen installer gør. Zip-filen erstattes på stedet; dens licens (work.bin) bevares.",
+      "unavailable": "Kræver værktøjet vita-pfsdec, som er inkluderet i Docker-billedet. Ikke fundet på denne server.",
+      "run": "Dekrypter nu",
+      "cancel": "Annuller",
+      "queued": "I kø — den starter efter det aktuelle job.",
+      "failedToStart": "Kunne ikke starte",
+      "decryptedCount": "{count} dekrypteret",
+      "cancelledPrefix": "Annulleret — ",
+      "result": "{decrypted} dekrypteret, {skipped} allerede spilbare",
+      "auto": "Dekrypter PS Vita-dumps efter scanninger",
+      "autoDesc": "Nye PS Vita-zip-filer fundet af en scanning dekrypteres automatisk. Dette omskriver ROM-filen, så funktionen er slået fra som standard."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Opdaterer billeder…",
     "hashingFilesBar": "Beregner hashes",
     "scrapingArtBar": "Genindsamler kunst",
-    "refreshingImagesBar": "Opdaterer billeder"
+    "refreshingImagesBar": "Opdaterer billeder",
+    "statusVitaDecrypt": "Dekrypterer PS Vita-dumps…",
+    "decryptingVitaBar": "Dekrypterer PS Vita-dumps"
   },
   "mobileGameOptions": {
     "gameOptions": "Spilindstillinger",

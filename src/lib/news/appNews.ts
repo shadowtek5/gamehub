@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-10-18",
+    title: "PS Vita dumps that install straight into Vita3K",
+    body: "Raw PS Vita NoNpDRM dumps — the ones with an sce_pfs folder — are still encrypted, so until now only Vita3K's own installer could set them up. GameHub can now decrypt them on the server: Settings › Maintenance › Decrypt PS Vita dumps turns each one into a zip that installs into Vita3K by simply unpacking it, the same result Vita3K's installer produces, with the game's license kept inside. Clients like GameHub Downloader can then install, launch and manage those games with no extra steps on the device. Turn on \"Decrypt PS Vita dumps after scans\" to handle new games automatically (off by default, since it rewrites the zip — the ROM folder needs to be writable). Progress shows on the downloads page like any other job. Needs the updated Docker image, which includes the decrypt tool. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
     date: "2026-07-20",
     title: "Know your library: stats, a backlog and a dice roll",
     body: "A new Your stats page (in the menu; on mobile from your profile) shows how much you've actually played — total playtime, games and systems, an activity heatmap of the last year, your most-played games, and time broken down by system, with a year picker once you've played across more than one. Underneath it, \"Ready to finish\" surfaces the shortest games you haven't completed yet, using HowLongToBeat times, so a huge library stops being paralysing. Can't decide at all? Hit \"Surprise me\" for a random pick you can filter to browser-playable, never-played, or games under a couple of hours — then roll again until something sticks. The Review & clean up page also gained a Health tab: metadata, box art, hashing and DAT-verification coverage across the whole library at a glance, with the problem counts one click away.",

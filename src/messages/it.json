@@ -632,7 +632,9 @@
     "statusThumbs": "Aggiornamento immagini…",
     "hashingFilesBar": "Calcolo degli hash",
     "scrapingArtBar": "Recupero grafica",
-    "refreshingImagesBar": "Aggiornamento immagini"
+    "refreshingImagesBar": "Aggiornamento immagini",
+    "statusVitaDecrypt": "Decifratura dei dump PS Vita…",
+    "decryptingVitaBar": "Decifratura dei dump PS Vita"
   },
   "emulator": {
     "stateSaved": "Stato salvato su GameHub",
@@ -931,6 +933,20 @@
       "generatingReport": "Generazione rapporto…",
       "failedToGenerate": "Impossibile generare il rapporto",
       "generatedAt": "Generato {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Decifra i dump PS Vita",
+      "desc": "Converte gli zip NoNpDRM grezzi (con sce_pfs) in zip decifrati che si installano direttamente in Vita3K, come fa l'installer di Vita3K. Lo zip viene sostituito sul posto; la sua licenza (work.bin) viene mantenuta.",
+      "unavailable": "Richiede lo strumento vita-pfsdec, incluso nell'immagine Docker. Non trovato su questo server.",
+      "run": "Decifra ora",
+      "cancel": "Annulla",
+      "queued": "In coda — partirà dopo il job corrente.",
+      "failedToStart": "Impossibile avviare",
+      "decryptedCount": "{count} decifrati",
+      "cancelledPrefix": "Annullato — ",
+      "result": "{decrypted} decifrati, {skipped} già giocabili",
+      "auto": "Decifra i dump PS Vita dopo le scansioni",
+      "autoDesc": "I nuovi zip PS Vita trovati da una scansione vengono decifrati automaticamente. Questo riscrive il file ROM, quindi è disattivato per impostazione predefinita."
     }
   },
   "mobileGameOptions": {
@@ -1518,7 +1534,9 @@
       "hashingFiles": "Calcolo degli hash",
       "scrapingArt": "Recupero grafica",
       "refreshingImages": "Aggiornamento immagini",
-      "statusFinalizing": "Completamento…"
+      "statusFinalizing": "Completamento…",
+      "statusVitaDecrypt": "Decifratura dei dump PS Vita…",
+      "decryptingVita": "Decifratura dei dump PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Limiti di richieste del provider",

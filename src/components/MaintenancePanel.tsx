@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { playSound } from "@/lib/sounds";
+import VitaDecryptCard from "@/components/VitaDecryptCard";
 
 interface HashJob {
   running: boolean;
@@ -341,6 +342,8 @@ export default function MaintenancePanel({
         )}
         {hashMsg && <p className="mt-2 text-xs text-danger">{hashMsg}</p>}
       </div>
+
+      <VitaDecryptCard />
 
       <div className="mb-1.5 rounded-[2px] bg-[#23262e] p-3">
         <div className="flex items-center justify-between gap-3">

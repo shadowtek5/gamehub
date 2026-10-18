@@ -16,6 +16,17 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV BUILD_STANDALONE=1
 RUN npm run build
 
+# vita-pfsdec: decrypts raw PS Vita NoNpDRM dumps (tools/vita-pfsdec, Vita3K's psvpfsparser).
+# Built on the same Debian release as the runner so it links against its libssl3/zlib.
+FROM debian:bookworm-slim AS vitatools
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends build-essential cmake git ca-certificates libssl-dev zlib1g-dev \
+  && rm -rf /var/lib/apt/lists/*
+COPY tools/vita-pfsdec /src/vita-pfsdec
+RUN cmake -S /src/vita-pfsdec -B /build -DCMAKE_BUILD_TYPE=Release \
+  && cmake --build /build -j"$(nproc)" \
+  && strip /build/vita-pfsdec
+
 FROM node:22-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
@@ -30,7 +41,7 @@ ENV GAMEHUB_DATA_DIR=/app/data
 # required on NAS hosts (Synology/unRAID) where mounted folders belong to a
 # specific user
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends gosu passwd \
+  && apt-get install -y --no-install-recommends gosu passwd libssl3 zlib1g \
   && rm -rf /var/lib/apt/lists/*
 
 # Standalone output carries its own node_modules (incl. better-sqlite3).
@@ -40,6 +51,8 @@ COPY --chown=node:node --from=build /app/.next/standalone ./
 COPY --chown=node:node --from=build /app/.next/static ./.next/static
 COPY --chown=node:node --from=build /app/public ./public
 COPY --chown=node:node docker-entrypoint.sh /docker-entrypoint.sh
+# Lives in the image (not the app bundle) so it survives in-app self-updates.
+COPY --from=vitatools /build/vita-pfsdec /usr/local/bin/vita-pfsdec
 
 # Record the baked-in version so the entrypoint/app can report the fallback
 # floor even while a newer staged release is running (GAMEHUB_IMAGE_VERSION).
@@ -47,7 +60,8 @@ RUN node -e "process.stdout.write(require('/app/package.json').version||'0.0.0')
 
 # Everything GameHub writes lives under /app/data — mount a volume here.
 # ROMs are read from wherever you mount them (e.g. /roms); GameHub never
-# modifies them except explicit admin rename/delete/upload actions. Only the
+# modifies them except explicit admin rename/delete/upload actions and the
+# PS Vita decrypt (Maintenance; opt-in after scans), which needs a writable mount. Only the
 # two dirs need chowning here (not -R); the entrypoint re-owns /app/data to
 # PUID/PGID at runtime.
 RUN sed -i 's/\r$//' /docker-entrypoint.sh && chmod +x /docker-entrypoint.sh \

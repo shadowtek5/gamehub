@@ -6,6 +6,7 @@ import { getBoxartLocalizeStatus } from "@/lib/boxartLocalize";
 import { getHashJobStatus } from "@/lib/hashJob";
 import { getSystemArtJobStatus } from "@/lib/systemArtJob";
 import { getThumbJobStatus } from "@/lib/systemThumb";
+import { getVitaDecryptJobStatus } from "@/lib/vitaDecryptJob";
 import { getSystemArt } from "@/lib/systemArt";
 import { getHeroCollageUrl } from "@/lib/systemThumb";
 import { getAllQuotaInfo } from "@/lib/providers/quota";
@@ -26,7 +27,7 @@ import { launchboxConfigured } from "@/lib/providers/launchbox";
 // and are intentionally NOT part of this queue.
 
 export interface JobView {
-  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
   label: string;
   running: boolean;
   currentSystem: string;
@@ -124,6 +125,7 @@ export async function GET() {
   const hash = getHashJobStatus();
   const art = getSystemArtJobStatus();
   const thumbs = getThumbJobStatus();
+  const vita = getVitaDecryptJobStatus();
   // Downloads-page hero art, in priority order: the generated hero-collage,
   // then the scraped ribbon (screenmarquee), then the scraped hero (wallpaper),
   // else null → the page draws its color + glyph fallback.
@@ -242,6 +244,24 @@ export async function GET() {
       systemHero: thumbsArt.hero,
       systemLogo: thumbsArt.logo,
       systemIcon: thumbsArt.icon,
+    },
+    {
+      kind: "vitadecrypt",
+      label: "Decrypting PS Vita dumps",
+      running: vita.running,
+      currentSystem: "vita",
+      done: vita.done,
+      total: vita.total,
+      systemQueue: [],
+      startedAt: vita.startedAt,
+      finishedAt: vita.finishedAt,
+      cancelled: vita.cancelled,
+      errors: vita.errors,
+      current: vita.current ? (vita.phase ? `${vita.current} · ${vita.phase}` : vita.current) : "",
+      ...(() => {
+        const a = heroFor("vita");
+        return { systemHero: a.hero, systemLogo: a.logo, systemIcon: a.icon };
+      })(),
     },
   ];
 

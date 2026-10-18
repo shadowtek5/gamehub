@@ -625,7 +625,9 @@
       "hashingFiles": "Израчунавање хешева",
       "scrapingArt": "Поновно преузимање графике",
       "refreshingImages": "Освежавање слика",
-      "statusFinalizing": "Завршавање…"
+      "statusFinalizing": "Завршавање…",
+      "statusVitaDecrypt": "Дешифровање PS Vita дампова…",
+      "decryptingVita": "Дешифровање PS Vita дампова"
     },
     "quota": {
       "providerRequestLimits": "Лимити захтева провајдера",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Генерисање извештаја…",
       "failedToGenerate": "Није могуће генерисати извештај",
       "generatedAt": "Генерисано {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Дешифруј PS Vita дампове",
+      "desc": "Претвара сирове NoNpDRM zip-архиве (са sce_pfs) у дешифроване zip-архиве које се инсталирају директно у Vita3K, као што то ради сопствени инсталатер Vita3K. Zip-архива се замењује на истом месту; њена лиценца (work.bin) се задржава.",
+      "unavailable": "Потребан је алат vita-pfsdec, који је укључен у Docker слику. Није пронађен на овом серверу.",
+      "run": "Дешифруј сада",
+      "cancel": "Откажи",
+      "queued": "У реду чекања — почеће након тренутног задатка.",
+      "failedToStart": "Није могуће покренути",
+      "decryptedCount": "{count} дешифровано",
+      "cancelledPrefix": "Отказано — ",
+      "result": "{decrypted} дешифровано, {skipped} већ спремно за игру",
+      "auto": "Дешифруј PS Vita дампове након скенирања",
+      "autoDesc": "Нове PS Vita zip-архиве које пронађе скенирање се аутоматски дешифрују. Ово преписује ROM фајл, зато је подразумевано искључено."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Освежавање слика…",
     "hashingFilesBar": "Израчунавање хешева",
     "scrapingArtBar": "Поновно преузимање графике",
-    "refreshingImagesBar": "Освежавање слика"
+    "refreshingImagesBar": "Освежавање слика",
+    "statusVitaDecrypt": "Дешифровање PS Vita дампова…",
+    "decryptingVitaBar": "Дешифровање PS Vita дампова"
   },
   "mobileGameOptions": {
     "gameOptions": "Опције игре",

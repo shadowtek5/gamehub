@@ -625,7 +625,9 @@
       "hashingFiles": "Вычисление хешей",
       "scrapingArt": "Повторный сбор обложек",
       "refreshingImages": "Обновление изображений",
-      "statusFinalizing": "Завершение…"
+      "statusFinalizing": "Завершение…",
+      "statusVitaDecrypt": "Расшифровка дампов PS Vita…",
+      "decryptingVita": "Расшифровка дампов PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Лимиты запросов провайдера",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Генерация отчёта…",
       "failedToGenerate": "Не удалось сгенерировать отчёт",
       "generatedAt": "Сгенерировано {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Расшифровать дампы PS Vita",
+      "desc": "Преобразует исходные zip-архивы NoNpDRM (с sce_pfs) в расшифрованные zip-архивы, которые устанавливаются прямо в Vita3K, как это делает собственный установщик Vita3K. Zip-архив заменяется на месте; его лицензия (work.bin) сохраняется.",
+      "unavailable": "Требуется инструмент vita-pfsdec, который входит в образ Docker. На этом сервере не найден.",
+      "run": "Расшифровать сейчас",
+      "cancel": "Отмена",
+      "queued": "В очереди — запустится после текущей задачи.",
+      "failedToStart": "Не удалось запустить",
+      "decryptedCount": "Расшифровано: {count}",
+      "cancelledPrefix": "Отменено — ",
+      "result": "Расшифровано: {decrypted}, уже готовы к игре: {skipped}",
+      "auto": "Расшифровывать дампы PS Vita после сканирования",
+      "autoDesc": "Новые zip-архивы PS Vita, найденные сканированием, расшифровываются автоматически. Это перезаписывает файл ROM, поэтому функция по умолчанию выключена."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Обновление изображений…",
     "hashingFilesBar": "Вычисление хешей",
     "scrapingArtBar": "Повторный сбор обложек",
-    "refreshingImagesBar": "Обновление изображений"
+    "refreshingImagesBar": "Обновление изображений",
+    "statusVitaDecrypt": "Расшифровка дампов PS Vita…",
+    "decryptingVitaBar": "Расшифровка дампов PS Vita"
   },
   "mobileGameOptions": {
     "gameOptions": "Параметры игры",

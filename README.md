@@ -91,11 +91,12 @@ plays dozens of consoles right in the browser. Everything runs in one container.
 <details open>
 <summary><b>Library</b></summary>
 
-- Scans your existing ROM folders **in place** — files are never moved or altered (only explicit admin rename/delete/upload actions ever touch them; mount the volume read-only to forbid even those)
+- Scans your existing ROM folders **in place** — files are never moved or altered (only explicit admin rename/delete/upload actions and the opt-in PS Vita decrypt ever touch them; mount the volume read-only to forbid even those)
 - 100+ systems recognized by file extension and folder name, with editable per-system folder mappings and *variant* subfolders (hacks, translations, digital, prototypes…)
 - Region, revision and multi-disc parsing from No-Intro/Redump-style names — `(USA)`, `(Rev A)`, `(v1.1)`, `(Disc 2)` become distinct, labelled versions; discs group under one game with a combined zip download
 - Optional automatic upkeep: a filesystem watcher and post-scan cleanup
 - Background file hashing (CRC32/MD5/SHA-1), including the **inner file of `.zip` ROMs** so compressed games hash-match, with exact identification via [Hasheous](https://hasheous.org/) and the local DAT database
+- **PS Vita dump decryption** — raw NoNpDRM zips (with `sce_pfs/`) are still encrypted and normally need Vita3K's own installer. *Settings → Maintenance → Decrypt PS Vita dumps* decrypts them on the server (using Vita3K's psvpfsparser, bundled in the Docker image as `vita-pfsdec`) into zips that install into Vita3K by plain extraction, keeping the license (`sce_sys/package/work.bin`). The zip is replaced in place, so the ROM folder must be writable; optionally run it automatically after scans
 </details>
 
 <details>
@@ -217,6 +218,11 @@ docker compose pull && docker compose up -d
 ```
 
 The database migrates itself forward automatically; migrations are additive.
+
+> The PS Vita decrypt tool (`vita-pfsdec`) lives in the Docker image, not the
+> release bundle — pull the new image once (the classic way) to get it. Non-Docker
+> installs can build it from `tools/vita-pfsdec` (CMake, OpenSSL 3, zlib) and point
+> `GAMEHUB_VITA_PFSDEC` at the binary.
 
 #### Publishing a release (maintainers)
 
@@ -461,7 +467,8 @@ candidates across providers, or Properties to edit fields directly. Hash matchin
 (Settings → Scraping) and the DAT database fix renamed files.
 
 **Is anything ever written to my ROM folders?** Scans are read-only. Only
-explicit admin actions (rename, delete, upload via the UI) write there — mount
+explicit admin actions (rename, delete, upload via the UI) and the PS Vita
+decrypt (*Maintenance*, or after scans if you turn that on) write there — mount
 the volume `:ro` to forbid even those.
 
 **Reset the app?** Stop GameHub and delete the data folder. Your ROMs are

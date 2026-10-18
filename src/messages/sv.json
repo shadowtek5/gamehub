@@ -625,7 +625,9 @@
       "hashingFiles": "Beräknar hashar",
       "scrapingArt": "Skrapar om grafik",
       "refreshingImages": "Uppdaterar bilder",
-      "statusFinalizing": "Slutför…"
+      "statusFinalizing": "Slutför…",
+      "statusVitaDecrypt": "Avkrypterar PS Vita-dumpar…",
+      "decryptingVita": "Avkrypterar PS Vita-dumpar"
     },
     "quota": {
       "providerRequestLimits": "Provider-förfrågningsgränser",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Genererar rapport…",
       "failedToGenerate": "Kunde inte generera rapport",
       "generatedAt": "Genererad {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Avkryptera PS Vita-dumpar",
+      "desc": "Omvandlar råa NoNpDRM-zip-filer (med sce_pfs) till avkrypterade zip-filer som installeras direkt i Vita3K, precis som Vita3K:s egen installerare gör. Zip-filen ersätts på samma plats; dess licens (work.bin) behålls.",
+      "unavailable": "Kräver verktyget vita-pfsdec, som ingår i Docker-avbildningen. Hittades inte på den här servern.",
+      "run": "Avkryptera nu",
+      "cancel": "Avbryt",
+      "queued": "I kö – startar efter det aktuella jobbet.",
+      "failedToStart": "Kunde inte starta",
+      "decryptedCount": "{count} avkrypterade",
+      "cancelledPrefix": "Avbröts — ",
+      "result": "{decrypted} avkrypterade, {skipped} redan spelbara",
+      "auto": "Avkryptera PS Vita-dumpar efter skanningar",
+      "autoDesc": "Nya PS Vita-zip-filer som hittas av en skanning avkrypteras automatiskt. Detta skriver över ROM-filen, så funktionen är avstängd som standard."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Uppdaterar bilder…",
     "hashingFilesBar": "Beräknar hashar",
     "scrapingArtBar": "Skrapar om grafik",
-    "refreshingImagesBar": "Uppdaterar bilder"
+    "refreshingImagesBar": "Uppdaterar bilder",
+    "statusVitaDecrypt": "Avkrypterar PS Vita-dumpar…",
+    "decryptingVitaBar": "Avkrypterar PS Vita-dumpar"
   },
   "mobileGameOptions": {
     "gameOptions": "Spelalternativ",

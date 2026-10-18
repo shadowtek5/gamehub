@@ -625,7 +625,9 @@
       "hashingFiles": "Obliczanie skrótów",
       "scrapingArt": "Ponowne pobieranie grafiki",
       "refreshingImages": "Odświeżanie obrazów",
-      "statusFinalizing": "Kończenie…"
+      "statusFinalizing": "Kończenie…",
+      "statusVitaDecrypt": "Deszyfrowanie zrzutów PS Vita…",
+      "decryptingVita": "Deszyfrowanie zrzutów PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Limity żądań dostawcy",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Generowanie raportu…",
       "failedToGenerate": "Nie można wygenerować raportu",
       "generatedAt": "Wygenerowano {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Odszyfruj zrzuty PS Vita",
+      "desc": "Zamienia surowe zipy NoNpDRM (z sce_pfs) na odszyfrowane zipy, które instalują się bezpośrednio w Vita3K, tak jak robi to instalator Vita3K. Zip jest zastępowany w tym samym miejscu; jego licencja (work.bin) zostaje zachowana.",
+      "unavailable": "Wymaga narzędzia vita-pfsdec, które jest dołączone do obrazu Docker. Nie znaleziono go na tym serwerze.",
+      "run": "Odszyfruj teraz",
+      "cancel": "Anuluj",
+      "queued": "W kolejce — uruchomi się po bieżącym zadaniu.",
+      "failedToStart": "Nie udało się uruchomić",
+      "decryptedCount": "Odszyfrowano: {count}",
+      "cancelledPrefix": "Anulowano — ",
+      "result": "Odszyfrowano {decrypted}, {skipped} już gotowych do gry",
+      "auto": "Odszyfruj zrzuty PS Vita po skanowaniu",
+      "autoDesc": "Nowe zipy PS Vita znalezione podczas skanowania są odszyfrowywane automatycznie. Operacja nadpisuje plik ROM, dlatego jest domyślnie wyłączona."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Odświeżanie obrazów…",
     "hashingFilesBar": "Obliczanie skrótów",
     "scrapingArtBar": "Ponowne pobieranie grafiki",
-    "refreshingImagesBar": "Odświeżanie obrazów"
+    "refreshingImagesBar": "Odświeżanie obrazów",
+    "statusVitaDecrypt": "Deszyfrowanie zrzutów PS Vita…",
+    "decryptingVitaBar": "Deszyfrowanie zrzutów PS Vita"
   },
   "mobileGameOptions": {
     "gameOptions": "Opcje gry",

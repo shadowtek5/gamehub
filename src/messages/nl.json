@@ -625,7 +625,9 @@
       "hashingFiles": "Hashes berekenen",
       "scrapingArt": "Afbeeldingen opnieuw ophalen",
       "refreshingImages": "Afbeeldingen vernieuwen",
-      "statusFinalizing": "Afronden…"
+      "statusFinalizing": "Afronden…",
+      "statusVitaDecrypt": "PS Vita-dumps ontsleutelen…",
+      "decryptingVita": "PS Vita-dumps ontsleutelen"
     },
     "quota": {
       "providerRequestLimits": "Provider-verzoeklimieten",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Rapport genereren…",
       "failedToGenerate": "Rapport kon niet worden gegenereerd",
       "generatedAt": "Gegenereerd op {date}"
+    },
+    "vitaDecrypt": {
+      "title": "PS Vita-dumps ontsleutelen",
+      "desc": "Zet ruwe NoNpDRM-zips (met sce_pfs) om in ontsleutelde zips die direct in Vita3K geïnstalleerd kunnen worden, zoals het eigen installatieprogramma van Vita3K doet. De zip wordt op dezelfde plek vervangen; de licentie (work.bin) blijft behouden.",
+      "unavailable": "Vereist de tool vita-pfsdec, die in de Docker-image is opgenomen. Niet gevonden op deze server.",
+      "run": "Nu ontsleutelen",
+      "cancel": "Annuleren",
+      "queued": "In wachtrij — start na de huidige taak.",
+      "failedToStart": "Kon niet starten",
+      "decryptedCount": "{count} ontsleuteld",
+      "cancelledPrefix": "Geannuleerd — ",
+      "result": "{decrypted} ontsleuteld, {skipped} al speelbaar",
+      "auto": "PS Vita-dumps na scans automatisch ontsleutelen",
+      "autoDesc": "Nieuwe PS Vita-zips die een scan vindt, worden automatisch ontsleuteld. Dit overschrijft het ROM-bestand, daarom staat het standaard uit."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Afbeeldingen vernieuwen…",
     "hashingFilesBar": "Hashes berekenen",
     "scrapingArtBar": "Afbeeldingen opnieuw ophalen",
-    "refreshingImagesBar": "Afbeeldingen vernieuwen"
+    "refreshingImagesBar": "Afbeeldingen vernieuwen",
+    "statusVitaDecrypt": "PS Vita-dumps ontsleutelen…",
+    "decryptingVitaBar": "PS Vita-dumps ontsleutelen"
   },
   "mobileGameOptions": {
     "gameOptions": "Spelopties",

@@ -625,7 +625,9 @@
       "hashingFiles": "ハッシュを計算",
       "scrapingArt": "アートを再取得",
       "refreshingImages": "画像を更新",
-      "statusFinalizing": "仕上げ中…"
+      "statusFinalizing": "仕上げ中…",
+      "statusVitaDecrypt": "PS Vita ダンプを復号中…",
+      "decryptingVita": "PS Vita ダンプを復号中"
     },
     "quota": {
       "providerRequestLimits": "プロバイダー要求制限",
@@ -1235,6 +1237,20 @@
       "generatingReport": "レポート生成中…",
       "failedToGenerate": "レポート生成に失敗しました",
       "generatedAt": "{date}に生成"
+    },
+    "vitaDecrypt": {
+      "title": "PS Vita ダンプを復号",
+      "desc": "生の NoNpDRM zip（sce_pfs を含む）を、Vita3K 自身のインストーラーと同様に Vita3K へそのままインストールできる復号済み zip に変換します。zip は元の場所で置き換えられ、ライセンス（work.bin）は保持されます。",
+      "unavailable": "vita-pfsdec ツールが必要です。このツールは Docker イメージに含まれています。このサーバーには見つかりません。",
+      "run": "今すぐ復号",
+      "cancel": "キャンセル",
+      "queued": "待機中 — 現在のジョブの後に開始されます。",
+      "failedToStart": "開始できませんでした",
+      "decryptedCount": "{count} 件復号済み",
+      "cancelledPrefix": "キャンセルされました — ",
+      "result": "{decrypted} 件復号、{skipped} 件はすでにプレイ可能",
+      "auto": "スキャン後に PS Vita ダンプを自動復号",
+      "autoDesc": "スキャンで見つかった新しい PS Vita zip は自動的に復号されます。ROM ファイルが書き換えられるため、デフォルトでは無効です。"
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "画像を更新中…",
     "hashingFilesBar": "ハッシュを計算",
     "scrapingArtBar": "アートを再取得",
-    "refreshingImagesBar": "画像を更新"
+    "refreshingImagesBar": "画像を更新",
+    "statusVitaDecrypt": "PS Vita ダンプを復号中…",
+    "decryptingVitaBar": "PS Vita ダンプを復号中"
   },
   "mobileGameOptions": {
     "gameOptions": "ゲームオプション",

@@ -250,7 +250,9 @@
       "hashingFiles": "Lasketaan tiivisteitä",
       "scrapingArt": "Haetaan kuvia uudelleen",
       "refreshingImages": "Päivitetään kuvia",
-      "statusFinalizing": "Viimeistellään…"
+      "statusFinalizing": "Viimeistellään…",
+      "statusVitaDecrypt": "Puretaan PS Vita -dumppeja…",
+      "decryptingVita": "Puretaan PS Vita -dumppeja"
     },
     "quota": {
       "providerRequestLimits": "Palveluntarjoajan pyyntörajat",
@@ -518,6 +520,20 @@
       "generatingReport": "Luodaan raporttia…",
       "failedToGenerate": "Raportin luonti epäonnistui",
       "generatedAt": "Luotu {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Pura PS Vita -dumpit",
+      "desc": "Muuntaa raa'at NoNpDRM-zip-tiedostot (joissa sce_pfs) purettuihin zip-tiedostoihin, jotka asentuvat suoraan Vita3K:hon, kuten Vita3K:n oma asennusohjelma tekee. Zip-tiedosto korvataan paikallaan; sen lisenssi (work.bin) säilytetään.",
+      "unavailable": "Vaatii vita-pfsdec-työkalun, joka on mukana Docker-kuvassa. Ei löytynyt tältä palvelimelta.",
+      "run": "Pura nyt",
+      "cancel": "Peruuta",
+      "queued": "Jonossa — käynnistyy nykyisen työn jälkeen.",
+      "failedToStart": "Käynnistys epäonnistui",
+      "decryptedCount": "{count} purettu",
+      "cancelledPrefix": "Peruutettu — ",
+      "result": "{decrypted} purettu, {skipped} jo pelattavissa",
+      "auto": "Pura PS Vita -dumpit skannausten jälkeen",
+      "autoDesc": "Skannauksen löytämät uudet PS Vita -zip-tiedostot puretaan automaattisesti. Tämä kirjoittaa ROM-tiedoston uudelleen, joten asetus on oletuksena pois päältä."
     }
   },
   "mobilePagesA": {
@@ -2216,7 +2232,9 @@
     "statusThumbs": "Päivitetään kuvia…",
     "hashingFilesBar": "Lasketaan tiivisteitä",
     "scrapingArtBar": "Haetaan kuvia uudelleen",
-    "refreshingImagesBar": "Päivitetään kuvia"
+    "refreshingImagesBar": "Päivitetään kuvia",
+    "statusVitaDecrypt": "Puretaan PS Vita -dumppeja…",
+    "decryptingVitaBar": "Puretaan PS Vita -dumppeja"
   },
   "mobileSettings": {
     "list": {

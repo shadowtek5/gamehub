@@ -22,7 +22,7 @@ import {
 
 interface SysProg { slug: string; total: number; done: number }
 interface JobView {
-  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
   label: string;
   running: boolean;
   finalizing?: boolean;
@@ -42,7 +42,7 @@ interface JobView {
 
 interface QueuedView {
   id: number;
-  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
   label: string;
   systems: string[];
   detail: string;
@@ -142,11 +142,11 @@ function QueueRow({ icon, name, detail, tag }: { icon: React.ReactNode; name: st
 // (scrape has its own "now scraping {game}" logic and isn't in STATUS_KEY.)
 const STATUS_KEY: Record<string, string> = {
   scan: "statusScanning", localize: "statusOptimizing", hash: "statusHashing",
-  art: "statusArt", thumbs: "statusThumbs",
+  art: "statusArt", thumbs: "statusThumbs", vitadecrypt: "statusVitaDecrypt",
 };
 const BAR_KEY: Record<string, string> = {
   scan: "scanningFiles", scrape: "scrapingMetadata", localize: "optimizingArt",
-  hash: "hashingFiles", art: "scrapingArt", thumbs: "refreshingImages",
+  hash: "hashingFiles", art: "scrapingArt", thumbs: "refreshingImages", vitadecrypt: "decryptingVita",
 };
 
 export default function DownloadsPage() {
@@ -204,6 +204,7 @@ export default function DownloadsPage() {
       hash: "/api/hash/job",
       art: "/api/systems/art-job",
       thumbs: "/api/systems/thumbs",
+      vitadecrypt: "/api/maintenance/vita-decrypt",
     };
     await fetch(routes[kind], { method: "DELETE" });
   }
@@ -281,6 +282,8 @@ export default function DownloadsPage() {
                 ? t("statusFinalizing")
                 : active.kind === "scrape"
                 ? active.current ? t("nowScraping", { current: active.current }) : t("statusScraping")
+                : active.kind === "vitadecrypt" && active.current
+                ? active.current
                 : t(STATUS_KEY[active.kind] ?? "statusScanning")}
             </div>
           </div>

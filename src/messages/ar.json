@@ -250,7 +250,9 @@
       "hashingFiles": "حساب التجزئات",
       "scrapingArt": "إعادة كشط الصور",
       "refreshingImages": "تحديث الصور",
-      "statusFinalizing": "جارٍ الإنهاء…"
+      "statusFinalizing": "جارٍ الإنهاء…",
+      "statusVitaDecrypt": "جارٍ فك تشفير نسخ PS Vita…",
+      "decryptingVita": "جارٍ فك تشفير نسخ PS Vita"
     },
     "quota": {
       "providerRequestLimits": "حدود طلبات المزوّد",
@@ -518,6 +520,20 @@
       "generatingReport": "جارٍ إنشاء التقرير…",
       "failedToGenerate": "فشل إنشاء التقرير",
       "generatedAt": "أُنشئ في {date}"
+    },
+    "vitaDecrypt": {
+      "title": "فك تشفير نسخ PS Vita",
+      "desc": "يحوّل ملفات zip الخام من NoNpDRM (التي تحتوي على sce_pfs) إلى ملفات zip مفكوكة التشفير يمكن تثبيتها مباشرة في Vita3K، كما يفعل المثبّت الخاص بـ Vita3K. يُستبدل ملف zip في مكانه، ويُحتفظ بترخيصه (work.bin).",
+      "unavailable": "يحتاج إلى أداة vita-pfsdec، وهي مضمّنة في صورة Docker. لم يتم العثور عليها على هذا الخادم.",
+      "run": "فك التشفير الآن",
+      "cancel": "إلغاء",
+      "queued": "في الانتظار — ستبدأ بعد المهمة الحالية.",
+      "failedToStart": "تعذّر البدء",
+      "decryptedCount": "تم فك تشفير {count}",
+      "cancelledPrefix": "أُلغي — ",
+      "result": "تم فك تشفير {decrypted}، و{skipped} قابلة للتشغيل مسبقًا",
+      "auto": "فك تشفير نسخ PS Vita بعد عمليات الفحص",
+      "autoDesc": "يتم فك تشفير ملفات zip الجديدة لنسخ PS Vita التي يعثر عليها الفحص تلقائيًا. هذا يعيد كتابة ملف اللعبة (ROM)، لذلك فهو متوقف افتراضيًا."
     }
   },
   "mobilePagesA": {
@@ -2325,7 +2341,9 @@
     "statusThumbs": "تحديث الصور…",
     "hashingFilesBar": "حساب التجزئات",
     "scrapingArtBar": "إعادة كشط الصور",
-    "refreshingImagesBar": "تحديث الصور"
+    "refreshingImagesBar": "تحديث الصور",
+    "statusVitaDecrypt": "جارٍ فك تشفير نسخ PS Vita…",
+    "decryptingVitaBar": "جارٍ فك تشفير نسخ PS Vita"
   },
   "mobileHome": {
     "greeting": "مرحبًا {userName} 👋",

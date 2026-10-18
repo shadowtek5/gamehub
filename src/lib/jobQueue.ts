@@ -21,8 +21,10 @@ import { localizeBoxartForIds, startBoxartLocalizeAll, getBoxartLocalizeStatus }
 import { startHashJob, getHashJobStatus } from "./hashJob";
 import { startSystemArtJob, getSystemArtJobStatus } from "./systemArtJob";
 import { startThumbRefreshJob, getThumbJobStatus } from "./systemThumb";
+import { startVitaDecryptJob, getVitaDecryptJobStatus, isAutoDecryptOn, vitaZipIds } from "./vitaDecryptJob";
+import { findPfsdec } from "./vitaPfs";
 
-export type QueueKind = "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+export type QueueKind = "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
 
 interface QueuedJob {
   id: number;
@@ -46,6 +48,8 @@ interface QueuedJob {
   rehashArchives?: boolean;
   /** thumbs-only: rebuild every collage regardless of fingerprint */
   force?: boolean;
+  /** vitadecrypt-only: just these ROM ids (new games from a scan); unset = every PS Vita zip */
+  romIds?: number[];
   enqueuedAt: string;
 }
 
@@ -74,7 +78,8 @@ function anyRunning(): boolean {
     getBoxartLocalizeStatus().running ||
     getHashJobStatus().running ||
     getSystemArtJobStatus().running ||
-    getThumbJobStatus().running
+    getThumbJobStatus().running ||
+    getVitaDecryptJobStatus().running
   );
 }
 
@@ -87,6 +92,12 @@ function launch(job: QueuedJob): void {
       try {
         const st = getScanJobStatus();
         const newIds = getLastScanAddedIds();
+        // Raw PS Vita NoNpDRM dumps → decrypted zips that clients can install directly (opt-in,
+        // since it rewrites the ROM file). Queued ahead of the scrape so downloads work sooner.
+        if (!st.cancelled && newIds.length > 0 && isAutoDecryptOn() && findPfsdec()) {
+          const vita = vitaZipIds(newIds);
+          if (vita.length > 0) enqueue({ kind: "vitadecrypt", systems: ["vita"], romIds: vita });
+        }
         if (!st.cancelled && newIds.length > 0) {
           if (job.autoScrape) {
             // The scrape downloads full metadata AND local box art for each new
@@ -118,6 +129,8 @@ function launch(job: QueuedJob): void {
     startSystemArtJob(job.systems ?? undefined, pump);
   } else if (job.kind === "thumbs") {
     startThumbRefreshJob(job.systems ?? undefined, pump, job.force);
+  } else if (job.kind === "vitadecrypt") {
+    startVitaDecryptJob(job.romIds, pump);
   } else {
     // Targets are resolved HERE (not at enqueue) so a scan queued ahead of this
     // scrape is reflected in what gets scraped. An id-scoped job (auto-scrape of
@@ -223,6 +236,14 @@ export function thumbsPendingOrRunning(): boolean {
   return getThumbJobStatus().running || q().pending.some((j) => j.kind === "thumbs");
 }
 
+/** Queue a PS Vita NoNpDRM decrypt pass (every PS Vita zip, or just `romIds`). */
+export function enqueueVitaDecrypt(romIds?: number[]): EnqueueResult {
+  return enqueue({ kind: "vitadecrypt", systems: ["vita"], romIds });
+}
+export function vitaDecryptPendingOrRunning(): boolean {
+  return getVitaDecryptJobStatus().running || q().pending.some((j) => j.kind === "vitadecrypt");
+}
+
 /** A scan is running or already waiting — used to dedupe automatic scans so the
  *  daily timer / fs-watcher never stack redundant full scans. */
 export function scanPendingOrRunning(): boolean {
@@ -263,6 +284,16 @@ export function queuedViews(): QueuedView[] {
     }
     if (j.kind === "thumbs") {
       return { id: j.id, kind: "thumbs", label: "Refresh system images", systems, detail: scope };
+    }
+    if (j.kind === "vitadecrypt") {
+      const n = j.romIds?.length;
+      return {
+        id: j.id,
+        kind: "vitadecrypt",
+        label: "Decrypt PS Vita dumps",
+        systems,
+        detail: n ? `${n.toLocaleString()} game${n === 1 ? "" : "s"}` : "All PS Vita zips",
+      };
     }
     // An id-scoped scrape (auto-scrape of new games) knows its exact count.
     if (j.scrapeIds?.length) {

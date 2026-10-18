@@ -206,7 +206,9 @@
       "hashingFiles": "Calculando hashes",
       "scrapingArt": "Raspando arte novamente",
       "refreshingImages": "Atualizando imagens",
-      "statusFinalizing": "A finalizar…"
+      "statusFinalizing": "A finalizar…",
+      "statusVitaDecrypt": "Descriptografando dumps do PS Vita…",
+      "decryptingVita": "Descriptografando dumps do PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Limites de requisiÃ§Ãµes dos provedores",
@@ -474,6 +476,20 @@
       "generatingReport": "Gerando relatÃ³rioâ€¦",
       "failedToGenerate": "Falha ao gerar o relatÃ³rio",
       "generatedAt": "Gerado em {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Descriptografar dumps do PS Vita",
+      "desc": "Converte zips NoNpDRM originais (com sce_pfs) em zips descriptografados que instalam diretamente no Vita3K, como o instalador do próprio Vita3K. O zip é substituído no mesmo lugar; sua licença (work.bin) é mantida.",
+      "unavailable": "Requer a ferramenta vita-pfsdec, incluída na imagem Docker. Não foi encontrada neste servidor.",
+      "run": "Descriptografar agora",
+      "cancel": "Cancelar",
+      "queued": "Na fila — começará após o trabalho atual.",
+      "failedToStart": "Não foi possível iniciar",
+      "decryptedCount": "{count} descriptografados",
+      "cancelledPrefix": "Cancelado — ",
+      "result": "{decrypted} descriptografados, {skipped} já jogáveis",
+      "auto": "Descriptografar dumps do PS Vita após varreduras",
+      "autoDesc": "Novos zips do PS Vita encontrados por uma varredura são descriptografados automaticamente. Isso reescreve o arquivo ROM, por isso vem desativado por padrão."
     }
   },
   "mobilePagesA": {
@@ -2681,7 +2697,9 @@
     "statusThumbs": "Atualizando imagens…",
     "hashingFilesBar": "Calculando hashes",
     "scrapingArtBar": "Raspando arte novamente",
-    "refreshingImagesBar": "Atualizando imagens"
+    "refreshingImagesBar": "Atualizando imagens",
+    "statusVitaDecrypt": "Descriptografando dumps do PS Vita…",
+    "decryptingVitaBar": "Descriptografando dumps do PS Vita"
   },
   "emulator": {
     "stateSaved": "Estado salvo no GameHub",

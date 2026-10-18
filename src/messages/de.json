@@ -625,7 +625,9 @@
       "hashingFiles": "Hashes berechnen",
       "scrapingArt": "Artwork neu scrapen",
       "refreshingImages": "Bilder aktualisieren",
-      "statusFinalizing": "Wird abgeschlossen…"
+      "statusFinalizing": "Wird abgeschlossen…",
+      "statusVitaDecrypt": "Entschlüssele PS Vita-Dumps…",
+      "decryptingVita": "Entschlüssele PS Vita-Dumps"
     },
     "quota": {
       "providerRequestLimits": "Anbieter-Anfragelimits",
@@ -1235,6 +1237,20 @@
       "generatingReport": "Bericht wird generiert…",
       "failedToGenerate": "Bericht konnte nicht generiert werden",
       "generatedAt": "Generiert am {date}"
+    },
+    "vitaDecrypt": {
+      "title": "PS Vita-Dumps entschlüsseln",
+      "desc": "Wandelt rohe NoNpDRM-ZIPs (mit sce_pfs) in entschlüsselte ZIPs um, die sich wie beim eigenen Installer von Vita3K direkt in Vita3K installieren lassen. Die ZIP-Datei wird an Ort und Stelle ersetzt; ihre Lizenz (work.bin) bleibt erhalten.",
+      "unavailable": "Benötigt das Tool vita-pfsdec, das im Docker-Image enthalten ist. Auf diesem Server nicht gefunden.",
+      "run": "Jetzt entschlüsseln",
+      "cancel": "Abbrechen",
+      "queued": "In der Warteschlange — startet nach dem aktuellen Auftrag.",
+      "failedToStart": "Start fehlgeschlagen",
+      "decryptedCount": "{count} entschlüsselt",
+      "cancelledPrefix": "Abgebrochen — ",
+      "result": "{decrypted} entschlüsselt, {skipped} bereits spielbar",
+      "auto": "PS Vita-Dumps nach Scans entschlüsseln",
+      "autoDesc": "Neue PS Vita-ZIPs, die ein Scan findet, werden automatisch entschlüsselt. Dabei wird die ROM-Datei überschrieben, daher ist die Option standardmäßig deaktiviert."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "Bilder werden aktualisiert…",
     "hashingFilesBar": "Hashes berechnen",
     "scrapingArtBar": "Artwork neu scrapen",
-    "refreshingImagesBar": "Bilder aktualisieren"
+    "refreshingImagesBar": "Bilder aktualisieren",
+    "statusVitaDecrypt": "Entschlüssele PS Vita-Dumps…",
+    "decryptingVitaBar": "Entschlüssele PS Vita-Dumps"
   },
   "mobileGameOptions": {
     "gameOptions": "Spieloptionen",

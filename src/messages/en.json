@@ -625,7 +625,9 @@
       "tagQueued": "Queued",
       "scheduled": "Scheduled",
       "noRecurring": "No recurring tasks enabled.",
-      "tagAuto": "Auto"
+      "tagAuto": "Auto",
+      "statusVitaDecrypt": "Decrypting PS Vita dumps…",
+      "decryptingVita": "Decrypting PS Vita dumps"
     },
     "quota": {
       "providerRequestLimits": "Provider request limits",
@@ -1315,6 +1317,20 @@
       "generatingReport": "Generating report…",
       "failedToGenerate": "Failed to generate report",
       "generatedAt": "Generated {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Decrypt PS Vita dumps",
+      "desc": "Turns raw NoNpDRM zips (with sce_pfs) into decrypted zips that install straight into Vita3K, like Vita3K's own installer does. The zip is replaced in place; its license (work.bin) is kept.",
+      "unavailable": "Needs the vita-pfsdec tool, which is included in the Docker image. Not found on this server.",
+      "run": "Decrypt now",
+      "cancel": "Cancel",
+      "queued": "Queued — it will start after the current job.",
+      "failedToStart": "Couldn't start",
+      "decryptedCount": "{count} decrypted",
+      "cancelledPrefix": "Cancelled — ",
+      "result": "{decrypted} decrypted, {skipped} already playable",
+      "auto": "Decrypt PS Vita dumps after scans",
+      "autoDesc": "New PS Vita zips found by a scan are decrypted automatically. This rewrites the ROM file, so it's off by default."
     }
   },
   "mobileAccount": {
@@ -1417,7 +1433,9 @@
     "loading": "Loading…",
     "scheduled": "Scheduled",
     "noRecurringTasks": "No recurring tasks enabled.",
-    "auto": "Auto"
+    "auto": "Auto",
+    "statusVitaDecrypt": "Decrypting PS Vita dumps…",
+    "decryptingVitaBar": "Decrypting PS Vita dumps"
   },
   "mobileGameOptions": {
     "gameOptions": "Game options",

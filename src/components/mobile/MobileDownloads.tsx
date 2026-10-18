@@ -27,7 +27,7 @@ interface SysProg {
   done: number;
 }
 interface JobView {
-  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
   label: string;
   running: boolean;
   finalizing?: boolean;
@@ -46,7 +46,7 @@ interface JobView {
 
 interface QueuedView {
   id: number;
-  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs";
+  kind: "scan" | "scrape" | "localize" | "hash" | "art" | "thumbs" | "vitadecrypt";
   label: string;
   systems: string[];
   detail: string;
@@ -99,11 +99,11 @@ function Stat({ label, value }: { label: string; value: string }) {
 // Per-kind status-line + progress-bar i18n keys (scrape has its own logic).
 const STATUS_KEY: Record<string, string> = {
   scan: "scanningFiles", localize: "statusOptimizing", hash: "statusHashing",
-  art: "statusArt", thumbs: "statusThumbs",
+  art: "statusArt", thumbs: "statusThumbs", vitadecrypt: "statusVitaDecrypt",
 };
 const BAR_KEY: Record<string, string> = {
   scan: "scanningFilesBar", scrape: "scrapingMetadataBar", localize: "optimizingArtBar",
-  hash: "hashingFilesBar", art: "scrapingArtBar", thumbs: "refreshingImagesBar",
+  hash: "hashingFilesBar", art: "scrapingArtBar", thumbs: "refreshingImagesBar", vitadecrypt: "decryptingVitaBar",
 };
 
 export default function MobileDownloads() {
@@ -176,6 +176,7 @@ export default function MobileDownloads() {
       hash: "/api/hash/job",
       art: "/api/systems/art-job",
       thumbs: "/api/systems/thumbs",
+      vitadecrypt: "/api/maintenance/vita-decrypt",
     };
     await fetch(routes[kind], { method: "DELETE" });
   }
@@ -251,6 +252,8 @@ export default function MobileDownloads() {
               ? active.current
                 ? t("nowScraping", { current: active.current })
                 : t("scrapingMetadata")
+              : active.kind === "vitadecrypt" && active.current
+              ? active.current
               : t(STATUS_KEY[active.kind] ?? "scanningFiles")}
           </div>
         </div>

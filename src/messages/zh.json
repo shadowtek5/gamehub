@@ -625,7 +625,9 @@
       "hashingFiles": "计算哈希",
       "scrapingArt": "重新抓取图像",
       "refreshingImages": "刷新图像",
-      "statusFinalizing": "正在完成…"
+      "statusFinalizing": "正在完成…",
+      "statusVitaDecrypt": "正在解密 PS Vita 转储…",
+      "decryptingVita": "正在解密 PS Vita 转储"
     },
     "quota": {
       "providerRequestLimits": "提供商请求限制",
@@ -1235,6 +1237,20 @@
       "generatingReport": "正在生成报告…",
       "failedToGenerate": "无法生成报告",
       "generatedAt": "生成于 {date}"
+    },
+    "vitaDecrypt": {
+      "title": "解密 PS Vita 转储",
+      "desc": "将原始 NoNpDRM 压缩包（含 sce_pfs）转换为解密后的压缩包，可直接安装到 Vita3K 中，与 Vita3K 自带安装程序的做法相同。压缩包会原地替换；其许可证文件（work.bin）会保留。",
+      "unavailable": "需要 vita-pfsdec 工具，该工具已包含在 Docker 镜像中。在此服务器上未找到。",
+      "run": "立即解密",
+      "cancel": "取消",
+      "queued": "已排队——将在当前任务完成后开始。",
+      "failedToStart": "无法启动",
+      "decryptedCount": "已解密 {count} 个",
+      "cancelledPrefix": "已取消 — ",
+      "result": "已解密 {decrypted} 个，{skipped} 个已可直接游玩",
+      "auto": "扫描后自动解密 PS Vita 转储",
+      "autoDesc": "扫描发现的新 PS Vita 压缩包将自动解密。此操作会重写 ROM 文件，因此默认关闭。"
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "正在刷新图像…",
     "hashingFilesBar": "计算哈希",
     "scrapingArtBar": "重新抓取图像",
-    "refreshingImagesBar": "刷新图像"
+    "refreshingImagesBar": "刷新图像",
+    "statusVitaDecrypt": "正在解密 PS Vita 转储…",
+    "decryptingVitaBar": "正在解密 PS Vita 转储"
   },
   "mobileGameOptions": {
     "gameOptions": "游戏选项",

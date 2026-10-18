@@ -250,7 +250,9 @@
       "hashingFiles": "Calculando hashes",
       "scrapingArt": "Volviendo a extraer arte",
       "refreshingImages": "Actualizando imágenes",
-      "statusFinalizing": "Finalizando…"
+      "statusFinalizing": "Finalizando…",
+      "statusVitaDecrypt": "Descifrando volcados de PS Vita…",
+      "decryptingVita": "Descifrando volcados de PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Límites de solicitudes del proveedor",
@@ -518,6 +520,20 @@
       "generatingReport": "Generando informe…",
       "failedToGenerate": "No se pudo generar el informe",
       "generatedAt": "Generado {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Descifrar volcados de PS Vita",
+      "desc": "Convierte los zip NoNpDRM sin procesar (con sce_pfs) en zip descifrados que se instalan directamente en Vita3K, como hace el instalador propio de Vita3K. El zip se reemplaza en su lugar; se conserva su licencia (work.bin).",
+      "unavailable": "Necesita la herramienta vita-pfsdec, incluida en la imagen de Docker. No se encuentra en este servidor.",
+      "run": "Descifrar ahora",
+      "cancel": "Cancelar",
+      "queued": "En cola: comenzará después del trabajo actual.",
+      "failedToStart": "No se pudo iniciar",
+      "decryptedCount": "{count} descifrados",
+      "cancelledPrefix": "Cancelado — ",
+      "result": "{decrypted} descifrados, {skipped} ya jugables",
+      "auto": "Descifrar volcados de PS Vita después de los escaneos",
+      "autoDesc": "Los nuevos zip de PS Vita encontrados por un escaneo se descifran automáticamente. Esto reescribe el archivo ROM, por lo que está desactivado de forma predeterminada."
     }
   },
   "mobilePagesA": {
@@ -2321,7 +2337,9 @@
     "statusThumbs": "Actualizando imágenes…",
     "hashingFilesBar": "Calculando hashes",
     "scrapingArtBar": "Volviendo a extraer arte",
-    "refreshingImagesBar": "Actualizando imágenes"
+    "refreshingImagesBar": "Actualizando imágenes",
+    "statusVitaDecrypt": "Descifrando volcados de PS Vita…",
+    "decryptingVitaBar": "Descifrando volcados de PS Vita"
   },
   "mobileHome": {
     "greeting": "Hola {userName} 👋",

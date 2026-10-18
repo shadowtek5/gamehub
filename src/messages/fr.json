@@ -250,7 +250,9 @@
       "hashingFiles": "Calcul des empreintes",
       "scrapingArt": "Récupération des visuels",
       "refreshingImages": "Actualisation des images",
-      "statusFinalizing": "Finalisation…"
+      "statusFinalizing": "Finalisation…",
+      "statusVitaDecrypt": "Déchiffrement des dumps PS Vita…",
+      "decryptingVita": "Déchiffrement des dumps PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Limites de requÃªtes du fournisseur",
@@ -518,6 +520,20 @@
       "generatingReport": "GÃ©nÃ©ration du rapportâ€¦",
       "failedToGenerate": "Ã‰chec de la gÃ©nÃ©ration du rapport",
       "generatedAt": "GÃ©nÃ©rÃ© {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Déchiffrer les dumps PS Vita",
+      "desc": "Transforme les zips NoNpDRM bruts (avec sce_pfs) en zips déchiffrés, installables directement dans Vita3K comme le fait l'installateur de Vita3K. Le zip est remplacé sur place ; sa licence (work.bin) est conservée.",
+      "unavailable": "Nécessite l'outil vita-pfsdec, inclus dans l'image Docker. Introuvable sur ce serveur.",
+      "run": "Déchiffrer maintenant",
+      "cancel": "Annuler",
+      "queued": "En file d'attente — démarrera après la tâche en cours.",
+      "failedToStart": "Impossible de démarrer",
+      "decryptedCount": "{count} déchiffré(s)",
+      "cancelledPrefix": "Annulé — ",
+      "result": "{decrypted} déchiffré(s), {skipped} déjà lisible(s)",
+      "auto": "Déchiffrer les dumps PS Vita après les analyses",
+      "autoDesc": "Les nouveaux zips PS Vita trouvés par une analyse sont déchiffrés automatiquement. Cela réécrit le fichier ROM, c'est pourquoi l'option est désactivée par défaut."
     }
   },
   "mobilePagesA": {
@@ -2321,7 +2337,9 @@
     "statusThumbs": "Actualisation des images…",
     "hashingFilesBar": "Calcul des empreintes",
     "scrapingArtBar": "Récupération des visuels",
-    "refreshingImagesBar": "Actualisation des images"
+    "refreshingImagesBar": "Actualisation des images",
+    "statusVitaDecrypt": "Déchiffrement des dumps PS Vita…",
+    "decryptingVitaBar": "Déchiffrement des dumps PS Vita"
   },
   "mobileHome": {
     "greeting": "Salut {userName} 👋",

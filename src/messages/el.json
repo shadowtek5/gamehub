@@ -250,7 +250,9 @@
       "hashingFiles": "Υπολογισμός κατακερματισμών",
       "scrapingArt": "Επανάληψη λήψης εικόνων",
       "refreshingImages": "Ανανέωση εικόνων",
-      "statusFinalizing": "Ολοκλήρωση…"
+      "statusFinalizing": "Ολοκλήρωση…",
+      "statusVitaDecrypt": "Αποκρυπτογράφηση αντιγράφων PS Vita…",
+      "decryptingVita": "Αποκρυπτογράφηση αντιγράφων PS Vita"
     },
     "quota": {
       "providerRequestLimits": "Όρια αιτημάτων παρόχων",
@@ -518,6 +520,20 @@
       "generatingReport": "Δημιουργία αναφοράς…",
       "failedToGenerate": "Η δημιουργία της αναφοράς απέτυχε",
       "generatedAt": "Δημιουργήθηκε {date}"
+    },
+    "vitaDecrypt": {
+      "title": "Αποκρυπτογράφηση αντιγράφων PS Vita",
+      "desc": "Μετατρέπει τα ακατέργαστα zip NoNpDRM (με sce_pfs) σε αποκρυπτογραφημένα zip που εγκαθίστανται απευθείας στο Vita3K, όπως κάνει ο δικός του εγκαταστάτης. Το zip αντικαθίσταται στη θέση του· η άδειά του (work.bin) διατηρείται.",
+      "unavailable": "Απαιτεί το εργαλείο vita-pfsdec, το οποίο περιλαμβάνεται στην εικόνα Docker. Δεν βρέθηκε σε αυτόν τον διακομιστή.",
+      "run": "Αποκρυπτογράφηση τώρα",
+      "cancel": "Ακύρωση",
+      "queued": "Σε αναμονή — θα ξεκινήσει μετά την τρέχουσα εργασία.",
+      "failedToStart": "Δεν ήταν δυνατή η έναρξη",
+      "decryptedCount": "{count} αποκρυπτογραφήθηκαν",
+      "cancelledPrefix": "Ακυρώθηκε — ",
+      "result": "{decrypted} αποκρυπτογραφήθηκαν, {skipped} ήδη εκτελέσιμα",
+      "auto": "Αποκρυπτογράφηση αντιγράφων PS Vita μετά από σαρώσεις",
+      "autoDesc": "Τα νέα zip PS Vita που εντοπίζει μια σάρωση αποκρυπτογραφούνται αυτόματα. Αυτό ξαναγράφει το αρχείο ROM, γι' αυτό είναι απενεργοποιημένο από προεπιλογή."
     }
   },
   "mobilePagesA": {
@@ -2434,7 +2450,9 @@
     "statusThumbs": "Ανανέωση εικόνων…",
     "hashingFilesBar": "Υπολογισμός κατακερματισμών",
     "scrapingArtBar": "Επανάληψη λήψης εικόνων",
-    "refreshingImagesBar": "Ανανέωση εικόνων"
+    "refreshingImagesBar": "Ανανέωση εικόνων",
+    "statusVitaDecrypt": "Αποκρυπτογράφηση αντιγράφων PS Vita…",
+    "decryptingVitaBar": "Αποκρυπτογράφηση αντιγράφων PS Vita"
   },
   "emulator": {
     "stateSaved": "Κατάσταση αποθηκεύτηκε στο GameHub",

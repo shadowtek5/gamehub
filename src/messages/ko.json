@@ -625,7 +625,9 @@
       "hashingFiles": "해시 계산",
       "scrapingArt": "아트 다시 스크래핑",
       "refreshingImages": "이미지 새로 고침",
-      "statusFinalizing": "마무리 중…"
+      "statusFinalizing": "마무리 중…",
+      "statusVitaDecrypt": "PS Vita 덤프 복호화 중…",
+      "decryptingVita": "PS Vita 덤프 복호화 중"
     },
     "quota": {
       "providerRequestLimits": "제공자 요청 제한",
@@ -1235,6 +1237,20 @@
       "generatingReport": "보고서 생성 중…",
       "failedToGenerate": "보고서 생성 실패",
       "generatedAt": "{date}에 생성됨"
+    },
+    "vitaDecrypt": {
+      "title": "PS Vita 덤프 복호화",
+      "desc": "원본 NoNpDRM zip(sce_pfs 포함)을 Vita3K 자체 설치 프로그램처럼 Vita3K에 바로 설치할 수 있는 복호화된 zip으로 변환합니다. zip은 제자리에서 교체되며, 라이선스(work.bin)는 유지됩니다.",
+      "unavailable": "vita-pfsdec 도구가 필요하며, 이 도구는 Docker 이미지에 포함되어 있습니다. 이 서버에서는 찾을 수 없습니다.",
+      "run": "지금 복호화",
+      "cancel": "취소",
+      "queued": "대기 중 — 현재 작업이 끝난 후 시작됩니다.",
+      "failedToStart": "시작할 수 없음",
+      "decryptedCount": "{count}개 복호화됨",
+      "cancelledPrefix": "취소됨 — ",
+      "result": "{decrypted}개 복호화, {skipped}개는 이미 실행 가능",
+      "auto": "검색 후 PS Vita 덤프 자동 복호화",
+      "autoDesc": "검색으로 발견된 새 PS Vita zip은 자동으로 복호화됩니다. ROM 파일을 덮어쓰므로 기본적으로 꺼져 있습니다."
     }
   },
   "mobileAccount": {
@@ -1337,7 +1353,9 @@
     "statusThumbs": "이미지 새로 고침 중…",
     "hashingFilesBar": "해시 계산",
     "scrapingArtBar": "아트 다시 스크래핑",
-    "refreshingImagesBar": "이미지 새로 고침"
+    "refreshingImagesBar": "이미지 새로 고침",
+    "statusVitaDecrypt": "PS Vita 덤프 복호화 중…",
+    "decryptingVitaBar": "PS Vita 덤프 복호화 중"
   },
   "mobileGameOptions": {
     "gameOptions": "게임 옵션",
