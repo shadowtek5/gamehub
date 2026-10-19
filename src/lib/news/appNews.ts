@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-18",
+    title: "Upload your own clear logo",
+    body: "Game logos can now be set by hand like the rest of a game's art. Open a game's Properties: the Media tab has a Clear logo upload (a transparent PNG or WebP works best), and the Art tab has a Clear logo URL field next to box art, hero and icon. Your logo replaces the scraped one and shows over the hero art on the game page. On desktop/TV and the mobile app.",
+    art: "artwork",
+  },
+  {
+    date: "2026-10-18",
     title: "PS Vita dumps that install straight into Vita3K",
     body: "Raw PS Vita NoNpDRM dumps — the ones with an sce_pfs folder — are still encrypted, so until now only Vita3K's own installer could set them up. GameHub can now decrypt them on the server: Settings › Maintenance › Decrypt PS Vita dumps turns each one into a zip that installs into Vita3K by simply unpacking it, the same result Vita3K's installer produces, with the game's license kept inside. Clients like GameHub Downloader can then install, launch and manage those games with no extra steps on the device. Turn on \"Decrypt PS Vita dumps after scans\" to handle new games automatically (off by default, since it rewrites the zip — the ROM folder needs to be writable). Progress shows on the downloads page like any other job. The decrypt tool comes with the in-app update (0.1.6+) as well as the Docker image. On desktop/TV and the mobile app.",
     art: "automation",

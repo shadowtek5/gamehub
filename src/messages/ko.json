@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "매뉴얼",
         "hint": "PDF 게임 매뉴얼 — 게임 페이지에서 열림"
+      },
+      "logo": {
+        "label": "투명 로고",
+        "hint": "히어로 아트 위에 표시되는 투명 타이틀 로고(PNG 또는 WebP)"
       }
     },
     "titleLabel": "제목",
@@ -1942,7 +1946,9 @@
     "saved": "저장됨 ✓",
     "themeSaved": "✓ 저장됨",
     "themeCleared": "✓ 지워짐 — 다시 검색합니다",
-    "themeRemoved": "✓ 업로드된 테마 제거됨"
+    "themeRemoved": "✓ 업로드된 테마 제거됨",
+    "logoUrlLabel": "투명 로고 URL",
+    "logoUrlDesc": "히어로 아트 위에 표시되는 투명 타이틀 로고입니다. 스크래퍼가 자동으로 채웁니다."
   },
   "scrapeTools": {
     "common": {

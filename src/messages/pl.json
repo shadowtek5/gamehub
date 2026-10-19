@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "Instrukcja",
         "hint": "Instrukcja PDF gry — otwiera się ze strony gry"
+      },
+      "logo": {
+        "label": "Przezroczyste logo",
+        "hint": "Przezroczyste logo tytułu (PNG lub WebP) wyświetlane nad grafiką nagłówka"
       }
     },
     "titleLabel": "Tytuł",
@@ -1942,7 +1946,9 @@
     "saved": "Zapisano ✓",
     "themeSaved": "✓ Zapisano",
     "themeCleared": "✓ Wyczyszczono — wyszukiwanie ponownie",
-    "themeRemoved": "✓ Usunięto przesłany motyw"
+    "themeRemoved": "✓ Usunięto przesłany motyw",
+    "logoUrlLabel": "Adres URL przezroczystego logo",
+    "logoUrlDesc": "Przezroczyste logo tytułu wyświetlane nad grafiką nagłówka. Skrypty pobierające wypełniają je automatycznie."
   },
   "scrapeTools": {
     "common": {

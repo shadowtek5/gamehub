@@ -114,7 +114,7 @@ plays dozens of consoles right in the browser. Everything runs in one container.
 - Providers: ScreenScraper, IGDB, MobyGames, TheGamesDB, SteamGridDB, EmuMovies (videos + manuals), the offline LaunchBox Games Database (183k+ games), libretro-thumbnails, HowLongToBeat, Flashpoint and RetroAchievements
 - Provider priority you control, per-item toggles (description, details, box art, hero art, clear logos, icons, screenshots, videos, manuals, badges), and 2D or 3D box art
 - Bulk scrape (missing-only or everything, per selected systems), per-system scrape from each system page, and per-game scrape / re-match
-- Fix mismatches by hand: search candidates across providers, pick box/hero/logo art from every source, or edit any field directly — manual edits survive rescans
+- Fix mismatches by hand: search candidates across providers, pick box/hero/logo art from every source, upload your own (box art, hero, clear logo, icon, screenshot, video, theme, manual), or edit any field directly — manual edits survive rescans
 - Manuals in a built-in PDF viewer, video snaps, game trailers (from IGDB), theme music (YouTube or upload), language flags on covers, and genre/language/variant filters
 </details>
 

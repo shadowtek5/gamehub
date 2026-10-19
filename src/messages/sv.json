@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "Manual",
         "hint": "PDF-spelmanual — öppnas från spelsidan"
+      },
+      "logo": {
+        "label": "Transparent logotyp",
+        "hint": "Transparent titellogotyp (PNG eller WebP) som visas över hero-bilden"
       }
     },
     "titleLabel": "Titel",
@@ -1942,7 +1946,9 @@
     "saved": "Sparat ✓",
     "themeSaved": "✓ Sparat",
     "themeCleared": "✓ Rensat — söker igen",
-    "themeRemoved": "✓ Uppladdat tema borttaget"
+    "themeRemoved": "✓ Uppladdat tema borttaget",
+    "logoUrlLabel": "URL till transparent logotyp",
+    "logoUrlDesc": "Transparent titellogotyp som visas över hero-bilden. Scrapers fyller i detta automatiskt."
   },
   "scrapeTools": {
     "common": {

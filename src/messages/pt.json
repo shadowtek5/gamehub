@@ -2100,6 +2100,10 @@
       "manual": {
         "label": "Manual",
         "hint": "PDF game manual — opens from the game page"
+      },
+      "logo": {
+        "label": "Logo transparente",
+        "hint": "Logo de título transparente (PNG ou WebP) exibido sobre a arte de destaque"
       }
     },
     "titleLabel": "Title",
@@ -2176,7 +2180,9 @@
     "saved": "Saved ✓",
     "themeSaved": "✓ Saved",
     "themeCleared": "✓ Cleared — will search again",
-    "themeRemoved": "✓ Uploaded theme removed"
+    "themeRemoved": "✓ Uploaded theme removed",
+    "logoUrlLabel": "URL do logo transparente",
+    "logoUrlDesc": "Logo de título transparente exibido sobre a arte de destaque. Os scrapers preenchem isso automaticamente."
   },
   "systemTools": {
     "artLabel": {

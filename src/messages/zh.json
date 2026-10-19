@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "说明书",
         "hint": "PDF 游戏说明书 —— 从游戏页面打开"
+      },
+      "logo": {
+        "label": "透明标志",
+        "hint": "显示在主视觉图上方的透明标题标志（PNG 或 WebP）"
       }
     },
     "titleLabel": "标题",
@@ -1942,7 +1946,9 @@
     "saved": "已保存 ✓",
     "themeSaved": "✓ 已保存",
     "themeCleared": "✓ 已清除 —— 正在重新搜索",
-    "themeRemoved": "✓ 已移除已上传的主题"
+    "themeRemoved": "✓ 已移除已上传的主题",
+    "logoUrlLabel": "透明标志 URL",
+    "logoUrlDesc": "显示在主视觉图上方的透明标题标志。刮削器会自动填充此项。"
   },
   "scrapeTools": {
     "common": {

@@ -2045,6 +2045,10 @@
         "label": "Hero banner",
         "hint": "Wide art for the game page header"
       },
+      "logo": {
+        "label": "Clear logo",
+        "hint": "Transparent title logo (PNG or WebP) shown over the hero art"
+      },
       "screenshot": {
         "label": "Screenshot",
         "hint": "In-game shot (16:9 works best)"
@@ -2081,6 +2085,8 @@
     "matchTitleDesc": "Look up libretro-thumbnails using the title field.",
     "heroUrlLabel": "Hero banner URL",
     "heroUrlDesc": "Wide art behind the game page header. Scrapers fill this automatically.",
+    "logoUrlLabel": "Clear logo URL",
+    "logoUrlDesc": "Transparent title logo shown over the hero art. Scrapers fill this automatically.",
     "iconUrlLabel": "Icon URL",
     "iconUrlDesc": "Square game icon (stored for future use).",
     "boxartPreviewAlt": "Box art preview",

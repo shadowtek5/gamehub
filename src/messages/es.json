@@ -2509,6 +2509,10 @@
       "manual": {
         "label": "Manual",
         "hint": "Manual PDF del juego: se abre desde la página del juego"
+      },
+      "logo": {
+        "label": "Logo transparente",
+        "hint": "Logo de título transparente (PNG o WebP) que se muestra sobre la imagen principal"
       }
     },
     "titleLabel": "Título",
@@ -2585,7 +2589,9 @@
     "saved": "Guardado ✓",
     "themeSaved": "✓ Guardado",
     "themeCleared": "✓ Borrado: se buscará de nuevo",
-    "themeRemoved": "✓ Tema subido eliminado"
+    "themeRemoved": "✓ Tema subido eliminado",
+    "logoUrlLabel": "URL del logo transparente",
+    "logoUrlDesc": "Logo de título transparente que se muestra sobre la imagen principal. Los scrapers lo rellenan automáticamente."
   },
   "scraperOptions": {
     "title": "Opciones del raspador",

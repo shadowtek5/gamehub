@@ -2756,6 +2756,10 @@
       "manual": {
         "label": "Käyttöopas",
         "hint": "PDF-peliopas — avautuu pelin sivulta"
+      },
+      "logo": {
+        "label": "Läpinäkyvä logo",
+        "hint": "Läpinäkyvä pelin logo (PNG tai WebP), joka näytetään hero-kuvan päällä"
       }
     },
     "titleLabel": "Otsikko",
@@ -2832,7 +2836,9 @@
     "saved": "Tallennettu ✓",
     "themeSaved": "✓ Tallennettu",
     "themeCleared": "✓ Tyhjennetty — etsitään uudelleen",
-    "themeRemoved": "✓ Ladattu teematiedosto poistettu"
+    "themeRemoved": "✓ Ladattu teematiedosto poistettu",
+    "logoUrlLabel": "Läpinäkyvän logon URL",
+    "logoUrlDesc": "Läpinäkyvä pelin logo, joka näytetään hero-kuvan päällä. Hakurit täyttävät tämän automaattisesti."
   },
   "screenshots": {
     "title": "Kuvakaappaukset",

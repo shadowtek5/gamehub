@@ -35,6 +35,10 @@
       "manual": {
         "label": "Manuale",
         "hint": "Manuale del gioco PDF — si apre dalla pagina del gioco"
+      },
+      "logo": {
+        "label": "Logo trasparente",
+        "hint": "Logo del titolo trasparente (PNG o WebP) mostrato sopra l'immagine hero"
       }
     },
     "titleLabel": "Titolo",
@@ -111,7 +115,9 @@
     "saved": "Salvato ✓",
     "themeSaved": "✓ Salvato",
     "themeCleared": "✓ Cancellato — cercherà di nuovo",
-    "themeRemoved": "✓ Tema caricato rimosso"
+    "themeRemoved": "✓ Tema caricato rimosso",
+    "logoUrlLabel": "URL del logo trasparente",
+    "logoUrlDesc": "Logo del titolo trasparente mostrato sopra l'immagine hero. Gli scraper lo compilano automaticamente."
   },
   "systemTools": {
     "artLabel": {

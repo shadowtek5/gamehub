@@ -2509,6 +2509,10 @@
       "manual": {
         "label": "Manuel",
         "hint": "Manuel de jeu PDF — s'ouvre depuis la page du jeu"
+      },
+      "logo": {
+        "label": "Logo transparent",
+        "hint": "Logo de titre transparent (PNG ou WebP) affiché par-dessus l'image d'en-tête"
       }
     },
     "titleLabel": "Titre",
@@ -2585,7 +2589,9 @@
     "saved": "Enregistré ✓",
     "themeSaved": "✓ Enregistré",
     "themeCleared": "✓ Effacé — recherche à nouveau",
-    "themeRemoved": "✓ Thème chargé supprimé"
+    "themeRemoved": "✓ Thème chargé supprimé",
+    "logoUrlLabel": "URL du logo transparent",
+    "logoUrlDesc": "Logo de titre transparent affiché par-dessus l'image d'en-tête. Les scrapers le remplissent automatiquement."
   },
   "scraperOptions": {
     "title": "Options de récupération",

@@ -11,6 +11,7 @@ import { getDataDir } from "../../../../../lib/dataDir";
 const MEDIA_LABELS: Record<string, string> = {
   boxart: "box art",
   hero: "hero artwork",
+  logo: "clear logo",
   icon: "icon",
   screenshot: "screenshot",
   video: "trailer",
@@ -21,6 +22,7 @@ const MEDIA_LABELS: Record<string, string> = {
 const MEDIA_TYPES: Record<string, { column: string; kinds: string[] }> = {
   boxart: { column: "boxart_url", kinds: ["image"] },
   hero: { column: "hero_url", kinds: ["image"] },
+  logo: { column: "logo_url", kinds: ["image"] },
   icon: { column: "icon_url", kinds: ["image"] },
   screenshot: { column: "screenshot_url", kinds: ["image"] },
   video: { column: "video_url", kinds: ["video"] },

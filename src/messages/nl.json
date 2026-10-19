@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "Handleiding",
         "hint": "PDF-spelhandleiding — opent vanaf de spelpagina"
+      },
+      "logo": {
+        "label": "Transparant logo",
+        "hint": "Transparant titellogo (PNG of WebP) dat over de hero-afbeelding wordt getoond"
       }
     },
     "titleLabel": "Titel",
@@ -1942,7 +1946,9 @@
     "saved": "Opgeslagen ✓",
     "themeSaved": "✓ Opgeslagen",
     "themeCleared": "✓ Gewist — wordt opnieuw gezocht",
-    "themeRemoved": "✓ Geüpload thema verwijderd"
+    "themeRemoved": "✓ Geüpload thema verwijderd",
+    "logoUrlLabel": "URL van transparant logo",
+    "logoUrlDesc": "Transparant titellogo dat over de hero-afbeelding wordt getoond. Scrapers vullen dit automatisch in."
   },
   "scrapeTools": {
     "common": {

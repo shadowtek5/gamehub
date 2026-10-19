@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "マニュアル",
         "hint": "PDFゲームマニュアル — ゲームページから開く"
+      },
+      "logo": {
+        "label": "透明ロゴ",
+        "hint": "ヒーローアートの上に表示される透明なタイトルロゴ（PNG または WebP）"
       }
     },
     "titleLabel": "タイトル",
@@ -1942,7 +1946,9 @@
     "saved": "保存済み ✓",
     "themeSaved": "✓ 保存しました",
     "themeCleared": "✓ クリアしました — 再検索します",
-    "themeRemoved": "✓ アップロードしたテーマを削除しました"
+    "themeRemoved": "✓ アップロードしたテーマを削除しました",
+    "logoUrlLabel": "透明ロゴのURL",
+    "logoUrlDesc": "ヒーローアートの上に表示される透明なタイトルロゴです。スクレイパーが自動で入力します。"
   },
   "scrapeTools": {
     "common": {

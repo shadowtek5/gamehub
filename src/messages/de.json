@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "Handbuch",
         "hint": "PDF-Spielhandbuch — öffnet sich von der Spielseite"
+      },
+      "logo": {
+        "label": "Transparentes Logo",
+        "hint": "Transparentes Titellogo (PNG oder WebP), das über dem Hero-Bild angezeigt wird"
       }
     },
     "titleLabel": "Titel",
@@ -1942,7 +1946,9 @@
     "saved": "Gespeichert ✓",
     "themeSaved": "✓ Gespeichert",
     "themeCleared": "✓ Geleert — wird erneut gesucht",
-    "themeRemoved": "✓ Hochgeladenes Theme entfernt"
+    "themeRemoved": "✓ Hochgeladenes Theme entfernt",
+    "logoUrlLabel": "URL des transparenten Logos",
+    "logoUrlDesc": "Transparentes Titellogo, das über dem Hero-Bild angezeigt wird. Scraper füllen dieses Feld automatisch aus."
   },
   "scrapeTools": {
     "common": {

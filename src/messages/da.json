@@ -1866,6 +1866,10 @@
       "manual": {
         "label": "Manual",
         "hint": "PDF spilmanual — åbner fra spilsiden"
+      },
+      "logo": {
+        "label": "Klart logo",
+        "hint": "Transparent titellogo (PNG eller WebP), der vises over hero-billedet"
       }
     },
     "titleLabel": "Titel",
@@ -1942,7 +1946,9 @@
     "saved": "Gemt ✓",
     "themeSaved": "✓ Gemt",
     "themeCleared": "✓ Rydet — vil søge igen",
-    "themeRemoved": "✓ Uploadet tema fjernet"
+    "themeRemoved": "✓ Uploadet tema fjernet",
+    "logoUrlLabel": "URL til klart logo",
+    "logoUrlDesc": "Transparent titellogo, der vises over hero-billedet. Scrapere udfylder dette automatisk."
   },
   "scrapeTools": {
     "common": {

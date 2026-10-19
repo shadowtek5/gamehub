@@ -25,6 +25,7 @@ interface RomData {
   boxart_url: string | null;
   hero_url: string | null;
   icon_url: string | null;
+  logo_url: string | null;
   description: string | null;
   developer: string | null;
   publisher: string | null;
@@ -50,6 +51,7 @@ const CATEGORIES = [
 const UPLOAD_TYPES: { type: string; accept: string }[] = [
   { type: "boxart", accept: "image/*" },
   { type: "hero", accept: "image/*" },
+  { type: "logo", accept: "image/*" },
   { type: "screenshot", accept: "image/*" },
   { type: "icon", accept: "image/*" },
   { type: "video", accept: "video/*" },
@@ -95,6 +97,7 @@ export default function RomProperties({
   const [boxart, setBoxart] = useState(rom.boxart_url ?? "");
   const [hero, setHero] = useState(rom.hero_url ?? "");
   const [icon, setIcon] = useState(rom.icon_url ?? "");
+  const [logo, setLogo] = useState(rom.logo_url ?? "");
   const [description, setDescription] = useState(rom.description ?? "");
   const [developer, setDeveloper] = useState(rom.developer ?? "");
   const [publisher, setPublisher] = useState(rom.publisher ?? "");
@@ -210,6 +213,7 @@ export default function RomProperties({
           boxart_url: boxart.trim() || null,
           hero_url: hero.trim() || null,
           icon_url: icon.trim() || null,
+          logo_url: logo.trim() || null,
           description: description.trim() || null,
           developer: developer.trim() || null,
           publisher: publisher.trim() || null,
@@ -322,6 +326,17 @@ export default function RomProperties({
                   placeholder={t("urlPlaceholder")}
                   value={hero}
                   onChange={(e) => setHero(e.target.value)}
+                />
+              </Row>
+              <Row
+                label={t("logoUrlLabel")}
+                description={t("logoUrlDesc")}
+              >
+                <input
+                  className="input-dark w-full px-3 py-2 text-sm sm:w-80"
+                  placeholder={t("urlPlaceholder")}
+                  value={logo}
+                  onChange={(e) => setLogo(e.target.value)}
                 />
               </Row>
               <Row

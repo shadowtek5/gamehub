@@ -33,6 +33,7 @@ export default async function PropertiesPage({
           boxart_url: rom.boxart_url,
           hero_url: rom.hero_url,
           icon_url: rom.icon_url,
+          logo_url: rom.logo_url,
           description: rom.description,
           developer: rom.developer,
           publisher: rom.publisher,

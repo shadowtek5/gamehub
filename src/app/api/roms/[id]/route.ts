@@ -81,6 +81,7 @@ export async function PATCH(
     value === null ? null : typeof value === "string" ? value.trim() || null : current;
   const heroUrl = optionalText(body.hero_url, rom.hero_url);
   const iconUrl = optionalText(body.icon_url, rom.icon_url);
+  const logoUrl = optionalText(body.logo_url, rom.logo_url);
   const developer = optionalText(body.developer, rom.developer);
   const publisher = optionalText(body.publisher, rom.publisher);
   const genre = optionalText(body.genre, rom.genre);
@@ -91,7 +92,7 @@ export async function PATCH(
 
   getDb()
     .prepare(
-      `UPDATE roms SET title = ?, sort_title = ?, platform_slug = ?, region = ?, boxart_url = ?, hero_url = ?, icon_url = ?, description = ?,
+      `UPDATE roms SET title = ?, sort_title = ?, platform_slug = ?, region = ?, boxart_url = ?, hero_url = ?, icon_url = ?, logo_url = ?, description = ?,
        developer = ?, publisher = ?, genre = ?, players = ?, rating = ?, release_date = ?, language = ?
        WHERE id = ?`
     )
@@ -103,6 +104,7 @@ export async function PATCH(
       boxartUrl,
       heroUrl,
       iconUrl,
+      logoUrl,
       description,
       developer,
       publisher,
