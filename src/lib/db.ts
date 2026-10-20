@@ -705,6 +705,8 @@ function migrate(db: Database.Database) {
   }
   // File locations tracked in the DB (relative to the data dir).
   if (!stateCols.has("state_path")) db.exec("ALTER TABLE save_states ADD COLUMN state_path TEXT");
+  // SHA-256 of the state, so sync clients can tell which states they already have.
+  if (!stateCols.has("sha256")) db.exec("ALTER TABLE save_states ADD COLUMN sha256 TEXT");
   if (!stateCols.has("screenshot_path"))
     db.exec("ALTER TABLE save_states ADD COLUMN screenshot_path TEXT");
 

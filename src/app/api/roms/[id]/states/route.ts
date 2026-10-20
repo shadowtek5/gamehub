@@ -4,6 +4,7 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageExt } from "@/lib/media";
+import { sha256 } from "@/lib/saveSync";
 import { getDataDir } from "../../../../../lib/dataDir";
 
 const MAX_STATES_PER_GAME = 12;
@@ -12,7 +13,7 @@ function statesDir(userId: number, romId: number): string {
   return path.join(getDataDir(), "saves", String(userId), String(romId));
 }
 
-/** List the current user's save states for a game (newest first) */
+/** List the current user's save states for a game (newest first), each with its SHA-256 */
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -20,12 +21,34 @@ export async function GET(
   const user = await getSessionUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const { id } = await params;
-  const states = getDb()
+  const rows = getDb()
     .prepare(
-      `SELECT id, size_bytes, has_screenshot, created_at, label FROM save_states
+      `SELECT id, size_bytes, has_screenshot, created_at, label, sha256, state_path FROM save_states
        WHERE user_id = ? AND rom_id = ? ORDER BY created_at DESC, id DESC`
     )
-    .all(user.id, Number(id));
+    .all(user.id, Number(id)) as {
+    id: number;
+    size_bytes: number;
+    has_screenshot: number;
+    created_at: string;
+    label: string | null;
+    sha256: string | null;
+    state_path: string | null;
+  }[];
+  const setHash = getDb().prepare("UPDATE save_states SET sha256 = ? WHERE id = ?");
+  const states = rows.map(({ state_path, ...s }) => {
+    if (!s.sha256) {
+      // States saved before hashes existed: hash once on first listing.
+      const file = state_path
+        ? path.join(getDataDir(), state_path)
+        : path.join(statesDir(user.id, Number(id)), `${s.id}.state`);
+      try {
+        s.sha256 = sha256(fs.readFileSync(file));
+        setHash.run(s.sha256, s.id);
+      } catch {}
+    }
+    return s;
+  });
   return NextResponse.json({ states });
 }
 
@@ -60,7 +83,9 @@ export async function POST(
   await fs.promises.mkdir(dir, { recursive: true });
   const dataDir = getDataDir();
   const stateFile = path.join(dir, `${stateId}.state`);
-  await fs.promises.writeFile(stateFile, Buffer.from(await state.arrayBuffer()));
+  const stateBytes = Buffer.from(await state.arrayBuffer());
+  await fs.promises.writeFile(stateFile, stateBytes);
+  const stateHash = sha256(stateBytes);
 
   // Name the screenshot by its actual format (e.g. WebP or PNG from the game
   // player) so the file + DB path have the right extension.
@@ -72,9 +97,10 @@ export async function POST(
     await fs.promises.writeFile(shotFile, bytes);
     shotPath = path.relative(dataDir, shotFile);
   }
-  db.prepare("UPDATE save_states SET state_path = ?, screenshot_path = ? WHERE id = ?").run(
+  db.prepare("UPDATE save_states SET state_path = ?, screenshot_path = ?, sha256 = ? WHERE id = ?").run(
     path.relative(dataDir, stateFile),
     shotPath,
+    stateHash,
     stateId
   );
 
@@ -97,5 +123,5 @@ export async function POST(
     }
   }
 
-  return NextResponse.json({ ok: true, id: stateId });
+  return NextResponse.json({ ok: true, id: stateId, sha256: stateHash });
 }

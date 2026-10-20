@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-20",
+    title: "Save states travel too",
+    body: "Save states now sync with a handheld running GameHub Downloader 1.2.1 as well as in-game saves. States you make in RetroArch appear in the game's Saves & states list (labelled with the RetroArch slot and device), screenshot included, so you can resume them in the browser; the newest state you make in the browser lands in RetroArch's slot 9. States only load in the same emulator core, so a few systems may not carry over. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-20",
     title: "Saves that follow you to your handheld",
     body: "GameHub can now keep your saves in step with a handheld running GameHub Downloader. RetroArch in-game saves (.srm) sync with the same save slot GameHub's browser player uses, so you can start a game in the browser and carry on with RetroArch on the go, or the other way round. Saves from PPSSPP (PSP), Vita3K (PS Vita), Azahar (3DS) and DS emulators are backed up to GameHub too, and restored on another device. Each save keeps a version, so a newer save is never overwritten by an older one: if a game was played in both places, you choose which copy to keep. Synced device saves appear on the game page under Device saves, where you can download or remove them. On desktop/TV and the mobile app.",
     art: "automation",
