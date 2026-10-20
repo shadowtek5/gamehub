@@ -35,6 +35,8 @@ import GameTheme from "@/components/GameTheme";
 import ManualViewer from "@/components/ManualViewer";
 import ManualButton from "@/components/ManualButton";
 import SaveStatesPanel, { SaveStateInfo } from "@/components/SaveStatesPanel";
+import DeviceSavesPanel from "@/components/DeviceSavesPanel";
+import { listDeviceSaves } from "@/lib/saveSync";
 import ScreenshotGallery from "@/components/ScreenshotGallery";
 import Reviews from "@/components/Reviews";
 import Compatibility from "@/components/Compatibility";
@@ -166,6 +168,7 @@ export default async function GamePage({
   const batterySave = getDb()
     .prepare("SELECT size_bytes, updated_at FROM battery_saves WHERE user_id = ? AND rom_id = ?")
     .get(user.id, rom.id) as { size_bytes: number; updated_at: string } | undefined;
+  const deviceSaves = listDeviceSaves(user.id, rom.id);
   const screenshots = listUserScreenshots(user.id, rom.id);
   const reviewsData = {
     summary: reviewSummary(rom.id),
@@ -318,6 +321,12 @@ export default async function GamePage({
             batterySave={batterySave ?? null}
             gameImage={rom.screenshot_url ?? rom.boxart_url ?? rom.hero_url ?? null}
           />
+        </DetailsSection>
+      )}
+
+      {deviceSaves.length > 0 && (
+        <DetailsSection title={t("deviceSavesSection")}>
+          <DeviceSavesPanel initialSaves={deviceSaves} />
         </DetailsSection>
       )}
 

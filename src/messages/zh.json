@@ -812,6 +812,15 @@
       "legendShow": "显示",
       "legendSelect": "选择",
       "legendBack": "返回"
+    },
+    "deviceSaves": {
+      "intro": "由 GameHub Downloader 从你的掌机同步的模拟器存档。删除仅会移除 GameHub 中的副本，设备上的存档会保留。",
+      "meta": "{system} · {key} · {size} · 更新于 {date}",
+      "fromDevice": "来自 {device}",
+      "download": "下载存档",
+      "delete": "删除",
+      "deleteConfirm": "要从 GameHub 删除此设备存档吗？",
+      "deleteBody": "GameHub 中的副本将被移除。设备上的存档不受影响，并会在下次同步时重新上传。"
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "兼容性",
     "tabGuides": "指南",
     "videoSection": "视频滤镜",
-    "cheatsSection": "秘籍"
+    "cheatsSection": "秘籍",
+    "deviceSavesSection": "设备存档"
   },
   "gameTabs": {
     "notes": {

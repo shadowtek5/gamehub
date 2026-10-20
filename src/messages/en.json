@@ -796,6 +796,15 @@
       "deleteBatteryBody": "Your next play session starts fresh.",
       "cannotBeUndone": "This can't be undone."
     },
+    "deviceSaves": {
+      "intro": "Emulator saves synced from your handheld by GameHub Downloader. Deleting removes GameHub's copy only — the save on the device is kept.",
+      "meta": "{system} · {key} · {size} · updated {date}",
+      "fromDevice": "from {device}",
+      "download": "Download save",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this device save from GameHub?",
+      "deleteBody": "GameHub's copy is removed. The save on your device isn't touched and will upload again on its next sync."
+    },
     "gallery": {
       "playTrailerTitle": "Play {title} trailer",
       "screenshotTitle": "{title} screenshot",
@@ -925,6 +934,7 @@
     "unlockedProgress": "You've unlocked {earned}/{total} ({pct}%)",
     "allUnlocked": "All unlocked",
     "savesAndStates": "Saves & states",
+    "deviceSavesSection": "Device saves",
     "screenshotsSection": "Your screenshots",
     "compatSection": "Compatibility",
     "videoSection": "Video filter",

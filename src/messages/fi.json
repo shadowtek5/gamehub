@@ -315,6 +315,15 @@
       "legendShow": "Näytä",
       "legendSelect": "Valitse",
       "legendBack": "Takaisin"
+    },
+    "deviceSaves": {
+      "intro": "Emulaattoritallenteet, jotka GameHub Downloader synkronoi kannettavalta laitteeltasi. Poisto poistaa vain GameHubin kopion, ja laitteen tallennus säilyy.",
+      "meta": "{system} · {key} · {size} · päivitetty {date}",
+      "fromDevice": "laitteelta {device}",
+      "download": "Lataa tallennus",
+      "delete": "Poista",
+      "deleteConfirm": "Poistetaanko tämä laitetallennus GameHubista?",
+      "deleteBody": "GameHubin kopio poistetaan. Laitteesi tallennukseen ei kosketa, ja se lähetetään uudelleen seuraavassa synkronoinnissa."
     }
   },
   "gamePage": {
@@ -383,7 +392,8 @@
     "compatSection": "Yhteensopivuus",
     "tabGuides": "OPPAAT",
     "videoSection": "Videosuodatin",
-    "cheatsSection": "Huijaukset"
+    "cheatsSection": "Huijaukset",
+    "deviceSavesSection": "Laitetallennukset"
   },
   "maintenance": {
     "maintenancePanel": {

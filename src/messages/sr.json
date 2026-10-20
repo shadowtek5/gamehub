@@ -812,6 +812,15 @@
       "legendShow": "Прикажи",
       "legendSelect": "Изабери",
       "legendBack": "Назад"
+    },
+    "deviceSaves": {
+      "intro": "Чувања емулатора које GameHub Downloader синхронизује са вашег ручног уређаја. Брисање уклања само копију у GameHub-у, а чување на уређају остаје.",
+      "meta": "{system} · {key} · {size} · ажурирано {date}",
+      "fromDevice": "са уређаја {device}",
+      "download": "Преузми чување",
+      "delete": "Обриши",
+      "deleteConfirm": "Обрисати ово чување уређаја из GameHub-а?",
+      "deleteBody": "Копија у GameHub-у се уклања. Чување на вашем уређају се не мења и поново ће се отпремити при следећој синхронизацији."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Компатибилност",
     "tabGuides": "ВОДИЧИ",
     "videoSection": "Видео филтер",
-    "cheatsSection": "Кодови"
+    "cheatsSection": "Кодови",
+    "deviceSavesSection": "Чувања уређаја"
   },
   "gameTabs": {
     "notes": {

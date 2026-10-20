@@ -714,6 +714,31 @@ function migrate(db: Database.Database) {
   if (!batteryCols.has("save_path")) db.exec("ALTER TABLE battery_saves ADD COLUMN save_path TEXT");
   if (!batteryCols.has("screenshot_path"))
     db.exec("ALTER TABLE battery_saves ADD COLUMN screenshot_path TEXT");
+  // SHA-256 of the .srm, so external clients (e.g. a handheld syncing RetroArch
+  // saves) can tell which copy is newer and upload conditionally.
+  if (!batteryCols.has("sha256")) db.exec("ALTER TABLE battery_saves ADD COLUMN sha256 TEXT");
+
+  // Device saves: emulator save data synced from a client device as a zip,
+  // keyed by system + the save's own id (PSP game id, Vita/3DS title id, …) so
+  // they can be backed up and restored without knowing the GameHub ROM.
+  // rom_id links it to a game when the client knows it. sha256 is the client's
+  // hash of the save's contents (not of the zip bytes), used for sync decisions.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS device_saves (
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      platform TEXT NOT NULL,
+      save_key TEXT NOT NULL,
+      rom_id INTEGER REFERENCES roms(id) ON DELETE SET NULL,
+      title TEXT,
+      device TEXT,
+      sha256 TEXT NOT NULL,
+      size_bytes INTEGER NOT NULL DEFAULT 0,
+      save_path TEXT NOT NULL,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      PRIMARY KEY (user_id, platform, save_key)
+    );
+    CREATE INDEX IF NOT EXISTS idx_device_saves_rom ON device_saves(user_id, rom_id);
+  `);
 
   const tokenCols = new Set(
     (db.prepare("PRAGMA table_info(api_tokens)").all() as { name: string }[]).map((c) => c.name)

@@ -812,6 +812,15 @@
       "legendShow": "표시",
       "legendSelect": "선택",
       "legendBack": "뒤로"
+    },
+    "deviceSaves": {
+      "intro": "GameHub Downloader가 휴대용 기기에서 동기화한 에뮬레이터 저장 데이터입니다. 삭제하면 GameHub의 사본만 제거되며, 기기의 저장 데이터는 유지됩니다.",
+      "meta": "{system} · {key} · {size} · 업데이트 {date}",
+      "fromDevice": "{device}에서",
+      "download": "저장 데이터 다운로드",
+      "delete": "삭제",
+      "deleteConfirm": "GameHub에서 이 기기의 저장 데이터를 삭제하시겠습니까?",
+      "deleteBody": "GameHub의 사본이 제거됩니다. 기기의 저장 데이터는 그대로 두며, 다음 동기화 때 다시 업로드됩니다."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "호환성",
     "tabGuides": "가이드",
     "videoSection": "비디오 필터",
-    "cheatsSection": "치트"
+    "cheatsSection": "치트",
+    "deviceSavesSection": "기기 저장 데이터"
   },
   "gameTabs": {
     "notes": {

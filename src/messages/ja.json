@@ -812,6 +812,15 @@
       "legendShow": "表示",
       "legendSelect": "選択",
       "legendBack": "戻る"
+    },
+    "deviceSaves": {
+      "intro": "GameHub Downloader が携帯機から同期したエミュレーターのセーブデータです。削除すると GameHub 上のコピーのみが消え、デバイス上のセーブデータは残ります。",
+      "meta": "{system} · {key} · {size} · 更新 {date}",
+      "fromDevice": "{device} から",
+      "download": "セーブデータをダウンロード",
+      "delete": "削除",
+      "deleteConfirm": "GameHub からこのデバイスのセーブデータを削除しますか？",
+      "deleteBody": "GameHub 上のコピーが削除されます。デバイス上のセーブデータは変更されず、次回の同期で再びアップロードされます。"
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "互換性",
     "tabGuides": "ガイド",
     "videoSection": "ビデオフィルター",
-    "cheatsSection": "チートコード"
+    "cheatsSection": "チートコード",
+    "deviceSavesSection": "デバイスのセーブデータ"
   },
   "gameTabs": {
     "notes": {

@@ -812,6 +812,15 @@
       "legendShow": "Показать",
       "legendSelect": "Выбрать",
       "legendBack": "Назад"
+    },
+    "deviceSaves": {
+      "intro": "Сохранения эмулятора, которые GameHub Downloader синхронизирует с вашей портативной консоли. Удаление стирает только копию в GameHub, а сохранение на устройстве остаётся.",
+      "meta": "{system} · {key} · {size} · обновлено {date}",
+      "fromDevice": "с устройства {device}",
+      "download": "Скачать сохранение",
+      "delete": "Удалить",
+      "deleteConfirm": "Удалить это сохранение устройства из GameHub?",
+      "deleteBody": "Копия в GameHub будет удалена. Сохранение на вашем устройстве не затрагивается и загрузится снова при следующей синхронизации."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Совместимость",
     "tabGuides": "РУКОВОДСТВА",
     "videoSection": "Видеофильтр",
-    "cheatsSection": "Коды"
+    "cheatsSection": "Коды",
+    "deviceSavesSection": "Сохранения устройства"
   },
   "gameTabs": {
     "notes": {

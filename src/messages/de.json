@@ -812,6 +812,15 @@
       "legendShow": "Anzeigen",
       "legendSelect": "Auswählen",
       "legendBack": "Zurück"
+    },
+    "deviceSaves": {
+      "intro": "Emulator-Spielstände, die GameHub Downloader von deinem Handheld synchronisiert. Beim Löschen wird nur GameHubs Kopie entfernt, der Spielstand auf dem Gerät bleibt erhalten.",
+      "meta": "{system} · {key} · {size} · aktualisiert {date}",
+      "fromDevice": "von {device}",
+      "download": "Spielstand herunterladen",
+      "delete": "Löschen",
+      "deleteConfirm": "Diesen Gerätespielstand aus GameHub löschen?",
+      "deleteBody": "GameHubs Kopie wird entfernt. Der Spielstand auf deinem Gerät bleibt unangetastet und wird bei der nächsten Synchronisierung erneut hochgeladen."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Kompatibilität",
     "tabGuides": "ANLEITUNGEN",
     "videoSection": "Videofilter",
-    "cheatsSection": "Cheats"
+    "cheatsSection": "Cheats",
+    "deviceSavesSection": "Gerätespielstände"
   },
   "gameTabs": {
     "notes": {

@@ -812,6 +812,15 @@
       "legendShow": "Vis",
       "legendSelect": "Vælg",
       "legendBack": "Tilbage"
+    },
+    "deviceSaves": {
+      "intro": "Emulatorsaves, der synkroniseres fra din håndholdte af GameHub Downloader. Sletning fjerner kun GameHubs kopi, og gemmen på enheden bevares.",
+      "meta": "{system} · {key} · {size} · opdateret {date}",
+      "fromDevice": "fra {device}",
+      "download": "Download save",
+      "delete": "Slet",
+      "deleteConfirm": "Slet denne enhedssave fra GameHub?",
+      "deleteBody": "GameHubs kopi fjernes. Gemmen på din enhed berøres ikke og uploades igen ved næste synkronisering."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Kompatibilitet",
     "tabGuides": "VEJLEDNINGER",
     "videoSection": "Videofilter",
-    "cheatsSection": "Cheats"
+    "cheatsSection": "Cheats",
+    "deviceSavesSection": "Enhedssaves"
   },
   "gameTabs": {
     "notes": {

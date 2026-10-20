@@ -812,6 +812,15 @@
       "legendShow": "Pokaż",
       "legendSelect": "Wybierz",
       "legendBack": "Wstecz"
+    },
+    "deviceSaves": {
+      "intro": "Zapisy emulatora zsynchronizowane z Twojej przenośnej konsoli przez GameHub Downloader. Usunięcie dotyczy tylko kopii w GameHub, a zapis na urządzeniu zostaje zachowany.",
+      "meta": "{system} · {key} · {size} · zaktualizowano {date}",
+      "fromDevice": "z urządzenia {device}",
+      "download": "Pobierz zapis",
+      "delete": "Usuń",
+      "deleteConfirm": "Usunąć ten zapis z urządzenia z GameHub?",
+      "deleteBody": "Kopia w GameHub zostanie usunięta. Zapis na urządzeniu pozostaje bez zmian i zostanie ponownie wysłany przy następnej synchronizacji."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Zgodność",
     "tabGuides": "PRZEWODNIKI",
     "videoSection": "Filtr wideo",
-    "cheatsSection": "Kody"
+    "cheatsSection": "Kody",
+    "deviceSavesSection": "Zapisy z urządzenia"
   },
   "gameTabs": {
     "notes": {

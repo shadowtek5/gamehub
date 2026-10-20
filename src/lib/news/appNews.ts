@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-10-20",
+    title: "Saves that follow you to your handheld",
+    body: "GameHub can now keep your saves in step with a handheld running GameHub Downloader. RetroArch in-game saves (.srm) sync with the same save slot GameHub's browser player uses, so you can start a game in the browser and carry on with RetroArch on the go, or the other way round. Saves from PPSSPP (PSP), Vita3K (PS Vita), Azahar (3DS) and DS emulators are backed up to GameHub too, and restored on another device. Each save keeps a version, so a newer save is never overwritten by an older one: if a game was played in both places, you choose which copy to keep. Synced device saves appear on the game page under Device saves, where you can download or remove them. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
     date: "2026-10-18",
     title: "Upload your own clear logo",
     body: "Game logos can now be set by hand like the rest of a game's art. Open a game's Properties: the Media tab has a Clear logo upload (a transparent PNG or WebP works best), and the Art tab has a Clear logo URL field next to box art, hero and icon. Your logo replaces the scraped one and shows over the hero art on the game page. On desktop/TV and the mobile app.",

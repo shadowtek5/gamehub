@@ -4,10 +4,14 @@ import path from "path";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { imageExt, imageContentType } from "@/lib/media";
+import { batteryMeta, preconditionFailure, sha256, versionHeaders } from "@/lib/saveSync";
 import { getDataDir } from "../../../../../lib/dataDir";
 
 // Battery save (.srm): one live slot per user per game — loaded into the
 // emulator on start, synced back on exit and periodically while playing.
+// Downloads carry ETag / X-Save-Sha256 / X-Save-Updated-At; uploads may send
+// If-Match: "<sha256>" (or If-None-Match: *) so a syncing device never
+// overwrites a newer save — 412 with the current version when it would.
 
 function saveFile(userId: number, romId: number): string {
   return path.join(getDataDir(), "battery", String(userId), `${romId}.srm`);
@@ -36,8 +40,10 @@ export async function GET(
       : saveFile(user.id, Number(id));
   if (!fs.existsSync(file)) return NextResponse.json({ error: "No save" }, { status: 404 });
   const buf = await fs.promises.readFile(file);
+  const meta = wantShot ? null : batteryMeta(user.id, Number(id));
   return new NextResponse(new Uint8Array(buf), {
     headers: {
+      ...(meta ? versionHeaders(meta) : {}),
       "Content-Type": wantShot ? imageContentType(buf) : "application/octet-stream",
       ...(wantShot ? {} : { "Content-Disposition": `attachment; filename="${id}.srm"` }),
       "Content-Length": String(buf.length),
@@ -79,6 +85,13 @@ export async function POST(
     return NextResponse.json({ error: "Save too large (32MB max)" }, { status: 400 });
   }
 
+  const current = batteryMeta(user.id, romId);
+  const failed = preconditionFailure(req.headers, current?.sha256 ?? null);
+  if (failed) {
+    return NextResponse.json({ error: failed, current }, { status: 412 });
+  }
+  const hash = sha256(data);
+
   const file = saveFile(user.id, romId);
   await fs.promises.mkdir(path.dirname(file), { recursive: true });
   await fs.promises.writeFile(file, data);
@@ -87,10 +100,10 @@ export async function POST(
   const dataDir = getDataDir();
   getDb()
     .prepare(
-      `INSERT INTO battery_saves (user_id, rom_id, size_bytes, save_path, screenshot_path, updated_at)
-       VALUES (?, ?, ?, ?, ?, datetime('now'))
+      `INSERT INTO battery_saves (user_id, rom_id, size_bytes, save_path, screenshot_path, sha256, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, datetime('now'))
        ON CONFLICT(user_id, rom_id) DO UPDATE SET
-         size_bytes = excluded.size_bytes, save_path = excluded.save_path,
+         size_bytes = excluded.size_bytes, save_path = excluded.save_path, sha256 = excluded.sha256,
          screenshot_path = COALESCE(excluded.screenshot_path, battery_saves.screenshot_path),
          updated_at = datetime('now')`
     )
@@ -99,9 +112,11 @@ export async function POST(
       romId,
       data.length,
       path.relative(dataDir, file),
-      shotPath ? path.relative(dataDir, shotPath) : null
+      shotPath ? path.relative(dataDir, shotPath) : null,
+      hash
     );
-  return NextResponse.json({ ok: true, size: data.length });
+  const meta = batteryMeta(user.id, romId);
+  return NextResponse.json({ ok: true, size: data.length, sha256: hash, updatedAt: meta?.updatedAt ?? null });
 }
 
 /** Delete your battery save */

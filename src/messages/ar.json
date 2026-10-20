@@ -315,6 +315,15 @@
       "legendShow": "عرض",
       "legendSelect": "تحديد",
       "legendBack": "رجوع"
+    },
+    "deviceSaves": {
+      "intro": "حفظات المحاكي التي تزامنها GameHub Downloader من جهازك المحمول. الحذف يزيل نسخة GameHub فقط، ويبقى الحفظ على الجهاز.",
+      "meta": "{system} · {key} · {size} · تم التحديث {date}",
+      "fromDevice": "من {device}",
+      "download": "تنزيل الحفظ",
+      "delete": "حذف",
+      "deleteConfirm": "هل تريد حذف حفظ الجهاز هذا من GameHub؟",
+      "deleteBody": "تتم إزالة نسخة GameHub. لا يتأثر الحفظ على جهازك، وسيُرفع من جديد عند مزامنته التالية."
     }
   },
   "gamePage": {
@@ -383,7 +392,8 @@
     "compatSection": "التوافق",
     "tabGuides": "أدلة",
     "videoSection": "مرشح الفيديو",
-    "cheatsSection": "الرموز"
+    "cheatsSection": "الرموز",
+    "deviceSavesSection": "حفظات الجهاز"
   },
   "maintenance": {
     "maintenancePanel": {

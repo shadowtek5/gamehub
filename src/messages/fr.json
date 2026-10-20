@@ -315,6 +315,15 @@
       "legendShow": "Afficher",
       "legendSelect": "SÃ©lectionner",
       "legendBack": "Retour"
+    },
+    "deviceSaves": {
+      "intro": "Sauvegardes d'émulateur synchronisées depuis votre console portable par GameHub Downloader. La suppression retire uniquement la copie de GameHub ; la sauvegarde sur l'appareil est conservée.",
+      "meta": "{system} · {key} · {size} · mis à jour {date}",
+      "fromDevice": "depuis {device}",
+      "download": "Télécharger la sauvegarde",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer cette sauvegarde de l'appareil de GameHub ?",
+      "deleteBody": "La copie de GameHub est supprimée. La sauvegarde sur votre appareil n'est pas modifiée et sera de nouveau envoyée lors de la prochaine synchronisation."
     }
   },
   "gamePage": {
@@ -383,7 +392,8 @@
     "compatSection": "Compatibilité",
     "tabGuides": "GUIDES",
     "videoSection": "Filtre vidéo",
-    "cheatsSection": "Codes de triche"
+    "cheatsSection": "Codes de triche",
+    "deviceSavesSection": "Sauvegardes de l'appareil"
   },
   "maintenance": {
     "maintenancePanel": {

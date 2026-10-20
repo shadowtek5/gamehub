@@ -315,6 +315,15 @@
       "legendShow": "Εμφάνιση",
       "legendSelect": "Επιλογή",
       "legendBack": "Πίσω"
+    },
+    "deviceSaves": {
+      "intro": "Αποθηκεύσεις εξομοιωτή που συγχρονίζει το GameHub Downloader από τη φορητή σας συσκευή. Η διαγραφή αφαιρεί μόνο το αντίγραφο του GameHub, ενώ η αποθήκευση στη συσκευή διατηρείται.",
+      "meta": "{system} · {key} · {size} · ενημερώθηκε {date}",
+      "fromDevice": "από {device}",
+      "download": "Λήψη αποθήκευσης",
+      "delete": "Διαγραφή",
+      "deleteConfirm": "Να διαγραφεί αυτή η αποθήκευση της συσκευής από το GameHub;",
+      "deleteBody": "Το αντίγραφο του GameHub αφαιρείται. Η αποθήκευση στη συσκευή σας δεν αλλάζει και θα ανέβει ξανά στον επόμενο συγχρονισμό."
     }
   },
   "gamePage": {
@@ -383,7 +392,8 @@
     "compatSection": "Συμβατότητα",
     "tabGuides": "ΟΔΗΓΟΙ",
     "videoSection": "Φίλτρο βίντεο",
-    "cheatsSection": "Κωδικοί"
+    "cheatsSection": "Κωδικοί",
+    "deviceSavesSection": "Αποθηκεύσεις συσκευής"
   },
   "maintenance": {
     "maintenancePanel": {

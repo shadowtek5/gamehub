@@ -1758,7 +1758,8 @@
     "compatSection": "Compatibilità",
     "tabGuides": "GUIDE",
     "videoSection": "Filtro video",
-    "cheatsSection": "Trucchi"
+    "cheatsSection": "Trucchi",
+    "deviceSavesSection": "Salvataggi del dispositivo"
   },
   "mobileGamePage": {
     "detail": {
@@ -2772,6 +2773,15 @@
       "legendShow": "Mostra",
       "legendSelect": "Seleziona",
       "legendBack": "Indietro"
+    },
+    "deviceSaves": {
+      "intro": "Salvataggi di emulatori sincronizzati dalla tua console portatile tramite GameHub Downloader. Eliminando si rimuove solo la copia su GameHub: il salvataggio sul dispositivo viene mantenuto.",
+      "meta": "{system} · {key} · {size} · aggiornato {date}",
+      "fromDevice": "da {device}",
+      "download": "Scarica salvataggio",
+      "delete": "Elimina",
+      "deleteConfirm": "Eliminare questo salvataggio del dispositivo da GameHub?",
+      "deleteBody": "La copia su GameHub viene rimossa. Il salvataggio sul dispositivo non viene toccato e sarà caricato di nuovo alla prossima sincronizzazione."
     }
   },
   "controllerUi": {

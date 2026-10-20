@@ -271,6 +271,15 @@
       "legendShow": "Mostrar",
       "legendSelect": "Selecionar",
       "legendBack": "Voltar"
+    },
+    "deviceSaves": {
+      "intro": "Saves de emulador sincronizados do seu portátil pelo GameHub Downloader. Excluir remove apenas a cópia do GameHub; o save no dispositivo é mantido.",
+      "meta": "{system} · {key} · {size} · atualizado {date}",
+      "fromDevice": "do {device}",
+      "download": "Baixar save",
+      "delete": "Excluir",
+      "deleteConfirm": "Excluir este save do dispositivo do GameHub?",
+      "deleteBody": "A cópia no GameHub será removida. O save no seu dispositivo não é alterado e será enviado novamente na próxima sincronização."
     }
   },
   "gamePage": {
@@ -339,7 +348,8 @@
     "compatSection": "Compatibilidade",
     "tabGuides": "GUIAS",
     "videoSection": "Filtro de vídeo",
-    "cheatsSection": "Trapaças"
+    "cheatsSection": "Trapaças",
+    "deviceSavesSection": "Saves do dispositivo"
   },
   "maintenance": {
     "maintenancePanel": {

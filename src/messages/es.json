@@ -315,6 +315,15 @@
       "legendShow": "Mostrar",
       "legendSelect": "Seleccionar",
       "legendBack": "Atrás"
+    },
+    "deviceSaves": {
+      "intro": "Partidas guardadas de emuladores sincronizadas desde tu consola portátil por GameHub Downloader. Al eliminar, solo se borra la copia de GameHub; la partida del dispositivo se conserva.",
+      "meta": "{system} · {key} · {size} · actualizado {date}",
+      "fromDevice": "desde {device}",
+      "download": "Descargar partida",
+      "delete": "Eliminar",
+      "deleteConfirm": "¿Eliminar esta partida del dispositivo de GameHub?",
+      "deleteBody": "Se elimina la copia de GameHub. La partida de tu dispositivo no se toca y se volverá a subir en la próxima sincronización."
     }
   },
   "gamePage": {
@@ -383,7 +392,8 @@
     "compatSection": "Compatibilidad",
     "tabGuides": "GUÍAS",
     "videoSection": "Filtro de vídeo",
-    "cheatsSection": "Trucos"
+    "cheatsSection": "Trucos",
+    "deviceSavesSection": "Partidas del dispositivo"
   },
   "maintenance": {
     "maintenancePanel": {

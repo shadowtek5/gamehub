@@ -812,6 +812,15 @@
       "legendShow": "Visa",
       "legendSelect": "Välj",
       "legendBack": "Tillbaka"
+    },
+    "deviceSaves": {
+      "intro": "Emulatorsparningar som GameHub Downloader synkroniserar från din handhållna enhet. Om du tar bort tas bara GameHubs kopia bort, och sparningen på enheten behålls.",
+      "meta": "{system} · {key} · {size} · uppdaterad {date}",
+      "fromDevice": "från {device}",
+      "download": "Ladda ner sparning",
+      "delete": "Ta bort",
+      "deleteConfirm": "Ta bort den här enhetssparningen från GameHub?",
+      "deleteBody": "GameHubs kopia tas bort. Sparningen på din enhet påverkas inte och laddas upp igen vid nästa synkronisering."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Kompatibilitet",
     "tabGuides": "GUIDER",
     "videoSection": "Videofilter",
-    "cheatsSection": "Fusk"
+    "cheatsSection": "Fusk",
+    "deviceSavesSection": "Enhetssparningar"
   },
   "gameTabs": {
     "notes": {

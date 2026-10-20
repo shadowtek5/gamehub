@@ -812,6 +812,15 @@
       "legendShow": "Weergeven",
       "legendSelect": "Selecteren",
       "legendBack": "Terug"
+    },
+    "deviceSaves": {
+      "intro": "Emulatorsaves die GameHub Downloader van je handheld synchroniseert. Verwijderen haalt alleen de kopie uit GameHub weg; de save op het apparaat blijft behouden.",
+      "meta": "{system} · {key} · {size} · bijgewerkt {date}",
+      "fromDevice": "van {device}",
+      "download": "Save downloaden",
+      "delete": "Verwijderen",
+      "deleteConfirm": "Deze apparaatsave uit GameHub verwijderen?",
+      "deleteBody": "De kopie in GameHub wordt verwijderd. De save op je apparaat blijft ongemoeid en wordt bij de volgende synchronisatie opnieuw geüpload."
     }
   },
   "gameOptions": {
@@ -973,7 +982,8 @@
     "compatSection": "Compatibiliteit",
     "tabGuides": "GIDSEN",
     "videoSection": "Videofilter",
-    "cheatsSection": "Cheats"
+    "cheatsSection": "Cheats",
+    "deviceSavesSection": "Apparaatsaves"
   },
   "gameTabs": {
     "notes": {
