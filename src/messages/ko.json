@@ -11,7 +11,8 @@
     "close": "닫기",
     "back": "뒤로",
     "loading": "로딩 중…",
-    "scrollToTop": "맨 위로"
+    "scrollToTop": "맨 위로",
+    "jumpToLetter": "글자로 이동"
   },
   "nav": {
     "searchPlaceholder": "라이브러리 검색…",

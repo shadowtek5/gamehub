@@ -11,7 +11,8 @@
     "close": "Κλείσιμο",
     "back": "Πίσω",
     "loading": "Φόρτωση…",
-    "scrollToTop": "Μετάβαση στην κορυφή"
+    "scrollToTop": "Μετάβαση στην κορυφή",
+    "jumpToLetter": "Μετάβαση στο γράμμα"
   },
   "nav": {
     "searchPlaceholder": "Αναζήτηση στη βιβλιοθήκη σας…",

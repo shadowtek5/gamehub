@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-20",
+    title: "Jump to a letter",
+    body: "Long system and collection pages are quicker to get around: an A–Z strip appears on the right edge while you scroll (or when the mouse nears the edge) and fades away when you stop. Tap a letter, or drag along the strip to preview it, and the grid jumps straight to those games — \"The Legend of Zelda\" files under L, numbers under #, and letters with no games are dimmed. It shows when games are sorted by name. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-20",
     title: "Save states travel too",
     body: "Save states now sync with a handheld running GameHub Downloader 1.2.1 as well as in-game saves. States you make in RetroArch appear in the game's Saves & states list (labelled with the RetroArch slot and device), screenshot included, so you can resume them in the browser; the newest state you make in the browser lands in RetroArch's slot 9. States only load in the same emulator core, so a few systems may not carry over. On desktop/TV and the mobile app.",
     art: "automation",

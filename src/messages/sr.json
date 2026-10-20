@@ -11,7 +11,8 @@
     "close": "Затвори",
     "back": "Назад",
     "loading": "Учитавање…",
-    "scrollToTop": "Врати на врх"
+    "scrollToTop": "Врати на врх",
+    "jumpToLetter": "Пређи на слово"
   },
   "nav": {
     "searchPlaceholder": "Претражи библиотеку…",

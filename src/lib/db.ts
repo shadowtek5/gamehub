@@ -1825,6 +1825,13 @@ function tokenCond(column: string): string {
  *  columns. `name` is the default. These run in the OUTER query of the deduped
  *  browse (see searchLibraryBrowse), so they reference the selected aliases,
  *  not r./ur. columns. */
+/** Where a first letter ("A"…"Z", or "#" for anything else) starts in the name-sorted library. */
+export interface LetterIndex {
+  letter: string;
+  offset: number;
+  count: number;
+}
+
 const BROWSE_SORTS: Record<string, string> = {
   name: "sort_title",
   achievements: "completion DESC, sort_title",
@@ -1864,8 +1871,11 @@ export function searchLibraryBrowse(
     /** Only the deduped total is needed (tab-count labels) — skip the rows
      *  query entirely so the expensive dedup window runs once, not twice. */
     countOnly?: boolean;
+    /** Return where each first letter starts in the name-sorted list (for the
+     *  A–Z jump strip) instead of rows. */
+    letters?: boolean;
   }
-): { rows: BrowseRomRow[]; total: number } {
+): { rows: BrowseRomRow[]; total: number; letters?: LetterIndex[] } {
   // The Hidden tab shows ONLY user-hidden games; everywhere else hides them
   const hiddenTab = opts.tab === "hidden";
   const h = hiddenFilter(!hiddenTab, userId);
@@ -1993,6 +2003,26 @@ export function searchLibraryBrowse(
   // keep every row of a uniform group (distinct games mis-parsed to one title),
   // or just the representative of a genuinely-varied group
   const keep = "WHERE __varied = 0 OR __rn = 1";
+  if (opts.letters) {
+    // Position of each row in the name order (exactly the grid's ORDER BY), grouped by
+    // first letter: digits/symbols/accented letters are "#". offset = where it starts.
+    const letters = db
+      .prepare(
+        `SELECT letter, MIN(pos) AS offset, COUNT(*) AS count FROM (
+           SELECT CASE WHEN substr(sort_title, 1, 1) BETWEEN 'a' AND 'z'
+                       THEN upper(substr(sort_title, 1, 1)) ELSE '#' END AS letter,
+                  ROW_NUMBER() OVER (ORDER BY ${BROWSE_SORTS.name}) - 1 AS pos
+           FROM (
+             SELECT r.sort_title AS sort_title, ${win}
+             FROM roms r
+             LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
+             WHERE r.missing = 0${h.sql}${where}
+           ) ${keep}
+         ) GROUP BY letter ORDER BY offset`
+      )
+      .all(userId, ...h.params, ...params) as LetterIndex[];
+    return { rows: [], total: letters.reduce((n, l) => n + l.count, 0), letters };
+  }
   const rows = opts.countOnly
     ? []
     : db

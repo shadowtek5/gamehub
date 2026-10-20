@@ -11,7 +11,8 @@
     "close": "閉じる",
     "back": "戻る",
     "loading": "読み込み中…",
-    "scrollToTop": "トップへ戻る"
+    "scrollToTop": "トップへ戻る",
+    "jumpToLetter": "文字にジャンプ"
   },
   "nav": {
     "searchPlaceholder": "ライブラリを検索…",

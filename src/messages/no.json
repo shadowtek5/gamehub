@@ -11,7 +11,8 @@
     "close": "Lukk",
     "back": "Tilbake",
     "loading": "Laster…",
-    "scrollToTop": "Rull til toppen"
+    "scrollToTop": "Rull til toppen",
+    "jumpToLetter": "Hopp til bokstav"
   },
   "nav": {
     "searchPlaceholder": "Søk i biblioteket…",

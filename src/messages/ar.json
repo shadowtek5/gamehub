@@ -11,7 +11,8 @@
     "close": "إغلاق",
     "back": "رجوع",
     "loading": "جارٍ التحميل…",
-    "scrollToTop": "التمرير إلى الأعلى"
+    "scrollToTop": "التمرير إلى الأعلى",
+    "jumpToLetter": "الانتقال إلى حرف"
   },
   "nav": {
     "searchPlaceholder": "ابحث في مكتبتك…",

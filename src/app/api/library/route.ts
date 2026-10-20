@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSessionUser } from "@/lib/auth";
 import { searchLibraryBrowse } from "@/lib/db";
 
-/** Paged, filtered library browse — backs the /library infinite grid */
+/** Paged, filtered library browse — backs the /library infinite grid (and, with ?letters=1, its A–Z index) */
 export async function GET(req: NextRequest) {
   const user = await getSessionUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -23,6 +23,8 @@ export async function GET(req: NextRequest) {
     sort: p.get("sort") || undefined,
     offset: Number(p.get("offset")) || 0,
     limit: Number(p.get("limit")) || 150,
+    // ?letters=1 → { letters: [{ letter, offset, count }] } for the A–Z jump strip
+    letters: p.get("letters") === "1",
   });
   return NextResponse.json(result);
 }

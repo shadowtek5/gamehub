@@ -12,6 +12,7 @@ import { LANGUAGE_NAMES } from "@/lib/language";
 import { mediaThumb } from "@/lib/media";
 import { clampCoverAspect, DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
 import type { BrowseRomRow } from "@/lib/db";
+import LetterRail, { useLetterIndex, type LetterEntry } from "@/components/LetterRail";
 
 const CHUNK = 60;
 
@@ -170,6 +171,69 @@ export default function MobileLibrary({
       .catch(() => {});
   }, [buildParams, items.length, total, loading]);
 
+  // A–Z jump strip: system / collection pages sorted by name (not while searching).
+  const letterParams =
+    (platformLock || collectionLock || (virtualDim && virtualValue)) && sort === "name" && !debounced
+      ? buildParams(0)
+      : null;
+  const letters = useLetterIndex(letterParams);
+  const grid = useRef<HTMLDivElement>(null);
+  // Index to scroll to once the rows loaded for a jump have rendered.
+  const pendingJump = useRef<number | null>(null);
+  const jumping = useRef(false);
+
+  const scrollToIndex = useCallback((index: number) => {
+    const el = grid.current?.children[index] as HTMLElement | undefined;
+    if (!el) return;
+    const reduce =
+      document.documentElement.dataset.reduceMotion === "on" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Leave room for the app's top bar.
+    const top = el.getBoundingClientRect().top + window.scrollY - 120;
+    window.scrollTo({ top: Math.max(0, top), behavior: reduce ? "auto" : "smooth" });
+  }, []);
+
+  // Jumping past what's loaded first loads everything up to the target, so the
+  // list stays contiguous for infinite scroll and scroll restoration.
+  const jumpToLetter = useCallback(
+    async (entry: LetterEntry) => {
+      const target = entry.offset;
+      if (target < items.length) {
+        scrollToIndex(target);
+        return;
+      }
+      if (jumping.current) return;
+      jumping.current = true;
+      const s = seq.current;
+      try {
+        const added: BrowseRomRow[] = [];
+        let have = items.length;
+        while (have <= target && have < total) {
+          const p = new URLSearchParams(buildParams(have));
+          p.set("limit", String(Math.min(500, target - have + CHUNK)));
+          const d = await (await fetch(`/api/library?${p}`, { cache: "no-store" })).json();
+          if (s !== seq.current) return;
+          const rows: BrowseRomRow[] = d.rows ?? [];
+          if (rows.length === 0) break;
+          added.push(...rows);
+          have += rows.length;
+        }
+        setItems((cur) => [...cur, ...added]);
+        pendingJump.current = target;
+      } catch {
+      } finally {
+        jumping.current = false;
+      }
+    },
+    [items.length, total, buildParams, scrollToIndex]
+  );
+  useEffect(() => {
+    const target = pendingJump.current;
+    if (target === null || items.length <= target) return;
+    pendingJump.current = null;
+    requestAnimationFrame(() => scrollToIndex(target));
+  }, [items.length, scrollToIndex]);
+
   const sentinel = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = sentinel.current;
@@ -252,7 +316,7 @@ export default function MobileLibrary({
         {loading ? t("loading") : t("gameCount", { count: total })}
       </div>
 
-      <div className="grid grid-cols-3 gap-3 sm:grid-cols-4">
+      <div ref={grid} className="grid grid-cols-3 gap-3 sm:grid-cols-4">
         {items.map((r) => (
           <MobileGameCard
             key={r.id}
@@ -271,6 +335,7 @@ export default function MobileLibrary({
         </div>
       )}
       <div ref={sentinel} className="h-10" />
+      <LetterRail letters={letters} onJump={jumpToLetter} className="right-1" />
 
       {/* Filter bottom sheet */}
       {sheetOpen && (

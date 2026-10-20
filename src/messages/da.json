@@ -11,7 +11,8 @@
     "close": "Luk",
     "back": "Tilbage",
     "loading": "Indlæser…",
-    "scrollToTop": "Rul til toppen"
+    "scrollToTop": "Rul til toppen",
+    "jumpToLetter": "Hop til bogstav"
   },
   "nav": {
     "searchPlaceholder": "Søg i dit bibliotek…",

@@ -11,7 +11,8 @@
     "close": "Schließen",
     "back": "Zurück",
     "loading": "Lädt…",
-    "scrollToTop": "Nach oben scrollen"
+    "scrollToTop": "Nach oben scrollen",
+    "jumpToLetter": "Zum Buchstaben springen"
   },
   "nav": {
     "searchPlaceholder": "Durchsuche deine Bibliothek…",

@@ -11,7 +11,8 @@
     "close": "关闭",
     "back": "返回",
     "loading": "加载中…",
-    "scrollToTop": "回到顶部"
+    "scrollToTop": "回到顶部",
+    "jumpToLetter": "跳转到字母"
   },
   "nav": {
     "searchPlaceholder": "搜索库…",

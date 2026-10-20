@@ -11,7 +11,8 @@
     "close": "Fechar",
     "back": "Voltar",
     "loading": "Carregandoâ€¦",
-    "scrollToTop": "Ir para o topo"
+    "scrollToTop": "Ir para o topo",
+    "jumpToLetter": "Ir para a letra"
   },
   "nav": {
     "searchPlaceholder": "Busque na sua bibliotecaâ€¦",

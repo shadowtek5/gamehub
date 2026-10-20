@@ -11,7 +11,8 @@
     "close": "Fermer",
     "back": "Retour",
     "loading": "Chargementâ€¦",
-    "scrollToTop": "Revenir en haut"
+    "scrollToTop": "Revenir en haut",
+    "jumpToLetter": "Aller à la lettre"
   },
   "nav": {
     "searchPlaceholder": "Rechercher dans votre bibliothÃ¨queâ€¦",

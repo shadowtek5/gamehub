@@ -12,6 +12,7 @@ import { PLATFORMS_SORTED } from "@/lib/platforms";
 import { playSound } from "@/lib/sounds";
 import { previousPath } from "@/lib/routePath";
 import { saveCountFor, savedCountFor } from "@/lib/scrollMemory";
+import LetterRail, { useLetterIndex, type LetterEntry } from "./LetterRail";
 import { useRouter, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import {
@@ -509,6 +510,58 @@ export default function LibraryBrowser({
     }
   }, [remote, buildParams, items.length]);
 
+  // A–Z jump strip: system / collection grids sorted by name (not while searching).
+  const letterParams =
+    remote && (platformLock || collectionLock || virtualLock) && sort === "name" && !debouncedQuery
+      ? buildParams(0).toString()
+      : null;
+  const letters = useLetterIndex(letterParams);
+  const jumpRef = useRef<((index: number) => void) | null>(null);
+  // Index to scroll to once the rows loaded for a jump have rendered.
+  const pendingJump = useRef<number | null>(null);
+
+  // Jumping past what's loaded first loads everything up to the target (in one or
+  // a few larger pages), so the list stays contiguous for infinite scroll and the
+  // Back-keeps-your-place restore.
+  const jumpToLetter = useCallback(
+    async (entry: LetterEntry) => {
+      const target = entry.offset;
+      if (target < items.length) {
+        jumpRef.current?.(target);
+        return;
+      }
+      if (loadingMore.current) return;
+      loadingMore.current = true;
+      const seq = fetchSeq.current;
+      try {
+        const added: BrowseRomRow[] = [];
+        let have = items.length;
+        while (have <= target && have < total) {
+          const p = buildParams(have);
+          p.set("limit", String(Math.min(500, target - have + CHUNK)));
+          const d = await (await fetch(`/api/library?${p}`, { cache: "no-store" })).json();
+          if (seq !== fetchSeq.current) return;
+          const rows: BrowseRomRow[] = d.rows ?? [];
+          if (rows.length === 0) break;
+          added.push(...rows);
+          have += rows.length;
+        }
+        setItems((cur) => [...cur, ...added]);
+        pendingJump.current = target;
+      } catch {
+      } finally {
+        loadingMore.current = false;
+      }
+    },
+    [items.length, total, buildParams]
+  );
+  useEffect(() => {
+    const target = pendingJump.current;
+    if (target === null || items.length <= target) return;
+    pendingJump.current = null;
+    requestAnimationFrame(() => jumpRef.current?.(target));
+  }, [items.length]);
+
   // Refetch everything currently loaded, in place — fired (gh-library-refetch)
   // while a scrape runs so covers pop in as each game is matched
   const itemsLen = useRef(0);
@@ -860,7 +913,9 @@ export default function LibraryBrowser({
                 roms={displayed}
                 sizeMode={platformLock ? "natural" : "uniform"}
                 systemIcons={systemIcons}
+                jumpRef={jumpRef}
               />
+              <LetterRail letters={letters} onJump={jumpToLetter} />
               {hasMore && (
                 <div ref={sentinelRef} className="py-8 text-center text-xs text-dim">
                   {t("showingCount", {
@@ -1088,10 +1143,13 @@ function VirtualGrid({
   roms,
   sizeMode,
   systemIcons,
+  jumpRef,
 }: {
   roms: BrowseRomRow[];
   sizeMode: "natural" | "uniform";
   systemIcons?: Record<string, string | null>;
+  /** Set to a function that scrolls the grid to a game index (A–Z strip). */
+  jumpRef?: React.MutableRefObject<((index: number) => void) | null>;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
   const [gridW, setGridW] = useState(0);
@@ -1158,6 +1216,36 @@ function VirtualGrid({
   useEffect(() => {
     virtualizer.measure();
   }, [fp.h, cols, virtualizer]);
+
+  // A–Z strip: put the target game's row just below the header, then focus the
+  // card so gamepad navigation carries on from there.
+  useEffect(() => {
+    if (!jumpRef) return;
+    jumpRef.current = (index: number) => {
+      const row = Math.floor(index / cols);
+      const off = virtualizer.getOffsetForIndex(row, "start")?.[0];
+      if (off === undefined) return;
+      const reduce =
+        document.documentElement.dataset.reduceMotion === "on" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: Math.max(0, off - 96), behavior: reduce ? "auto" : "smooth" });
+      // The row only renders once the (smooth) scroll brings it near the viewport,
+      // so wait for the card to exist before focusing it.
+      const id = roms[index]?.id;
+      if (id !== undefined) {
+        const started = performance.now();
+        const tryFocus = () => {
+          const card = document.querySelector<HTMLElement>(`[data-rom-id="${id}"]`);
+          if (card) card.focus({ preventScroll: true });
+          else if (performance.now() - started < 3000) requestAnimationFrame(tryFocus);
+        };
+        requestAnimationFrame(tryFocus);
+      }
+    };
+    return () => {
+      jumpRef.current = null;
+    };
+  }, [jumpRef, cols, virtualizer, roms]);
 
   return (
     <div ref={wrap} className="gamepadlibrary_GamepadLibrary_gh appgrid_Container_gh relative mt-4">

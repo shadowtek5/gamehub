@@ -2018,7 +2018,8 @@
     "close": "Chiudi",
     "back": "Indietro",
     "loading": "Caricamento…",
-    "scrollToTop": "Torna su"
+    "scrollToTop": "Torna su",
+    "jumpToLetter": "Vai alla lettera"
   },
   "appearance": {
     "searchFailed": "Ricerca non riuscita",
