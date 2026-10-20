@@ -69,10 +69,15 @@ plays dozens of consoles right in the browser. Everything runs in one container.
     <td width="50%"><img src="docs/screenshots/set-integrity.webp" alt="Set Integrity audit panel"><br/><sub><b>Set Integrity</b> — verify, dedupe & missing-from-set</sub></td>
     <td width="50%"><img src="docs/screenshots/play.webp" alt="Playing a game in the browser"><br/><sub><b>Play</b> — in-browser emulation with controller support</sub></td>
   </tr>
+  <tr>
+    <td width="50%" valign="top"><img src="docs/screenshots/saves.webp" alt="Saves and states on a game page"><br/><sub><b>Saves & states</b> — battery saves and states, synced from the browser and your devices</sub></td>
+    <td width="50%" align="center" valign="top"><img src="docs/screenshots/mobile.webp" width="240" alt="Mobile home on a phone"><br/><sub><b>Mobile</b> — touch-first layout at <code>/mobile</code></sub></td>
+  </tr>
 </table>
 
 > Screenshots live in [`docs/screenshots/`](docs/screenshots). See that folder's
-> README for the exact shot list if you're regenerating them.
+> README for the exact shot list, or regenerate them with
+> `node scripts/screenshots.mjs` (`PRIVATE=1` hides counts, names and avatars).
 
 ## Highlights
 

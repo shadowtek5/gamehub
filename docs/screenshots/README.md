@@ -1,7 +1,15 @@
 # Screenshots
 
-These images back the gallery in the top-level [README](../../README.md). Drop
-PNGs here with the exact filenames below and they'll appear automatically.
+These images back the gallery in the top-level [README](../../README.md). They're
+WebPs captured by `scripts/screenshots.mjs` (run it with no arguments for usage):
+
+```sh
+GH_URL=https://your-gamehub GH_TOKEN=<api token> PRIVATE=1 GAME_ID=<id> node scripts/screenshots.mjs
+```
+
+`PRIVATE=1` hides library/system game counts, swaps your username and your
+friends' names for "Player" and hides avatars. An API token is only sent to
+`GH_URL`. `set-integrity` needs an admin login (`GH_USER`/`GH_PASS`).
 
 ## Shot list
 
@@ -17,10 +25,12 @@ an account with data, hide any personal/private info you don't want public.
 | `recommended.webp` | Home → **Recommended** tab | The curated shelves (Play Next, Jump Back In, hidden gems) fully loaded (no green loading placeholders) |
 | `set-integrity.webp` | Settings → Maintenance → **Set Integrity** | The verdict tiles (Verified / Bad-hack / Unknown) and the audit + missing-from-set sections |
 | `play.webp` | `/play/<id>` | A game running in the browser (EmulatorJS), ideally a recognizable title |
+| `saves.webp` | `/game/<id>` → **Your Stuff** | The Saves & states panel with a battery save and a few states (with thumbnails) |
+| `mobile.webp` | `/mobile` at 430×932 | The mobile home (Jump back in, What's New) |
+| `system.webp` | `/systems/<slug>` | A system's grid with the A–Z jump strip showing at the right edge (`SYSTEM=nes`) |
 
 Optional extras you can add and reference in the README if you want a bigger
-gallery: `mobile.webp` (the `/mobile` view on a phone-width viewport),
-`collections.webp`, `scraping.webp` (provider priority list), `firmware.webp`.
+gallery: `collections.webp`, `scraping.webp` (provider priority list), `firmware.webp`.
 
 ## Tips
 
