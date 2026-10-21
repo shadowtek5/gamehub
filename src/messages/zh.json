@@ -980,7 +980,8 @@
     "tabGuides": "指南",
     "videoSection": "视频滤镜",
     "cheatsSection": "秘籍",
-    "deviceSavesSection": "设备存档"
+    "deviceSavesSection": "设备存档",
+    "tabDlc": "DLC 与更新"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "从模拟器的内容菜单安装（Xenia：File › Install Content）。",
       "wiiu": "在 Cemu 中使用 File › Install game title, update or DLC 安装。"
     },
-    "pack": "DLC 合集 · {count}"
+    "pack": "DLC 合集 · {count}",
+    "countDlc": "{count, plural, other {# 个 DLC}}",
+    "countUpdates": "{count, plural, other {# 个更新}}",
+    "countLicenses": "{count, plural, other {# 个许可证}}",
+    "updatesTitle": "更新",
+    "dlcTitle": "DLC",
+    "licensesTitle": "许可证",
+    "downloadPack": "资源包"
   }
 }

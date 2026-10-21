@@ -1884,12 +1884,15 @@ const COMPAT_LEVEL_SQL = `COALESCE(
 
 /** An add-on (DLC / update / license) linked to its game: shown with the game, not in grids. */
 const ADDON_HIDDEN_SQL = "NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)";
-/** How many DLC and updates a game has (game cards' "+3 DLC" tag). */
+/** How many DLC and updates a game has (game cards' "+3 DLC" tag). Driven by rom_addons' parent
+ *  index with EXISTS for the file check: as a JOIN, SQLite scanned every game per card. */
 const ADDON_COUNTS_SQL = `
-  (SELECT COALESCE(SUM(COALESCE(json_array_length(ra.items), 1)), 0) FROM rom_addons ra JOIN roms ar ON ar.id = ra.rom_id
-    WHERE ra.parent_id = r.id AND ra.kind = 'dlc' AND ar.missing = 0) AS dlc_count,
-  (SELECT COUNT(*) FROM rom_addons ra JOIN roms ar ON ar.id = ra.rom_id
-    WHERE ra.parent_id = r.id AND ra.kind = 'update' AND ar.missing = 0) AS update_count`;
+  (SELECT COALESCE(SUM(COALESCE(json_array_length(ra.items), 1)), 0) FROM rom_addons ra
+    WHERE ra.parent_id = r.id AND ra.kind = 'dlc'
+      AND EXISTS (SELECT 1 FROM roms ar WHERE ar.id = ra.rom_id AND ar.missing = 0)) AS dlc_count,
+  (SELECT COUNT(*) FROM rom_addons ra
+    WHERE ra.parent_id = r.id AND ra.kind = 'update'
+      AND EXISTS (SELECT 1 FROM roms ar WHERE ar.id = ra.rom_id AND ar.missing = 0)) AS update_count`;
 
 const BROWSE_SELECT = `
   SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,

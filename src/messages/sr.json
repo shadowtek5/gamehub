@@ -980,7 +980,8 @@
     "tabGuides": "ВОДИЧИ",
     "videoSection": "Видео филтер",
     "cheatsSection": "Кодови",
-    "deviceSavesSection": "Чувања уређаја"
+    "deviceSavesSection": "Чувања уређаја",
+    "tabDlc": "DLC I AŽURIRANJA"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Instalirajte ih iz menija sadržaja emulatora (Xenia: File › Install Content).",
       "wiiu": "Instalirajte ih u Cemu pomoću File › Install game title, update or DLC."
     },
-    "pack": "DLC paket · {count}"
+    "pack": "DLC paket · {count}",
+    "countDlc": "{count, plural, one {# DLC} few {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# ažuriranje} few {# ažuriranja} other {# ažuriranja}}",
+    "countLicenses": "{count, plural, one {# licenca} few {# licence} other {# licenci}}",
+    "updatesTitle": "Ažuriranja",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licence",
+    "downloadPack": "Paket"
   }
 }

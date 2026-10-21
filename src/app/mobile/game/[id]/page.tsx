@@ -66,6 +66,7 @@ export default async function MobileGamePage({
 }) {
   const user = await requireUser();
   const t = await getTranslations("mobileGamePage.detail");
+  const tga = await getTranslations("gameAddons");
   const tg = await getTranslations("gamePage"); // reuse the desktop game-page labels
   const tn = await getTranslations("nav"); // for the Activity section title
   const { id } = await params;
@@ -281,11 +282,16 @@ export default async function MobileGamePage({
           {compatAtGlance && <CompatStat {...compatAtGlance} mobile />}
         </div>
 
-        {(addonOf || addons.length > 0) && (
-          <div className="mt-4 space-y-3">
-            {addonOf && <AddonOf parent={addonOf} mobile />}
-            <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} mobile />
+        {addonOf && (
+          <div className="mt-4">
+            <AddonOf parent={addonOf} mobile />
           </div>
+        )}
+
+        {addons.length > 0 && (
+          <Section title={tga("title")}>
+            <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} mobile />
+          </Section>
         )}
 
         {hltbRows.length > 0 && (

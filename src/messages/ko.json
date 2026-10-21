@@ -980,7 +980,8 @@
     "tabGuides": "가이드",
     "videoSection": "비디오 필터",
     "cheatsSection": "치트",
-    "deviceSavesSection": "기기 저장 데이터"
+    "deviceSavesSection": "기기 저장 데이터",
+    "tabDlc": "DLC 및 업데이트"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "에뮬레이터의 콘텐츠 메뉴에서 설치하세요(Xenia: File › Install Content).",
       "wiiu": "Cemu에서 File › Install game title, update or DLC로 설치하세요."
     },
-    "pack": "DLC 팩 · {count}"
+    "pack": "DLC 팩 · {count}",
+    "countDlc": "{count, plural, other {DLC #개}}",
+    "countUpdates": "{count, plural, other {업데이트 #개}}",
+    "countLicenses": "{count, plural, other {라이선스 #개}}",
+    "updatesTitle": "업데이트",
+    "dlcTitle": "DLC",
+    "licensesTitle": "라이선스",
+    "downloadPack": "팩"
   }
 }

@@ -470,7 +470,7 @@ export function gameAddons(romId: number): GameAddon[] {
   const rows = getDb()
     .prepare(
       `SELECT r.id, ra.kind, r.title, ra.name, ra.version, ra.addon_id, r.filename, r.size_bytes, ra.items
-         FROM rom_addons ra JOIN roms r ON r.id = ra.rom_id
+         FROM rom_addons ra CROSS JOIN roms r ON r.id = ra.rom_id
         WHERE ra.parent_id = ? AND r.missing = 0
         ORDER BY CASE ra.kind WHEN 'update' THEN 0 WHEN 'dlc' THEN 1 ELSE 2 END,
                  ra.version, COALESCE(ra.name, r.title)`

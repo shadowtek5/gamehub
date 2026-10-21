@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-21",
+    title: "A DLC & Updates tab, and a fast library again",
+    body: "A game's DLC, updates and licenses now have their own DLC & Updates tab on the game page (a section on the mobile app): updates by version, each DLC with its id, and a DLC pack shows every DLC inside it as its own row — one download for the pack, or Download all (.zip) for everything. Also fixes 0.1.16 making the library very slow on big libraries (counting each game's DLC looked at every game in the library), which could make the server stop responding.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-21",
     title: "DLC and updates live with their game",
     body: "DLC, updates and licenses for Switch, PS Vita, PS3, 3DS, Xbox 360 and Wii U no longer show up as games of their own. GameHub reads which game each one belongs to from the file itself (title ids, serials, package headers) — or matches it by title — and lists them on the game's page under DLC & updates, with a download for each and Download all (.zip). Game cards show how many DLC a game has. A PS Vita DLC pack (several DLC in one zip) lists every DLC inside by name. Decrypt PS Vita dumps (Settings › Maintenance) now handles DLC and updates too — each DLC with its own license, an update with its game's — so Vita3K can use them. Scans now pick up PS3 .pkg and .rap files and Xbox 360 title updates and DLC. GameHub Downloader 1.3.4 downloads them from the game's page and installs Vita DLC and updates into Vita3K. On desktop/TV and the mobile app.",
     art: "automation",

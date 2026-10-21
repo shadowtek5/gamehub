@@ -980,7 +980,8 @@
     "tabGuides": "ガイド",
     "videoSection": "ビデオフィルター",
     "cheatsSection": "チートコード",
-    "deviceSavesSection": "デバイスのセーブデータ"
+    "deviceSavesSection": "デバイスのセーブデータ",
+    "tabDlc": "DLC・アップデート"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "エミュレーターのコンテンツメニューからインストールしてください（Xenia: File › Install Content）。",
       "wiiu": "Cemu で File › Install game title, update or DLC を使ってインストールしてください。"
     },
-    "pack": "DLCパック · {count}"
+    "pack": "DLCパック · {count}",
+    "countDlc": "{count, plural, other {# 件の DLC}}",
+    "countUpdates": "{count, plural, other {# 件のアップデート}}",
+    "countLicenses": "{count, plural, other {# 件のライセンス}}",
+    "updatesTitle": "アップデート",
+    "dlcTitle": "DLC",
+    "licensesTitle": "ライセンス",
+    "downloadPack": "パック"
   }
 }

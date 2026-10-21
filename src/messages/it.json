@@ -1767,7 +1767,8 @@
     "tabGuides": "GUIDE",
     "videoSection": "Filtro video",
     "cheatsSection": "Trucchi",
-    "deviceSavesSection": "Salvataggi del dispositivo"
+    "deviceSavesSection": "Salvataggi del dispositivo",
+    "tabDlc": "DLC E AGGIORNAMENTI"
   },
   "mobileGamePage": {
     "detail": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Installali dal menu dei contenuti dell'emulatore (Xenia: File › Install Content).",
       "wiiu": "Installali in Cemu con File › Install game title, update or DLC."
     },
-    "pack": "Pacchetto DLC · {count}"
+    "pack": "Pacchetto DLC · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# aggiornamento} other {# aggiornamenti}}",
+    "countLicenses": "{count, plural, one {# licenza} other {# licenze}}",
+    "updatesTitle": "Aggiornamenti",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licenze",
+    "downloadPack": "Pacchetto"
   }
 }

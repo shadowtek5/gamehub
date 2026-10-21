@@ -980,7 +980,8 @@
     "tabGuides": "РУКОВОДСТВА",
     "videoSection": "Видеофильтр",
     "cheatsSection": "Коды",
-    "deviceSavesSection": "Сохранения устройства"
+    "deviceSavesSection": "Сохранения устройства",
+    "tabDlc": "DLC И ОБНОВЛЕНИЯ"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Установите их из меню содержимого эмулятора (Xenia: File › Install Content).",
       "wiiu": "Установите их в Cemu через File › Install game title, update or DLC."
     },
-    "pack": "Набор DLC · {count}"
+    "pack": "Набор DLC · {count}",
+    "countDlc": "{count, plural, one {# DLC} few {# DLC} many {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# обновление} few {# обновления} many {# обновлений} other {# обновления}}",
+    "countLicenses": "{count, plural, one {# лицензия} few {# лицензии} many {# лицензий} other {# лицензии}}",
+    "updatesTitle": "Обновления",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Лицензии",
+    "downloadPack": "Набор"
   }
 }

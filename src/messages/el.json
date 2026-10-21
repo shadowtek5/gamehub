@@ -394,7 +394,8 @@
     "tabGuides": "ΟΔΗΓΟΙ",
     "videoSection": "Φίλτρο βίντεο",
     "cheatsSection": "Κωδικοί",
-    "deviceSavesSection": "Αποθηκεύσεις συσκευής"
+    "deviceSavesSection": "Αποθηκεύσεις συσκευής",
+    "tabDlc": "DLC & ΕΝΗΜΕΡΩΣΕΙΣ"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Εγκαταστήστε τα από το μενού περιεχομένου του emulator (Xenia: File › Install Content).",
       "wiiu": "Εγκαταστήστε τα στο Cemu με File › Install game title, update or DLC."
     },
-    "pack": "Πακέτο DLC · {count}"
+    "pack": "Πακέτο DLC · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# ενημέρωση} other {# ενημερώσεις}}",
+    "countLicenses": "{count, plural, one {# άδεια} other {# άδειες}}",
+    "updatesTitle": "Ενημερώσεις",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Άδειες",
+    "downloadPack": "Πακέτο"
   }
 }

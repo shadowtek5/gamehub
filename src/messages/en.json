@@ -992,7 +992,8 @@
     "tabRelated": "RELATED",
     "tabReviews": "REVIEWS",
     "tabGuides": "GUIDES",
-    "tabGameInfo": "GAME INFO"
+    "tabGameInfo": "GAME INFO",
+    "tabDlc": "DLC & UPDATES"
   },
   "gameTabs": {
     "notes": {
@@ -3262,6 +3263,13 @@
       "xbox360": "Install them from the emulator's content menu (Xenia: File › Install Content).",
       "wiiu": "Install them in Cemu with File › Install game title, update or DLC."
     },
-    "pack": "DLC pack · {count}"
+    "pack": "DLC pack · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# update} other {# updates}}",
+    "countLicenses": "{count, plural, one {# license} other {# licenses}}",
+    "updatesTitle": "Updates",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licenses",
+    "downloadPack": "Pack"
   }
 }

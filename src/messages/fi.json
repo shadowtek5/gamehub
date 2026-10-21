@@ -394,7 +394,8 @@
     "tabGuides": "OPPAAT",
     "videoSection": "Videosuodatin",
     "cheatsSection": "Huijaukset",
-    "deviceSavesSection": "Laitetallennukset"
+    "deviceSavesSection": "Laitetallennukset",
+    "tabDlc": "DLC JA PÄIVITYKSET"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Asenna ne emulaattorin sisältövalikosta (Xenia: File › Install Content).",
       "wiiu": "Asenna ne Cemuun valinnalla File › Install game title, update or DLC."
     },
-    "pack": "DLC-paketti · {count}"
+    "pack": "DLC-paketti · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# päivitys} other {# päivitystä}}",
+    "countLicenses": "{count, plural, one {# lisenssi} other {# lisenssiä}}",
+    "updatesTitle": "Päivitykset",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Lisenssit",
+    "downloadPack": "Paketti"
   }
 }

@@ -980,7 +980,8 @@
     "tabGuides": "VEJLEDNINGER",
     "videoSection": "Videofilter",
     "cheatsSection": "Cheats",
-    "deviceSavesSection": "Enhedssaves"
+    "deviceSavesSection": "Enhedssaves",
+    "tabDlc": "DLC & OPDATERINGER"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Installer dem fra emulatorens indholdsmenu (Xenia: File › Install Content).",
       "wiiu": "Installer dem i Cemu med File › Install game title, update or DLC."
     },
-    "pack": "DLC-pakke · {count}"
+    "pack": "DLC-pakke · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# opdatering} other {# opdateringer}}",
+    "countLicenses": "{count, plural, one {# licens} other {# licenser}}",
+    "updatesTitle": "Opdateringer",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licenser",
+    "downloadPack": "Pakke"
   }
 }

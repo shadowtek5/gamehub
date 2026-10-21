@@ -394,7 +394,8 @@
     "tabGuides": "أدلة",
     "videoSection": "مرشح الفيديو",
     "cheatsSection": "الرموز",
-    "deviceSavesSection": "حفظات الجهاز"
+    "deviceSavesSection": "حفظات الجهاز",
+    "tabDlc": "DLC والتحديثات"
   },
   "maintenance": {
     "maintenancePanel": {
@@ -3261,6 +3262,13 @@
       "xbox360": "ثبّتها من قائمة المحتوى في المحاكي (Xenia: File › Install Content).",
       "wiiu": "ثبّتها في Cemu باستخدام File › Install game title, update or DLC."
     },
-    "pack": "حزمة DLC · {count}"
+    "pack": "حزمة DLC · {count}",
+    "countDlc": "{count, plural, one {# DLC} two {# DLC} few {# DLC} many {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# تحديث} two {# تحديثان} few {# تحديثات} many {# تحديثًا} other {# تحديث}}",
+    "countLicenses": "{count, plural, one {# ترخيص} two {# ترخيصان} few {# تراخيص} many {# ترخيصًا} other {# ترخيص}}",
+    "updatesTitle": "التحديثات",
+    "dlcTitle": "DLC",
+    "licensesTitle": "التراخيص",
+    "downloadPack": "حزمة"
   }
 }

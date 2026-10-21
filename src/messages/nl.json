@@ -980,7 +980,8 @@
     "tabGuides": "GIDSEN",
     "videoSection": "Videofilter",
     "cheatsSection": "Cheats",
-    "deviceSavesSection": "Apparaatsaves"
+    "deviceSavesSection": "Apparaatsaves",
+    "tabDlc": "DLC & UPDATES"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Installeer ze via het contentmenu van de emulator (Xenia: File › Install Content).",
       "wiiu": "Installeer ze in Cemu met File › Install game title, update or DLC."
     },
-    "pack": "DLC-pakket · {count}"
+    "pack": "DLC-pakket · {count}",
+    "countDlc": "{count, plural, one {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# update} other {# updates}}",
+    "countLicenses": "{count, plural, one {# licentie} other {# licenties}}",
+    "updatesTitle": "Updates",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licenties",
+    "downloadPack": "Pakket"
   }
 }

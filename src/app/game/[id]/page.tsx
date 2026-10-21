@@ -828,12 +828,21 @@ export default async function GamePage({
       )}
 
       {addonOf && <AddonOf parent={addonOf} />}
-      <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} />
 
       <GameTabs
         tabs={[
           { key: "activity", label: t("tabActivity"), content: activityTab },
           { key: "stuff", label: t("tabYourStuff"), content: yourStuffTab },
+          // DLC, updates and licenses linked to this game.
+          ...(addons.length
+            ? [
+                {
+                  key: "dlc",
+                  label: t("tabDlc"),
+                  content: <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} />,
+                },
+              ]
+            : []),
           // Only when this game has other versions on the system.
           ...(variants.length
             ? [

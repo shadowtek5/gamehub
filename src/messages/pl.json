@@ -980,7 +980,8 @@
     "tabGuides": "PRZEWODNIKI",
     "videoSection": "Filtr wideo",
     "cheatsSection": "Kody",
-    "deviceSavesSection": "Zapisy z urządzenia"
+    "deviceSavesSection": "Zapisy z urządzenia",
+    "tabDlc": "DLC I AKTUALIZACJE"
   },
   "gameTabs": {
     "notes": {
@@ -3261,6 +3262,13 @@
       "xbox360": "Zainstaluj je z menu zawartości emulatora (Xenia: File › Install Content).",
       "wiiu": "Zainstaluj je w Cemu za pomocą File › Install game title, update or DLC."
     },
-    "pack": "Pakiet DLC · {count}"
+    "pack": "Pakiet DLC · {count}",
+    "countDlc": "{count, plural, one {# DLC} few {# DLC} many {# DLC} other {# DLC}}",
+    "countUpdates": "{count, plural, one {# aktualizacja} few {# aktualizacje} many {# aktualizacji} other {# aktualizacji}}",
+    "countLicenses": "{count, plural, one {# licencja} few {# licencje} many {# licencji} other {# licencji}}",
+    "updatesTitle": "Aktualizacje",
+    "dlcTitle": "DLC",
+    "licensesTitle": "Licencje",
+    "downloadPack": "Paczka"
   }
 }
