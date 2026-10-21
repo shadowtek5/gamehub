@@ -281,6 +281,30 @@ const spec = {
       },
       delete: { tags: ["games"], summary: "Stop the scan", responses: { "200": { description: "OK" } } },
     },
+    "/api/roms/{id}/compat": {
+      get: {
+        tags: ["games"],
+        summary: "How well a game runs: in-browser badge and reports, reports from handheld emulators (grouped per emulator), official lists (RPCS3, Vita3K, PCSX2) and which emulators can open the file; ?emulator=&device= returns the caller's report for that emulator",
+        parameters: [
+          { name: "id", in: "path", required: true, schema: { type: "integer" } },
+          { name: "emulator", in: "query", schema: { type: "string" } },
+          { name: "device", in: "query", schema: { type: "string" } },
+        ],
+        responses: { "200": { description: "{ summary, mine, external, files }" } },
+      },
+      post: {
+        tags: ["games"],
+        summary: "Save the caller's report ({ rating: playable|runs|broken, note?, emulator?, emulatorName?, device? }; no emulator = the in-browser player), or { official } (admins)",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        responses: { "200": { description: "Same as GET" } },
+      },
+      delete: {
+        tags: ["games"],
+        summary: "Remove the caller's report (?emulator=&device=)",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        responses: { "200": { description: "Same as GET" } },
+      },
+    },
     "/api/emulators": {
       get: {
         tags: ["games"],

@@ -2892,7 +2892,16 @@
     "officialBadge": "官方评分",
     "untestedHint": "尚未测试 —— 请添加第一份报告。",
     "officialLabel": "官方评分（管理员）",
-    "clearOfficial": "无官方评分"
+    "clearOfficial": "无官方评分",
+    "browserTitle": "在浏览器中",
+    "officialListsTitle": "官方模拟器兼容列表",
+    "viewOnList": "详情",
+    "devicesTitle": "掌机上",
+    "reportByOn": "{name}（{device}）",
+    "filesTitle": "可打开此文件的模拟器",
+    "filesCores": "RetroArch：{cores}",
+    "filesRejected": "无法打开 {file}：{names}。解压或转换文件可能有帮助。",
+    "noneYet": "暂无兼容性信息。请在掌机上通过 GameHub Downloader 游玩并评价运行情况。"
   },
   "guides": {
     "writeGuide": "写指南",

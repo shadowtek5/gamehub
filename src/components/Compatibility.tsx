@@ -1,11 +1,14 @@
 "use client";
 
 // Emulation compatibility (Deck-Verified / ProtonDB style) on the game page.
-// Shows a consensus badge (official pin wins over the crowd mode), a counts bar,
-// the user's own report (Playable / Runs / Broken + note), and an admin control
-// to pin an official rating. Backed by /api/roms/[id]/compat.
+// In the browser (playable systems): a consensus badge (official pin wins over the
+// crowd mode), a counts bar, the user's own report (Playable / Runs / Broken + note)
+// and an admin control to pin an official rating. For every game: what the official
+// emulator lists say (RPCS3, Vita3K, PCSX2), reports from handhelds (GameHub
+// Downloader asks after a play session), and which emulators can open the file.
+// Backed by /api/roms/[id]/compat.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import type { CompatRating, CompatSummary, CompatReportRow } from "@/lib/db";
@@ -28,17 +31,58 @@ interface State {
   mine: CompatReportRow | null;
 }
 
+interface ExternalCompat {
+  source: string;
+  emulator: string;
+  status: string;
+  rating: CompatRating;
+  serial: string;
+  link: string | null;
+  updated: string | null;
+}
+
+interface FileSupport {
+  file: string;
+  cores: string[];
+  standalone: string[];
+  rejectedBy: string[];
+}
+
+interface Extra {
+  external: ExternalCompat[];
+  files: FileSupport | null;
+}
+
 export default function Compatibility({
   romId,
   isAdmin,
   initial,
+  browser = true,
 }: {
   romId: number;
   isAdmin: boolean;
   initial: State;
+  /** the system plays in the browser: show the in-browser badge and report */
+  browser?: boolean;
 }) {
   const t = useTranslations("compat");
   const [state, setState] = useState<State>(initial);
+  const [extra, setExtra] = useState<Extra | null>(null);
+  // Official lists and file support can take a moment (the lists download the first time).
+  useEffect(() => {
+    let alive = true;
+    fetch(`/api/roms/${romId}/compat`, { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!alive || !d) return;
+        setState({ summary: d.summary, mine: d.mine });
+        setExtra({ external: d.external ?? [], files: d.files ?? null });
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [romId]);
   const [rating, setRating] = useState<CompatRating | null>(initial.mine?.rating ?? null);
   const [note, setNote] = useState(initial.mine?.note ?? "");
   const [busy, setBusy] = useState(false);
@@ -57,7 +101,9 @@ export default function Compatibility({
       });
       if (res.ok) {
         playSound(sound);
-        setState(await res.json());
+        const d = await res.json();
+        setState({ summary: d.summary, mine: d.mine });
+        if (d.external) setExtra({ external: d.external, files: d.files ?? null });
       }
     } finally {
       setBusy(false);
@@ -87,9 +133,97 @@ export default function Compatibility({
         : "bg-[#23262e] text-body ring-white/10 hover:bg-[#2b2f38]"
     }`;
 
+  const devices = summary.devices ?? [];
+  const pill = (r: CompatRating, text: string) => (
+    <span
+      className="flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-bold"
+      style={{ backgroundColor: `${COLORS[r]}22`, color: COLORS[r] }}
+    >
+      <span className="h-2 w-2 rounded-full" style={{ backgroundColor: COLORS[r] }} />
+      {text}
+    </span>
+  );
+  const heading = (text: string) => (
+    <div className="mb-2 text-[13px] font-bold uppercase tracking-wide text-dim">{text}</div>
+  );
+  const nothingElse =
+    extra !== null && !extra.external.length && !devices.length && !(extra.files && (extra.files.cores.length || extra.files.standalone.length));
+
   return (
     <div className="flex flex-col gap-5">
+      {/* Official emulator compatibility lists */}
+      {extra && extra.external.length > 0 && (
+        <div>
+          {heading(t("officialListsTitle"))}
+          <div className="flex flex-col gap-2">
+            {extra.external.map((e) => (
+              <div key={e.source} className="flex flex-wrap items-center gap-3 rounded-[6px] bg-[#1b1f27] px-4 py-3 ring-1 ring-white/5">
+                <span className="font-semibold text-bright">{e.emulator}</span>
+                {pill(e.rating, e.status)}
+                <span className="text-[12px] text-dim">
+                  {e.serial}
+                  {e.updated ? ` · ${e.updated}` : ""}
+                </span>
+                {e.link && (
+                  <a href={e.link} target="_blank" rel="noreferrer" className="ml-auto text-[12px] text-dim underline hover:text-bright">
+                    {t("viewOnList")}
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Reports from emulators on handhelds (GameHub Downloader) */}
+      {devices.length > 0 && (
+        <div>
+          {heading(t("devicesTitle"))}
+          <div className="flex flex-col gap-2">
+            {devices.map((g) => (
+              <div key={g.emulator} className="rounded-[6px] bg-[#1b1f27] px-4 py-3 ring-1 ring-white/5">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="font-semibold text-bright">{g.emulatorName}</span>
+                  {pill(g.consensus, label(g.consensus))}
+                  <span className="text-[12px] text-dim">{t("reportsCount", { count: g.reports.length })}</span>
+                </div>
+                <div className="mt-2 flex flex-col gap-1">
+                  {g.reports.slice(0, 5).map((r) => (
+                    <div key={r.id} className="text-[12px] text-dim">
+                      <span className="font-semibold" style={{ color: COLORS[r.rating] }}>{label(r.rating)}</span>
+                      {" · "}
+                      {r.device ? t("reportByOn", { name: r.authorName, device: r.device }) : r.authorName}
+                      {r.note ? <span className="text-body"> — {r.note}</span> : null}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Emulators that can open this exact file */}
+      {extra?.files && (extra.files.cores.length > 0 || extra.files.standalone.length > 0 || extra.files.rejectedBy.length > 0) && (
+        <div>
+          {heading(t("filesTitle"))}
+          <div className="rounded-[6px] bg-[#1b1f27] px-4 py-3 text-[13px] ring-1 ring-white/5">
+            {extra.files.cores.length > 0 && <div className="text-body">{t("filesCores", { cores: extra.files.cores.join(", ") })}</div>}
+            {extra.files.standalone.length > 0 && <div className="mt-1 text-body">{extra.files.standalone.join(", ")}</div>}
+            {extra.files.rejectedBy.length > 0 && (
+              <div className="mt-2 text-[12px]" style={{ color: COLORS.runs }}>
+                {t("filesRejected", { file: extra.files.file, names: extra.files.rejectedBy.join(", ") })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {!browser && nothingElse && <p className="text-[13px] text-dim">{t("noneYet")}</p>}
+
+      {browser && heading(t("browserTitle"))}
       {/* Consensus badge */}
+      {browser && (<>
       <div className="flex items-center gap-3">
         <span
           className="flex items-center gap-2 rounded-full px-3 py-1.5 text-[14px] font-bold"
@@ -175,8 +309,10 @@ export default function Compatibility({
         </div>
       </div>
 
+      </>)}
+
       {/* Admin: official rating */}
-      {isAdmin && (
+      {browser && isAdmin && (
         <div className="rounded-[6px] bg-[#1b1f27] p-4 ring-1 ring-white/5">
           <div className="mb-3 text-[13px] font-bold uppercase tracking-wide text-dim">{t("officialLabel")}</div>
           <div className="flex flex-wrap gap-2">

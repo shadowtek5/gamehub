@@ -2892,7 +2892,16 @@
     "officialBadge": "Званична оценка",
     "untestedHint": "Још нису тестирано — додајте први извештај.",
     "officialLabel": "Званична оценка (администратор)",
-    "clearOfficial": "Нема званичне оцене"
+    "clearOfficial": "Нема званичне оцене",
+    "browserTitle": "U pregledaču",
+    "officialListsTitle": "Zvanične liste emulatora",
+    "viewOnList": "Detalji",
+    "devicesTitle": "Na ručnim uređajima",
+    "reportByOn": "{name} na {device}",
+    "filesTitle": "Emulatori koji mogu da otvore ovaj fajl",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Ne mogu da otvorim {file}: {names}. Raspakivanje ili konverzija fajla može pomoći.",
+    "noneYet": "Još nema informacija o kompatibilnosti. Igrajte je u aplikaciji GameHub Downloader na ručnom uređaju i ocenite kako je radila."
   },
   "guides": {
     "writeGuide": "Напишите водич",

@@ -2892,7 +2892,16 @@
     "officialBadge": "Offizielle Bewertung",
     "untestedHint": "Noch nicht getestet — gib den ersten Bericht ab.",
     "officialLabel": "Offizielle Bewertung (Admin)",
-    "clearOfficial": "Keine offizielle Bewertung"
+    "clearOfficial": "Keine offizielle Bewertung",
+    "browserTitle": "Im Browser",
+    "officialListsTitle": "Offizielle Emulatorlisten",
+    "viewOnList": "Details",
+    "devicesTitle": "Auf Handhelds",
+    "reportByOn": "{name} auf {device}",
+    "filesTitle": "Emulatoren, die diese Datei öffnen können",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "{file} kann nicht geöffnet werden: {names}. Das Entpacken oder Konvertieren der Datei kann helfen.",
+    "noneYet": "Noch keine Kompatibilitätsinformationen. Spiele es in GameHub Downloader auf einem Handheld und bewerte, wie es lief."
   },
   "guides": {
     "writeGuide": "Anleitung schreiben",

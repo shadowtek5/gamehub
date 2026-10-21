@@ -2892,7 +2892,16 @@
     "officialBadge": "公式レーティング",
     "untestedHint": "まだテストされていません — 最初の報告を追加してください。",
     "officialLabel": "公式レーティング (管理者)",
-    "clearOfficial": "公式レーティングなし"
+    "clearOfficial": "公式レーティングなし",
+    "browserTitle": "ブラウザで",
+    "officialListsTitle": "公式エミュレーター互換性リスト",
+    "viewOnList": "詳細",
+    "devicesTitle": "携帯機で",
+    "reportByOn": "{name}（{device}）",
+    "filesTitle": "このファイルを開けるエミュレーター",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "{file} を開けません: {names}。ファイルを展開または変換すると解決する場合があります。",
+    "noneYet": "互換性情報はまだありません。携帯機で GameHub Downloader からプレイして、動作を評価してください。"
   },
   "guides": {
     "writeGuide": "ガイドを作成",

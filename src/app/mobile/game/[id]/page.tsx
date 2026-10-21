@@ -172,9 +172,7 @@ export default async function MobileGamePage({
     mine: getUserReview(user.id, rom.id) ?? null,
   };
   const emuShader = playable ? getEmuPrefs(user.id, rom.id).shader : null;
-  const compatData = playable
-    ? { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null }
-    : null;
+  const compatData = { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null };
   const guides = listGuides(rom.id);
 
   // Per-game activity timeline (comments + events), same feed as the desktop.
@@ -367,7 +365,7 @@ export default async function MobileGamePage({
 
         {compatData && (
           <Section title={tg("compatSection")}>
-            <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} />
+            <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} browser={!!playable} />
           </Section>
         )}
 

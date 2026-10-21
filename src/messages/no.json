@@ -2892,7 +2892,16 @@
     "officialBadge": "Offisiell vurdering",
     "untestedHint": "Ikke testet ennå — legg til den første rapporten.",
     "officialLabel": "Offisiell vurdering (admin)",
-    "clearOfficial": "Ingen offisiell vurdering"
+    "clearOfficial": "Ingen offisiell vurdering",
+    "browserTitle": "I nettleseren",
+    "officialListsTitle": "Offisielle emulatorlister",
+    "viewOnList": "Detaljer",
+    "devicesTitle": "På håndholdte enheter",
+    "reportByOn": "{name} på {device}",
+    "filesTitle": "Emulatorer som kan åpne denne filen",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Kan ikke åpne {file}: {names}. Å pakke ut eller konvertere filen kan hjelpe.",
+    "noneYet": "Ingen kompatibilitetsinformasjon ennå. Spill det i GameHub Downloader på en håndholdt enhet og vurder hvordan det kjørte."
   },
   "guides": {
     "writeGuide": "Skriv en veiledning",

@@ -2892,7 +2892,16 @@
     "officialBadge": "공식 평가",
     "untestedHint": "아직 테스트되지 않음 — 첫 번째 보고를 추가하세요.",
     "officialLabel": "공식 평가 (관리자)",
-    "clearOfficial": "공식 평가 없음"
+    "clearOfficial": "공식 평가 없음",
+    "browserTitle": "브라우저에서",
+    "officialListsTitle": "공식 에뮬레이터 목록",
+    "viewOnList": "자세히",
+    "devicesTitle": "휴대용 기기에서",
+    "reportByOn": "{name} ({device})",
+    "filesTitle": "이 파일을 열 수 있는 에뮬레이터",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "{file}을(를) 열 수 없음: {names}. 파일을 압축 해제하거나 변환하면 도움이 될 수 있습니다.",
+    "noneYet": "아직 호환성 정보가 없습니다. 휴대용 기기에서 GameHub Downloader로 플레이하고 실행 상태를 평가해 주세요."
   },
   "guides": {
     "writeGuide": "가이드 작성",

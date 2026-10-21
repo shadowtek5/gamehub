@@ -2892,7 +2892,16 @@
     "officialBadge": "Virallinen arviointi",
     "untestedHint": "Ei vielä testattu — lisää ensimmäinen raportti.",
     "officialLabel": "Virallinen arviointi (ylläpitäjä)",
-    "clearOfficial": "Ei virallista arviointia"
+    "clearOfficial": "Ei virallista arviointia",
+    "browserTitle": "Selaimessa",
+    "officialListsTitle": "Viralliset emulaattoriluettelot",
+    "viewOnList": "Tiedot",
+    "devicesTitle": "Kannettavilla laitteilla",
+    "reportByOn": "{name} laitteella {device}",
+    "filesTitle": "Emulaattorit, jotka voivat avata tämän tiedoston",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Tiedostoa {file} ei voi avata: {names}. Tiedoston purkaminen tai muuntaminen voi auttaa.",
+    "noneYet": "Yhteensopivuustietoja ei ole vielä. Pelaa sitä GameHub Downloaderilla kannettavalla laitteella ja arvioi, miten se toimi."
   },
   "guides": {
     "writeGuide": "Kirjoita opas",

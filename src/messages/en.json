@@ -1963,7 +1963,16 @@
     "officialBadge": "Official rating",
     "untestedHint": "Not tested yet — add the first report.",
     "officialLabel": "Official rating (admin)",
-    "clearOfficial": "No official rating"
+    "clearOfficial": "No official rating",
+    "browserTitle": "In the browser",
+    "officialListsTitle": "Official emulator lists",
+    "viewOnList": "Details",
+    "devicesTitle": "On handhelds",
+    "reportByOn": "{name} on {device}",
+    "filesTitle": "Emulators that can open this file",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Can't open {file}: {names}. Extracting or converting the file may help.",
+    "noneYet": "No compatibility information yet. Play it from GameHub Downloader on a handheld and rate how it ran."
   },
   "reviews": {
     "noneYet": "No reviews yet — be the first.",

@@ -2892,7 +2892,16 @@
     "officialBadge": "Calificación oficial",
     "untestedHint": "Aún no probado — añade el primer informe.",
     "officialLabel": "Calificación oficial (admin)",
-    "clearOfficial": "Sin calificación oficial"
+    "clearOfficial": "Sin calificación oficial",
+    "browserTitle": "En el navegador",
+    "officialListsTitle": "Listas oficiales de emuladores",
+    "viewOnList": "Detalles",
+    "devicesTitle": "En consolas portátiles",
+    "reportByOn": "{name} en {device}",
+    "filesTitle": "Emuladores que pueden abrir este archivo",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "No se puede abrir {file}: {names}. Extraer o convertir el archivo podría ayudar.",
+    "noneYet": "Aún no hay información de compatibilidad. Juégalo desde GameHub Downloader en una consola portátil y valora cómo funcionó."
   },
   "guides": {
     "writeGuide": "Escribir una guía",

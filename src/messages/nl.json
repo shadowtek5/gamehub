@@ -2892,7 +2892,16 @@
     "officialBadge": "Officiële beoordeling",
     "untestedHint": "Nog niet getest — voeg het eerste rapport toe.",
     "officialLabel": "Officiële beoordeling (admin)",
-    "clearOfficial": "Geen officiële beoordeling"
+    "clearOfficial": "Geen officiële beoordeling",
+    "browserTitle": "In de browser",
+    "officialListsTitle": "Officiële emulatorlijsten",
+    "viewOnList": "Details",
+    "devicesTitle": "Op handhelds",
+    "reportByOn": "{name} op {device}",
+    "filesTitle": "Emulators die dit bestand kunnen openen",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Kan {file} niet openen: {names}. Het uitpakken of converteren van het bestand kan helpen.",
+    "noneYet": "Nog geen compatibiliteitsinformatie. Speel het via GameHub Downloader op een handheld en beoordeel hoe het liep."
   },
   "guides": {
     "writeGuide": "Schrijf een gids",

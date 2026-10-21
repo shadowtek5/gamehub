@@ -2892,7 +2892,16 @@
     "officialBadge": "التقييم الرسمي",
     "untestedHint": "لم يتم الاختبار بعد — أضف أول تقرير.",
     "officialLabel": "التقييم الرسمي (مسؤول)",
-    "clearOfficial": "لا يوجد تقييم رسمي"
+    "clearOfficial": "لا يوجد تقييم رسمي",
+    "browserTitle": "في المتصفح",
+    "officialListsTitle": "القوائم الرسمية للمحاكيات",
+    "viewOnList": "التفاصيل",
+    "devicesTitle": "على الأجهزة المحمولة",
+    "reportByOn": "{name} على {device}",
+    "filesTitle": "المحاكيات التي يمكنها فتح هذا الملف",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "تعذر فتح {file}: {names}. قد يساعد استخراج الملف أو تحويله.",
+    "noneYet": "لا توجد معلومات توافق حتى الآن. العبها من GameHub Downloader على جهاز محمول وقيّم أداءها."
   },
   "guides": {
     "writeGuide": "كتابة دليل",

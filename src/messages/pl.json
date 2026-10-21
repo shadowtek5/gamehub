@@ -2892,7 +2892,16 @@
     "officialBadge": "Oficjalna ocena",
     "untestedHint": "Nie przetestowane jeszcze — dodaj pierwszy raport.",
     "officialLabel": "Oficjalna ocena (admin)",
-    "clearOfficial": "Brak oficjalnej oceny"
+    "clearOfficial": "Brak oficjalnej oceny",
+    "browserTitle": "W przeglądarce",
+    "officialListsTitle": "Oficjalne listy emulatorów",
+    "viewOnList": "Szczegóły",
+    "devicesTitle": "Na urządzeniach przenośnych",
+    "reportByOn": "{name} na {device}",
+    "filesTitle": "Emulatory, które mogą otworzyć ten plik",
+    "filesCores": "RetroArch: {cores}",
+    "filesRejected": "Nie można otworzyć pliku {file}: {names}. Rozpakowanie lub konwersja pliku może pomóc.",
+    "noneYet": "Brak informacji o zgodności. Zagraj w grę w GameHub Downloader na urządzeniu przenośnym i oceń, jak działała."
   },
   "guides": {
     "writeGuide": "Napisz przewodnik",

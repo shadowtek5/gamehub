@@ -348,3 +348,38 @@ export async function getEmulatorCatalog(opts: { force?: boolean } = {}): Promis
 export function emulatorBiosFor(slug: string): EmulatorBios[] {
   return EMULATOR_BIOS.filter((e) => e.platforms.includes(slug));
 }
+
+/** Which emulators can open a game's file, from the catalog's accepted file names. */
+export interface FileSupport {
+  file: string;
+  /** RetroArch cores that accept it */
+  cores: string[];
+  /** standalone emulators that accept it / don't */
+  standalone: string[];
+  rejectedBy: string[];
+}
+
+export async function fileSupportFor(slug: string, filename: string): Promise<FileSupport | null> {
+  const players = (await getEmulatorCatalog()).platforms[slug];
+  if (!players?.length) return null;
+  const accepts = (p: EmulatorPlayer) => {
+    if (!p.acceptedFilenameRegex) return true;
+    try {
+      return new RegExp(p.acceptedFilenameRegex, "i").test(filename);
+    } catch {
+      return true;
+    }
+  };
+  const cores = new Set<string>();
+  const ok = new Set<string>();
+  const no = new Set<string>();
+  for (const p of players) {
+    if (p.kind === "retroarch") {
+      if (p.core && accepts(p)) cores.add(p.core);
+    } else (accepts(p) ? ok : no).add(p.name);
+  }
+  for (const n of ok) no.delete(n);
+  // RetroArch has cores for this system but none takes this file (e.g. a zipped CD image).
+  if (!cores.size && players.some((p) => p.kind === "retroarch")) no.add("RetroArch");
+  return { file: filename, cores: [...cores], standalone: [...ok], rejectedBy: [...no] };
+}

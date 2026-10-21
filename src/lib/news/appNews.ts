@@ -15,6 +15,12 @@ interface AppNewsEntry {
 
 const ENTRIES: AppNewsEntry[] = [
   {
+    date: "2026-10-21",
+    title: "Know how a game runs before you play",
+    body: "Every game page now has a Compatibility section (Your Stuff tab), not just games that play in the browser. It shows what the official emulator lists say — RPCS3 for PS3, Vita3K for PS Vita, and PCSX2 for PS2 (the basis of AetherSX2 and NetherSX2) — matched by the game's serial or title. It shows reports from handhelds: after you've played a game for a few minutes from GameHub Downloader, it asks how it ran (Playable, Runs with issues or Broken) and the answer appears here per emulator and device, best first. And it lists the emulators that can open the game's exact file, with a warning when a format won't open (like a zipped PS1 disc). GameHub Downloader also uses those reports to start a game in the emulator that worked. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
     date: "2026-10-20",
     title: "Firmware for PS Vita, PS3 and Switch, and a firmware folder scanner",
     body: "Firmware settings now handle the consoles whose emulators install a system firmware rather than reading a BIOS: the PS Vita firmware and font package (PSVUPDAT.PUP, PSP2UPDAT.PUP), the PS3 firmware (PS3UPDAT.PUP), Switch keys (prod.keys, title.keys) and firmware (a .zip, or a whole folder of .nca files), and 3DS and Wii U keys. They're kept exactly as uploaded, big files upload in the background with progress (up to 1 GB each), and each shows under its system as System firmware & keys. Got a BIOS collection already? Settings › Firmware › Scan a folder on the server walks it and copies in everything it recognizes — BIOS files by checksum even when renamed, BIOS packs inside .zip files, and all of the firmware above — without touching the folder. GameHub Downloader 1.3.1 copies it all to the right emulators on your handheld (Vita3K, aPS3e, Eden, Azahar…). On desktop/TV and the mobile app.",

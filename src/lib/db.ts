@@ -570,6 +570,58 @@ function migrate(db: Database.Database) {
   addRomCol("developer_image_url", "TEXT"); // developer logo image
   addRomCol("rating_image_url", "TEXT"); // age-rating badge image (ESRB/PEGI)
 
+  // Compatibility reports per emulator and device: '' = GameHub's in-browser player (the
+  // original reports), otherwise e.g. "com.retroarch.aarch64:swanstation" on "AYN Thor"
+  // (sent by GameHub Downloader after a play session). One report per user/game/emulator/device.
+  {
+    const crCols = new Set((db.prepare("PRAGMA table_info(compat_reports)").all() as { name: string }[]).map((c) => c.name));
+    if (!crCols.has("emulator")) {
+      db.exec(`
+        CREATE TABLE compat_reports_new (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+          rom_id INTEGER NOT NULL REFERENCES roms(id) ON DELETE CASCADE,
+          emulator TEXT NOT NULL DEFAULT '',
+          emulator_name TEXT,
+          device TEXT NOT NULL DEFAULT '',
+          rating TEXT NOT NULL,
+          note TEXT,
+          created_at TEXT NOT NULL DEFAULT (datetime('now')),
+          updated_at TEXT,
+          UNIQUE (user_id, rom_id, emulator, device)
+        );
+        INSERT INTO compat_reports_new (id, user_id, rom_id, rating, note, created_at, updated_at)
+          SELECT id, user_id, rom_id, rating, note, created_at, updated_at FROM compat_reports;
+        DROP TABLE compat_reports;
+        ALTER TABLE compat_reports_new RENAME TO compat_reports;
+        CREATE INDEX IF NOT EXISTS idx_compat_rom ON compat_reports(rom_id);
+      `);
+    }
+  }
+  // Official emulator compatibility lists (RPCS3, Vita3K, PCSX2), refreshed weekly by compatLists.ts.
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS compat_external (
+      source TEXT NOT NULL,          -- rpcs3 | vita3k | pcsx2
+      key TEXT NOT NULL,             -- serial / title id, upper-case without separators
+      status TEXT NOT NULL,          -- the list's own label (Playable, Ingame +, …)
+      rating TEXT NOT NULL,          -- playable | runs | broken
+      title_norm TEXT,               -- for title matching where the list has names (PCSX2)
+      region TEXT,
+      updated TEXT,
+      link TEXT,                     -- page for this game on the list's site
+      PRIMARY KEY (source, key)
+    );
+    CREATE INDEX IF NOT EXISTS idx_compat_ext_title ON compat_external(source, title_norm);
+    -- The disc / title id a game is known by on those lists (SLUS20062, BLUS30443, PCSE00651), found
+    -- from its file name, its files or a title match; '' = looked, none. Kept off roms so finding
+    -- one doesn't count as the game being updated.
+    CREATE TABLE IF NOT EXISTS rom_serials (
+      rom_id INTEGER PRIMARY KEY REFERENCES roms(id) ON DELETE CASCADE,
+      serial TEXT NOT NULL,
+      checked_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+  `);
+
   // updated_at: bumps whenever ANYTHING about a ROM changes (scrape, art pick,
   // rename/move, hash, dat/compat verdict, missing flag, …). Seeded equal to
   // added_at so it starts the same, then a trigger stamps the current time on
@@ -2413,6 +2465,19 @@ export interface CompatReportRow {
   note: string | null;
   updated_at: string | null;
   created_at: string;
+  /** '' = the in-browser player */
+  emulator: string;
+  emulatorName: string | null;
+  device: string;
+}
+
+/** Reports for one emulator outside the browser (e.g. AetherSX2 on handhelds). */
+export interface DeviceCompatGroup {
+  emulator: string;
+  emulatorName: string;
+  consensus: CompatRating;
+  counts: Record<CompatRating, number>;
+  reports: CompatReportRow[];
 }
 
 export interface CompatSummary {
@@ -2423,7 +2488,15 @@ export interface CompatSummary {
   /** what to badge: official if set, else the crowd mode, else null (unknown) */
   consensus: CompatRating | null;
   reports: CompatReportRow[];
+  /** reports from emulators on devices (GameHub Downloader), best-rated emulator first */
+  devices: DeviceCompatGroup[];
 }
+
+const COMPAT_SELECT = `SELECT cr.id AS id, cr.user_id AS userId,
+              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
+              cr.rating AS rating, cr.note AS note, cr.updated_at AS updated_at, cr.created_at AS created_at,
+              cr.emulator AS emulator, cr.emulator_name AS emulatorName, cr.device AS device
+         FROM compat_reports cr JOIN users u ON u.id = cr.user_id`;
 
 /** Aggregate emulation compatibility for a game (official + crowd reports). */
 export function compatSummary(romId: number): CompatSummary {
@@ -2431,50 +2504,61 @@ export function compatSummary(romId: number): CompatSummary {
   const official = ((db.prepare("SELECT compat_official FROM roms WHERE id = ?").get(romId) as
     | { compat_official: string | null }
     | undefined)?.compat_official ?? null) as CompatRating | null;
-  const rows = db
-    .prepare(
-      `SELECT cr.id AS id, cr.user_id AS userId,
-              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
-              cr.rating AS rating, cr.note AS note, cr.updated_at AS updated_at, cr.created_at AS created_at
-         FROM compat_reports cr JOIN users u ON u.id = cr.user_id
-        WHERE cr.rom_id = ?
-        ORDER BY COALESCE(cr.updated_at, cr.created_at) DESC`
-    )
+  const all = db
+    .prepare(`${COMPAT_SELECT} WHERE cr.rom_id = ? ORDER BY COALESCE(cr.updated_at, cr.created_at) DESC`)
     .all(romId) as CompatReportRow[];
+  // The badge and counts stay about the in-browser player; device emulators are grouped separately.
+  const rows = all.filter((r) => r.emulator === "");
+  const groups = new Map<string, CompatReportRow[]>();
+  for (const r of all) if (r.emulator !== "") groups.set(r.emulator, [...(groups.get(r.emulator) ?? []), r]);
+  const rank: Record<CompatRating, number> = { playable: 0, runs: 1, broken: 2 };
+  const devices: DeviceCompatGroup[] = [...groups.entries()]
+    .map(([emulator, reports]) => {
+      const c: Record<CompatRating, number> = { playable: 0, runs: 0, broken: 0 };
+      for (const r of reports) if (isCompatRating(r.rating)) c[r.rating]++;
+      const consensus = COMPAT_RATINGS.reduce((best, r) => (c[r] > c[best] ? r : best), "playable" as CompatRating);
+      return { emulator, emulatorName: reports.find((r) => r.emulatorName)?.emulatorName ?? emulator, consensus, counts: c, reports };
+    })
+    .sort((a, b) => rank[a.consensus] - rank[b.consensus] || b.reports.length - a.reports.length);
   const counts: Record<CompatRating, number> = { playable: 0, runs: 0, broken: 0 };
   for (const r of rows) if (isCompatRating(r.rating)) counts[r.rating]++;
   const total = rows.length;
   // Crowd mode, tie-broken toward the more optimistic rating.
   let mode: CompatRating | null = null;
   for (const r of COMPAT_RATINGS) if (counts[r] > 0 && (mode === null || counts[r] > counts[mode])) mode = r;
-  return { official: isCompatRating(official) ? official : null, counts, total, consensus: (isCompatRating(official) ? official : null) ?? mode, reports: rows };
+  return { official: isCompatRating(official) ? official : null, counts, total, consensus: (isCompatRating(official) ? official : null) ?? mode, reports: rows, devices };
 }
 
-export function getUserCompat(userId: number, romId: number): CompatReportRow | undefined {
+/** The caller's report for the in-browser player (or for [emulator] on [device]). */
+export function getUserCompat(userId: number, romId: number, emulator = "", device = ""): CompatReportRow | undefined {
   return getDb()
-    .prepare(
-      `SELECT cr.id AS id, cr.user_id AS userId,
-              COALESCE(NULLIF(TRIM(u.display_name), ''), NULLIF(TRIM(u.real_name), ''), u.username) AS authorName,
-              cr.rating AS rating, cr.note AS note, cr.updated_at AS updated_at, cr.created_at AS created_at
-         FROM compat_reports cr JOIN users u ON u.id = cr.user_id
-        WHERE cr.user_id = ? AND cr.rom_id = ?`
-    )
-    .get(userId, romId) as CompatReportRow | undefined;
+    .prepare(`${COMPAT_SELECT} WHERE cr.user_id = ? AND cr.rom_id = ? AND cr.emulator = ? AND cr.device = ?`)
+    .get(userId, romId, emulator, device) as CompatReportRow | undefined;
 }
 
-export function upsertCompatReport(userId: number, romId: number, rating: CompatRating, note: string | null): void {
+export function upsertCompatReport(
+  userId: number,
+  romId: number,
+  rating: CompatRating,
+  note: string | null,
+  emulator = "",
+  emulatorName: string | null = null,
+  device = ""
+): void {
   const text = note?.trim().slice(0, 2000) || null;
   getDb()
     .prepare(
-      `INSERT INTO compat_reports (user_id, rom_id, rating, note) VALUES (?, ?, ?, ?)
-       ON CONFLICT (user_id, rom_id)
-       DO UPDATE SET rating = excluded.rating, note = excluded.note, updated_at = datetime('now')`
+      `INSERT INTO compat_reports (user_id, rom_id, rating, note, emulator, emulator_name, device) VALUES (?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT (user_id, rom_id, emulator, device)
+       DO UPDATE SET rating = excluded.rating, note = excluded.note, emulator_name = excluded.emulator_name, updated_at = datetime('now')`
     )
-    .run(userId, romId, rating, text);
+    .run(userId, romId, rating, text, emulator.slice(0, 200), emulatorName?.slice(0, 120) ?? null, device.slice(0, 120));
 }
 
-export function deleteCompatReport(userId: number, romId: number): void {
-  getDb().prepare("DELETE FROM compat_reports WHERE user_id = ? AND rom_id = ?").run(userId, romId);
+export function deleteCompatReport(userId: number, romId: number, emulator = "", device = ""): void {
+  getDb()
+    .prepare("DELETE FROM compat_reports WHERE user_id = ? AND rom_id = ? AND emulator = ? AND device = ?")
+    .run(userId, romId, emulator, device);
 }
 
 /** Admin: pin (or clear, with null) the official compatibility rating. */

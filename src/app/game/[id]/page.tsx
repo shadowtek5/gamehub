@@ -175,10 +175,9 @@ export default async function GamePage({
     reviews: listReviews(rom.id),
     mine: getUserReview(user.id, rom.id) ?? null,
   };
-  // Emulation compatibility only makes sense for playable (in-browser) systems.
-  const compatData = platform?.ejsCore
-    ? { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null }
-    : null;
+  // Compatibility: the in-browser player (playable systems), plus official lists, handheld reports
+  // and which emulators open the file (loaded by the component).
+  const compatData = { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null };
   const emuShader = platform?.ejsCore ? getEmuPrefs(user.id, rom.id).shader : null;
   const guides = listGuides(rom.id);
 
@@ -296,7 +295,7 @@ export default async function GamePage({
 
       {compatData && (
         <DetailsSection title={t("compatSection")}>
-          <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} />
+          <Compatibility romId={rom.id} isAdmin={user.isAdmin} initial={compatData} browser={!!platform?.ejsCore} />
         </DetailsSection>
       )}
 
