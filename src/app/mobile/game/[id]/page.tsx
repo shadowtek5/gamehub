@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
 import MobileBackLink from "@/components/mobile/MobileBackLink";
-import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
+import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, compatLevel, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { formatBytes, formatPlaytime, timeAgo } from "@/lib/format";
 import { formatHltb } from "@/lib/providers/hltb";
@@ -23,6 +23,7 @@ import { listDeviceSaves } from "@/lib/saveSync";
 import ScreenshotGallery from "@/components/ScreenshotGallery";
 import Reviews from "@/components/Reviews";
 import Compatibility from "@/components/Compatibility";
+import { CompatStat } from "@/components/CardBadges";
 import VideoFilterPicker from "@/components/VideoFilterPicker";
 import CheatsManager from "@/components/CheatsManager";
 import Guides from "@/components/Guides";
@@ -173,6 +174,7 @@ export default async function MobileGamePage({
   };
   const emuShader = playable ? getEmuPrefs(user.id, rom.id).shader : null;
   const compatData = { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null };
+  const compatAtGlance = compatLevel(rom.id);
   const guides = listGuides(rom.id);
 
   // Per-game activity timeline (comments + events), same feed as the desktop.
@@ -272,6 +274,7 @@ export default async function MobileGamePage({
               <div className="text-[13px] text-body">{v}</div>
             </div>
           ))}
+          {compatAtGlance && <CompatStat {...compatAtGlance} mobile />}
         </div>
 
         {hltbRows.length > 0 && (

@@ -1258,6 +1258,18 @@
       "result": "{decrypted}개 복호화, {skipped}개는 이미 실행 가능",
       "auto": "검색 후 PS Vita 덤프 자동 복호화",
       "autoDesc": "검색으로 발견된 새 PS Vita zip은 자동으로 복호화됩니다. ROM 파일을 덮어쓰므로 기본적으로 꺼져 있습니다."
+    },
+    "compatLists": {
+      "title": "호환성 목록",
+      "desc": "게임 페이지와 카드에 표시되는 에뮬레이터 공식 목록입니다(RPCS3, Vita3K, PCSX2). 매주 자동으로 업데이트됩니다.",
+      "refresh": "지금 새로 고침",
+      "rematch": "모든 게임 다시 맞추기",
+      "counts": "목록의 게임 {entries}개 · 내 게임 {matched}개",
+      "notDownloaded": "아직 다운로드되지 않음",
+      "downloading": "목록을 다운로드하는 중…",
+      "matching": "내 게임을 맞추는 중… {done} / {total}",
+      "updated": "마지막 업데이트 {when}",
+      "never": "아직 다운로드되지 않았습니다. PS2, PS3 또는 PS Vita 게임을 처음 열 때나 '지금 새로 고침'을 누르면 다운로드됩니다."
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "찾은 항목 표시 ({count})",
       "hideFound": "숨기기"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "플레이 가능",
+      "runs": "일부 문제 있음",
+      "broken": "작동 안 함"
+    },
+    "ribbon": {
+      "translations": "번역",
+      "hacks": "해킹",
+      "homebrew": "홈브루",
+      "prototypes": "프로토타입",
+      "betas": "베타",
+      "demos": "데모"
+    },
+    "statLabel": "호환성",
+    "fromDevice": "{device}의 {emulator}",
+    "fromList": "{emulator} 호환성 목록",
+    "fromBrowser": "브라우저에서"
   }
 }

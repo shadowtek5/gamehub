@@ -19,6 +19,8 @@ export interface CardRom {
   language?: string | null;
   favorite: number;
   playtime_seconds: number;
+  /** compatibility at a glance: playable | runs | broken (cards show an icon) */
+  compat_level?: string | null;
 }
 
 export type CardSizeMode = "natural" | "row" | "uniform";

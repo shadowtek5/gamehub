@@ -1258,6 +1258,18 @@
       "result": "{decrypted} дешифровано, {skipped} већ спремно за игру",
       "auto": "Дешифруј PS Vita дампове након скенирања",
       "autoDesc": "Нове PS Vita zip-архиве које пронађе скенирање се аутоматски дешифрују. Ово преписује ROM фајл, зато је подразумевано искључено."
+    },
+    "compatLists": {
+      "title": "Liste kompatibilnosti",
+      "desc": "Zvanične liste emulatora koje se prikazuju na stranicama i karticama igara (RPCS3, Vita3K, PCSX2). Ažuriraju se same svake nedelje.",
+      "refresh": "Osveži sada",
+      "rematch": "Ponovo uporedi sve igre",
+      "counts": "{entries} igara na listi · {matched} od vaših",
+      "notDownloaded": "Još nije preuzeto",
+      "downloading": "Preuzimanje lista…",
+      "matching": "Upoređivanje vaših igara… {done} od {total}",
+      "updated": "Poslednje ažuriranje: {when}",
+      "never": "Još nije preuzeto. Liste se preuzmu prvi put kada otvorite igru za PS2, PS3 ili PS Vita, ili kada izaberete Osveži sada."
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "Prikaži pronađeno ({count})",
       "hideFound": "Sakrij"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Pokreće se",
+      "runs": "Sa greškama",
+      "broken": "Ne radi"
+    },
+    "ribbon": {
+      "translations": "Prevod",
+      "hacks": "Hak",
+      "homebrew": "Homebrew",
+      "prototypes": "Prototip",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Kompatibilnost",
+    "fromDevice": "{emulator} na {device}",
+    "fromList": "Lista kompatibilnosti: {emulator}",
+    "fromBrowser": "U pregledaču"
   }
 }

@@ -1258,6 +1258,18 @@
       "result": "{decrypted} ontsleuteld, {skipped} al speelbaar",
       "auto": "PS Vita-dumps na scans automatisch ontsleutelen",
       "autoDesc": "Nieuwe PS Vita-zips die een scan vindt, worden automatisch ontsleuteld. Dit overschrijft het ROM-bestand, daarom staat het standaard uit."
+    },
+    "compatLists": {
+      "title": "Compatibiliteitslijsten",
+      "desc": "De officiële lijsten van de emulatorprojecten die op gamepagina's en kaarten worden getoond (RPCS3, Vita3K, PCSX2). Ze worden wekelijks automatisch bijgewerkt.",
+      "refresh": "Nu vernieuwen",
+      "rematch": "Alle games opnieuw koppelen",
+      "counts": "{entries} games op de lijst · {matched} daarvan van jou",
+      "notDownloaded": "Nog niet gedownload",
+      "downloading": "Lijsten downloaden…",
+      "matching": "Je games koppelen… {done} van {total}",
+      "updated": "Laatst bijgewerkt {when}",
+      "never": "Nog niet gedownload. De lijsten worden gedownload zodra je voor het eerst een PS2-, PS3- of PS Vita-game opent, of via Nu vernieuwen."
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "Gevonden items tonen ({count})",
       "hideFound": "Verbergen"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Speelbaar",
+      "runs": "Met problemen",
+      "broken": "Kapot"
+    },
+    "ribbon": {
+      "translations": "Vertaling",
+      "hacks": "Hack",
+      "homebrew": "Homebrew",
+      "prototypes": "Prototype",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Compatibiliteit",
+    "fromDevice": "{emulator} op {device}",
+    "fromList": "{emulator}-compatibiliteitslijst",
+    "fromBrowser": "In de browser"
   }
 }

@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { playSound } from "@/lib/sounds";
 import VitaDecryptCard from "@/components/VitaDecryptCard";
+import CompatListsCard from "@/components/CompatListsCard";
 
 interface HashJob {
   running: boolean;
@@ -344,6 +345,7 @@ export default function MaintenancePanel({
       </div>
 
       <VitaDecryptCard />
+      <CompatListsCard />
 
       <div className="mb-1.5 rounded-[2px] bg-[#23262e] p-3">
         <div className="flex items-center justify-between gap-3">

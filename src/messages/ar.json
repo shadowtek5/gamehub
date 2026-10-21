@@ -545,6 +545,18 @@
       "result": "تم فك تشفير {decrypted}، و{skipped} قابلة للتشغيل مسبقًا",
       "auto": "فك تشفير نسخ PS Vita بعد عمليات الفحص",
       "autoDesc": "يتم فك تشفير ملفات zip الجديدة لنسخ PS Vita التي يعثر عليها الفحص تلقائيًا. هذا يعيد كتابة ملف اللعبة (ROM)، لذلك فهو متوقف افتراضيًا."
+    },
+    "compatLists": {
+      "title": "قوائم التوافق",
+      "desc": "القوائم الرسمية للمحاكيات التي تظهر في صفحات الألعاب وبطاقاتها (RPCS3، Vita3K، PCSX2). تُحدَّث أسبوعياً تلقائياً.",
+      "refresh": "تحديث الآن",
+      "rematch": "إعادة مطابقة جميع الألعاب",
+      "counts": "{entries} لعبة في القائمة · {matched} منها لديك",
+      "notDownloaded": "لم تُنزَّل بعد",
+      "downloading": "جارٍ تنزيل القوائم…",
+      "matching": "جارٍ مطابقة ألعابك… {done} من {total}",
+      "updated": "آخر تحديث {when}",
+      "never": "لم تُنزَّل بعد. تُنزَّل في المرة الأولى التي تفتح فيها لعبة PS2 أو PS3 أو PS Vita، أو عند النقر على «تحديث الآن»."
     }
   },
   "mobilePagesA": {
@@ -3200,5 +3212,24 @@
       "showFound": "عرض ما تم العثور عليه ({count})",
       "hideFound": "إخفاء"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "قابلة للتشغيل",
+      "runs": "تعمل مع مشاكل",
+      "broken": "معطلة"
+    },
+    "ribbon": {
+      "translations": "ترجمة",
+      "hacks": "هاك",
+      "homebrew": "هوبرو",
+      "prototypes": "نموذج",
+      "betas": "تجريبي",
+      "demos": "عرض"
+    },
+    "statLabel": "التوافق",
+    "fromDevice": "{emulator} على {device}",
+    "fromList": "قائمة توافق {emulator}",
+    "fromBrowser": "في المتصفح"
   }
 }

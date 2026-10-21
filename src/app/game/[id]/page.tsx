@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { requireUser } from "@/lib/auth";
-import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
+import { getDb, getLibraryRom, gameVariants, friendsWhoPlayed, resolveRelatedLibrary, listRomRelations, customRelatedEditions, listUserScreenshots, reviewSummary, listReviews, getUserReview, compatSummary, compatLevel, getUserCompat, listGuides, getEmuPrefs, CollectionRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { formatBytes, formatPlaytime, timeAgo } from "@/lib/format";
 import {
@@ -40,6 +40,7 @@ import { listDeviceSaves } from "@/lib/saveSync";
 import ScreenshotGallery from "@/components/ScreenshotGallery";
 import Reviews from "@/components/Reviews";
 import Compatibility from "@/components/Compatibility";
+import { CompatStat } from "@/components/CardBadges";
 import VideoFilterPicker from "@/components/VideoFilterPicker";
 import CheatsManager from "@/components/CheatsManager";
 import Guides from "@/components/Guides";
@@ -178,6 +179,8 @@ export default async function GamePage({
   // Compatibility: the in-browser player (playable systems), plus official lists, handheld reports
   // and which emulators open the file (loaded by the component).
   const compatData = { summary: compatSummary(rom.id), mine: getUserCompat(user.id, rom.id) ?? null };
+  // The play bar's Compatibility stat: handheld reports, else the official list, else the browser.
+  const compatAtGlance = compatLevel(rom.id);
   const emuShader = platform?.ejsCore ? getEmuPrefs(user.id, rom.id).shader : null;
   const guides = listGuides(rom.id);
 
@@ -685,6 +688,7 @@ export default async function GamePage({
                 </div>
                 <div className="appdetailsplaysection_PlayBarDetailLabel_gh text-[16px] font-medium text-white">{playtime || "—"}</div>
               </div>
+              {compatAtGlance && <CompatStat {...compatAtGlance} />}
               {progress && (
                 <div>
                   <div className="appdetailsplaysection_PlayBarLabel_gh text-[12px] font-bold uppercase tracking-[0.5px] text-white/70">

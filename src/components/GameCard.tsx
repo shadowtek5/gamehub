@@ -4,6 +4,7 @@ import HoverVideo from "./HoverVideo";
 import { platformBySlug } from "@/lib/platforms";
 import { formatPlaytime } from "@/lib/format";
 import { mediaThumb } from "@/lib/media";
+import { CompatCornerIcon, VariantRibbon, hasRibbon, useVariantLabel } from "./CardBadges";
 // Pure sizing helpers/types live in @/lib/boxLayout so server components can
 // import them too (e.g. the system page).
 import { type CardRom, type CardSizeMode, cardDims, DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
@@ -35,6 +36,9 @@ export default function GameCard({
   const platform = platformBySlug(rom.platform_slug);
   const playtime = formatPlaytime(rom.playtime_seconds);
   const d = dims ?? cardDims(DEFAULT_COVER_ASPECT, sizeMode, true);
+  const ribbon = hasRibbon(rom.variant);
+  const variantLabel = useVariantLabel(rom.variant);
+  const tip = [rom.title, variantLabel, playtime].filter(Boolean).join(" — ");
 
   return (
     <Link
@@ -42,7 +46,7 @@ export default function GameCard({
       data-rom-id={rom.id}
       style={{ width: d.w }}
       className="deck-capsule deck-shimmer appportrait_LibraryItemBox_gh relative block shrink-0 overflow-visible"
-      title={playtime ? `${rom.title} — ${playtime}` : rom.title}
+      title={tip}
     >
       {/* per-art color glow: a blurred, saturated duplicate of this game's own
           cover behind the capsule; fades in on focus (CSS .deck-glow) */}
@@ -79,8 +83,16 @@ export default function GameCard({
         />
         {rom.video_url && <HoverVideo src={rom.video_url} />}
       </div>
+      {/* Compatibility icon (top-left) and translation / hack ribbon (top-right). With a
+          ribbon in the corner, the favorite star moves next to the compatibility icon. */}
+      <CompatCornerIcon level={rom.compat_level} />
+      <VariantRibbon variant={rom.variant} />
       {rom.favorite === 1 && (
-        <span className="absolute right-1.5 top-1.5 text-sm text-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)]">
+        <span
+          className={`absolute top-1.5 z-[1] text-sm text-accent drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] ${
+            ribbon ? (rom.compat_level ? "left-8" : "left-1.5") : "right-1.5"
+          }`}
+        >
           ★
         </span>
       )}

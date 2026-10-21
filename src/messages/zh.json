@@ -1258,6 +1258,18 @@
       "result": "已解密 {decrypted} 个，{skipped} 个已可直接游玩",
       "auto": "扫描后自动解密 PS Vita 转储",
       "autoDesc": "扫描发现的新 PS Vita 压缩包将自动解密。此操作会重写 ROM 文件，因此默认关闭。"
+    },
+    "compatLists": {
+      "title": "兼容性列表",
+      "desc": "游戏页面和卡片上显示的模拟器官方列表（RPCS3、Vita3K、PCSX2）。每周自动更新。",
+      "refresh": "立即刷新",
+      "rematch": "重新匹配所有游戏",
+      "counts": "列表中有 {entries} 个游戏 · 其中 {matched} 个是你的",
+      "notDownloaded": "尚未下载",
+      "downloading": "正在下载列表…",
+      "matching": "正在匹配你的游戏… {done}/{total}",
+      "updated": "上次更新：{when}",
+      "never": "尚未下载。首次打开 PS2、PS3 或 PS Vita 游戏时会自动下载，也可以点击“立即刷新”。"
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "显示找到的内容（{count}）",
       "hideFound": "隐藏"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "可玩",
+      "runs": "有问题可运行",
+      "broken": "无法运行"
+    },
+    "ribbon": {
+      "translations": "汉化",
+      "hacks": "魔改",
+      "homebrew": "自制",
+      "prototypes": "原型",
+      "betas": "测试版",
+      "demos": "试玩版"
+    },
+    "statLabel": "兼容性",
+    "fromDevice": "{device} 上的 {emulator}",
+    "fromList": "{emulator} 兼容性列表",
+    "fromBrowser": "浏览器内"
   }
 }

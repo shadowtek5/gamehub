@@ -1843,10 +1843,30 @@ export interface BrowseRomRow {
   hidden: number;
   /** effective card box-art shape ('wide'|'square'|'portrait') or null */
   box_layout?: string | null;
+  /** compatibility at a glance: playable | runs | broken | null (see COMPAT_LEVEL_SQL) */
+  compat_level?: string | null;
 }
+
+/** How well a game runs, at a glance (card icon, game page stat): playable | runs | broken | NULL.
+ *  Handheld reports win (the best-rated emulator), then the official list for the system (RPCS3,
+ *  Vita3K, PCSX2), then the in-browser rating (an admin pin, else the most common report). */
+const COMPAT_LEVEL_SQL = `COALESCE(
+    (SELECT CASE MIN(CASE cr.rating WHEN 'playable' THEN 0 WHEN 'runs' THEN 1 ELSE 2 END)
+              WHEN 0 THEN 'playable' WHEN 1 THEN 'runs' WHEN 2 THEN 'broken' END
+       FROM compat_reports cr WHERE cr.rom_id = r.id AND cr.emulator != ''),
+    (SELECT ce.rating FROM rom_serials rs
+       JOIN compat_external ce ON ce.key = rs.serial
+        AND ce.source = CASE r.platform_slug WHEN 'ps2' THEN 'pcsx2' WHEN 'ps3' THEN 'rpcs3' WHEN 'vita' THEN 'vita3k' END
+      WHERE rs.rom_id = r.id AND rs.serial != ''),
+    r.compat_official,
+    (SELECT cr.rating FROM compat_reports cr WHERE cr.rom_id = r.id AND cr.emulator = ''
+      GROUP BY cr.rating ORDER BY COUNT(*) DESC, CASE cr.rating WHEN 'playable' THEN 0 WHEN 'runs' THEN 1 ELSE 2 END
+      LIMIT 1)
+  )`;
 
 const BROWSE_SELECT = `
   SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,
+         ${COMPAT_LEVEL_SQL} AS compat_level,
          COALESCE(ur.favorite, 0) AS favorite,
          COALESCE(ur.play_status, 'none') AS play_status,
          COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
@@ -2081,6 +2101,7 @@ export function searchLibraryBrowse(
     .prepare(
       `SELECT * FROM (
          SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,
+                ${COMPAT_LEVEL_SQL} AS compat_level,
                 COALESCE(ur.favorite, 0) AS favorite,
                 COALESCE(ur.play_status, 'none') AS play_status,
                 COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
@@ -2559,6 +2580,44 @@ export function deleteCompatReport(userId: number, romId: number, emulator = "",
   getDb()
     .prepare("DELETE FROM compat_reports WHERE user_id = ? AND rom_id = ? AND emulator = ? AND device = ?")
     .run(userId, romId, emulator, device);
+}
+
+export interface CompatLevel {
+  level: CompatRating;
+  /** where it comes from: a handheld report, an official list, or the in-browser rating */
+  source: "device" | "list" | "browser";
+  /** e.g. "AetherSX2", "PCSX2 · AetherSX2 · NetherSX2" */
+  emulator: string | null;
+  device: string | null;
+}
+
+/** The game's compatibility at a glance (same order as the cards' icon). */
+export function compatLevel(romId: number): CompatLevel | null {
+  const db = getDb();
+  const rank: Record<string, number> = { playable: 0, runs: 1, broken: 2 };
+  const reports = db
+    .prepare("SELECT rating, emulator_name, device FROM compat_reports WHERE rom_id = ? AND emulator != '' ORDER BY COALESCE(updated_at, created_at) DESC")
+    .all(romId) as { rating: string; emulator_name: string | null; device: string }[];
+  const best = reports.filter(isCompatRatingRow).sort((a, b) => rank[a.rating] - rank[b.rating])[0];
+  if (best) return { level: best.rating as CompatRating, source: "device", emulator: best.emulator_name, device: best.device || null };
+  const rom = db.prepare("SELECT platform_slug FROM roms WHERE id = ?").get(romId) as { platform_slug: string } | undefined;
+  const list: Record<string, [string, string]> = { ps2: ["pcsx2", "PCSX2"], ps3: ["rpcs3", "RPCS3"], vita: ["vita3k", "Vita3K"] };
+  const src = rom ? list[rom.platform_slug] : undefined;
+  if (src) {
+    const ext = db
+      .prepare(
+        `SELECT ce.rating FROM rom_serials rs JOIN compat_external ce ON ce.key = rs.serial AND ce.source = ?
+          WHERE rs.rom_id = ? AND rs.serial != ''`
+      )
+      .get(src[0], romId) as { rating: string } | undefined;
+    if (ext && isCompatRating(ext.rating)) return { level: ext.rating, source: "list", emulator: src[1], device: null };
+  }
+  const browser = compatSummary(romId).consensus;
+  return browser ? { level: browser, source: "browser", emulator: null, device: null } : null;
+}
+
+function isCompatRatingRow(r: { rating: string }): boolean {
+  return isCompatRating(r.rating);
 }
 
 /** Admin: pin (or clear, with null) the official compatibility rating. */

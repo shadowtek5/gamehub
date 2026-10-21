@@ -305,6 +305,14 @@ const spec = {
         responses: { "200": { description: "Same as GET" } },
       },
     },
+    "/api/maintenance/compat-lists": {
+      get: { tags: ["games"], summary: "Official compatibility lists: last update, games per list and matched in the library, refresh progress (admins)", responses: { "200": { description: "OK" } } },
+      post: {
+        tags: ["games"],
+        summary: "Download the lists again and match games ({ rematch: true } forgets every game's serial first) (admins)",
+        responses: { "200": { description: "{ started, ...status }" } },
+      },
+    },
     "/api/emulators": {
       get: {
         tags: ["games"],

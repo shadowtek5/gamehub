@@ -1258,6 +1258,18 @@
       "result": "{decrypted} dekryptert, {skipped} allerede spillbare",
       "auto": "Dekrypter PS Vita-dumper etter skanninger",
       "autoDesc": "Nye PS Vita-zip-filer som finnes av en skanning dekrypteres automatisk. Dette skriver om ROM-filen, så funksjonen er av som standard."
+    },
+    "compatLists": {
+      "title": "Kompatibilitetslister",
+      "desc": "De offisielle emulatorlistene som vises på spillsider og kort (RPCS3, Vita3K, PCSX2). De oppdateres automatisk hver uke.",
+      "refresh": "Oppdater nå",
+      "rematch": "Koble alle spill på nytt",
+      "counts": "{entries} spill på listen · {matched} av dine",
+      "notDownloaded": "Ikke lastet ned ennå",
+      "downloading": "Laster ned listene…",
+      "matching": "Kobler spillene dine… {done} av {total}",
+      "updated": "Sist oppdatert {when}",
+      "never": "Ikke lastet ned ennå. De lastes ned første gang du åpner et PS2-, PS3- eller PS Vita-spill, eller med Oppdater nå."
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "Vis det som ble funnet ({count})",
       "hideFound": "Skjul"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Spillbar",
+      "runs": "Har problemer",
+      "broken": "Virker ikke"
+    },
+    "ribbon": {
+      "translations": "Oversatt",
+      "hacks": "Hack",
+      "homebrew": "Homebrew",
+      "prototypes": "Prototype",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Kompatibilitet",
+    "fromDevice": "{emulator} på {device}",
+    "fromList": "{emulator}-kompatibilitetsliste",
+    "fromBrowser": "I nettleseren"
   }
 }

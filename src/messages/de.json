@@ -1258,6 +1258,18 @@
       "result": "{decrypted} entschlüsselt, {skipped} bereits spielbar",
       "auto": "PS Vita-Dumps nach Scans entschlüsseln",
       "autoDesc": "Neue PS Vita-ZIPs, die ein Scan findet, werden automatisch entschlüsselt. Dabei wird die ROM-Datei überschrieben, daher ist die Option standardmäßig deaktiviert."
+    },
+    "compatLists": {
+      "title": "Kompatibilitätslisten",
+      "desc": "Die offiziellen Listen der Emulatoren, die auf Spieleseiten und Karten angezeigt werden (RPCS3, Vita3K, PCSX2). Sie aktualisieren sich wöchentlich automatisch.",
+      "refresh": "Jetzt aktualisieren",
+      "rematch": "Alle Spiele neu zuordnen",
+      "counts": "{entries} Spiele in der Liste · {matched} davon deine",
+      "notDownloaded": "Noch nicht heruntergeladen",
+      "downloading": "Listen werden heruntergeladen…",
+      "matching": "Deine Spiele werden zugeordnet… {done} von {total}",
+      "updated": "Zuletzt aktualisiert {when}",
+      "never": "Noch nicht heruntergeladen. Sie werden beim ersten Öffnen eines PS2-, PS3- oder PS Vita-Spiels oder mit „Jetzt aktualisieren“ geladen."
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "Gefundenes anzeigen ({count})",
       "hideFound": "Ausblenden"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Spielbar",
+      "runs": "Mit Fehlern",
+      "broken": "Defekt"
+    },
+    "ribbon": {
+      "translations": "Übersetzt",
+      "hacks": "Hack",
+      "homebrew": "Homebrew",
+      "prototypes": "Prototyp",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Kompatibilität",
+    "fromDevice": "{emulator} auf {device}",
+    "fromList": "{emulator}-Kompatibilitätsliste",
+    "fromBrowser": "Im Browser"
   }
 }

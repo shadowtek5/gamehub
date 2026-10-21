@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-21",
+    title: "Compatibility and translations at a glance",
+    body: "Game cards now show how well a game runs with a small icon in the top-left corner, like Steam's Deck badges: a green check for Playable, an amber ! for Runs with issues, a red ✕ for Broken (nothing when it's unknown). It comes from your handhelds' reports first, then the official lists (RPCS3, Vita3K, PCSX2), then the in-browser rating — and the same level now sits in the game page's bar next to Last played and Play time. Fan translations, ROM hacks, homebrew, prototypes, betas and demos get a ribbon across the top-right corner of their card. Admins can refresh the official lists any time in Settings › Maintenance › Compatibility lists, which also shows how many of your games each list matched. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-21",
     title: "Know how a game runs before you play",
     body: "Every game page now has a Compatibility section (Your Stuff tab), not just games that play in the browser. It shows what the official emulator lists say — RPCS3 for PS3, Vita3K for PS Vita, and PCSX2 for PS2 (the basis of AetherSX2 and NetherSX2) — matched by the game's serial or title. It shows reports from handhelds: after you've played a game for a few minutes from GameHub Downloader, it asks how it ran (Playable, Runs with issues or Broken) and the answer appears here per emulator and device, best first. And it lists the emulators that can open the game's exact file, with a warning when a format won't open (like a zipped PS1 disc). GameHub Downloader also uses those reports to start a game in the emulator that worked. On desktop/TV and the mobile app.",
     art: "automation",

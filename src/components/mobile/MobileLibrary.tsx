@@ -325,6 +325,8 @@ export default function MobileLibrary({
             boxartUrl={r.boxart_url}
             platformSlug={r.platform_slug}
             coverAspect={coverAspect}
+            compatLevel={r.compat_level}
+            variant={r.variant}
           />
         ))}
       </div>

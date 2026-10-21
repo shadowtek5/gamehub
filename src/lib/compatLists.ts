@@ -167,12 +167,23 @@ async function loadPcsx2(): Promise<Row[]> {
   return out;
 }
 
+/** What the refresh is doing, for Settings › Maintenance › Compatibility lists. */
+interface JobState {
+  phase: "idle" | "downloading" | "matching";
+  done: number;
+  total: number;
+  errors: string[];
+}
+const g = globalThis as unknown as { __compatJob?: JobState };
+const job = (): JobState => (g.__compatJob ??= { phase: "idle", done: 0, total: 0, errors: [] });
+
 let refreshing: Promise<void> | null = null;
 
 /** Downloads every list again (each source independently; a failed one keeps its old rows). */
 export function refreshCompatLists(): Promise<void> {
   if (refreshing) return refreshing;
   refreshing = (async () => {
+    Object.assign(job(), { phase: "downloading", done: 0, total: 3, errors: [] });
     const db = getDb();
     const insert = db.prepare(
       `INSERT OR REPLACE INTO compat_external (source, key, status, rating, title_norm, region, updated, link)
@@ -188,13 +199,17 @@ export function refreshCompatLists(): Promise<void> {
         })();
       } catch (e) {
         console.warn(`[compat] ${source} list:`, (e as Error).message);
+        job().errors.push(`${source}: ${(e as Error).message}`);
       }
+      job().done++;
     }
     setSetting(REFRESHED_SETTING, new Date().toISOString());
-    // Title matches may change with a new list; serials found from files stay.
+    // Title matches may change with a new list; serials found from files stay. Look again.
     db.prepare("DELETE FROM rom_serials WHERE serial = ''").run();
+    backfillStarted = false;
   })().finally(() => {
     refreshing = null;
+    if (job().phase === "downloading") job().phase = "idle";
   });
   return refreshing;
 }
@@ -298,6 +313,88 @@ async function serialFor(rom: RomLite): Promise<string> {
   }
   db.prepare("INSERT OR REPLACE INTO rom_serials (rom_id, serial) VALUES (?, ?)").run(rom.id, serial);
   return serial;
+}
+
+let backfillStarted = false;
+
+/**
+ * Once per server start: finds the serial of every PS2 / PS3 / PS Vita game not looked at yet
+ * (file names, title matches, Vita zips' contents), so library cards can show the official
+ * lists' ratings without each game page being opened first. Runs in the background.
+ */
+export function scheduleSerialBackfill(): void {
+  if (backfillStarted) return;
+  backfillStarted = true;
+  void runBackfill();
+}
+
+async function runBackfill(): Promise<void> {
+    try {
+      await ensureLists();
+      const db = getDb();
+      const todo = db
+        .prepare(
+          `SELECT r.id, r.title, r.path, r.filename, r.platform_slug, r.region FROM roms r
+            WHERE r.platform_slug IN ('ps2', 'ps3', 'vita') AND r.missing = 0
+              AND NOT EXISTS (SELECT 1 FROM rom_serials rs WHERE rs.rom_id = r.id)`
+        )
+        .all() as RomLite[];
+      Object.assign(job(), { phase: "matching", done: 0, total: todo.length });
+      for (const rom of todo) {
+        await serialFor(rom).catch(() => "");
+        job().done++;
+        // Let requests through between games (Vita zips are opened to read their title id).
+        await new Promise((r) => setImmediate(r));
+      }
+    } catch (e) {
+      console.warn("[compat] serial backfill:", (e as Error).message);
+      job().errors.push((e as Error).message);
+    } finally {
+      job().phase = "idle";
+    }
+}
+
+/** Settings › Maintenance › Refresh now: downloads every list again, then matches games.
+ *  [rematch] forgets every game's serial first (e.g. after renaming files). */
+export function startCompatRefresh(rematch: boolean): boolean {
+  if (job().phase !== "idle") return false;
+  if (rematch) getDb().prepare("DELETE FROM rom_serials").run();
+  backfillStarted = true;
+  void (async () => {
+    await refreshCompatLists();
+    await runBackfill();
+  })();
+  return true;
+}
+
+export interface CompatListsStatus {
+  refreshedAt: string | null;
+  running: boolean;
+  phase: JobState["phase"];
+  done: number;
+  total: number;
+  errors: string[];
+  sources: { source: string; emulator: string; entries: number; matched: number }[];
+}
+
+export function compatListsStatus(): CompatListsStatus {
+  const db = getDb();
+  const sources = Object.entries(LIST_FOR).map(([slug, l]) => ({
+    source: l.source,
+    emulator: l.emulator,
+    entries: (db.prepare("SELECT COUNT(*) c FROM compat_external WHERE source = ?").get(l.source) as { c: number }).c,
+    matched: (
+      db
+        .prepare(
+          `SELECT COUNT(*) c FROM rom_serials rs JOIN roms r ON r.id = rs.rom_id
+             JOIN compat_external ce ON ce.key = rs.serial AND ce.source = ?
+            WHERE r.platform_slug = ? AND rs.serial != ''`
+        )
+        .get(l.source, slug) as { c: number }
+    ).c,
+  }));
+  const j = job();
+  return { refreshedAt: compatListsRefreshedAt(), running: j.phase !== "idle", phase: j.phase, done: j.done, total: j.total, errors: j.errors.slice(0, 10), sources };
 }
 
 /** What the official list for this game's system says about it, if it's on one. */

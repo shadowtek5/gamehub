@@ -501,6 +501,18 @@
       "result": "{decrypted} descriptografados, {skipped} já jogáveis",
       "auto": "Descriptografar dumps do PS Vita após varreduras",
       "autoDesc": "Novos zips do PS Vita encontrados por uma varredura são descriptografados automaticamente. Isso reescreve o arquivo ROM, por isso vem desativado por padrão."
+    },
+    "compatLists": {
+      "title": "Listas de compatibilidade",
+      "desc": "As listas oficiais dos emuladores exibidas nas páginas e cartões dos jogos (RPCS3, Vita3K, PCSX2). Elas se atualizam sozinhas toda semana.",
+      "refresh": "Atualizar agora",
+      "rematch": "Associar todos os jogos novamente",
+      "counts": "{entries} jogos na lista · {matched} são seus",
+      "notDownloaded": "Ainda não baixada",
+      "downloading": "Baixando as listas…",
+      "matching": "Associando seus jogos… {done} de {total}",
+      "updated": "Última atualização: {when}",
+      "never": "Ainda não baixadas. Elas são baixadas na primeira vez que você abrir um jogo de PS2, PS3 ou PS Vita, ou ao clicar em Atualizar agora."
     }
   },
   "mobilePagesA": {
@@ -3200,5 +3212,24 @@
       "showFound": "Mostrar o que foi encontrado ({count})",
       "hideFound": "Ocultar"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Jogável",
+      "runs": "Com problemas",
+      "broken": "Não funciona"
+    },
+    "ribbon": {
+      "translations": "Tradução",
+      "hacks": "Hack",
+      "homebrew": "Homebrew",
+      "prototypes": "Protótipo",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Compatibilidade",
+    "fromDevice": "{emulator} no {device}",
+    "fromList": "Lista de compatibilidade do {emulator}",
+    "fromBrowser": "No navegador"
   }
 }

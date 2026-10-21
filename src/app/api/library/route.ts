@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { scheduleSerialBackfill } from "@/lib/compatLists";
 import { getSessionUser } from "@/lib/auth";
 import { searchLibraryBrowse } from "@/lib/db";
 
@@ -6,6 +7,8 @@ import { searchLibraryBrowse } from "@/lib/db";
 export async function GET(req: NextRequest) {
   const user = await getSessionUser();
   if (!user) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // PS2 / PS3 / Vita serials for the cards' compatibility icon (once per server start).
+  scheduleSerialBackfill();
 
   const p = req.nextUrl.searchParams;
   const result = searchLibraryBrowse(user.id, {

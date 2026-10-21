@@ -2,6 +2,7 @@ import Link from "next/link";
 import GameCover from "@/components/GameCover";
 import { platformBySlug } from "@/lib/platforms";
 import { DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
+import { CompatCornerIcon, VariantRibbon } from "@/components/CardBadges";
 
 /** Width of the mobile grid cover thumbnail — the aspect sampler requests the
  *  same width so it reuses the derivative the cards already fetch. */
@@ -17,6 +18,8 @@ export default function MobileGameCard({
   platformSlug,
   coverAspect = DEFAULT_COVER_ASPECT,
   className = "",
+  compatLevel,
+  variant,
 }: {
   id: number;
   title: string;
@@ -25,14 +28,20 @@ export default function MobileGameCard({
   /** cover aspect (width / height) for the well — sampled per list */
   coverAspect?: number;
   className?: string;
+  /** compatibility at a glance (corner icon) */
+  compatLevel?: string | null;
+  /** translations / hacks / homebrew… get a corner ribbon */
+  variant?: string | null;
 }) {
   const platform = platformBySlug(platformSlug);
   return (
     <Link href={`/mobile/game/${id}`} className={`block ${className}`}>
       <div
         style={{ aspectRatio: String(coverAspect) }}
-        className="w-full overflow-hidden rounded-[6px] bg-[#1a1f27] ring-1 ring-white/5"
+        className="relative w-full overflow-hidden rounded-[6px] bg-[#1a1f27] ring-1 ring-white/5"
       >
+        <CompatCornerIcon level={compatLevel} className="left-1 top-1" />
+        <VariantRibbon variant={variant} small />
         <GameCover
           title={title}
           boxartUrl={boxartUrl}

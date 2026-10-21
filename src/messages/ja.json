@@ -1258,6 +1258,18 @@
       "result": "{decrypted} 件復号、{skipped} 件はすでにプレイ可能",
       "auto": "スキャン後に PS Vita ダンプを自動復号",
       "autoDesc": "スキャンで見つかった新しい PS Vita zip は自動的に復号されます。ROM ファイルが書き換えられるため、デフォルトでは無効です。"
+    },
+    "compatLists": {
+      "title": "互換性リスト",
+      "desc": "ゲームのページやカードに表示される、エミュレーター公式のリスト（RPCS3、Vita3K、PCSX2）です。毎週自動で更新されます。",
+      "refresh": "今すぐ更新",
+      "rematch": "すべてのゲームを再照合",
+      "counts": "リストのゲーム {entries} 件 · うちあなたのゲーム {matched} 件",
+      "notDownloaded": "まだダウンロードされていません",
+      "downloading": "リストをダウンロード中…",
+      "matching": "ゲームを照合中… {done} / {total}",
+      "updated": "最終更新 {when}",
+      "never": "まだダウンロードされていません。PS2、PS3、PS Vita のゲームを初めて開いたとき、または「今すぐ更新」を押すとダウンロードされます。"
     }
   },
   "mobileAccount": {
@@ -3200,5 +3212,24 @@
       "showFound": "見つかったものを表示 ({count})",
       "hideFound": "非表示"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "動作可能",
+      "runs": "一部問題あり",
+      "broken": "動作不可"
+    },
+    "ribbon": {
+      "translations": "翻訳",
+      "hacks": "ハック",
+      "homebrew": "自作",
+      "prototypes": "試作",
+      "betas": "ベータ",
+      "demos": "体験版"
+    },
+    "statLabel": "互換性",
+    "fromDevice": "{device}上の{emulator}",
+    "fromList": "{emulator}互換性リスト",
+    "fromBrowser": "ブラウザ内"
   }
 }

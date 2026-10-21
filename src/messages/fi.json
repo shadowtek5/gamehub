@@ -545,6 +545,18 @@
       "result": "{decrypted} purettu, {skipped} jo pelattavissa",
       "auto": "Pura PS Vita -dumpit skannausten jälkeen",
       "autoDesc": "Skannauksen löytämät uudet PS Vita -zip-tiedostot puretaan automaattisesti. Tämä kirjoittaa ROM-tiedoston uudelleen, joten asetus on oletuksena pois päältä."
+    },
+    "compatLists": {
+      "title": "Yhteensopivuusluettelot",
+      "desc": "Emulaattoriprojektien viralliset luettelot, jotka näkyvät pelisivuilla ja korteissa (RPCS3, Vita3K, PCSX2). Ne päivittyvät viikoittain itsestään.",
+      "refresh": "Päivitä nyt",
+      "rematch": "Yhdistä kaikki pelit uudelleen",
+      "counts": "{entries} peliä luettelossa · {matched} omistasi",
+      "notDownloaded": "Ei vielä ladattu",
+      "downloading": "Ladataan luetteloita…",
+      "matching": "Yhdistetään pelejäsi… {done} / {total}",
+      "updated": "Viimeksi päivitetty {when}",
+      "never": "Ei vielä ladattu. Luettelot latautuvat, kun avaat ensimmäisen kerran PS2-, PS3- tai PS Vita -pelin tai kun valitset Päivitä nyt."
     }
   },
   "mobilePagesA": {
@@ -3200,5 +3212,24 @@
       "showFound": "Näytä löydetyt ({count})",
       "hideFound": "Piilota"
     }
+  },
+  "cardBadges": {
+    "compat": {
+      "playable": "Pelattavissa",
+      "runs": "Ongelmia",
+      "broken": "Rikki"
+    },
+    "ribbon": {
+      "translations": "Käännös",
+      "hacks": "Hack",
+      "homebrew": "Homebrew",
+      "prototypes": "Prototyyppi",
+      "betas": "Beta",
+      "demos": "Demo"
+    },
+    "statLabel": "Yhteensopivuus",
+    "fromDevice": "{emulator} laitteella {device}",
+    "fromList": "{emulator}-yhteensopivuuslista",
+    "fromBrowser": "Selaimessa"
   }
 }
