@@ -3120,5 +3120,26 @@
     "reroll": "Vrti ponovo",
     "open": "Otvori",
     "play": "Igraj"
+  },
+  "androidEmulators": {
+    "title": "Na Androidu",
+    "loading": "Učitavanje Android emulatora…",
+    "intro": "GameHub Downloader na ručnom uređaju može da kopira ove BIOS fajlove u bilo koji od ovih emulatora koji su instalirani.",
+    "retroarch": "jezgra {cores}: čita ih iz sistemskog foldera RetroArch-a",
+    "alsoPlays": "Pokreće i ovaj sistem: {names}",
+    "source": "Lista emulatora iz {name}.",
+    "sourceLink": "Pogledaj na GitHub-u",
+    "where": {
+      "duckstation": "Folder izabran u DuckStation › Podešavanja › BIOS (direktorijum BIOS-a).",
+      "ps2": "Bilo koji folder koji zatim izabereš u BIOS podešavanjima emulatora (Podešavanja › Sistem › BIOS).",
+      "melonds": "Folder izabran za BIOS i firmver u melonDS › Podešavanja › Sistem (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "Sistemski folder DraStic-a (DraStic/system). Opciono: DraStic radi i bez njih.",
+      "flycast": "Folder s podacima Flycast-a (unutar početnog foldera postavljenog u Flycast › Podešavanja › Opšte).",
+      "redream": "Folder Redream-a (Android/data/io.recompiled.redream/files): dc_boot.bin i dc_flash.bin.",
+      "citra": "Folder sysdata unutar korisničkog foldera emulatora.",
+      "saturn": "Folder BIOS-a postavljen u podešavanjima Yaba Sanshiro-a (yabause/bios).",
+      "switch": "Folder iz kojeg zatim instaliraš ključeve i firmver u emulatoru (Podešavanja › Instaliraj ključeve / Instaliraj firmver).",
+      "dolphin": "Opciono. Korisnički folder Dolphin-a › GC › USA, EUR ili JAP kao IPL.bin (za animaciju pokretanja GameCube-a)."
+    }
   }
 }

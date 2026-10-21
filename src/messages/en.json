@@ -3121,5 +3121,26 @@
     "viewReleases": "View releases",
     "notSupportedDesc": "In-app updates need the Docker runtime (with a restart policy). This instance runs outside Docker, so update it the way you installed it.",
     "notSupportedShort": "In-app updates aren't available in this runtime."
+  },
+  "androidEmulators": {
+    "title": "On Android",
+    "loading": "Loading Android emulators…",
+    "intro": "GameHub Downloader on a handheld can copy these BIOS files into whichever of these emulators are installed.",
+    "retroarch": "cores {cores}: reads them from RetroArch's system folder",
+    "alsoPlays": "Also plays this system: {names}",
+    "source": "Emulator list from {name}.",
+    "sourceLink": "View on GitHub",
+    "where": {
+      "duckstation": "The folder chosen in DuckStation › Settings › BIOS (BIOS directory).",
+      "ps2": "Any folder you then pick in the emulator's BIOS settings (Settings › System › BIOS).",
+      "melonds": "The folder chosen for BIOS and firmware in melonDS › Settings › System (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraStic's system folder (DraStic/system). Optional: DraStic runs without them.",
+      "flycast": "Flycast's data folder (inside the home folder set in Flycast › Settings › General).",
+      "redream": "Redream's folder (Android/data/io.recompiled.redream/files): dc_boot.bin and dc_flash.bin.",
+      "citra": "The sysdata folder inside the emulator's user folder.",
+      "saturn": "The BIOS folder set in Yaba Sanshiro's settings (yabause/bios).",
+      "switch": "A folder you then install keys and firmware from in the emulator (Settings › Install keys / Install firmware).",
+      "dolphin": "Optional. Dolphin's user folder › GC › USA, EUR or JAP as IPL.bin (for the GameCube boot animation)."
+    }
   }
 }

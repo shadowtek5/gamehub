@@ -3120,5 +3120,26 @@
     "reroll": "Sorteie novamente",
     "open": "Abrir",
     "play": "Jogar"
+  },
+  "androidEmulators": {
+    "title": "No Android",
+    "loading": "Carregando emuladores Android…",
+    "intro": "O GameHub Downloader em um dispositivo portátil pode copiar estes arquivos de BIOS para qualquer um destes emuladores instalados.",
+    "retroarch": "núcleos {cores}: lê os arquivos na pasta de sistema do RetroArch",
+    "alsoPlays": "Também executa este sistema: {names}",
+    "source": "Lista de emuladores de {name}.",
+    "sourceLink": "Ver no GitHub",
+    "where": {
+      "duckstation": "A pasta escolhida em DuckStation › Configurações › BIOS (diretório da BIOS).",
+      "ps2": "Qualquer pasta que você escolher depois nas configurações de BIOS do emulador (Configurações › Sistema › BIOS).",
+      "melonds": "A pasta escolhida para BIOS e firmware em melonDS › Configurações › Sistema (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "A pasta de sistema do DraStic (DraStic/system). Opcional: o DraStic funciona sem eles.",
+      "flycast": "A pasta de dados do Flycast (dentro da pasta inicial definida em Flycast › Configurações › Geral).",
+      "redream": "A pasta do Redream (Android/data/io.recompiled.redream/files): dc_boot.bin e dc_flash.bin.",
+      "citra": "A pasta sysdata dentro da pasta de usuário do emulador.",
+      "saturn": "A pasta de BIOS definida nas configurações do Yaba Sanshiro (yabause/bios).",
+      "switch": "Uma pasta de onde você depois instala as chaves e o firmware no emulador (Configurações › Instalar chaves / Instalar firmware).",
+      "dolphin": "Opcional. Pasta de usuário do Dolphin › GC › USA, EUR ou JAP como IPL.bin (para a animação de inicialização do GameCube)."
+    }
   }
 }

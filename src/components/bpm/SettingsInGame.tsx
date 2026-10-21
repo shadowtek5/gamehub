@@ -10,6 +10,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpRow, GpSubHeader, GpDropdown, GpButton, GpCheck } from "./primitives";
+import AndroidEmulatorsPanel from "@/components/AndroidEmulatorsPanel";
 
 type BiosRegion = "World" | "USA" | "Japan" | "Europe" | "Asia" | "Other";
 interface FileStatus {
@@ -317,6 +318,7 @@ export default function SettingsInGame() {
                         </div>
                       </div>
                     ))}
+                    <AndroidEmulatorsPanel slug={s.slug} />
                   </div>
                 )}
               </div>

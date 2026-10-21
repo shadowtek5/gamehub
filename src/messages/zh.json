@@ -3120,5 +3120,26 @@
     "reroll": "再次抽奖",
     "open": "打开",
     "play": "玩"
+  },
+  "androidEmulators": {
+    "title": "在 Android 上",
+    "loading": "正在加载 Android 模拟器…",
+    "intro": "掌机上的 GameHub Downloader 可以将这些 BIOS 文件复制到已安装的任意一个模拟器中。",
+    "retroarch": "核心 {cores}：从 RetroArch 的系统文件夹读取",
+    "alsoPlays": "也可运行此系统：{names}",
+    "source": "模拟器列表来自 {name}。",
+    "sourceLink": "在 GitHub 上查看",
+    "where": {
+      "duckstation": "在 DuckStation › 设置 › BIOS（BIOS 目录）中选择的文件夹。",
+      "ps2": "之后在模拟器的 BIOS 设置（设置 › 系统 › BIOS）中选择的任意文件夹。",
+      "melonds": "在 melonDS › 设置 › 系统 中为 BIOS 和固件选择的文件夹（bios7.bin、bios9.bin、firmware.bin）。",
+      "drastic": "DraStic 的系统文件夹（DraStic/system）。可选：没有这些文件，DraStic 也能运行。",
+      "flycast": "Flycast 的数据文件夹（位于 Flycast › 设置 › 通用 中设置的主文件夹内）。",
+      "redream": "Redream 的文件夹（Android/data/io.recompiled.redream/files）：dc_boot.bin 和 dc_flash.bin。",
+      "citra": "模拟器用户文件夹中的 sysdata 文件夹。",
+      "saturn": "在 Yaba Sanshiro 设置中指定的 BIOS 文件夹（yabause/bios）。",
+      "switch": "之后在模拟器中用于安装密钥和固件的文件夹（设置 › 安装密钥 / 安装固件）。",
+      "dolphin": "可选。Dolphin 用户文件夹 › GC › USA、EUR 或 JAP 下的 IPL.bin（用于 GameCube 开机动画）。"
+    }
   }
 }

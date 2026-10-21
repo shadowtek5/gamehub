@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-20",
+    title: "Playtime from your handheld, and BIOS files for every emulator",
+    body: "Games you start from GameHub Downloader 1.3 on a handheld now count toward your playtime here, just like games played in the browser: while you play, friends see you as playing it, and when you come back to the app the session is added to the game's playtime, your stats and the activity heatmap. With Android's usage access turned on, the time is how long the emulator was actually on screen. Firmware settings now show, for each system, the Android emulators that play it and where each one reads its BIOS files — the list comes from Cocoon FE and is refreshed daily — and the Downloader uses it to start games in any installed emulator and to copy the BIOS files stored in Settings › Firmware into RetroArch and standalone emulators like DuckStation, AetherSX2, melonDS, Azahar and Eden. The Downloader can also browse your favorites and collections (and download a whole collection at once). On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-20",
     title: "Jump to a letter",
     body: "Long system and collection pages are quicker to get around: an A–Z strip appears on the right edge while you scroll (or when the mouse nears the edge) and fades away when you stop. Tap a letter, or drag along the strip to preview it, and the grid jumps straight to those games — \"The Legend of Zelda\" files under L, numbers under #, and letters with no games are dimmed. It shows when games are sorted by name. On desktop/TV and the mobile app.",
     art: "automation",

@@ -259,6 +259,48 @@ const spec = {
         responses: { "200": { description: "OK" } },
       },
     },
+    "/api/emulators": {
+      get: {
+        tags: ["games"],
+        summary: "Android emulators per system (Cocoon FE's emulator list, cached daily) with Daijishou-format launch lines, plus where standalone emulators read BIOS files",
+        parameters: [
+          { name: "platform", in: "query", schema: { type: "string" }, description: "Only this system's emulators" },
+          { name: "refresh", in: "query", schema: { type: "string", enum: ["1"] }, description: "Re-download the list now (admins)" },
+        ],
+        responses: { "200": { description: "{ source, platforms: { [slug]: Player[] }, bios: EmulatorBios[] }" } },
+      },
+    },
+    "/api/roms/{id}/heartbeat": {
+      post: {
+        tags: ["games"],
+        summary: "Mark the game as being played now and add a minute of playtime (the browser player calls this every 60s)",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        responses: { "200": { description: "{ ok, blocked, reason } — blocked when a restricted profile must stop" } },
+      },
+    },
+    "/api/roms/{id}/playtime": {
+      post: {
+        tags: ["games"],
+        summary: "Add a finished play session (e.g. from a handheld client); capped at 12 hours per call",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        requestBody: {
+          content: {
+            "application/json": {
+              schema: { type: "object", required: ["seconds"], properties: { seconds: { type: "integer", minimum: 0 } } },
+            },
+          },
+        },
+        responses: { "200": { description: "{ ok, added, playtimeSeconds }" } },
+      },
+    },
+    "/api/roms/{id}/stop-playing": {
+      post: {
+        tags: ["games"],
+        summary: "Clear \"now playing\" for this game",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        responses: { "200": { description: "OK" } },
+      },
+    },
     "/api/roms/{id}/scrape": {
       post: {
         tags: ["scraping"],

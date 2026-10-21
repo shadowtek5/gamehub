@@ -3120,5 +3120,26 @@
     "reroll": "Выбрать снова",
     "open": "Открыть",
     "play": "Играть"
+  },
+  "androidEmulators": {
+    "title": "На Android",
+    "loading": "Загрузка эмуляторов Android…",
+    "intro": "GameHub Downloader на портативном устройстве может скопировать эти BIOS-файлы в любой из установленных эмуляторов из списка.",
+    "retroarch": "ядра {cores}: читают их из системной папки RetroArch",
+    "alsoPlays": "Также запускает эту систему: {names}",
+    "source": "Список эмуляторов из {name}.",
+    "sourceLink": "Открыть на GitHub",
+    "where": {
+      "duckstation": "Папка, выбранная в DuckStation › Настройки › BIOS (каталог BIOS).",
+      "ps2": "Любая папка, которую вы затем выберете в настройках BIOS эмулятора (Настройки › Система › BIOS).",
+      "melonds": "Папка для BIOS и прошивки, выбранная в melonDS › Настройки › Система (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "Системная папка DraStic (DraStic/system). Необязательно: DraStic работает и без них.",
+      "flycast": "Папка данных Flycast (внутри домашней папки, заданной в Flycast › Настройки › Общие).",
+      "redream": "Папка Redream (Android/data/io.recompiled.redream/files): dc_boot.bin и dc_flash.bin.",
+      "citra": "Папка sysdata внутри пользовательской папки эмулятора.",
+      "saturn": "Папка BIOS, заданная в настройках Yaba Sanshiro (yabause/bios).",
+      "switch": "Папка, из которой затем устанавливаются ключи и прошивка в эмуляторе (Настройки › Установить ключи / Установить прошивку).",
+      "dolphin": "Необязательно. Пользовательская папка Dolphin › GC › USA, EUR или JAP как IPL.bin (для анимации загрузки GameCube)."
+    }
   }
 }

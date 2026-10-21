@@ -3120,5 +3120,26 @@
     "reroll": "Relancer",
     "open": "Ouvrir",
     "play": "Jouer"
+  },
+  "androidEmulators": {
+    "title": "Sur Android",
+    "loading": "Chargement des émulateurs Android…",
+    "intro": "GameHub Downloader sur une console portable peut copier ces fichiers BIOS dans n'importe lequel de ces émulateurs installés.",
+    "retroarch": "cœurs {cores} : lit les fichiers dans le dossier système de RetroArch",
+    "alsoPlays": "Lance aussi ce système : {names}",
+    "source": "Liste des émulateurs provenant de {name}.",
+    "sourceLink": "Voir sur GitHub",
+    "where": {
+      "duckstation": "Le dossier choisi dans DuckStation › Paramètres › BIOS (répertoire BIOS).",
+      "ps2": "N'importe quel dossier choisi ensuite dans les paramètres BIOS de l'émulateur (Paramètres › Système › BIOS).",
+      "melonds": "Le dossier choisi pour le BIOS et le firmware dans melonDS › Paramètres › Système (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "Le dossier système de DraStic (DraStic/system). Facultatif : DraStic fonctionne sans ces fichiers.",
+      "flycast": "Le dossier de données de Flycast (dans le dossier principal défini dans Flycast › Paramètres › Général).",
+      "redream": "Le dossier de Redream (Android/data/io.recompiled.redream/files) : dc_boot.bin et dc_flash.bin.",
+      "citra": "Le dossier sysdata dans le dossier utilisateur de l'émulateur.",
+      "saturn": "Le dossier BIOS défini dans les paramètres de Yaba Sanshiro (yabause/bios).",
+      "switch": "Un dossier à partir duquel vous installerez ensuite les clés et le firmware dans l'émulateur (Paramètres › Installer les clés / Installer le firmware).",
+      "dolphin": "Facultatif. Dossier utilisateur de Dolphin › GC › USA, EUR ou JAP contenant IPL.bin (pour l'animation de démarrage de la GameCube)."
+    }
   }
 }

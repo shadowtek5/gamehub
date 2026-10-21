@@ -3120,5 +3120,26 @@
     "reroll": "Pyöritä uudelleen",
     "open": "Avata",
     "play": "Pelata"
+  },
+  "androidEmulators": {
+    "title": "Androidilla",
+    "loading": "Ladataan Android-emulaattoreita…",
+    "intro": "GameHub Downloader kämmenlaitteella voi kopioida nämä BIOS-tiedostot niihin näistä emulaattoreista, jotka on asennettu.",
+    "retroarch": "ytimet {cores}: lukevat ne RetroArchin järjestelmäkansiosta",
+    "alsoPlays": "Pelaa myös tätä järjestelmää: {names}",
+    "source": "Emulaattoriluettelo lähteestä {name}.",
+    "sourceLink": "Katso GitHubissa",
+    "where": {
+      "duckstation": "DuckStationin › Asetukset › BIOS (BIOS directory) -kohdassa valittu kansio.",
+      "ps2": "Mikä tahansa kansio, jonka valitset myöhemmin emulaattorin BIOS-asetuksissa (Asetukset › Järjestelmä › BIOS).",
+      "melonds": "Kansio, joka on valittu BIOS- ja laiteohjelmistotiedostoille melonDS › Asetukset › Järjestelmä -kohdassa (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraSticin järjestelmäkansio (DraStic/system). Valinnainen: DraStic toimii ilman niitä.",
+      "flycast": "Flycastin datakansio (kotikansion sisällä, joka on asetettu kohdassa Flycast › Asetukset › Yleiset).",
+      "redream": "Redreamin kansio (Android/data/io.recompiled.redream/files): dc_boot.bin ja dc_flash.bin.",
+      "citra": "Sysdata-kansio emulaattorin käyttäjäkansion sisällä.",
+      "saturn": "BIOS-kansio, joka on asetettu Yaba Sanshiron asetuksissa (yabause/bios).",
+      "switch": "Kansio, josta asennat myöhemmin avaimet ja laiteohjelmiston emulaattoriin (Asetukset › Install keys / Install firmware).",
+      "dolphin": "Valinnainen. Dolphinin käyttäjäkansio › GC › USA, EUR tai JAP IPL.bin-tiedostona (GameCuben käynnistysanimaatiota varten)."
+    }
   }
 }

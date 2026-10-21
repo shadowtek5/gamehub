@@ -3120,5 +3120,26 @@
     "reroll": "Nochmal drehen",
     "open": "Öffnen",
     "play": "Spielen"
+  },
+  "androidEmulators": {
+    "title": "Auf Android",
+    "loading": "Android-Emulatoren werden geladen…",
+    "intro": "GameHub Downloader auf einem Handheld kann diese BIOS-Dateien in die jeweils installierten dieser Emulatoren kopieren.",
+    "retroarch": "Cores {cores}: lesen sie aus RetroArchs System-Ordner",
+    "alsoPlays": "Spielt außerdem dieses System: {names}",
+    "source": "Emulatorliste von {name}.",
+    "sourceLink": "Auf GitHub ansehen",
+    "where": {
+      "duckstation": "Der Ordner, der in DuckStation › Einstellungen › BIOS (BIOS directory) gewählt wurde.",
+      "ps2": "Ein beliebiger Ordner, den du danach in den BIOS-Einstellungen des Emulators wählst (Einstellungen › System › BIOS).",
+      "melonds": "Der Ordner für BIOS und Firmware in melonDS › Einstellungen › System (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraStics System-Ordner (DraStic/system). Optional: DraStic läuft auch ohne sie.",
+      "flycast": "Flycasts Datenordner (im Basisordner, der in Flycast › Einstellungen › Allgemein festgelegt wurde).",
+      "redream": "Redreams Ordner (Android/data/io.recompiled.redream/files): dc_boot.bin und dc_flash.bin.",
+      "citra": "Der Ordner sysdata im Benutzerordner des Emulators.",
+      "saturn": "Der BIOS-Ordner aus den Einstellungen von Yaba Sanshiro (yabause/bios).",
+      "switch": "Ein Ordner, aus dem du danach im Emulator Schlüssel und Firmware installierst (Einstellungen › Install keys / Install firmware).",
+      "dolphin": "Optional. Dolphins Benutzerordner › GC › USA, EUR oder JAP als IPL.bin (für die GameCube-Startanimation)."
+    }
   }
 }

@@ -3120,5 +3120,26 @@
     "reroll": "اختر مجددًا",
     "open": "فتح",
     "play": "العب"
+  },
+  "androidEmulators": {
+    "title": "على Android",
+    "loading": "جارٍ تحميل محاكيات Android…",
+    "intro": "يمكن لـ GameHub Downloader على الجهاز المحمول نسخ ملفات BIOS هذه إلى أي من هذه المحاكيات المثبتة.",
+    "retroarch": "النوى {cores}: تقرأها من مجلد النظام في RetroArch",
+    "alsoPlays": "يشغّل هذا النظام أيضاً: {names}",
+    "source": "قائمة المحاكيات من {name}.",
+    "sourceLink": "عرض على GitHub",
+    "where": {
+      "duckstation": "المجلد المختار في DuckStation › الإعدادات › BIOS (BIOS directory).",
+      "ps2": "أي مجلد تختاره لاحقاً في إعدادات BIOS الخاصة بالمحاكي (الإعدادات › النظام › BIOS).",
+      "melonds": "المجلد المختار لملفات BIOS والبرامج الثابتة في melonDS › الإعدادات › النظام (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "مجلد النظام في DraStic (DraStic/system). اختياري: يعمل DraStic بدونها.",
+      "flycast": "مجلد البيانات في Flycast (داخل المجلد الرئيسي المحدد في Flycast › الإعدادات › عام).",
+      "redream": "مجلد Redream (Android/data/io.recompiled.redream/files): ملفا dc_boot.bin و dc_flash.bin.",
+      "citra": "مجلد sysdata داخل مجلد المستخدم الخاص بالمحاكي.",
+      "saturn": "مجلد BIOS المحدد في إعدادات Yaba Sanshiro (yabause/bios).",
+      "switch": "مجلد تثبّت منه المفاتيح والبرامج الثابتة لاحقاً في المحاكي (الإعدادات › Install keys / Install firmware).",
+      "dolphin": "اختياري. مجلد المستخدم في Dolphin › GC › USA أو EUR أو JAP كملف IPL.bin (لتأثير بدء تشغيل GameCube)."
+    }
   }
 }

@@ -3120,5 +3120,26 @@
     "reroll": "Κύλιση ξανά",
     "open": "Ανοιγμα",
     "play": "Παίξε"
+  },
+  "androidEmulators": {
+    "title": "Στο Android",
+    "loading": "Φόρτωση εξομοιωτών Android…",
+    "intro": "Το GameHub Downloader σε φορητή συσκευή μπορεί να αντιγράψει αυτά τα αρχεία BIOS σε όποιον από αυτούς τους εξομοιωτές είναι εγκατεστημένος.",
+    "retroarch": "πυρήνες {cores}: τα διαβάζουν από τον φάκελο συστήματος του RetroArch",
+    "alsoPlays": "Παίζει επίσης αυτό το σύστημα: {names}",
+    "source": "Λίστα εξομοιωτών από {name}.",
+    "sourceLink": "Προβολή στο GitHub",
+    "where": {
+      "duckstation": "Ο φάκελος που επιλέγεται στο DuckStation › Ρυθμίσεις › BIOS (BIOS directory).",
+      "ps2": "Οποιονδήποτε φάκελο επιλέξετε στη συνέχεια στις ρυθμίσεις BIOS του εξομοιωτή (Ρυθμίσεις › Σύστημα › BIOS).",
+      "melonds": "Ο φάκελος που επιλέγεται για BIOS και firmware στο melonDS › Ρυθμίσεις › Σύστημα (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "Ο φάκελος συστήματος του DraStic (DraStic/system). Προαιρετικό: το DraStic λειτουργεί χωρίς αυτά.",
+      "flycast": "Ο φάκελος δεδομένων του Flycast (μέσα στον αρχικό φάκελο που ορίζεται στο Flycast › Ρυθμίσεις › Γενικά).",
+      "redream": "Ο φάκελος του Redream (Android/data/io.recompiled.redream/files): dc_boot.bin και dc_flash.bin.",
+      "citra": "Ο φάκελος sysdata μέσα στον φάκελο χρήστη του εξομοιωτή.",
+      "saturn": "Ο φάκελος BIOS που ορίζεται στις ρυθμίσεις του Yaba Sanshiro (yabause/bios).",
+      "switch": "Ένας φάκελος από τον οποίο θα εγκαταστήσετε αργότερα κλειδιά και firmware στον εξομοιωτή (Ρυθμίσεις › Install keys / Install firmware).",
+      "dolphin": "Προαιρετικό. Φάκελος χρήστη του Dolphin › GC › USA, EUR ή JAP ως IPL.bin (για την εκκινησιακή animation του GameCube)."
+    }
   }
 }

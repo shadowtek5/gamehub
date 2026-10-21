@@ -3120,5 +3120,26 @@
     "reroll": "もう一度抽選する",
     "open": "開く",
     "play": "プレイ"
+  },
+  "androidEmulators": {
+    "title": "Android 版",
+    "loading": "Android エミュレーターを読み込み中…",
+    "intro": "携帯機の GameHub Downloader は、インストールされているこれらのエミュレーターのいずれかに BIOS ファイルをコピーできます。",
+    "retroarch": "コア {cores}: RetroArch のシステムフォルダーから読み込みます",
+    "alsoPlays": "このシステムも動作: {names}",
+    "source": "エミュレーター一覧の出典: {name}。",
+    "sourceLink": "GitHub で見る",
+    "where": {
+      "duckstation": "DuckStation › 設定 › BIOS (BIOS ディレクトリ) で選択したフォルダー。",
+      "ps2": "エミュレーターの BIOS 設定 (設定 › システム › BIOS) で後から選択するフォルダー。",
+      "melonds": "melonDS › 設定 › システムで BIOS とファームウェア用に選択したフォルダー (bios7.bin, bios9.bin, firmware.bin)。",
+      "drastic": "DraStic のシステムフォルダー (DraStic/system)。任意です。これらがなくても DraStic は動作します。",
+      "flycast": "Flycast のデータフォルダー (Flycast › 設定 › 一般 で設定したホームフォルダー内)。",
+      "redream": "Redream のフォルダー (Android/data/io.recompiled.redream/files): dc_boot.bin と dc_flash.bin。",
+      "citra": "エミュレーターのユーザーフォルダー内の sysdata フォルダー。",
+      "saturn": "Yaba Sanshiro の設定で指定した BIOS フォルダー (yabause/bios)。",
+      "switch": "エミュレーターでキーとファームウェアをインストールする際に使うフォルダー (設定 › キーをインストール / ファームウェアをインストール)。",
+      "dolphin": "任意。Dolphin のユーザーフォルダー › GC › USA、EUR、JAP のいずれかに IPL.bin として配置 (GameCube の起動アニメーション用)。"
+    }
   }
 }

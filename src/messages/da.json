@@ -3120,5 +3120,26 @@
     "reroll": "Rul igen",
     "open": "Åbn",
     "play": "Spil"
+  },
+  "androidEmulators": {
+    "title": "På Android",
+    "loading": "Indlæser Android-emulatorer…",
+    "intro": "GameHub Downloader på en håndholdt enhed kan kopiere disse BIOS-filer over i de emulatorer, der er installeret.",
+    "retroarch": "kerner {cores}: læser dem fra RetroArchs systemmappe",
+    "alsoPlays": "Spiller også dette system: {names}",
+    "source": "Emulatorliste fra {name}.",
+    "sourceLink": "Se på GitHub",
+    "where": {
+      "duckstation": "Mappen valgt i DuckStation › Indstillinger › BIOS (BIOS directory).",
+      "ps2": "Enhver mappe, du vælger bagefter i emulatorens BIOS-indstillinger (Indstillinger › System › BIOS).",
+      "melonds": "Mappen valgt til BIOS og firmware i melonDS › Indstillinger › System (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraStics systemmappe (DraStic/system). Valgfri: DraStic kører uden dem.",
+      "flycast": "Flycasts datamappe (inde i hjemmemappen angivet i Flycast › Indstillinger › Generelt).",
+      "redream": "Redreams mappe (Android/data/io.recompiled.redream/files): dc_boot.bin og dc_flash.bin.",
+      "citra": "Mappen sysdata inde i emulatorens brugermappe.",
+      "saturn": "BIOS-mappen angivet i Yaba Sanshiros indstillinger (yabause/bios).",
+      "switch": "En mappe, du bagefter installerer nøgler og firmware fra i emulatoren (Indstillinger › Install keys / Install firmware).",
+      "dolphin": "Valgfri. Dolphins brugermappe › GC › USA, EUR eller JAP som IPL.bin (til GameCube-opstartsanimationen)."
+    }
   }
 }

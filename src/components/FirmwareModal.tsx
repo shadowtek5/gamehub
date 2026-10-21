@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpModal, GpButton } from "@/components/bpm/primitives";
+import AndroidEmulatorsPanel from "@/components/AndroidEmulatorsPanel";
 
 type BiosRegion = "World" | "USA" | "Japan" | "Europe" | "Asia" | "Other";
 interface FileStatus {
@@ -200,6 +201,7 @@ export default function FirmwareModal({
                 <button onClick={() => remove(e.id)} className="shrink-0 cursor-pointer text-xs text-dim hover:text-bright" title={t("firmware.remove")}>✕</button>
               </div>
             ))}
+            <AndroidEmulatorsPanel slug={slug} />
       </div>
     </GpModal>
   );

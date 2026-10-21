@@ -3120,5 +3120,26 @@
     "reroll": "Lotta igen",
     "open": "Öppna",
     "play": "Spela"
+  },
+  "androidEmulators": {
+    "title": "På Android",
+    "loading": "Läser in Android-emulatorer…",
+    "intro": "GameHub Downloader på en handdator kan kopiera dessa BIOS-filer till vilken som helst av de installerade emulatorerna.",
+    "retroarch": "kärnor {cores}: läser dem från RetroArchs systemmapp",
+    "alsoPlays": "Spelar även detta system: {names}",
+    "source": "Emulatorlista från {name}.",
+    "sourceLink": "Visa på GitHub",
+    "where": {
+      "duckstation": "Mappen som valts i DuckStation › Inställningar › BIOS (BIOS-katalog).",
+      "ps2": "Valfri mapp som du sedan väljer i emulatorns BIOS-inställningar (Inställningar › System › BIOS).",
+      "melonds": "Mappen som valts för BIOS och firmware i melonDS › Inställningar › System (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraStics systemmapp (DraStic/system). Valfritt: DraStic fungerar utan dem.",
+      "flycast": "Flycasts datamapp (i startmappen som anges i Flycast › Inställningar › Allmänt).",
+      "redream": "Redreams mapp (Android/data/io.recompiled.redream/files): dc_boot.bin och dc_flash.bin.",
+      "citra": "Mappen sysdata i emulatorns användarmapp.",
+      "saturn": "BIOS-mappen som anges i Yaba Sanshiros inställningar (yabause/bios).",
+      "switch": "En mapp som du sedan installerar nycklar och firmware från i emulatorn (Inställningar › Installera nycklar / Installera firmware).",
+      "dolphin": "Valfritt. Dolphins användarmapp › GC › USA, EUR eller JAP som IPL.bin (för GameCubes startanimation)."
+    }
   }
 }

@@ -3120,5 +3120,26 @@
     "reroll": "Opnieuw draaien",
     "open": "Openen",
     "play": "Spelen"
+  },
+  "androidEmulators": {
+    "title": "Op Android",
+    "loading": "Android-emulators laden…",
+    "intro": "GameHub Downloader op een handheld kan deze BIOS-bestanden kopiëren naar een van deze geïnstalleerde emulators.",
+    "retroarch": "cores {cores}: leest ze uit de systeemmap van RetroArch",
+    "alsoPlays": "Speelt ook dit systeem: {names}",
+    "source": "Emulatorlijst van {name}.",
+    "sourceLink": "Bekijken op GitHub",
+    "where": {
+      "duckstation": "De map die je kiest in DuckStation › Instellingen › BIOS (BIOS-map).",
+      "ps2": "Elke map die je daarna kiest in de BIOS-instellingen van de emulator (Instellingen › Systeem › BIOS).",
+      "melonds": "De map die je kiest voor BIOS en firmware in melonDS › Instellingen › Systeem (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "De systeemmap van DraStic (DraStic/system). Optioneel: DraStic werkt ook zonder deze bestanden.",
+      "flycast": "De datamap van Flycast (in de thuismap die is ingesteld in Flycast › Instellingen › Algemeen).",
+      "redream": "De map van Redream (Android/data/io.recompiled.redream/files): dc_boot.bin en dc_flash.bin.",
+      "citra": "De sysdata-map in de gebruikersmap van de emulator.",
+      "saturn": "De BIOS-map die is ingesteld in de instellingen van Yaba Sanshiro (yabause/bios).",
+      "switch": "Een map waaruit je daarna sleutels en firmware in de emulator installeert (Instellingen › Sleutels installeren / Firmware installeren).",
+      "dolphin": "Optioneel. Dolphin-gebruikersmap › GC › USA, EUR of JAP als IPL.bin (voor de GameCube-opstartanimatie)."
+    }
   }
 }

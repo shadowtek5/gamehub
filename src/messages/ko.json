@@ -3120,5 +3120,26 @@
     "reroll": "다시 추첨",
     "open": "열기",
     "play": "플레이"
+  },
+  "androidEmulators": {
+    "title": "Android",
+    "loading": "Android 에뮬레이터 불러오는 중…",
+    "intro": "휴대용 기기의 GameHub Downloader는 설치된 이 에뮬레이터 중 어디든 이 BIOS 파일을 복사할 수 있습니다.",
+    "retroarch": "코어 {cores}: RetroArch 시스템 폴더에서 읽습니다",
+    "alsoPlays": "이 시스템도 실행: {names}",
+    "source": "에뮬레이터 목록 출처: {name}.",
+    "sourceLink": "GitHub에서 보기",
+    "where": {
+      "duckstation": "DuckStation › 설정 › BIOS (BIOS 디렉터리)에서 선택한 폴더.",
+      "ps2": "이후 에뮬레이터의 BIOS 설정(설정 › 시스템 › BIOS)에서 선택하는 폴더.",
+      "melonds": "melonDS › 설정 › 시스템에서 BIOS 및 펌웨어용으로 선택한 폴더 (bios7.bin, bios9.bin, firmware.bin).",
+      "drastic": "DraStic의 시스템 폴더 (DraStic/system). 선택 사항입니다. 이 파일이 없어도 DraStic은 실행됩니다.",
+      "flycast": "Flycast 데이터 폴더 (Flycast › 설정 › 일반에서 설정한 홈 폴더 안).",
+      "redream": "Redream 폴더 (Android/data/io.recompiled.redream/files): dc_boot.bin과 dc_flash.bin.",
+      "citra": "에뮬레이터 사용자 폴더 안의 sysdata 폴더.",
+      "saturn": "Yaba Sanshiro 설정에서 지정한 BIOS 폴더 (yabause/bios).",
+      "switch": "이후 에뮬레이터에서 키와 펌웨어를 설치할 폴더 (설정 › 키 설치 / 펌웨어 설치).",
+      "dolphin": "선택 사항. Dolphin 사용자 폴더 › GC › USA, EUR 또는 JAP 아래에 IPL.bin으로 저장 (GameCube 부팅 애니메이션용)."
+    }
   }
 }
