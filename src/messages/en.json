@@ -1341,7 +1341,7 @@
     },
     "compatLists": {
       "title": "Compatibility lists",
-      "desc": "The official emulator lists shown on game pages and cards (RPCS3, Vita3K, PCSX2). They update weekly on their own.",
+      "desc": "The official emulator lists shown on game pages and cards (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). They update weekly on their own.",
       "refresh": "Refresh now",
       "rematch": "Re-match all games",
       "counts": "{entries} games on the list · {matched} of yours",
@@ -3156,7 +3156,8 @@
       "dolphin": "Optional. Dolphin's user folder › GC › USA, EUR or JAP as IPL.bin (for the GameCube boot animation).",
       "vita3k": "Any folder (e.g. BIOS/VITA). Then in Vita3K choose Install firmware and pick PSVUPDAT.PUP, then PSP2UPDAT.PUP.",
       "ps3": "Any folder (e.g. BIOS/PS3_BIOS). Then install PS3UPDAT.PUP from the emulator's firmware option.",
-      "cemu": "Cemu's user folder (keys.txt goes next to the settings)."
+      "cemu": "Cemu's user folder (keys.txt goes next to the settings).",
+      "xemu": "Any folder (e.g. BIOS/XBOX). Then in the emulator's setup pick mcpx_1.0.bin, the flash BIOS and the hard disk image from it."
     }
   },
   "firmwarePackages": {
@@ -3197,11 +3198,16 @@
       },
       "wiiu": {
         "keys": "Disc keys (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX boot ROM (mcpx_1.0.bin)",
+        "flash": "Flash BIOS (e.g. Complex_4627.bin)",
+        "hdd": "Hard disk image (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Scan a folder on the server",
-      "desc": "Point GameHub at a BIOS and firmware collection on the server. Everything it recognizes is copied in: BIOS files by checksum or name (also inside .zip packs), and PS Vita, PS3, Switch, 3DS and Wii U firmware and keys. The folder itself isn't changed. In Docker, mount the folder into the container first.",
+      "desc": "Point GameHub at a BIOS and firmware collection on the server. Everything it recognizes is copied in: BIOS files by checksum or name (also inside .zip packs), firmware and keys for PS Vita, PS3, Switch, 3DS and Wii U, and the original Xbox's MCPX ROM, flash BIOS and hard disk image. The folder itself isn't changed. In Docker, mount the folder into the container first.",
       "placeholder": "/path/to/bios",
       "start": "Scan",
       "stop": "Stop",

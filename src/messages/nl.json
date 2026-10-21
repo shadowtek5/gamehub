@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "Compatibiliteitslijsten",
-      "desc": "De officiële lijsten van de emulatorprojecten die op gamepagina's en kaarten worden getoond (RPCS3, Vita3K, PCSX2). Ze worden wekelijks automatisch bijgewerkt.",
+      "desc": "De officiële lijsten van de emulatorprojecten die op gamepagina's en kaarten worden getoond (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Ze worden wekelijks automatisch bijgewerkt.",
       "refresh": "Nu vernieuwen",
       "rematch": "Alle games opnieuw koppelen",
       "counts": "{entries} games op de lijst · {matched} daarvan van jou",
@@ -3155,7 +3155,8 @@
       "dolphin": "Optioneel. Dolphin-gebruikersmap › GC › USA, EUR of JAP als IPL.bin (voor de GameCube-opstartanimatie).",
       "vita3k": "Elke map (bijv. BIOS/VITA). Kies dan in Vita3K Install firmware en selecteer PSVUPDAT.PUP, daarna PSP2UPDAT.PUP.",
       "ps3": "Elke map (bijv. BIOS/PS3_BIOS). Installeer daarna PS3UPDAT.PUP via de firmware-optie van de emulator.",
-      "cemu": "De gebruikersmap van Cemu (keys.txt komt naast de instellingen)."
+      "cemu": "De gebruikersmap van Cemu (keys.txt komt naast de instellingen).",
+      "xemu": "Willekeurige map (bijv. BIOS/XBOX). Kies daarna in de instellingen van de emulator mcpx_1.0.bin, de flash-BIOS en de harde-schijfimage daaruit."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Discsleutels (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX-bootrom (mcpx_1.0.bin)",
+        "flash": "Flash-BIOS (bijv. Complex_4627.bin)",
+        "hdd": "Harde-schijfimage (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Een map op de server scannen",
-      "desc": "Wijs GameHub naar een verzameling BIOS- en firmwarebestanden op de server. Alles wat herkend wordt, wordt gekopieerd: BIOS-bestanden op checksum of naam (ook in .zip-pakketten), en firmware en sleutels voor PS Vita, PS3, Switch, 3DS en Wii U. De map zelf wordt niet gewijzigd. Koppel in Docker eerst de map aan de container.",
+      "desc": "Wijs GameHub naar een verzameling BIOS- en firmwarebestanden op de server. Alles wat herkend wordt, wordt gekopieerd: BIOS-bestanden op basis van checksum of naam (ook in .zip-pakketten), firmware en sleutels voor PS Vita, PS3, Switch, 3DS en Wii U, en de MCPX-ROM, flash-BIOS en harde-schijfimage van de originele Xbox. De map zelf wordt niet gewijzigd. Koppel in Docker eerst de map aan de container.",
       "placeholder": "/path/to/bios",
       "start": "Scannen",
       "stop": "Stoppen",

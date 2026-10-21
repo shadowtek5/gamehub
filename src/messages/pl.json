@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "Listy zgodności",
-      "desc": "Oficjalne listy emulatorów wyświetlane na stronach gier i kartach (RPCS3, Vita3K, PCSX2). Aktualizują się automatycznie co tydzień.",
+      "desc": "Oficjalne listy emulatorów wyświetlane na stronach gier i kartach (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Aktualizują się automatycznie co tydzień.",
       "refresh": "Odśwież teraz",
       "rematch": "Dopasuj ponownie wszystkie gry",
       "counts": "{entries} gier na liście · {matched} z Twoich",
@@ -3155,7 +3155,8 @@
       "dolphin": "Opcjonalnie. Folder użytkownika Dolphin › GC › USA, EUR lub JAP jako IPL.bin (dla animacji startowej GameCube).",
       "vita3k": "Dowolny folder (np. BIOS/VITA). Następnie w Vita3K wybierz Install firmware i wskaż PSVUPDAT.PUP, a potem PSP2UPDAT.PUP.",
       "ps3": "Dowolny folder (np. BIOS/PS3_BIOS). Następnie zainstaluj PS3UPDAT.PUP z opcji firmware emulatora.",
-      "cemu": "Folder użytkownika Cemu (keys.txt umieść obok ustawień)."
+      "cemu": "Folder użytkownika Cemu (keys.txt umieść obok ustawień).",
+      "xemu": "Dowolny folder (np. BIOS/XBOX). Następnie w ustawieniach emulatora wybierz z niego mcpx_1.0.bin, BIOS flash i obraz dysku twardego."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Klucze dysków (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "Boot ROM MCPX (mcpx_1.0.bin)",
+        "flash": "BIOS flash (np. Complex_4627.bin)",
+        "hdd": "Obraz dysku twardego (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Przeskanuj folder na serwerze",
-      "desc": "Wskaż GameHub kolekcję BIOS-ów i firmware na serwerze. Wszystko, co zostanie rozpoznane, zostanie skopiowane: pliki BIOS według sumy kontrolnej lub nazwy (także w paczkach .zip) oraz firmware i klucze PS Vita, PS3, Switch, 3DS i Wii U. Sam folder nie zostanie zmieniony. W Dockerze najpierw zamontuj folder w kontenerze.",
+      "desc": "Wskaż GameHub kolekcję BIOS-ów i firmware'u na serwerze. Wszystko, co zostanie rozpoznane, jest kopiowane: pliki BIOS rozpoznane po sumie kontrolnej lub nazwie (także w paczkach .zip), firmware i klucze do PS Vita, PS3, Switch, 3DS i Wii U oraz ROM MCPX, BIOS flash i obraz dysku twardego oryginalnego Xboxa. Sam folder nie jest zmieniany. W Dockerze najpierw zamontuj folder w kontenerze.",
       "placeholder": "/path/to/bios",
       "start": "Skanuj",
       "stop": "Zatrzymaj",

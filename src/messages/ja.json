@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "互換性リスト",
-      "desc": "ゲームのページやカードに表示される、エミュレーター公式のリスト（RPCS3、Vita3K、PCSX2）です。毎週自動で更新されます。",
+      "desc": "ゲームのページやカードに表示される、エミュレーター公式のリスト（RPCS3、Vita3K、PCSX2、Azahar、xemu、Xenia Canary）です。毎週自動で更新されます。",
       "refresh": "今すぐ更新",
       "rematch": "すべてのゲームを再照合",
       "counts": "リストのゲーム {entries} 件 · うちあなたのゲーム {matched} 件",
@@ -3155,7 +3155,8 @@
       "dolphin": "任意。Dolphin のユーザーフォルダー › GC › USA、EUR、JAP のいずれかに IPL.bin として配置 (GameCube の起動アニメーション用)。",
       "vita3k": "任意のフォルダ（例: BIOS/VITA）。Vita3K で Install firmware を選び、PSVUPDAT.PUP、次に PSP2UPDAT.PUP を選択します。",
       "ps3": "任意のフォルダ（例: BIOS/PS3_BIOS）。その後、エミュレーターのファームウェアオプションから PS3UPDAT.PUP をインストールします。",
-      "cemu": "Cemu のユーザーフォルダ（keys.txt は設定ファイルの隣に置きます）。"
+      "cemu": "Cemu のユーザーフォルダ（keys.txt は設定ファイルの隣に置きます）。",
+      "xemu": "任意のフォルダ（例: BIOS/XBOX）。次にエミュレーターの設定で、そこから mcpx_1.0.bin、フラッシュBIOS、ハードディスクイメージを選択します。"
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "ディスクキー (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX ブートROM (mcpx_1.0.bin)",
+        "flash": "フラッシュBIOS (例: Complex_4627.bin)",
+        "hdd": "ハードディスクイメージ (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "サーバー上のフォルダーをスキャン",
-      "desc": "サーバー上の BIOS とファームウェアのコレクションを GameHub に指定します。認識されたものはすべてコピーされます。BIOS ファイルはチェックサムまたは名前で（.zip パックの中も含む）、PS Vita、PS3、Switch、3DS、Wii U のファームウェアとキーも対象です。フォルダー自体は変更されません。Docker の場合は、先にフォルダーをコンテナにマウントしてください。",
+      "desc": "サーバー上の BIOS とファームウェアのコレクションを GameHub に指定します。認識されたものはすべてコピーされます。チェックサムまたは名前で認識された BIOS ファイル（.zip パック内も含む）、PS Vita、PS3、Switch、3DS、Wii U のファームウェアとキー、そして初代 Xbox の MCPX ROM、フラッシュBIOS、ハードディスクイメージです。フォルダ自体は変更されません。Docker では、先にフォルダをコンテナにマウントしてください。",
       "placeholder": "/path/to/bios",
       "start": "スキャン",
       "stop": "停止",

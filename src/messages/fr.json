@@ -548,7 +548,7 @@
     },
     "compatLists": {
       "title": "Listes de compatibilité",
-      "desc": "Les listes officielles des émulateurs affichées sur les pages et les cartes des jeux (RPCS3, Vita3K, PCSX2). Elles se mettent à jour toutes seules chaque semaine.",
+      "desc": "Les listes officielles des émulateurs affichées sur les pages et les cartes des jeux (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Elles se mettent à jour toutes seules chaque semaine.",
       "refresh": "Actualiser maintenant",
       "rematch": "Relancer la correspondance de tous les jeux",
       "counts": "{entries} jeux dans la liste · {matched} correspondent aux vôtres",
@@ -3155,7 +3155,8 @@
       "dolphin": "Facultatif. Dossier utilisateur de Dolphin › GC › USA, EUR ou JAP contenant IPL.bin (pour l'animation de démarrage de la GameCube).",
       "vita3k": "N'importe quel dossier (par ex. BIOS/VITA). Dans Vita3K, choisissez Install firmware, puis sélectionnez PSVUPDAT.PUP, puis PSP2UPDAT.PUP.",
       "ps3": "N'importe quel dossier (par ex. BIOS/PS3_BIOS). Installez ensuite PS3UPDAT.PUP depuis l'option firmware de l'émulateur.",
-      "cemu": "Le dossier utilisateur de Cemu (keys.txt se place à côté des paramètres)."
+      "cemu": "Le dossier utilisateur de Cemu (keys.txt se place à côté des paramètres).",
+      "xemu": "N'importe quel dossier (ex. BIOS/XBOX). Puis, dans la configuration de l'émulateur, choisissez-y mcpx_1.0.bin, le BIOS flash et l'image du disque dur."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Clés de disque (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "ROM de démarrage MCPX (mcpx_1.0.bin)",
+        "flash": "BIOS flash (ex. Complex_4627.bin)",
+        "hdd": "Image de disque dur (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Analyser un dossier sur le serveur",
-      "desc": "Indiquez à GameHub une collection de BIOS et de firmwares sur le serveur. Tout ce qui est reconnu est copié : fichiers BIOS par somme de contrôle ou nom (y compris dans les archives .zip), ainsi que les firmwares et clés PS Vita, PS3, Switch, 3DS et Wii U. Le dossier lui-même n'est pas modifié. Avec Docker, montez d'abord le dossier dans le conteneur.",
+      "desc": "Indiquez à GameHub une collection de BIOS et de micrologiciels sur le serveur. Tout ce qui est reconnu est copié : fichiers BIOS par somme de contrôle ou nom (y compris dans les archives .zip), micrologiciels et clés pour PS Vita, PS3, Switch, 3DS et Wii U, ainsi que la ROM MCPX, le BIOS flash et l'image du disque dur de la Xbox d'origine. Le dossier lui-même n'est pas modifié. Sous Docker, montez d'abord le dossier dans le conteneur.",
       "placeholder": "/path/to/bios",
       "start": "Analyser",
       "stop": "Arrêter",

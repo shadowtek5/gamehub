@@ -3,6 +3,9 @@
 //  - Vita3K (PS Vita): the Vita3K/compatibility database, by title id (PCSE00651).
 //  - PCSX2 (PS2; also what AetherSX2 / NetherSX2 / ARMSX2 are based on): its GameIndex.yaml,
 //    by serial (SLUS-20062) or, when the file name has none, by title + region.
+//  - Azahar (3DS; the Citra family): its compatibility_list.json, by title id or title.
+//  - xemu (Xbox; also X1 BOX and hakuX on Android): its public compatibility reports, by title id.
+//  - Xenia Canary (Xbox 360; also aX360e on Android): its game-compatibility tracker, by title id or title.
 // Downloaded at most weekly into the compat_external table; a game's serial is found once
 // (file name, the game's own files, or a title match) and kept in rom_serials.
 
@@ -10,6 +13,7 @@ import fs from "fs";
 import path from "path";
 import { getDb, getSetting, setSetting } from "./db";
 import { zipEntryNames } from "./vitaPfs";
+import { titleIdFor } from "./titleIds";
 import type { CompatRating } from "./db";
 
 const REFRESHED_SETTING = "compat_lists_refreshed_at";
@@ -20,6 +24,9 @@ const SOURCES = {
   vita3k: "https://github.com/Vita3K/compatibility/releases/download/compat_db/app_compat_db.xml",
   vita3kLabels: "https://api.github.com/repos/Vita3K/compatibility/labels?per_page=100",
   pcsx2: "https://raw.githubusercontent.com/PCSX2/pcsx2/master/bin/resources/GameIndex.yaml",
+  azahar: "https://raw.githubusercontent.com/azahar-emu/compatibility-list/master/compatibility_list.json",
+  xemu: "https://reports.xemu.app/compatibility",
+  xenia: "https://api.github.com/repos/xenia-canary/game-compatibility/issues?state=open&per_page=100",
 };
 
 /** Which list covers which GameHub system. */
@@ -27,7 +34,13 @@ const LIST_FOR: Record<string, { source: string; emulator: string }> = {
   ps3: { source: "rpcs3", emulator: "RPCS3" },
   vita: { source: "vita3k", emulator: "Vita3K" },
   ps2: { source: "pcsx2", emulator: "PCSX2 · AetherSX2 · NetherSX2" },
+  "3ds": { source: "azahar", emulator: "Azahar · Citra" },
+  xbox: { source: "xemu", emulator: "xemu · X1 BOX · hakuX" },
+  xbox360: { source: "xenia", emulator: "Xenia Canary · aX360e" },
 };
+
+/** Systems whose list has names to fall back on when a game's id can't be read. */
+const TITLE_MATCH = new Set(["ps2", "3ds", "xbox360"]);
 
 export interface ExternalCompat {
   source: string;
@@ -68,6 +81,22 @@ const PCSX2_STATUS = ["Unknown", "Nothing", "Intro", "Menus", "In-game", "Playab
 const PCSX2_RATING = (n: number): CompatRating | null => (n >= 5 ? "playable" : n === 4 ? "runs" : n >= 1 ? "broken" : null);
 
 const PCSX2_REGION: Record<string, string> = { "NTSC-U": "usa", PAL: "europe", "NTSC-J": "japan", "NTSC-K": "korea", "NTSC-C": "china" };
+
+/** Azahar / Citra: 0 Perfect, 1 Great, 2 Okay, 3 Bad, 4 Intro/Menu, 5 Won't Boot (99 = not tested). */
+const AZAHAR_STATUS: Record<number, [string, CompatRating]> = {
+  0: ["Perfect", "playable"], 1: ["Great", "playable"], 2: ["Okay", "runs"], 3: ["Bad", "broken"], 4: ["Intro/Menu", "broken"], 5: ["Won't Boot", "broken"],
+};
+const XEMU_RATING: Record<string, CompatRating> = { Perfect: "playable", Playable: "playable", Starts: "runs", Intro: "broken", Broken: "broken" };
+/** Xenia's state-* labels, best first. */
+const XENIA_STATES: [string, string, CompatRating][] = [
+  ["state-playable", "Playable", "playable"],
+  ["state-gameplay", "Gameplay", "runs"],
+  ["state-menus", "Menus", "broken"],
+  ["state-intro", "Intro", "broken"],
+  ["state-load", "Loads", "broken"],
+  ["state-nothing", "Nothing", "broken"],
+  ["state-crash", "Crash", "broken"],
+];
 
 async function fetchText(url: string): Promise<string> {
   const res = await fetch(url, { signal: AbortSignal.timeout(120_000), headers: { "User-Agent": "GameHub" } });
@@ -167,6 +196,74 @@ async function loadPcsx2(): Promise<Row[]> {
   return out;
 }
 
+async function loadAzahar(): Promise<Row[]> {
+  const list = JSON.parse(await fetchText(SOURCES.azahar)) as { compatibility: number; title: string; releases?: { id: string }[] }[];
+  return list.flatMap((g) => {
+    const st = AZAHAR_STATUS[g.compatibility];
+    if (!st) return [];
+    return (g.releases ?? []).map((rel) => ({
+      key: normSerial(rel.id),
+      status: st[0],
+      rating: st[1],
+      title_norm: normTitle(g.title),
+      region: null,
+      updated: null,
+      link: "https://azahar-emu.org/pages/compatibility/",
+    }));
+  });
+}
+
+async function loadXemu(): Promise<Row[]> {
+  const reports = JSON.parse(await fetchText(SOURCES.xemu)) as { xbe_cert_title_id: number; compat_rating: string; created_at: number }[];
+  // The newest report decides, as on xemu.app.
+  const latest = new Map<number, (typeof reports)[number]>();
+  for (const r of reports) {
+    const cur = latest.get(r.xbe_cert_title_id);
+    if (!cur || r.created_at > cur.created_at) latest.set(r.xbe_cert_title_id, r);
+  }
+  return [...latest.values()].flatMap((r) => {
+    const rating = XEMU_RATING[r.compat_rating];
+    const id = (r.xbe_cert_title_id >>> 0).toString(16).padStart(8, "0");
+    return rating
+      ? [{ key: id.toUpperCase(), status: r.compat_rating, rating, title_norm: null, region: null,
+           updated: new Date(r.created_at * 1000).toISOString().slice(0, 10), link: `https://xemu.app/titles/${id}/` }]
+      : [];
+  });
+}
+
+async function loadXenia(): Promise<Row[]> {
+  type Issue = { title: string; html_url: string; updated_at: string; labels: { name: string }[]; pull_request?: unknown };
+  const issues: Issue[] = [];
+  // GitHub only pages this far with cursors: follow each response's "next" link.
+  let url: string | null = SOURCES.xenia;
+  for (let page = 0; url && page < 40; page++) {
+    const res: Response = await fetch(url, { signal: AbortSignal.timeout(60_000), headers: { "User-Agent": "GameHub", Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error(`xenia-canary/game-compatibility: HTTP ${res.status}`);
+    issues.push(...((await res.json()) as Issue[]));
+    url = /<([^>]+)>;\s*rel="next"/.exec(res.headers.get("link") ?? "")?.[1] ?? null;
+  }
+  // Oldest first, so the most recently updated issue for a title wins.
+  issues.sort((a, b) => a.updated_at.localeCompare(b.updated_at));
+  return issues.flatMap((i) => {
+    const m = /^\s*([0-9A-F]{8})\s*[-–:]\s*(.+)$/i.exec(i.title);
+    if (!m || i.pull_request) return [];
+    const names = i.labels.map((l) => l.name);
+    const st = XENIA_STATES.find(([label]) => names.includes(label));
+    if (!st) return [];
+    return [{ key: m[1].toUpperCase(), status: st[1], rating: st[2], title_norm: normTitle(m[2]), region: null,
+              updated: i.updated_at.slice(0, 10), link: i.html_url }];
+  });
+}
+
+const LOADERS = [
+  ["rpcs3", loadRpcs3],
+  ["vita3k", loadVita3k],
+  ["pcsx2", loadPcsx2],
+  ["azahar", loadAzahar],
+  ["xemu", loadXemu],
+  ["xenia", loadXenia],
+] as const;
+
 /** What the refresh is doing, for Settings › Maintenance › Compatibility lists. */
 interface JobState {
   phase: "idle" | "downloading" | "matching";
@@ -183,13 +280,13 @@ let refreshing: Promise<void> | null = null;
 export function refreshCompatLists(): Promise<void> {
   if (refreshing) return refreshing;
   refreshing = (async () => {
-    Object.assign(job(), { phase: "downloading", done: 0, total: 3, errors: [] });
+    Object.assign(job(), { phase: "downloading", done: 0, total: LOADERS.length, errors: [] });
     const db = getDb();
     const insert = db.prepare(
       `INSERT OR REPLACE INTO compat_external (source, key, status, rating, title_norm, region, updated, link)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
     );
-    for (const [source, load] of [["rpcs3", loadRpcs3], ["vita3k", loadVita3k], ["pcsx2", loadPcsx2]] as const) {
+    for (const [source, load] of LOADERS) {
       try {
         const rows = await load();
         if (!rows.length) continue;
@@ -303,11 +400,17 @@ async function serialFor(rom: RomLite): Promise<string> {
       /* unreadable */
     }
   }
-  if (!serial && rom.platform_slug === "ps2") {
-    // PCSX2's index has names: match the title, preferring the same region.
+  if (!serial && ["3ds", "xbox", "xbox360"].includes(rom.platform_slug)) {
+    serial = normSerial((await titleIdFor(rom.platform_slug, rom.path)) ?? "");
+    // A title id the list doesn't know (another region's release…): try the title instead.
+    const source = LIST_FOR[rom.platform_slug].source;
+    if (serial && TITLE_MATCH.has(rom.platform_slug) && !db.prepare("SELECT 1 FROM compat_external WHERE source = ? AND key = ?").get(source, serial)) serial = "";
+  }
+  if (!serial && TITLE_MATCH.has(rom.platform_slug)) {
+    // Lists with names: match the title, preferring the same region.
     const rows = db
-      .prepare("SELECT key, region FROM compat_external WHERE source = 'pcsx2' AND title_norm = ?")
-      .all(normTitle(rom.title)) as { key: string; region: string | null }[];
+      .prepare("SELECT key, region FROM compat_external WHERE source = ? AND title_norm = ?")
+      .all(LIST_FOR[rom.platform_slug].source, normTitle(rom.title)) as { key: string; region: string | null }[];
     const region = (rom.region ?? "").toLowerCase();
     serial = (rows.find((r) => r.region && region.includes(r.region)) ?? rows[0])?.key ?? "";
   }
@@ -318,8 +421,8 @@ async function serialFor(rom: RomLite): Promise<string> {
 let backfillStarted = false;
 
 /**
- * Once per server start: finds the serial of every PS2 / PS3 / PS Vita game not looked at yet
- * (file names, title matches, Vita zips' contents), so library cards can show the official
+ * Once per server start: finds the serial / title id of every game on a list's system not looked
+ * at yet (file names, title matches, Vita zips' contents, 3DS and Xbox file headers), so library cards can show the official
  * lists' ratings without each game page being opened first. Runs in the background.
  */
 export function scheduleSerialBackfill(): void {
@@ -335,7 +438,7 @@ async function runBackfill(): Promise<void> {
       const todo = db
         .prepare(
           `SELECT r.id, r.title, r.path, r.filename, r.platform_slug, r.region FROM roms r
-            WHERE r.platform_slug IN ('ps2', 'ps3', 'vita') AND r.missing = 0
+            WHERE r.platform_slug IN (${Object.keys(LIST_FOR).map((s) => `'${s}'`).join(", ")}) AND r.missing = 0
               AND NOT EXISTS (SELECT 1 FROM rom_serials rs WHERE rs.rom_id = r.id)`
         )
         .all() as RomLite[];

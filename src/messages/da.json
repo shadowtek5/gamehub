@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "Kompatibilitetslister",
-      "desc": "De officielle emulatorlister, der vises på spilsider og kort (RPCS3, Vita3K, PCSX2). De opdateres automatisk hver uge.",
+      "desc": "De officielle emulatorlister, der vises på spilsider og kort (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). De opdateres automatisk hver uge.",
       "refresh": "Opdater nu",
       "rematch": "Match alle spil igen",
       "counts": "{entries} spil på listen · {matched} af dine",
@@ -3155,7 +3155,8 @@
       "dolphin": "Valgfri. Dolphins brugermappe › GC › USA, EUR eller JAP som IPL.bin (til GameCube-opstartsanimationen).",
       "vita3k": "En vilkårlig mappe (f.eks. BIOS/VITA). Vælg derefter Install firmware i Vita3K, og vælg PSVUPDAT.PUP, derefter PSP2UPDAT.PUP.",
       "ps3": "En vilkårlig mappe (f.eks. BIOS/PS3_BIOS). Installer derefter PS3UPDAT.PUP via emulatorens firmwarevalg.",
-      "cemu": "Cemus brugermappe (keys.txt placeres ved siden af indstillingerne)."
+      "cemu": "Cemus brugermappe (keys.txt placeres ved siden af indstillingerne).",
+      "xemu": "Vilkårlig mappe (f.eks. BIOS/XBOX). Vælg derefter i emulatorens opsætning mcpx_1.0.bin, flash-BIOS'en og harddiskbilledet fra den."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Disknøgler (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX-opstartsrom (mcpx_1.0.bin)",
+        "flash": "Flash-BIOS (f.eks. Complex_4627.bin)",
+        "hdd": "Harddiskbillede (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Scan en mappe på serveren",
-      "desc": "Peg GameHub på en samling af BIOS- og firmwarefiler på serveren. Alt det, den genkender, kopieres ind: BIOS-filer efter checksum eller navn (også inde i .zip-pakker), samt firmware og nøgler til PS Vita, PS3, Switch, 3DS og Wii U. Selve mappen ændres ikke. I Docker skal du først montere mappen i containeren.",
+      "desc": "Peg GameHub på en samling af BIOS- og firmwarefiler på serveren. Alt det genkendte kopieres ind: BIOS-filer efter checksum eller navn (også inde i .zip-pakker), firmware og nøgler til PS Vita, PS3, Switch, 3DS og Wii U samt den originale Xbox' MCPX-ROM, flash-BIOS og harddiskbillede. Selve mappen ændres ikke. I Docker skal mappen først mountes i containeren.",
       "placeholder": "/path/to/bios",
       "start": "Scan",
       "stop": "Stop",

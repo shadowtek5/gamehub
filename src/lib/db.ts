@@ -1856,7 +1856,7 @@ const COMPAT_LEVEL_SQL = `COALESCE(
        FROM compat_reports cr WHERE cr.rom_id = r.id AND cr.emulator != ''),
     (SELECT ce.rating FROM rom_serials rs
        JOIN compat_external ce ON ce.key = rs.serial
-        AND ce.source = CASE r.platform_slug WHEN 'ps2' THEN 'pcsx2' WHEN 'ps3' THEN 'rpcs3' WHEN 'vita' THEN 'vita3k' END
+        AND ce.source = CASE r.platform_slug WHEN 'ps2' THEN 'pcsx2' WHEN 'ps3' THEN 'rpcs3' WHEN 'vita' THEN 'vita3k' WHEN '3ds' THEN 'azahar' WHEN 'xbox' THEN 'xemu' WHEN 'xbox360' THEN 'xenia' END
       WHERE rs.rom_id = r.id AND rs.serial != ''),
     r.compat_official,
     (SELECT cr.rating FROM compat_reports cr WHERE cr.rom_id = r.id AND cr.emulator = ''
@@ -2601,7 +2601,7 @@ export function compatLevel(romId: number): CompatLevel | null {
   const best = reports.filter(isCompatRatingRow).sort((a, b) => rank[a.rating] - rank[b.rating])[0];
   if (best) return { level: best.rating as CompatRating, source: "device", emulator: best.emulator_name, device: best.device || null };
   const rom = db.prepare("SELECT platform_slug FROM roms WHERE id = ?").get(romId) as { platform_slug: string } | undefined;
-  const list: Record<string, [string, string]> = { ps2: ["pcsx2", "PCSX2"], ps3: ["rpcs3", "RPCS3"], vita: ["vita3k", "Vita3K"] };
+  const list: Record<string, [string, string]> = { ps2: ["pcsx2", "PCSX2"], ps3: ["rpcs3", "RPCS3"], vita: ["vita3k", "Vita3K"], "3ds": ["azahar", "Azahar"], xbox: ["xemu", "xemu"], xbox360: ["xenia", "Xenia Canary"] };
   const src = rom ? list[rom.platform_slug] : undefined;
   if (src) {
     const ext = db

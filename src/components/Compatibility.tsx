@@ -4,7 +4,7 @@
 // In the browser (playable systems): a consensus badge (official pin wins over the
 // crowd mode), a counts bar, the user's own report (Playable / Runs / Broken + note)
 // and an admin control to pin an official rating. For every game: what the official
-// emulator lists say (RPCS3, Vita3K, PCSX2), reports from handhelds (GameHub
+// emulator lists say (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary), reports from handhelds (GameHub
 // Downloader asks after a play session), and which emulators can open the file.
 // Backed by /api/roms/[id]/compat.
 

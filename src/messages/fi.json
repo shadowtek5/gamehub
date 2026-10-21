@@ -548,7 +548,7 @@
     },
     "compatLists": {
       "title": "Yhteensopivuusluettelot",
-      "desc": "Emulaattoriprojektien viralliset luettelot, jotka näkyvät pelisivuilla ja korteissa (RPCS3, Vita3K, PCSX2). Ne päivittyvät viikoittain itsestään.",
+      "desc": "Emulaattoriprojektien viralliset luettelot, jotka näkyvät pelisivuilla ja korteissa (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Ne päivittyvät viikoittain itsestään.",
       "refresh": "Päivitä nyt",
       "rematch": "Yhdistä kaikki pelit uudelleen",
       "counts": "{entries} peliä luettelossa · {matched} omistasi",
@@ -3155,7 +3155,8 @@
       "dolphin": "Valinnainen. Dolphinin käyttäjäkansio › GC › USA, EUR tai JAP IPL.bin-tiedostona (GameCuben käynnistysanimaatiota varten).",
       "vita3k": "Mikä tahansa kansio (esim. BIOS/VITA). Valitse sitten Vita3K:ssa Install firmware ja valitse PSVUPDAT.PUP, sitten PSP2UPDAT.PUP.",
       "ps3": "Mikä tahansa kansio (esim. BIOS/PS3_BIOS). Asenna sitten PS3UPDAT.PUP emulaattorin firmware-valinnasta.",
-      "cemu": "Cemun käyttäjäkansio (keys.txt menee asetusten viereen)."
+      "cemu": "Cemun käyttäjäkansio (keys.txt menee asetusten viereen).",
+      "xemu": "Mikä tahansa kansio (esim. BIOS/XBOX). Valitse sitten emulaattorin asetuksissa sieltä mcpx_1.0.bin, flash-BIOS ja kiintolevykuva."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Levyavaimet (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX-käynnistys-ROM (mcpx_1.0.bin)",
+        "flash": "Flash-BIOS (esim. Complex_4627.bin)",
+        "hdd": "Kiintolevykuva (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Skannaa kansio palvelimella",
-      "desc": "Osoita GameHub palvelimella olevaan BIOS- ja laiteohjelmistokokoelmaan. Kaikki, minkä se tunnistaa, kopioidaan: BIOS-tiedostot tarkistussumman tai nimen perusteella (myös .zip-paketeista) sekä PS Vita-, PS3-, Switch-, 3DS- ja Wii U -laiteohjelmistot ja -avaimet. Kansiota itseään ei muuteta. Dockerissa liitä kansio ensin konttiin.",
+      "desc": "Osoita GameHub palvelimella olevaan BIOS- ja laiteohjelmistokokoelmaan. Kaikki tunnistettu kopioidaan: BIOS-tiedostot tarkistesumman tai nimen perusteella (myös .zip-paketeissa), laiteohjelmistot ja avaimet PS Vita-, PS3-, Switch-, 3DS- ja Wii U -laitteille sekä alkuperäisen Xboxin MCPX-ROM, flash-BIOS ja kiintolevykuva. Kansiota itseään ei muuteta. Dockerissa kansio pitää ensin liittää konttiin.",
       "placeholder": "/path/to/bios",
       "start": "Skannaa",
       "stop": "Pysäytä",

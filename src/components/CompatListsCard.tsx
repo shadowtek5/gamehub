@@ -1,7 +1,7 @@
 "use client";
 
 // Settings › Maintenance › Compatibility lists: the official emulator lists (RPCS3, Vita3K,
-// PCSX2) the game pages and cards use — when they were last downloaded, how many of your
+// PCSX2, Azahar, xemu, Xenia Canary) the game pages and cards use — when they were last downloaded, how many of your
 // games each one matched, and a button to refresh them now (they also refresh weekly).
 
 import { useEffect, useState } from "react";

@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "Kompatibilitätslisten",
-      "desc": "Die offiziellen Listen der Emulatoren, die auf Spieleseiten und Karten angezeigt werden (RPCS3, Vita3K, PCSX2). Sie aktualisieren sich wöchentlich automatisch.",
+      "desc": "Die offiziellen Listen der Emulatoren, die auf Spieleseiten und Karten angezeigt werden (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Sie aktualisieren sich wöchentlich automatisch.",
       "refresh": "Jetzt aktualisieren",
       "rematch": "Alle Spiele neu zuordnen",
       "counts": "{entries} Spiele in der Liste · {matched} davon deine",
@@ -3155,7 +3155,8 @@
       "dolphin": "Optional. Dolphins Benutzerordner › GC › USA, EUR oder JAP als IPL.bin (für die GameCube-Startanimation).",
       "vita3k": "Beliebiger Ordner (z. B. BIOS/VITA). Wähle dann in Vita3K „Install firmware“ und wähle PSVUPDAT.PUP, dann PSP2UPDAT.PUP.",
       "ps3": "Beliebiger Ordner (z. B. BIOS/PS3_BIOS). Installiere dann PS3UPDAT.PUP über die Firmware-Option des Emulators.",
-      "cemu": "Cemus Benutzerordner (keys.txt kommt neben die Einstellungen)."
+      "cemu": "Cemus Benutzerordner (keys.txt kommt neben die Einstellungen).",
+      "xemu": "Beliebiger Ordner (z. B. BIOS/XBOX). Wähle dann in den Einstellungen des Emulators mcpx_1.0.bin, das Flash-BIOS und das Festplattenabbild daraus aus."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Disc-Schlüssel (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX-Boot-ROM (mcpx_1.0.bin)",
+        "flash": "Flash-BIOS (z. B. Complex_4627.bin)",
+        "hdd": "Festplattenabbild (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Ordner auf dem Server scannen",
-      "desc": "Zeige GameHub auf eine Sammlung von BIOS- und Firmware-Dateien auf dem Server. Alles, was erkannt wird, wird kopiert: BIOS-Dateien anhand von Prüfsumme oder Name (auch in .zip-Paketen) sowie Firmware und Schlüssel für PS Vita, PS3, Switch, 3DS und Wii U. Der Ordner selbst wird nicht verändert. Bei Docker binde zuerst den Ordner in den Container ein.",
+      "desc": "Zeige GameHub auf eine BIOS- und Firmware-Sammlung auf dem Server. Alles, was erkannt wird, wird kopiert: BIOS-Dateien anhand von Prüfsumme oder Name (auch in .zip-Paketen), Firmware und Schlüssel für PS Vita, PS3, Switch, 3DS und Wii U sowie MCPX-ROM, Flash-BIOS und Festplattenabbild der originalen Xbox. Der Ordner selbst wird nicht verändert. In Docker musst du den Ordner zuerst in den Container einbinden.",
       "placeholder": "/path/to/bios",
       "start": "Scannen",
       "stop": "Stoppen",

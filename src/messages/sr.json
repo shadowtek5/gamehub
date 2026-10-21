@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "Liste kompatibilnosti",
-      "desc": "Zvanične liste emulatora koje se prikazuju na stranicama i karticama igara (RPCS3, Vita3K, PCSX2). Ažuriraju se same svake nedelje.",
+      "desc": "Zvanične liste emulatora koje se prikazuju na stranicama i karticama igara (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Ažuriraju se same svake nedelje.",
       "refresh": "Osveži sada",
       "rematch": "Ponovo uporedi sve igre",
       "counts": "{entries} igara na listi · {matched} od vaših",
@@ -3155,7 +3155,8 @@
       "dolphin": "Opciono. Korisnički folder Dolphin-a › GC › USA, EUR ili JAP kao IPL.bin (za animaciju pokretanja GameCube-a).",
       "vita3k": "Bilo koja fascikla (npr. BIOS/VITA). Zatim u Vita3K izaberite Install firmware, pa PSVUPDAT.PUP, pa PSP2UPDAT.PUP.",
       "ps3": "Bilo koja fascikla (npr. BIOS/PS3_BIOS). Zatim instalirajte PS3UPDAT.PUP iz opcije za firmver u emulatoru.",
-      "cemu": "Korisnička fascikla Cemu (keys.txt ide pored podešavanja)."
+      "cemu": "Korisnička fascikla Cemu (keys.txt ide pored podešavanja).",
+      "xemu": "Bilo koji folder (npr. BIOS/XBOX). Zatim u podešavanju emulatora izaberi odatle mcpx_1.0.bin, flash BIOS i sliku tvrdog diska."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Ključevi diskova (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX boot ROM (mcpx_1.0.bin)",
+        "flash": "Flash BIOS (npr. Complex_4627.bin)",
+        "hdd": "Slika tvrdog diska (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Skeniraj folder na serveru",
-      "desc": "Usmerite GameHub na kolekciju BIOS-a i firmvera na serveru. Sve što prepozna biće kopirano: BIOS fajlovi po kontrolnoj sumi ili imenu (i unutar .zip paketa), kao i firmver i ključevi za PS Vita, PS3, Switch, 3DS i Wii U. Sam folder se ne menja. U Dockeru prvo montirajte folder u kontejner.",
+      "desc": "Usmeri GameHub na kolekciju BIOS-a i firmvera na serveru. Sve što prepozna se kopira: BIOS fajlovi po kontrolnom zbiru ili nazivu (i unutar .zip paketa), firmver i ključevi za PS Vita, PS3, Switch, 3DS i Wii U, kao i MCPX ROM, flash BIOS i slika tvrdog diska originalnog Xbox-a. Sam folder se ne menja. U Dockeru prvo montiraj folder u kontejner.",
       "placeholder": "/path/to/bios",
       "start": "Skeniraj",
       "stop": "Zaustavi",

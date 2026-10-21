@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "호환성 목록",
-      "desc": "게임 페이지와 카드에 표시되는 에뮬레이터 공식 목록입니다(RPCS3, Vita3K, PCSX2). 매주 자동으로 업데이트됩니다.",
+      "desc": "게임 페이지와 카드에 표시되는 에뮬레이터 공식 목록입니다(RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). 매주 자동으로 업데이트됩니다.",
       "refresh": "지금 새로 고침",
       "rematch": "모든 게임 다시 맞추기",
       "counts": "목록의 게임 {entries}개 · 내 게임 {matched}개",
@@ -3155,7 +3155,8 @@
       "dolphin": "선택 사항. Dolphin 사용자 폴더 › GC › USA, EUR 또는 JAP 아래에 IPL.bin으로 저장 (GameCube 부팅 애니메이션용).",
       "vita3k": "아무 폴더(예: BIOS/VITA). 그다음 Vita3K에서 Install firmware를 선택하고 PSVUPDAT.PUP, 그다음 PSP2UPDAT.PUP를 고릅니다.",
       "ps3": "아무 폴더(예: BIOS/PS3_BIOS). 그다음 에뮬레이터의 펌웨어 옵션에서 PS3UPDAT.PUP를 설치합니다.",
-      "cemu": "Cemu의 사용자 폴더(keys.txt는 설정 파일 옆에 둡니다)."
+      "cemu": "Cemu의 사용자 폴더(keys.txt는 설정 파일 옆에 둡니다).",
+      "xemu": "아무 폴더나 가능 (예: BIOS/XBOX). 그다음 에뮬레이터 설정에서 그 안의 mcpx_1.0.bin, 플래시 BIOS, 하드 디스크 이미지를 선택하세요."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "디스크 키 (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX 부트 ROM (mcpx_1.0.bin)",
+        "flash": "플래시 BIOS (예: Complex_4627.bin)",
+        "hdd": "하드 디스크 이미지 (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "서버의 폴더 스캔",
-      "desc": "서버에 있는 BIOS 및 펌웨어 모음을 GameHub가 가리키게 하세요. 인식되는 항목은 모두 복사됩니다. BIOS 파일은 체크섬 또는 이름으로(.zip 묶음 안의 파일 포함), PS Vita, PS3, Switch, 3DS, Wii U의 펌웨어와 키도 포함됩니다. 폴더 자체는 변경되지 않습니다. Docker에서는 먼저 폴더를 컨테이너에 마운트하세요.",
+      "desc": "서버에 있는 BIOS 및 펌웨어 모음을 GameHub가 가리키도록 지정하세요. 인식된 항목은 모두 복사됩니다. 체크섬이나 이름으로 인식된 BIOS 파일(.zip 묶음 안의 파일 포함), PS Vita, PS3, Switch, 3DS, Wii U용 펌웨어와 키, 그리고 원본 Xbox의 MCPX ROM, 플래시 BIOS, 하드 디스크 이미지입니다. 폴더 자체는 변경되지 않습니다. Docker에서는 먼저 폴더를 컨테이너에 마운트하세요.",
       "placeholder": "/path/to/bios",
       "start": "스캔",
       "stop": "중지",

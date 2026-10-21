@@ -1261,7 +1261,7 @@
     },
     "compatLists": {
       "title": "兼容性列表",
-      "desc": "游戏页面和卡片上显示的模拟器官方列表（RPCS3、Vita3K、PCSX2）。每周自动更新。",
+      "desc": "游戏页面和卡片上显示的模拟器官方列表（RPCS3、Vita3K、PCSX2、Azahar、xemu、Xenia Canary）。每周自动更新。",
       "refresh": "立即刷新",
       "rematch": "重新匹配所有游戏",
       "counts": "列表中有 {entries} 个游戏 · 其中 {matched} 个是你的",
@@ -3155,7 +3155,8 @@
       "dolphin": "可选。Dolphin 用户文件夹 › GC › USA、EUR 或 JAP 下的 IPL.bin（用于 GameCube 开机动画）。",
       "vita3k": "任意文件夹（例如 BIOS/VITA）。然后在 Vita3K 中选择 Install firmware，依次选择 PSVUPDAT.PUP 和 PSP2UPDAT.PUP。",
       "ps3": "任意文件夹（例如 BIOS/PS3_BIOS）。然后从模拟器的固件选项中安装 PS3UPDAT.PUP。",
-      "cemu": "Cemu 的用户文件夹（keys.txt 放在设置文件旁边）。"
+      "cemu": "Cemu 的用户文件夹（keys.txt 放在设置文件旁边）。",
+      "xemu": "任意文件夹（例如 BIOS/XBOX）。然后在模拟器设置中从中选择 mcpx_1.0.bin、Flash BIOS 和硬盘镜像。"
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "光盘密钥 (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "MCPX 启动 ROM（mcpx_1.0.bin）",
+        "flash": "Flash BIOS（例如 Complex_4627.bin）",
+        "hdd": "硬盘镜像（xbox_hdd.qcow2）"
       }
     },
     "scan": {
       "title": "扫描服务器上的文件夹",
-      "desc": "将 GameHub 指向服务器上的 BIOS 和固件集合。所有识别到的内容都会被复制：BIOS 文件按校验和或文件名识别（包括 .zip 包内的文件），以及 PS Vita、PS3、Switch、3DS 和 Wii U 的固件与密钥。原文件夹不会被修改。在 Docker 中，请先将该文件夹挂载到容器中。",
+      "desc": "将 GameHub 指向服务器上的 BIOS 和固件合集。所有被识别的内容都会被复制：按校验和或文件名识别的 BIOS 文件（也包括 .zip 包内的文件）、PS Vita、PS3、Switch、3DS 和 Wii U 的固件与密钥，以及原版 Xbox 的 MCPX ROM、Flash BIOS 和硬盘镜像。文件夹本身不会被更改。在 Docker 中，请先将该文件夹挂载到容器内。",
       "placeholder": "/path/to/bios",
       "start": "扫描",
       "stop": "停止",

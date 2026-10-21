@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-21",
+    title: "3DS, Xbox and Xbox 360 compatibility, and Xbox BIOS",
+    body: "Three more official compatibility lists: Azahar for 3DS (also Citra and its forks), xemu for the original Xbox (also X1 BOX and hakuX on Android) and Xenia Canary for Xbox 360 (also aX360e). GameHub reads each game's title id from its own file — .3ds, .cci, .cxi and .cia files, Xbox and Xbox 360 disc images, extracted folders and GOD/XBLA packages — or matches it by title, so the card icons and game pages show how it runs. Settings › Firmware now keeps the original Xbox's MCPX boot ROM, flash BIOS and hard disk image too (also found by the folder scanner), and GameHub Downloader 1.3.3 copies them to a folder X1 BOX or hakuX can pick them from. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-21",
     title: "Compatibility and translations at a glance",
     body: "Game cards now show how well a game runs with a small icon in the top-left corner, like Steam's Deck badges: a green check for Playable, an amber ! for Runs with issues, a red ✕ for Broken (nothing when it's unknown). It comes from your handhelds' reports first, then the official lists (RPCS3, Vita3K, PCSX2), then the in-browser rating — and the same level now sits in the game page's bar next to Last played and Play time. Fan translations, ROM hacks, homebrew, prototypes, betas and demos get a ribbon across the top-right corner of their card. Admins can refresh the official lists any time in Settings › Maintenance › Compatibility lists, which also shows how many of your games each list matched. On desktop/TV and the mobile app.",
     art: "automation",

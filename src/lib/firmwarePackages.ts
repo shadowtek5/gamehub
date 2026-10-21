@@ -1,6 +1,7 @@
 // System firmware and keys for consoles whose emulators install a firmware
 // package rather than reading libretro BIOS files: PS Vita and PS3 update PUPs,
-// Switch keys and firmware (a .zip or a folder of .nca files), 3DS and Wii U keys.
+// Switch keys and firmware (a .zip or a folder of .nca files), 3DS and Wii U keys,
+// and the original Xbox's MCPX boot ROM, flash BIOS and hard disk image (xemu, X1 BOX, hakuX).
 // These are large, often multi-file, and kept exactly as uploaded — never
 // unpacked or renamed — so the emulator's own "Install firmware" can use them.
 // Hand-maintained (the libretro BIOS list in biosManifest.ts doesn't cover them).
@@ -48,6 +49,18 @@ export const FIRMWARE_PACKAGES: Record<string, FirmwarePackage[]> = {
   ],
   wiiu: [
     { id: "keys", label: "Disc keys (keys.txt)", required: false, match: /^keys\.txt$/i, maxBytes: 8 * MB },
+  ],
+  xbox: [
+    { id: "mcpx", label: "MCPX boot ROM (mcpx_1.0.bin)", required: true, match: /^mcpx[^/]*\.(?:bin|rom)$/i, maxBytes: 1 * MB },
+    {
+      id: "flash",
+      label: "Flash BIOS (e.g. Complex_4627.bin)",
+      required: true,
+      // "Complex_4627.bin", "Complex_4627v1.03.bin", "xbox-4627.bin", "xbox_bios.bin", "EvoX M8plus.bin", "Cromwell.bin"…
+      match: /^(?:complex[_ -]?\d{4}|xbox[_ -]?(?:bios|flash|kernel|\d{4})|evox|cromwell)[^/]*\.(?:bin|rom|img)$/i,
+      maxBytes: 4 * MB,
+    },
+    { id: "hdd", label: "Hard disk image (xbox_hdd.qcow2)", required: true, match: /^(?:[^/]*\.qcow2|xbox[_ -]?hdd[^/]*\.img)$/i, maxBytes: 1024 * MB },
   ],
 };
 

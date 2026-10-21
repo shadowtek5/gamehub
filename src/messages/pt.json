@@ -504,7 +504,7 @@
     },
     "compatLists": {
       "title": "Listas de compatibilidade",
-      "desc": "As listas oficiais dos emuladores exibidas nas páginas e cartões dos jogos (RPCS3, Vita3K, PCSX2). Elas se atualizam sozinhas toda semana.",
+      "desc": "As listas oficiais dos emuladores exibidas nas páginas e cartões dos jogos (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Elas se atualizam sozinhas toda semana.",
       "refresh": "Atualizar agora",
       "rematch": "Associar todos os jogos novamente",
       "counts": "{entries} jogos na lista · {matched} são seus",
@@ -3155,7 +3155,8 @@
       "dolphin": "Opcional. Pasta de usuário do Dolphin › GC › USA, EUR ou JAP como IPL.bin (para a animação de inicialização do GameCube).",
       "vita3k": "Qualquer pasta (ex.: BIOS/VITA). Depois, no Vita3K, escolha Install firmware e selecione PSVUPDAT.PUP e depois PSP2UPDAT.PUP.",
       "ps3": "Qualquer pasta (ex.: BIOS/PS3_BIOS). Depois instale o PS3UPDAT.PUP pela opção de firmware do emulador.",
-      "cemu": "A pasta de usuário do Cemu (keys.txt fica ao lado das configurações)."
+      "cemu": "A pasta de usuário do Cemu (keys.txt fica ao lado das configurações).",
+      "xemu": "Qualquer pasta (ex.: BIOS/XBOX). Depois, na configuração do emulador, escolha ali o mcpx_1.0.bin, a BIOS flash e a imagem do disco rígido."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Chaves de disco (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "ROM de boot MCPX (mcpx_1.0.bin)",
+        "flash": "BIOS flash (ex.: Complex_4627.bin)",
+        "hdd": "Imagem de disco rígido (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Escanear uma pasta no servidor",
-      "desc": "Aponte o GameHub para uma coleção de BIOS e firmware no servidor. Tudo o que for reconhecido será copiado: arquivos de BIOS por soma de verificação ou nome (inclusive dentro de pacotes .zip), além de firmware e chaves de PS Vita, PS3, Switch, 3DS e Wii U. A pasta em si não é alterada. No Docker, monte a pasta no contêiner antes.",
+      "desc": "Aponte o GameHub para uma coleção de BIOS e firmware no servidor. Tudo o que for reconhecido é copiado: arquivos de BIOS por checksum ou nome (inclusive dentro de pacotes .zip), firmware e chaves para PS Vita, PS3, Switch, 3DS e Wii U, além da ROM MCPX, da BIOS flash e da imagem de disco rígido do Xbox original. A pasta em si não é alterada. No Docker, monte a pasta no contêiner primeiro.",
       "placeholder": "/path/to/bios",
       "start": "Escanear",
       "stop": "Parar",

@@ -222,6 +222,13 @@ export const EMULATOR_BIOS: EmulatorBios[] = [
     where: "Cemu's user folder (keys.txt goes next to the settings).",
   },
   {
+    id: "xemu",
+    name: "X1 BOX / hakuX",
+    packages: ["com.izzy2lost.x1box*", "com.rfandango.haku_x*"],
+    platforms: ["xbox"],
+    where: "Any folder (e.g. BIOS/XBOX). Then in the emulator's setup pick mcpx_1.0.bin, the flash BIOS and the hard disk image from it.",
+  },
+  {
     id: "dolphin",
     name: "Dolphin",
     packages: ["org.dolphinemu.*", "org.mm.j*", "org.dolphin.*"],

@@ -548,7 +548,7 @@
     },
     "compatLists": {
       "title": "Λίστες συμβατότητας",
-      "desc": "Οι επίσημες λίστες των emulator που εμφανίζονται στις σελίδες και τις κάρτες των παιχνιδιών (RPCS3, Vita3K, PCSX2). Ενημερώνονται αυτόματα κάθε εβδομάδα.",
+      "desc": "Οι επίσημες λίστες των emulator που εμφανίζονται στις σελίδες και τις κάρτες των παιχνιδιών (RPCS3, Vita3K, PCSX2, Azahar, xemu, Xenia Canary). Ενημερώνονται αυτόματα κάθε εβδομάδα.",
       "refresh": "Ανανέωση τώρα",
       "rematch": "Επαναντιστοίχιση όλων των παιχνιδιών",
       "counts": "{entries} παιχνίδια στη λίστα · {matched} από τα δικά σας",
@@ -3155,7 +3155,8 @@
       "dolphin": "Προαιρετικό. Φάκελος χρήστη του Dolphin › GC › USA, EUR ή JAP ως IPL.bin (για την εκκινησιακή animation του GameCube).",
       "vita3k": "Οποιοσδήποτε φάκελος (π.χ. BIOS/VITA). Μετά, στο Vita3K, επίλεξε Install firmware και διάλεξε PSVUPDAT.PUP, και μετά PSP2UPDAT.PUP.",
       "ps3": "Οποιοσδήποτε φάκελος (π.χ. BIOS/PS3_BIOS). Μετά εγκατάστησε το PS3UPDAT.PUP από την επιλογή firmware του εξομοιωτή.",
-      "cemu": "Ο φάκελος χρήστη του Cemu (το keys.txt πάει δίπλα στις ρυθμίσεις)."
+      "cemu": "Ο φάκελος χρήστη του Cemu (το keys.txt πάει δίπλα στις ρυθμίσεις).",
+      "xemu": "Οποιονδήποτε φάκελο (π.χ. BIOS/XBOX). Έπειτα, στη ρύθμιση του emulator, επίλεξε από εκεί το mcpx_1.0.bin, το flash BIOS και το αρχείο εικόνας σκληρού δίσκου."
     }
   },
   "firmwarePackages": {
@@ -3196,11 +3197,16 @@
       },
       "wiiu": {
         "keys": "Κλειδιά δίσκων (keys.txt)"
+      },
+      "xbox": {
+        "mcpx": "Boot ROM MCPX (mcpx_1.0.bin)",
+        "flash": "Flash BIOS (π.χ. Complex_4627.bin)",
+        "hdd": "Εικόνα σκληρού δίσκου (xbox_hdd.qcow2)"
       }
     },
     "scan": {
       "title": "Σάρωση φακέλου στον διακομιστή",
-      "desc": "Δείξτε στο GameHub μια συλλογή αρχείων BIOS και firmware στον διακομιστή. Ό,τι αναγνωρίζει αντιγράφεται: αρχεία BIOS με βάση το checksum ή το όνομα (και μέσα σε πακέτα .zip), και firmware και κλειδιά για PS Vita, PS3, Switch, 3DS και Wii U. Ο ίδιος ο φάκελος δεν αλλάζει. Στο Docker, κάντε πρώτα mount τον φάκελο στο container.",
+      "desc": "Δείξε στο GameHub μια συλλογή BIOS και firmware στον διακομιστή. Αντιγράφεται ό,τι αναγνωρίζει: αρχεία BIOS με βάση το checksum ή το όνομα (και μέσα σε πακέτα .zip), firmware και κλειδιά για PS Vita, PS3, Switch, 3DS και Wii U, καθώς και το ROM MCPX, το flash BIOS και την εικόνα σκληρού δίσκου του αρχικού Xbox. Ο ίδιος ο φάκελος δεν αλλάζει. Στο Docker, κάνε πρώτα mount τον φάκελο στο container.",
       "placeholder": "/path/to/bios",
       "start": "Σάρωση",
       "stop": "Διακοπή",
