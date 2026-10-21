@@ -745,13 +745,9 @@
       "remove": "移除",
       "extra": "额外",
       "uploading": "正在上传 {count}…",
-      "uploadItemFailed": "失败",
       "zipImported": "zip：+{imported}",
       "zipKept": "，保留 {kept} 个已验证的",
-      "zipSkipped": "，跳过 {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}：已验证 —— 已保留",
-      "outcomeUnverified": "{filename}：已接受（未验证）",
-      "outcomeRejected": "✗ {filename}：名称不是预期的 BIOS —— 已跳过"
+      "zipSkipped": "，跳过 {skipped}"
     },
     "romUpload": {
       "title": "上传 ROM —— {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "正在上传 {count, plural, one {# 个文件} other {# 个文件}}…",
-      "failed": "失败",
       "zipImported": "已导入 {count}",
       "zipKept": "，保留 {count} 个已验证的",
       "zipSkipped": "，跳过 {count}",
-      "alreadyVerifiedKept": "已验证 —— 已保留",
-      "acceptedUnverified": "已接受（未验证 —— 哈希不匹配）",
-      "notExpectedBios": "名称不是预期的 BIOS —— 已跳过",
       "optionalSuffix": "（可选）",
       "addBios": "添加 BIOS",
       "uploadIndividualLabel": "上传单个文件",
@@ -3138,8 +3130,66 @@
       "redream": "Redream 的文件夹（Android/data/io.recompiled.redream/files）：dc_boot.bin 和 dc_flash.bin。",
       "citra": "模拟器用户文件夹中的 sysdata 文件夹。",
       "saturn": "在 Yaba Sanshiro 设置中指定的 BIOS 文件夹（yabause/bios）。",
-      "switch": "之后在模拟器中用于安装密钥和固件的文件夹（设置 › 安装密钥 / 安装固件）。",
-      "dolphin": "可选。Dolphin 用户文件夹 › GC › USA、EUR 或 JAP 下的 IPL.bin（用于 GameCube 开机动画）。"
+      "switch": "Eden 的文件夹（或任意文件夹）：prod.keys 和 title.keys，以及固件 .zip 或 Firmware 文件夹。然后在模拟器中选择 Install keys 和 Install firmware。",
+      "dolphin": "可选。Dolphin 用户文件夹 › GC › USA、EUR 或 JAP 下的 IPL.bin（用于 GameCube 开机动画）。",
+      "vita3k": "任意文件夹（例如 BIOS/VITA）。然后在 Vita3K 中选择 Install firmware，依次选择 PSVUPDAT.PUP 和 PSP2UPDAT.PUP。",
+      "ps3": "任意文件夹（例如 BIOS/PS3_BIOS）。然后从模拟器的固件选项中安装 PS3UPDAT.PUP。",
+      "cemu": "Cemu 的用户文件夹（keys.txt 放在设置文件旁边）。"
+    }
+  },
+  "firmwarePackages": {
+    "title": "系统固件与密钥",
+    "intro": "保持上传时的原样。可在模拟器中安装（例如 Vita3K、RPCS3 或 Eden › 安装固件），或让 GameHub Downloader 将其复制到掌机上的模拟器文件夹中。",
+    "required": "必需",
+    "optional": "可选",
+    "missing": "未上传",
+    "files": "{count, plural, one {# 个文件} other {# 个文件}} · {size}",
+    "download": "下载",
+    "remove": "移除",
+    "uploadFile": "上传文件",
+    "uploadFolder": "上传文件夹",
+    "uploading": "正在上传 {name}（{n}/{total}）… {pct}%",
+    "folderDone": "已上传 {ok}/{total} 个文件",
+    "uploadedPackage": "✓ {name} → {slug} 固件",
+    "uploadedBios": "✓ {name} → {slug} · {file}（已验证）",
+    "uploadedBiosUnverified": "{name} → {slug} · {file}（已接受，校验和不匹配）",
+    "already": "✓ {name}：GameHub 中已存在",
+    "zipFiled": "{name}：已归档 {count, plural, one {# 个 BIOS 文件} other {# 个 BIOS 文件}}",
+    "rejected": "✗ {name}：{error}",
+    "label": {
+      "vita": {
+        "firmware": "系统固件 (PSVUPDAT.PUP)",
+        "fonts": "字体包 (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "系统固件 (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "产品密钥 (prod.keys)",
+        "titlekeys": "标题密钥 (title.keys)",
+        "firmware": "系统固件（.zip 或 .nca 文件夹）"
+      },
+      "3ds": {
+        "aeskeys": "AES 密钥 (aes_keys.txt)",
+        "seeddb": "种子数据库 (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "光盘密钥 (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "扫描服务器上的文件夹",
+      "desc": "将 GameHub 指向服务器上的 BIOS 和固件集合。所有识别到的内容都会被复制：BIOS 文件按校验和或文件名识别（包括 .zip 包内的文件），以及 PS Vita、PS3、Switch、3DS 和 Wii U 的固件与密钥。原文件夹不会被修改。在 Docker 中，请先将该文件夹挂载到容器中。",
+      "placeholder": "/path/to/bios",
+      "start": "扫描",
+      "stop": "停止",
+      "failed": "无法开始扫描",
+      "progress": "正在扫描 {done}/{total}…",
+      "stopped": "已停止。",
+      "summary": "已添加 {bios, plural, one {# 个 BIOS 文件} other {# 个 BIOS 文件}} 和 {packages, plural, one {# 个固件文件} other {# 个固件文件}} · {already} 个已在 GameHub 中",
+      "problems": "{count, plural, one {# 个问题} other {# 个问题}}",
+      "showFound": "显示找到的内容（{count}）",
+      "hideFound": "隐藏"
     }
   }
 }

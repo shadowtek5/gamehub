@@ -1900,13 +1900,9 @@
     },
     "firmware": {
       "uploadingFiles": "Subiendo {count, plural, one {# archivo} other {# archivos}}…",
-      "failed": "error",
       "zipImported": "importados {count}",
       "zipKept": ", guardados {count} verificados",
       "zipSkipped": ", omitidos {count}",
-      "alreadyVerifiedKept": "ya verificado: guardado",
-      "acceptedUnverified": "aceptado (no verificado: el hash no coincide)",
-      "notExpectedBios": "el nombre no es una BIOS esperada: omitido",
       "optionalSuffix": " (opcional)",
       "addBios": "Añadir BIOS",
       "uploadIndividualLabel": "Subir archivos individuales",
@@ -2276,13 +2272,9 @@
       "remove": "Eliminar",
       "extra": "Extra",
       "uploading": "Subiendo {count}…",
-      "uploadItemFailed": "error",
       "zipImported": "zip: +{imported}",
       "zipKept": ", se guardaron {kept} verificados",
-      "zipSkipped": ", se omitieron {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: ya verificado: guardado",
-      "outcomeUnverified": "{filename}: aceptado (no verificado)",
-      "outcomeRejected": "✗ {filename}: el nombre no es una BIOS esperada: omitido"
+      "zipSkipped": ", se omitieron {skipped}"
     },
     "romUpload": {
       "title": "Subir ROMs — {name}",
@@ -3138,8 +3130,66 @@
       "redream": "La carpeta de Redream (Android/data/io.recompiled.redream/files): dc_boot.bin y dc_flash.bin.",
       "citra": "La carpeta sysdata dentro de la carpeta de usuario del emulador.",
       "saturn": "La carpeta BIOS definida en los ajustes de Yaba Sanshiro (yabause/bios).",
-      "switch": "Una carpeta desde la que instalarás después las claves y el firmware en el emulador (Ajustes › Install keys / Install firmware).",
-      "dolphin": "Opcional. Carpeta de usuario de Dolphin › GC › USA, EUR o JAP como IPL.bin (para la animación de arranque de GameCube)."
+      "switch": "La carpeta de Eden (o cualquier carpeta): prod.keys y title.keys, y el .zip de firmware o la carpeta Firmware. Luego, en el emulador, elige Install keys e Install firmware.",
+      "dolphin": "Opcional. Carpeta de usuario de Dolphin › GC › USA, EUR o JAP como IPL.bin (para la animación de arranque de GameCube).",
+      "vita3k": "Cualquier carpeta (p. ej., BIOS/VITA). Luego, en Vita3K, elige Install firmware y selecciona PSVUPDAT.PUP y después PSP2UPDAT.PUP.",
+      "ps3": "Cualquier carpeta (p. ej., BIOS/PS3_BIOS). Luego instala PS3UPDAT.PUP desde la opción de firmware del emulador.",
+      "cemu": "La carpeta de usuario de Cemu (keys.txt va junto a los ajustes)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Firmware del sistema y claves",
+    "intro": "Se guardan tal como se subieron. Instálalos desde el emulador (p. ej., Vita3K, RPCS3 o Eden › Instalar firmware), o deja que GameHub Downloader los copie a la carpeta del emulador en tu dispositivo portátil.",
+    "required": "Obligatorio",
+    "optional": "Opcional",
+    "missing": "no subido",
+    "files": "{count, plural, one {# archivo} other {# archivos}} · {size}",
+    "download": "Descargar",
+    "remove": "Quitar",
+    "uploadFile": "Subir archivo",
+    "uploadFolder": "Subir carpeta",
+    "uploading": "Subiendo {name} ({n} de {total})… {pct}%",
+    "folderDone": "Subidos {ok} de {total} archivos",
+    "uploadedPackage": "✓ {name} → firmware de {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (verificado)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (aceptado, la suma de comprobación no coincide)",
+    "already": "✓ {name}: ya está en GameHub",
+    "zipFiled": "{name}: se guardaron {count, plural, one {# archivo BIOS} other {# archivos BIOS}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Firmware del sistema (PSVUPDAT.PUP)",
+        "fonts": "Paquete de fuentes (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Firmware del sistema (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Claves de producto (prod.keys)",
+        "titlekeys": "Claves de título (title.keys)",
+        "firmware": "Firmware del sistema (un .zip o una carpeta con archivos .nca)"
+      },
+      "3ds": {
+        "aeskeys": "Claves AES (aes_keys.txt)",
+        "seeddb": "Base de datos de semillas (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Claves de disco (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Escanear una carpeta del servidor",
+      "desc": "Apunta GameHub a una colección de BIOS y firmware en el servidor. Todo lo que reconozca se copia: archivos BIOS por suma de comprobación o nombre (también dentro de paquetes .zip), y firmware y claves de PS Vita, PS3, Switch, 3DS y Wii U. La carpeta en sí no se modifica. En Docker, monta primero la carpeta en el contenedor.",
+      "placeholder": "/path/to/bios",
+      "start": "Escanear",
+      "stop": "Detener",
+      "failed": "No se pudo iniciar el escaneo",
+      "progress": "Escaneando {done} de {total}…",
+      "stopped": "Detenido.",
+      "summary": "Se añadieron {bios, plural, one {# archivo BIOS} other {# archivos BIOS}} y {packages, plural, one {# archivo de firmware} other {# archivos de firmware}} · {already} ya estaban en GameHub",
+      "problems": "{count, plural, one {# problema} other {# problemas}}",
+      "showFound": "Mostrar lo encontrado ({count})",
+      "hideFound": "Ocultar"
     }
   }
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
+import { Readable } from "stream";
 import { getSessionUser } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { deleteFirmware, firmwarePath, FirmwareRow } from "@/lib/firmware";
@@ -21,12 +22,15 @@ export async function GET(
   if (!fs.existsSync(filePath)) {
     return NextResponse.json({ error: "File missing on disk" }, { status: 404 });
   }
-  const data = await fs.promises.readFile(filePath);
-  return new NextResponse(new Uint8Array(data), {
+  // Streamed: firmware packages (PUPs, Switch firmware zips) can be hundreds of MB.
+  const { size } = await fs.promises.stat(filePath);
+  const body = Readable.toWeb(fs.createReadStream(filePath)) as ReadableStream<Uint8Array>;
+  const base = row.filename.split("/").pop() ?? row.filename;
+  return new NextResponse(body, {
     headers: {
       "Content-Type": "application/octet-stream",
-      "Content-Disposition": `attachment; filename="${row.filename.replace(/"/g, "")}"`,
-      "Content-Length": String(data.length),
+      "Content-Disposition": `attachment; filename="${base.replace(/"/g, "")}"`,
+      "Content-Length": String(size),
     },
   });
 }

@@ -745,13 +745,9 @@
       "remove": "Verwijderen",
       "extra": "Extra",
       "uploading": "{count} uploaden…",
-      "uploadItemFailed": "mislukt",
       "zipImported": "zip: +{imported}",
       "zipKept": ", {kept} geverifieerde behouden",
-      "zipSkipped": ", {skipped} overgeslagen",
-      "outcomeAlreadyVerified": "✓ {filename}: al geverifieerd — behouden",
-      "outcomeUnverified": "{filename}: geaccepteerd (niet-geverifieerd)",
-      "outcomeRejected": "✗ {filename}: naam is geen verwacht BIOS — overgeslagen"
+      "zipSkipped": ", {skipped} overgeslagen"
     },
     "romUpload": {
       "title": "ROM's uploaden — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "{count, plural, one {# bestand} other {# bestanden}} uploaden…",
-      "failed": "mislukt",
       "zipImported": "{count} geïmporteerd",
       "zipKept": ", {count} geverifieerde behouden",
       "zipSkipped": ", {count} overgeslagen",
-      "alreadyVerifiedKept": "al geverifieerd — behouden",
-      "acceptedUnverified": "geaccepteerd (niet-geverifieerd — hash komt niet overeen)",
-      "notExpectedBios": "naam is geen verwacht BIOS — overgeslagen",
       "optionalSuffix": " (optioneel)",
       "addBios": "BIOS toevoegen",
       "uploadIndividualLabel": "Individuele bestanden uploaden",
@@ -3138,8 +3130,66 @@
       "redream": "De map van Redream (Android/data/io.recompiled.redream/files): dc_boot.bin en dc_flash.bin.",
       "citra": "De sysdata-map in de gebruikersmap van de emulator.",
       "saturn": "De BIOS-map die is ingesteld in de instellingen van Yaba Sanshiro (yabause/bios).",
-      "switch": "Een map waaruit je daarna sleutels en firmware in de emulator installeert (Instellingen › Sleutels installeren / Firmware installeren).",
-      "dolphin": "Optioneel. Dolphin-gebruikersmap › GC › USA, EUR of JAP als IPL.bin (voor de GameCube-opstartanimatie)."
+      "switch": "De map van Eden (of een willekeurige map): prod.keys en title.keys, en de firmware-.zip of de map Firmware. Kies daarna in de emulator Install keys en Install firmware.",
+      "dolphin": "Optioneel. Dolphin-gebruikersmap › GC › USA, EUR of JAP als IPL.bin (voor de GameCube-opstartanimatie).",
+      "vita3k": "Elke map (bijv. BIOS/VITA). Kies dan in Vita3K Install firmware en selecteer PSVUPDAT.PUP, daarna PSP2UPDAT.PUP.",
+      "ps3": "Elke map (bijv. BIOS/PS3_BIOS). Installeer daarna PS3UPDAT.PUP via de firmware-optie van de emulator.",
+      "cemu": "De gebruikersmap van Cemu (keys.txt komt naast de instellingen)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Systeemfirmware en sleutels",
+    "intro": "Precies bewaard zoals geüpload. Installeer ze vanuit de emulator (bijv. Vita3K, RPCS3 of Eden › Firmware installeren), of laat GameHub Downloader ze naar de emulatormap op je handheld kopiëren.",
+    "required": "Vereist",
+    "optional": "Optioneel",
+    "missing": "niet geüpload",
+    "files": "{count, plural, one {# bestand} other {# bestanden}} · {size}",
+    "download": "Downloaden",
+    "remove": "Verwijderen",
+    "uploadFile": "Bestand uploaden",
+    "uploadFolder": "Map uploaden",
+    "uploading": "{name} uploaden ({n} van {total})… {pct}%",
+    "folderDone": "{ok} van {total} bestanden geüpload",
+    "uploadedPackage": "✓ {name} → {slug}-firmware",
+    "uploadedBios": "✓ {name} → {slug} · {file} (geverifieerd)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (geaccepteerd, checksum komt niet overeen)",
+    "already": "✓ {name}: staat al in GameHub",
+    "zipFiled": "{name}: {count, plural, one {# BIOS-bestand} other {# BIOS-bestanden}} verwerkt",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Systeemfirmware (PSVUPDAT.PUP)",
+        "fonts": "Lettertypepakket (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Systeemfirmware (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Productsleutels (prod.keys)",
+        "titlekeys": "Titelsleutels (title.keys)",
+        "firmware": "Systeemfirmware (een .zip of een map met .nca-bestanden)"
+      },
+      "3ds": {
+        "aeskeys": "AES-sleutels (aes_keys.txt)",
+        "seeddb": "Seed-database (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Discsleutels (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Een map op de server scannen",
+      "desc": "Wijs GameHub naar een verzameling BIOS- en firmwarebestanden op de server. Alles wat herkend wordt, wordt gekopieerd: BIOS-bestanden op checksum of naam (ook in .zip-pakketten), en firmware en sleutels voor PS Vita, PS3, Switch, 3DS en Wii U. De map zelf wordt niet gewijzigd. Koppel in Docker eerst de map aan de container.",
+      "placeholder": "/path/to/bios",
+      "start": "Scannen",
+      "stop": "Stoppen",
+      "failed": "Kan de scan niet starten",
+      "progress": "Scannen: {done} van {total}…",
+      "stopped": "Gestopt.",
+      "summary": "{bios, plural, one {# BIOS-bestand} other {# BIOS-bestanden}} en {packages, plural, one {# firmwarebestand} other {# firmwarebestanden}} toegevoegd · {already} staat al in GameHub",
+      "problems": "{count, plural, one {# probleem} other {# problemen}}",
+      "showFound": "Gevonden items tonen ({count})",
+      "hideFound": "Verbergen"
     }
   }
 }

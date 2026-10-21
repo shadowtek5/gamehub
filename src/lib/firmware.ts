@@ -13,6 +13,7 @@ import { getDb } from "./db";
 import { platformBySlug } from "./platforms";
 import { BIOS_MANIFEST, type BiosFile, type BiosSystem } from "./biosManifest";
 import { getDataDir } from "./dataDir";
+import { FIRMWARE_PACKAGES, matchPackage, matchPackageAnywhere, packageFileName, packageOfRow, type FirmwarePackage } from "./firmwarePackages";
 
 export interface FirmwareRow {
   id: number;
@@ -214,8 +215,11 @@ export async function importZip(targetSlug: string, zip: Buffer): Promise<ZipImp
     }
 
     if (slug && file) {
-      // Keep an existing verified copy rather than overwriting it.
-      if (alreadyVerified(slug, file)) {
+      // Keep an existing verified copy rather than overwriting it, and skip an identical one.
+      const same = getDb()
+        .prepare("SELECT 1 FROM firmware WHERE platform_slug = ? AND filename = ? AND sha1 = ?")
+        .get(slug, file.file, h.sha1);
+      if (alreadyVerified(slug, file) || same) {
         res.alreadyVerified.push(base);
         continue;
       }
@@ -241,23 +245,39 @@ export interface BiosFileStatus extends BiosFile {
   verified: boolean;
   rowId: number | null;
 }
+export interface FirmwarePackageStatus {
+  id: string;
+  label: string;
+  required: boolean;
+  /** Whether it's a folder of files (Switch firmware .nca files) rather than one file. */
+  folder: string | null;
+  /** The stored files that make up this package (several versions or a folder's files). */
+  files: { id: number; filename: string; size_bytes: number }[];
+}
+
 export interface BiosSystemStatus {
   slug: string;
   name: string;
   required: boolean;
   files: BiosFileStatus[];
-  /** uploaded files for this system that aren't in the manifest */
+  /** uploaded files for this system that aren't in the manifest or a package */
   extras: FirmwareRow[];
+  /** system firmware / keys packages (PS Vita, PS3, Switch, 3DS, Wii U) */
+  packages: FirmwarePackageStatus[];
 }
 
 /** Join the BIOS manifest with uploaded files. All BIOS-capable systems, or one
  *  when `only` is given. */
 export function biosStatus(only?: string): BiosSystemStatus[] {
-  const slugs = only ? (BIOS_MANIFEST[only] ? [only] : []) : Object.keys(BIOS_MANIFEST);
+  const all = new Set([...Object.keys(BIOS_MANIFEST), ...Object.keys(FIRMWARE_PACKAGES)]);
+  const slugs = only ? (all.has(only) ? [only] : []) : [...all];
   const out: BiosSystemStatus[] = [];
   for (const slug of slugs.sort()) {
-    const sys: BiosSystem = BIOS_MANIFEST[slug];
-    const rows = listFirmware(slug);
+    const pkgs = FIRMWARE_PACKAGES[slug] ?? [];
+    const sys: BiosSystem = BIOS_MANIFEST[slug] ?? { required: pkgs.some((p) => p.required), files: [] };
+    const allRows = listFirmware(slug);
+    const inPackage = new Map(allRows.map((r) => [r.id, packageOfRow(slug, r.filename)]));
+    const rows = allRows.filter((r) => !inPackage.get(r.id));
     const byName = new Map(rows.map((r) => [r.filename.toLowerCase(), r]));
     const files: BiosFileStatus[] = sys.files.map((f) => {
       const row = byName.get(f.file.toLowerCase());
@@ -272,9 +292,146 @@ export function biosStatus(only?: string): BiosSystemStatus[] {
       required: sys.required,
       files,
       extras,
+      packages: pkgs.map((p) => ({
+        id: p.id,
+        label: p.label,
+        required: p.required,
+        folder: p.folder ?? null,
+        files: allRows
+          .filter((r) => inPackage.get(r.id)?.id === p.id)
+          .map((r) => ({ id: r.id, filename: r.filename, size_bytes: r.size_bytes })),
+      })),
     });
   }
   return out;
+}
+
+// ---------- files on disk: big uploads and the folder scanner ----------
+
+/** md5 + sha1 of a file, streamed (firmware packages can be hundreds of MB). */
+export async function hashFile(file: string): Promise<{ md5: string; sha1: string; size: number }> {
+  const md5 = crypto.createHash("md5");
+  const sha1 = crypto.createHash("sha1");
+  let size = 0;
+  for await (const chunk of fs.createReadStream(file)) {
+    md5.update(chunk as Buffer);
+    sha1.update(chunk as Buffer);
+    size += (chunk as Buffer).length;
+  }
+  return { md5: md5.digest("hex"), sha1: sha1.digest("hex"), size };
+}
+
+/** Stores a file that's already on disk as firmware `rel` of `slug`. [move] renames instead of copying. */
+export async function saveFirmwareFile(
+  slug: string,
+  rel: string,
+  src: string,
+  h: { md5: string; sha1: string; size: number },
+  move = false
+): Promise<FirmwareRow> {
+  const parts = safeRelParts(rel);
+  const relNorm = parts.join("/");
+  const abs = path.join(firmwareDir(slug), ...parts);
+  await fs.promises.mkdir(path.dirname(abs), { recursive: true });
+  if (move) {
+    try {
+      await fs.promises.rename(src, abs);
+    } catch {
+      await fs.promises.copyFile(src, abs);
+      await fs.promises.rm(src, { force: true });
+    }
+  } else {
+    await fs.promises.copyFile(src, abs);
+  }
+  getDb()
+    .prepare(
+      `INSERT INTO firmware (platform_slug, filename, size_bytes, md5, sha1) VALUES (?, ?, ?, ?, ?)
+       ON CONFLICT(platform_slug, filename) DO UPDATE SET size_bytes = excluded.size_bytes, md5 = excluded.md5, sha1 = excluded.sha1, created_at = datetime('now')`
+    )
+    .run(slug, relNorm, h.size, h.md5, h.sha1);
+  return getDb()
+    .prepare("SELECT * FROM firmware WHERE platform_slug = ? AND filename = ?")
+    .get(slug, relNorm) as FirmwareRow;
+}
+
+let hashIndex: Map<string, { slug: string; file: BiosFile }[]> | null = null;
+
+/** Every manifest BIOS by md5 and sha1, so renamed files are still recognized. */
+function biosByHash(): Map<string, { slug: string; file: BiosFile }[]> {
+  if (hashIndex) return hashIndex;
+  const m = new Map<string, { slug: string; file: BiosFile }[]>();
+  for (const [slug, sys] of Object.entries(BIOS_MANIFEST)) {
+    for (const f of sys.files) {
+      for (const k of [f.md5, f.sha1]) {
+        if (!k) continue;
+        const key = k.toLowerCase();
+        const list = m.get(key) ?? [];
+        list.push({ slug, file: f });
+        m.set(key, list);
+      }
+    }
+  }
+  return (hashIndex = m);
+}
+
+export type DiskImportOutcome =
+  | { status: "bios"; slug: string; filename: string; verified: boolean }
+  | { status: "package"; slug: string; filename: string; packageId: string }
+  | { status: "already"; slug: string; filename: string }
+  | { status: "unmatched" };
+
+/** Biggest file checked as a possible BIOS (BIOS files are small; packages aren't hashed for matching). */
+const BIOS_MAX_BYTES = 64 * 1024 * 1024;
+
+/**
+ * Files one file from disk: a known BIOS (by content hash anywhere in the manifest, else by
+ * name — for [slug] only when given), or a firmware package file. [move] consumes the source
+ * (uploads); the scanner copies.
+ */
+export async function importFileFromDisk(
+  src: string,
+  name: string,
+  slug: string | null,
+  move = false
+): Promise<DiskImportOutcome> {
+  const base = path.basename(name);
+  const stat = await fs.promises.stat(src);
+
+  // 1) Firmware packages (PUPs, keys, Switch firmware) — kept exactly as they are.
+  const pkgHits: { slug: string; pkg: FirmwarePackage }[] = slug
+    ? (matchPackage(slug, base) ? [{ slug, pkg: matchPackage(slug, base)! }] : [])
+    : matchPackageAnywhere(base);
+  if (pkgHits.length === 1 || (pkgHits.length > 1 && slug)) {
+    const { slug: s, pkg } = pkgHits[0];
+    if (stat.size > pkg.maxBytes) return { status: "unmatched" };
+    const rel = packageFileName(pkg, base);
+    const existing = getDb()
+      .prepare("SELECT size_bytes FROM firmware WHERE platform_slug = ? AND filename = ?")
+      .get(s, rel) as { size_bytes: number } | undefined;
+    // Same size is enough to skip re-hashing hundreds of MB on a rescan of an unchanged collection.
+    if (existing && existing.size_bytes === stat.size) return { status: "already", slug: s, filename: rel };
+    const h = await hashFile(src);
+    await saveFirmwareFile(s, rel, src, h, move);
+    return { status: "package", slug: s, filename: rel, packageId: pkg.id };
+  }
+
+  // 2) BIOS files: hash first (survives renames), then the expected name.
+  if (stat.size > BIOS_MAX_BYTES) return { status: "unmatched" };
+  const h = await hashFile(src);
+  const byHash = (biosByHash().get(h.sha1) ?? biosByHash().get(h.md5) ?? []).filter((c) => !slug || c.slug === slug);
+  const byName = slug
+    ? (matchByName(slug, base) ? [{ slug, file: matchByName(slug, base)! }] : [])
+    : matchByNameAnywhere(base);
+  const hit = byHash[0] ?? byName[0];
+  if (!hit) return { status: "unmatched" };
+  if (alreadyVerified(hit.slug, hit.file)) return { status: "already", slug: hit.slug, filename: hit.file.file };
+  // The same file (same checksum) is already filed: nothing to do, even if it's unverified.
+  const same = getDb()
+    .prepare("SELECT 1 FROM firmware WHERE platform_slug = ? AND filename = ? AND sha1 = ?")
+    .get(hit.slug, hit.file.file, h.sha1);
+  if (same) return { status: "already", slug: hit.slug, filename: hit.file.file };
+  await saveFirmwareFile(hit.slug, hit.file.file, src, h, move);
+  return { status: "bios", slug: hit.slug, filename: hit.file.file, verified: hashVerified(hit.file, h) };
 }
 
 // ---------- minimal ZIP reader (store + deflate) ----------

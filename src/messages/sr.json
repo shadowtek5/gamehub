@@ -745,13 +745,9 @@
       "remove": "Уклони",
       "extra": "Додатно",
       "uploading": "Отпремање {count}…",
-      "uploadItemFailed": "неуспешно",
       "zipImported": "zip: +{imported}",
       "zipKept": ", сачувано {kept} верификованих",
-      "zipSkipped": ", прескочено {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: већ верификовано — сачувано",
-      "outcomeUnverified": "{filename}: прихваћено (неверификовано)",
-      "outcomeRejected": "✗ {filename}: име није очекивани BIOS — прескочено"
+      "zipSkipped": ", прескочено {skipped}"
     },
     "romUpload": {
       "title": "Отпреми ROM-ове — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "Отпремање {count, plural, one {# фајла} other {# фајлова}}…",
-      "failed": "неуспешно",
       "zipImported": "Увезено {count}",
       "zipKept": ", сачувано {count} верификованих",
       "zipSkipped": ", прескочено {count}",
-      "alreadyVerifiedKept": "већ верификовано — сачувано",
-      "acceptedUnverified": "прихваћено (неверификовано — хеш се не поклапа)",
-      "notExpectedBios": "име није очекивани BIOS — прескочено",
       "optionalSuffix": " (није обавезан)",
       "addBios": "Додај BIOS",
       "uploadIndividualLabel": "Отпреми појединачне фајлове",
@@ -3138,8 +3130,66 @@
       "redream": "Folder Redream-a (Android/data/io.recompiled.redream/files): dc_boot.bin i dc_flash.bin.",
       "citra": "Folder sysdata unutar korisničkog foldera emulatora.",
       "saturn": "Folder BIOS-a postavljen u podešavanjima Yaba Sanshiro-a (yabause/bios).",
-      "switch": "Folder iz kojeg zatim instaliraš ključeve i firmver u emulatoru (Podešavanja › Instaliraj ključeve / Instaliraj firmver).",
-      "dolphin": "Opciono. Korisnički folder Dolphin-a › GC › USA, EUR ili JAP kao IPL.bin (za animaciju pokretanja GameCube-a)."
+      "switch": "Fascikla Eden (ili bilo koja fascikla): prod.keys i title.keys, i .zip sa firmverom ili fascikla Firmware. Zatim u emulatoru izaberite Install keys i Install firmware.",
+      "dolphin": "Opciono. Korisnički folder Dolphin-a › GC › USA, EUR ili JAP kao IPL.bin (za animaciju pokretanja GameCube-a).",
+      "vita3k": "Bilo koja fascikla (npr. BIOS/VITA). Zatim u Vita3K izaberite Install firmware, pa PSVUPDAT.PUP, pa PSP2UPDAT.PUP.",
+      "ps3": "Bilo koja fascikla (npr. BIOS/PS3_BIOS). Zatim instalirajte PS3UPDAT.PUP iz opcije za firmver u emulatoru.",
+      "cemu": "Korisnička fascikla Cemu (keys.txt ide pored podešavanja)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Sistemski firmver i ključevi",
+    "intro": "Čuva se tačno onako kako je otpremljeno. Instalirajte ih iz emulatora (npr. Vita3K, RPCS3 ili Eden › Instaliraj firmver) ili dozvolite da GameHub Downloader kopira fajlove u folder emulatora na vašem ručnom uređaju.",
+    "required": "Obavezno",
+    "optional": "Opciono",
+    "missing": "nije otpremljeno",
+    "files": "{count, plural, one {# fajl} few {# fajla} other {# fajlova}} · {size}",
+    "download": "Preuzmi",
+    "remove": "Ukloni",
+    "uploadFile": "Otpremi fajl",
+    "uploadFolder": "Otpremi folder",
+    "uploading": "Otpremanje: {name} ({n} od {total})… {pct}%",
+    "folderDone": "Otpremljeno {ok} od {total} fajlova",
+    "uploadedPackage": "✓ {name} → {slug} firmver",
+    "uploadedBios": "✓ {name} → {slug} · {file} (proveren)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (prihvaćen, kontrolna suma se ne poklapa)",
+    "already": "✓ {name}: već je u GameHub-u",
+    "zipFiled": "{name}: sačuvano {count, plural, one {# BIOS fajl} few {# BIOS fajla} other {# BIOS fajlova}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Sistemski firmver (PSVUPDAT.PUP)",
+        "fonts": "Paket fontova (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Sistemski firmver (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Produkcioni ključevi (prod.keys)",
+        "titlekeys": "Ključevi naslova (title.keys)",
+        "firmware": "Sistemski firmver (.zip ili folder .nca fajlova)"
+      },
+      "3ds": {
+        "aeskeys": "AES ključevi (aes_keys.txt)",
+        "seeddb": "Baza seed-ova (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Ključevi diskova (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Skeniraj folder na serveru",
+      "desc": "Usmerite GameHub na kolekciju BIOS-a i firmvera na serveru. Sve što prepozna biće kopirano: BIOS fajlovi po kontrolnoj sumi ili imenu (i unutar .zip paketa), kao i firmver i ključevi za PS Vita, PS3, Switch, 3DS i Wii U. Sam folder se ne menja. U Dockeru prvo montirajte folder u kontejner.",
+      "placeholder": "/path/to/bios",
+      "start": "Skeniraj",
+      "stop": "Zaustavi",
+      "failed": "Skeniranje nije moglo da počne",
+      "progress": "Skeniranje {done} od {total}…",
+      "stopped": "Zaustavljeno.",
+      "summary": "Dodato: {bios, plural, one {# BIOS fajl} few {# BIOS fajla} other {# BIOS fajlova}} i {packages, plural, one {# firmver fajl} few {# firmver fajla} other {# firmver fajlova}} · {already} već u GameHub-u",
+      "problems": "{count, plural, one {# problem} few {# problema} other {# problema}}",
+      "showFound": "Prikaži pronađeno ({count})",
+      "hideFound": "Sakrij"
     }
   }
 }

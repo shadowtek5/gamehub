@@ -745,13 +745,9 @@
       "remove": "제거",
       "extra": "추가",
       "uploading": "{count}개 업로드 중…",
-      "uploadItemFailed": "실패",
       "zipImported": "zip: +{imported}",
       "zipKept": ", {kept}개 검증됨 유지",
-      "zipSkipped": ", {skipped}개 건너뜀",
-      "outcomeAlreadyVerified": "✓ {filename}: 이미 검증됨 — 유지",
-      "outcomeUnverified": "{filename}: 수락 (검증되지 않음)",
-      "outcomeRejected": "✗ {filename}: 예상 BIOS 이름이 아님 — 건너뜀"
+      "zipSkipped": ", {skipped}개 건너뜀"
     },
     "romUpload": {
       "title": "ROM 업로드 — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "{count, plural, one {#개 파일} other {#개 파일}} 업로드 중…",
-      "failed": "실패",
       "zipImported": "{count}개 가져옴",
       "zipKept": ", {count}개 검증됨 유지",
       "zipSkipped": ", {count}개 건너뜀",
-      "alreadyVerifiedKept": "이미 검증됨 — 유지",
-      "acceptedUnverified": "수락 (검증되지 않음 — 해시 불일치)",
-      "notExpectedBios": "예상 BIOS 이름이 아님 — 건너뜀",
       "optionalSuffix": " (선택 사항)",
       "addBios": "BIOS 추가",
       "uploadIndividualLabel": "개별 파일 업로드",
@@ -3138,8 +3130,66 @@
       "redream": "Redream 폴더 (Android/data/io.recompiled.redream/files): dc_boot.bin과 dc_flash.bin.",
       "citra": "에뮬레이터 사용자 폴더 안의 sysdata 폴더.",
       "saturn": "Yaba Sanshiro 설정에서 지정한 BIOS 폴더 (yabause/bios).",
-      "switch": "이후 에뮬레이터에서 키와 펌웨어를 설치할 폴더 (설정 › 키 설치 / 펌웨어 설치).",
-      "dolphin": "선택 사항. Dolphin 사용자 폴더 › GC › USA, EUR 또는 JAP 아래에 IPL.bin으로 저장 (GameCube 부팅 애니메이션용)."
+      "switch": "Eden 폴더(또는 아무 폴더): prod.keys와 title.keys, 그리고 펌웨어 .zip 또는 Firmware 폴더. 그다음 에뮬레이터에서 Install keys와 Install firmware를 선택합니다.",
+      "dolphin": "선택 사항. Dolphin 사용자 폴더 › GC › USA, EUR 또는 JAP 아래에 IPL.bin으로 저장 (GameCube 부팅 애니메이션용).",
+      "vita3k": "아무 폴더(예: BIOS/VITA). 그다음 Vita3K에서 Install firmware를 선택하고 PSVUPDAT.PUP, 그다음 PSP2UPDAT.PUP를 고릅니다.",
+      "ps3": "아무 폴더(예: BIOS/PS3_BIOS). 그다음 에뮬레이터의 펌웨어 옵션에서 PS3UPDAT.PUP를 설치합니다.",
+      "cemu": "Cemu의 사용자 폴더(keys.txt는 설정 파일 옆에 둡니다)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "시스템 펌웨어 및 키",
+    "intro": "업로드한 그대로 보관됩니다. 에뮬레이터(예: Vita3K, RPCS3, Eden › 펌웨어 설치)에서 설치하거나, GameHub Downloader가 휴대기기의 에뮬레이터 폴더로 복사하도록 하세요.",
+    "required": "필수",
+    "optional": "선택",
+    "missing": "업로드되지 않음",
+    "files": "{count, plural, one {# 파일} other {# 파일}} · {size}",
+    "download": "다운로드",
+    "remove": "제거",
+    "uploadFile": "파일 업로드",
+    "uploadFolder": "폴더 업로드",
+    "uploading": "{name} 업로드 중 ({n}/{total})… {pct}%",
+    "folderDone": "{total}개 파일 중 {ok}개 업로드됨",
+    "uploadedPackage": "✓ {name} → {slug} 펌웨어",
+    "uploadedBios": "✓ {name} → {slug} · {file} (확인됨)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (허용됨, 체크섬이 일치하지 않음)",
+    "already": "✓ {name}: 이미 GameHub에 있음",
+    "zipFiled": "{name}: BIOS 파일 {count, plural, one {#개} other {#개}} 분류됨",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "시스템 펌웨어 (PSVUPDAT.PUP)",
+        "fonts": "폰트 패키지 (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "시스템 펌웨어 (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "제품 키 (prod.keys)",
+        "titlekeys": "타이틀 키 (title.keys)",
+        "firmware": "시스템 펌웨어 (.zip 또는 .nca 파일이 든 폴더)"
+      },
+      "3ds": {
+        "aeskeys": "AES 키 (aes_keys.txt)",
+        "seeddb": "시드 데이터베이스 (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "디스크 키 (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "서버의 폴더 스캔",
+      "desc": "서버에 있는 BIOS 및 펌웨어 모음을 GameHub가 가리키게 하세요. 인식되는 항목은 모두 복사됩니다. BIOS 파일은 체크섬 또는 이름으로(.zip 묶음 안의 파일 포함), PS Vita, PS3, Switch, 3DS, Wii U의 펌웨어와 키도 포함됩니다. 폴더 자체는 변경되지 않습니다. Docker에서는 먼저 폴더를 컨테이너에 마운트하세요.",
+      "placeholder": "/path/to/bios",
+      "start": "스캔",
+      "stop": "중지",
+      "failed": "스캔을 시작할 수 없음",
+      "progress": "{total}개 중 {done}개 스캔 중…",
+      "stopped": "중지됨.",
+      "summary": "BIOS 파일 {bios, plural, one {#개} other {#개}}와 펌웨어 파일 {packages, plural, one {#개} other {#개}} 추가됨 · {already}개는 이미 GameHub에 있음",
+      "problems": "{count, plural, one {#개 문제} other {#개 문제}}",
+      "showFound": "찾은 항목 표시 ({count})",
+      "hideFound": "숨기기"
     }
   }
 }

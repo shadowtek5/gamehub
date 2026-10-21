@@ -335,7 +335,7 @@ export default function MobileLibrary({
         </div>
       )}
       <div ref={sentinel} className="h-10" />
-      <LetterRail letters={letters} onJump={jumpToLetter} className="right-1" />
+      <LetterRail letters={letters} onJump={jumpToLetter} className="right-1" gridRef={grid} />
 
       {/* Filter bottom sheet */}
       {sheetOpen && (

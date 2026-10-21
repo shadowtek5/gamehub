@@ -462,13 +462,9 @@
       "remove": "Rimuovi",
       "extra": "Extra",
       "uploading": "Caricamento {count}…",
-      "uploadItemFailed": "non riuscito",
       "zipImported": "zip: +{imported}",
       "zipKept": ", conservati {kept} verificati",
-      "zipSkipped": ", saltati {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: già verificato — conservato",
-      "outcomeUnverified": "{filename}: accettato (non verificato)",
-      "outcomeRejected": "✗ {filename}: nome non un BIOS previsto — saltato"
+      "zipSkipped": ", saltati {skipped}"
     },
     "romUpload": {
       "title": "Carica ROM — {name}",
@@ -2229,13 +2225,9 @@
     },
     "firmware": {
       "uploadingFiles": "Caricamento {count, plural, one {# file} other {# file}}…",
-      "failed": "non riuscito",
       "zipImported": "importati {count}",
       "zipKept": ", mantenuti {count} verificati",
       "zipSkipped": ", saltati {count}",
-      "alreadyVerifiedKept": "già verificati — mantenuti",
-      "acceptedUnverified": "accettati (non verificati — hash non corrisponde)",
-      "notExpectedBios": "nome non un BIOS previsto — saltato",
       "optionalSuffix": " (opzionale)",
       "addBios": "Aggiungi BIOS",
       "uploadIndividualLabel": "Carica file singoli",
@@ -3138,8 +3130,66 @@
       "redream": "La cartella di Redream (Android/data/io.recompiled.redream/files): dc_boot.bin e dc_flash.bin.",
       "citra": "La cartella sysdata all'interno della cartella utente dell'emulatore.",
       "saturn": "La cartella BIOS impostata nelle impostazioni di Yaba Sanshiro (yabause/bios).",
-      "switch": "Una cartella da cui installare in seguito chiavi e firmware nell'emulatore (Impostazioni › Installa chiavi / Installa firmware).",
-      "dolphin": "Facoltativo. Cartella utente di Dolphin › GC › USA, EUR o JAP come IPL.bin (per l'animazione di avvio del GameCube)."
+      "switch": "La cartella di Eden (o una qualsiasi): prod.keys e title.keys, e il .zip del firmware o la cartella Firmware. Poi nell'emulatore scegli Install keys e Install firmware.",
+      "dolphin": "Facoltativo. Cartella utente di Dolphin › GC › USA, EUR o JAP come IPL.bin (per l'animazione di avvio del GameCube).",
+      "vita3k": "Qualsiasi cartella (es. BIOS/VITA). Poi in Vita3K scegli Install firmware e seleziona PSVUPDAT.PUP, poi PSP2UPDAT.PUP.",
+      "ps3": "Qualsiasi cartella (es. BIOS/PS3_BIOS). Poi installa PS3UPDAT.PUP dall'opzione firmware dell'emulatore.",
+      "cemu": "La cartella utente di Cemu (keys.txt va accanto alle impostazioni)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Firmware di sistema e chiavi",
+    "intro": "Conservati esattamente come caricati. Installali dall'emulatore (es. Vita3K, RPCS3 o Eden › Installa firmware), oppure lascia che GameHub Downloader li copi nella cartella dell'emulatore sul tuo dispositivo portatile.",
+    "required": "Obbligatorio",
+    "optional": "Facoltativo",
+    "missing": "non caricato",
+    "files": "{count, plural, one {# file} other {# file}} · {size}",
+    "download": "Scarica",
+    "remove": "Rimuovi",
+    "uploadFile": "Carica file",
+    "uploadFolder": "Carica cartella",
+    "uploading": "Caricamento di {name} ({n} di {total})… {pct}%",
+    "folderDone": "Caricati {ok} file su {total}",
+    "uploadedPackage": "✓ {name} → firmware {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (verificato)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (accettato, il checksum non corrisponde)",
+    "already": "✓ {name}: già presente in GameHub",
+    "zipFiled": "{name}: archiviati {count, plural, one {# file BIOS} other {# file BIOS}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Firmware di sistema (PSVUPDAT.PUP)",
+        "fonts": "Pacchetto di font (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Firmware di sistema (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Chiavi di prodotto (prod.keys)",
+        "titlekeys": "Chiavi dei titoli (title.keys)",
+        "firmware": "Firmware di sistema (un .zip, o una cartella di file .nca)"
+      },
+      "3ds": {
+        "aeskeys": "Chiavi AES (aes_keys.txt)",
+        "seeddb": "Database dei seed (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Chiavi dei dischi (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Scansiona una cartella sul server",
+      "desc": "Indica a GameHub una raccolta di BIOS e firmware sul server. Tutto ciò che viene riconosciuto viene copiato: file BIOS tramite checksum o nome (anche dentro i pacchetti .zip), e firmware e chiavi di PS Vita, PS3, Switch, 3DS e Wii U. La cartella in sé non viene modificata. In Docker, monta prima la cartella nel container.",
+      "placeholder": "/path/to/bios",
+      "start": "Scansiona",
+      "stop": "Ferma",
+      "failed": "Impossibile avviare la scansione",
+      "progress": "Scansione di {done} su {total}…",
+      "stopped": "Interrotta.",
+      "summary": "Aggiunti {bios, plural, one {# file BIOS} other {# file BIOS}} e {packages, plural, one {# file di firmware} other {# file di firmware}} · {already} già in GameHub",
+      "problems": "{count, plural, one {# problema} other {# problemi}}",
+      "showFound": "Mostra cosa è stato trovato ({count})",
+      "hideFound": "Nascondi"
     }
   }
 }

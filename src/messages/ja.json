@@ -745,13 +745,9 @@
       "remove": "削除",
       "extra": "その他",
       "uploading": "{count}件アップロード中…",
-      "uploadItemFailed": "失敗",
       "zipImported": "ZIP: +{imported}",
       "zipKept": "、{kept}件検証済みを保持",
-      "zipSkipped": "、{skipped}件スキップ",
-      "outcomeAlreadyVerified": "✓ {filename}: すでに検証済み — 保持",
-      "outcomeUnverified": "{filename}: 受理（未検証）",
-      "outcomeRejected": "✗ {filename}: 期待されるBIOS名ではありません — スキップ"
+      "zipSkipped": "、{skipped}件スキップ"
     },
     "romUpload": {
       "title": "ROMをアップロード — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "{count, plural, one {# ファイル} other {# ファイル}}をアップロード中…",
-      "failed": "失敗",
       "zipImported": "{count}件インポート",
       "zipKept": "、{count}件検証済みを保持",
       "zipSkipped": "、{count}件スキップ",
-      "alreadyVerifiedKept": "すでに検証済み — 保持",
-      "acceptedUnverified": "受理（未検証 — ハッシュが一致しない）",
-      "notExpectedBios": "期待されるBIOS名ではありません — スキップ",
       "optionalSuffix": "（任意）",
       "addBios": "BIOSを追加",
       "uploadIndividualLabel": "個別ファイルをアップロード",
@@ -3138,8 +3130,66 @@
       "redream": "Redream のフォルダー (Android/data/io.recompiled.redream/files): dc_boot.bin と dc_flash.bin。",
       "citra": "エミュレーターのユーザーフォルダー内の sysdata フォルダー。",
       "saturn": "Yaba Sanshiro の設定で指定した BIOS フォルダー (yabause/bios)。",
-      "switch": "エミュレーターでキーとファームウェアをインストールする際に使うフォルダー (設定 › キーをインストール / ファームウェアをインストール)。",
-      "dolphin": "任意。Dolphin のユーザーフォルダー › GC › USA、EUR、JAP のいずれかに IPL.bin として配置 (GameCube の起動アニメーション用)。"
+      "switch": "Eden のフォルダ（または任意のフォルダ）: prod.keys と title.keys、およびファームウェアの .zip または Firmware フォルダ。その後エミュレーターで Install keys と Install firmware を選択します。",
+      "dolphin": "任意。Dolphin のユーザーフォルダー › GC › USA、EUR、JAP のいずれかに IPL.bin として配置 (GameCube の起動アニメーション用)。",
+      "vita3k": "任意のフォルダ（例: BIOS/VITA）。Vita3K で Install firmware を選び、PSVUPDAT.PUP、次に PSP2UPDAT.PUP を選択します。",
+      "ps3": "任意のフォルダ（例: BIOS/PS3_BIOS）。その後、エミュレーターのファームウェアオプションから PS3UPDAT.PUP をインストールします。",
+      "cemu": "Cemu のユーザーフォルダ（keys.txt は設定ファイルの隣に置きます）。"
+    }
+  },
+  "firmwarePackages": {
+    "title": "システムファームウェアとキー",
+    "intro": "アップロードされたままの状態で保持されます。エミュレーター（例: Vita3K、RPCS3、Eden › ファームウェアをインストール）からインストールするか、GameHub Downloader にハンドヘルド機のエミュレーターフォルダーへコピーさせてください。",
+    "required": "必須",
+    "optional": "任意",
+    "missing": "未アップロード",
+    "files": "{count, plural, one {# ファイル} other {# ファイル}} · {size}",
+    "download": "ダウンロード",
+    "remove": "削除",
+    "uploadFile": "ファイルをアップロード",
+    "uploadFolder": "フォルダーをアップロード",
+    "uploading": "{name} をアップロード中（{n} / {total}）… {pct}%",
+    "folderDone": "{total} 件中 {ok} 件のファイルをアップロードしました",
+    "uploadedPackage": "✓ {name} → {slug} ファームウェア",
+    "uploadedBios": "✓ {name} → {slug} · {file}（検証済み）",
+    "uploadedBiosUnverified": "{name} → {slug} · {file}（受け付けました。チェックサムが一致しません）",
+    "already": "✓ {name}: GameHub に登録済み",
+    "zipFiled": "{name}: BIOS ファイル {count, plural, one {# 件} other {# 件}} を振り分けました",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "システムファームウェア (PSVUPDAT.PUP)",
+        "fonts": "フォントパッケージ (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "システムファームウェア (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "製品キー (prod.keys)",
+        "titlekeys": "タイトルキー (title.keys)",
+        "firmware": "システムファームウェア (.zip、または .nca ファイルのフォルダー)"
+      },
+      "3ds": {
+        "aeskeys": "AES キー (aes_keys.txt)",
+        "seeddb": "シードデータベース (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "ディスクキー (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "サーバー上のフォルダーをスキャン",
+      "desc": "サーバー上の BIOS とファームウェアのコレクションを GameHub に指定します。認識されたものはすべてコピーされます。BIOS ファイルはチェックサムまたは名前で（.zip パックの中も含む）、PS Vita、PS3、Switch、3DS、Wii U のファームウェアとキーも対象です。フォルダー自体は変更されません。Docker の場合は、先にフォルダーをコンテナにマウントしてください。",
+      "placeholder": "/path/to/bios",
+      "start": "スキャン",
+      "stop": "停止",
+      "failed": "スキャンを開始できませんでした",
+      "progress": "スキャン中 {done} / {total}…",
+      "stopped": "停止しました。",
+      "summary": "BIOS ファイル {bios, plural, one {# 件} other {# 件}}、ファームウェアファイル {packages, plural, one {# 件} other {# 件}} を追加 · {already} 件は GameHub に登録済み",
+      "problems": "{count, plural, one {# 件の問題} other {# 件の問題}}",
+      "showFound": "見つかったものを表示 ({count})",
+      "hideFound": "非表示"
     }
   }
 }

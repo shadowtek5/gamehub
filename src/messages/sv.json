@@ -745,13 +745,9 @@
       "remove": "Ta bort",
       "extra": "Extra",
       "uploading": "Laddar upp {count}…",
-      "uploadItemFailed": "misslyckades",
       "zipImported": "zip: +{imported}",
       "zipKept": ", {kept} verifierade behållna",
-      "zipSkipped": ", {skipped} överhoppade",
-      "outcomeAlreadyVerified": "✓ {filename}: redan verifierad — behållen",
-      "outcomeUnverified": "{filename}: accepterad (overifierad)",
-      "outcomeRejected": "✗ {filename}: namnet är inte ett förväntat BIOS — överhoppat"
+      "zipSkipped": ", {skipped} överhoppade"
     },
     "romUpload": {
       "title": "Ladda upp ROM — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "Laddar upp {count, plural, one {# fil} other {# filer}}…",
-      "failed": "misslyckades",
       "zipImported": "{count} importerade",
       "zipKept": ", {count} verifierade behållna",
       "zipSkipped": ", {count} överhoppade",
-      "alreadyVerifiedKept": "redan verifierad — behållen",
-      "acceptedUnverified": "accepterad (overifierad — hash matchar inte)",
-      "notExpectedBios": "namnet är inte ett förväntat BIOS — överhoppat",
       "optionalSuffix": " (valfritt)",
       "addBios": "Lägg till BIOS",
       "uploadIndividualLabel": "Ladda upp individuella filer",
@@ -3138,8 +3130,66 @@
       "redream": "Redreams mapp (Android/data/io.recompiled.redream/files): dc_boot.bin och dc_flash.bin.",
       "citra": "Mappen sysdata i emulatorns användarmapp.",
       "saturn": "BIOS-mappen som anges i Yaba Sanshiros inställningar (yabause/bios).",
-      "switch": "En mapp som du sedan installerar nycklar och firmware från i emulatorn (Inställningar › Installera nycklar / Installera firmware).",
-      "dolphin": "Valfritt. Dolphins användarmapp › GC › USA, EUR eller JAP som IPL.bin (för GameCubes startanimation)."
+      "switch": "Edens mapp (eller valfri mapp): prod.keys och title.keys samt firmware-.zip-filen eller mappen Firmware. Välj sedan Install keys och Install firmware i emulatorn.",
+      "dolphin": "Valfritt. Dolphins användarmapp › GC › USA, EUR eller JAP som IPL.bin (för GameCubes startanimation).",
+      "vita3k": "Valfri mapp (t.ex. BIOS/VITA). Välj sedan Install firmware i Vita3K och välj PSVUPDAT.PUP, sedan PSP2UPDAT.PUP.",
+      "ps3": "Valfri mapp (t.ex. BIOS/PS3_BIOS). Installera sedan PS3UPDAT.PUP från emulatorns firmwarealternativ.",
+      "cemu": "Cemus användarmapp (keys.txt läggs bredvid inställningarna)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Systemfirmware och nycklar",
+    "intro": "Sparas exakt som de laddades upp. Installera dem från emulatorn (t.ex. Vita3K, RPCS3 eller Eden › Installera firmware) eller låt GameHub Downloader kopiera dem till emulatorns mapp på din handdator.",
+    "required": "Krävs",
+    "optional": "Valfri",
+    "missing": "inte uppladdad",
+    "files": "{count, plural, one {# fil} other {# filer}} · {size}",
+    "download": "Ladda ner",
+    "remove": "Ta bort",
+    "uploadFile": "Ladda upp fil",
+    "uploadFolder": "Ladda upp mapp",
+    "uploading": "Laddar upp {name} ({n} av {total})… {pct}%",
+    "folderDone": "Laddade upp {ok} av {total} filer",
+    "uploadedPackage": "✓ {name} → {slug}-firmware",
+    "uploadedBios": "✓ {name} → {slug} · {file} (verifierad)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (godkänd, checksumman stämmer inte)",
+    "already": "✓ {name}: finns redan i GameHub",
+    "zipFiled": "{name}: sparade {count, plural, one {# BIOS-fil} other {# BIOS-filer}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Systemfirmware (PSVUPDAT.PUP)",
+        "fonts": "Teckenpaket (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Systemfirmware (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Produktnycklar (prod.keys)",
+        "titlekeys": "Titelnycklar (title.keys)",
+        "firmware": "Systemfirmware (en .zip-fil eller en mapp med .nca-filer)"
+      },
+      "3ds": {
+        "aeskeys": "AES-nycklar (aes_keys.txt)",
+        "seeddb": "Seed-databas (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Disknycklar (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Skanna en mapp på servern",
+      "desc": "Peka GameHub mot en samling med BIOS och firmware på servern. Allt som känns igen kopieras in: BIOS-filer efter checksumma eller namn (även i .zip-paket) samt firmware och nycklar för PS Vita, PS3, Switch, 3DS och Wii U. Mappen i sig ändras inte. I Docker måste du först montera mappen i containern.",
+      "placeholder": "/path/to/bios",
+      "start": "Skanna",
+      "stop": "Stoppa",
+      "failed": "Kunde inte starta skanningen",
+      "progress": "Skannar {done} av {total}…",
+      "stopped": "Stoppad.",
+      "summary": "Lade till {bios, plural, one {# BIOS-fil} other {# BIOS-filer}} och {packages, plural, one {# firmwarefil} other {# firmwarefiler}} · {already} finns redan i GameHub",
+      "problems": "{count, plural, one {# problem} other {# problem}}",
+      "showFound": "Visa vad som hittades ({count})",
+      "hideFound": "Dölj"
     }
   }
 }

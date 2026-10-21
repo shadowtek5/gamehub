@@ -7,7 +7,7 @@
 // and the grid jumps there. Letters with no games are dimmed. Pointer/touch
 // only — data-nav-skip keeps it out of gamepad navigation.
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
 import { useTranslations } from "next-intl";
 
 export interface LetterEntry {
@@ -46,11 +46,15 @@ export default function LetterRail({
   letters,
   onJump,
   className = "right-1.5",
+  gridRef,
 }: {
   letters: LetterEntry[];
   onJump: (entry: LetterEntry) => void;
   /** horizontal placement (the mobile app nudges it) */
   className?: string;
+  /** The game grid: the strip only appears once the grid fills the middle of the screen, so it
+   *  never covers the page header (e.g. the system page's ⚙ menu on the right). */
+  gridRef?: RefObject<HTMLElement | null>;
 }) {
   const t = useTranslations("common");
   const [visible, setVisible] = useState(false);
@@ -61,12 +65,21 @@ export default function LetterRail({
   const byLetter = new Map(letters.map((l) => [l.letter, l]));
 
   const show = useCallback(() => {
+    const grid = gridRef?.current;
+    if (grid) {
+      const r = grid.getBoundingClientRect();
+      const mid = window.innerHeight / 2;
+      if (r.top > mid || r.bottom < mid) {
+        if (!dragging.current) setVisible(false);
+        return;
+      }
+    }
     setVisible(true);
     if (hideTimer.current) clearTimeout(hideTimer.current);
     hideTimer.current = setTimeout(() => {
       if (!dragging.current) setVisible(false);
     }, HIDE_AFTER_MS);
-  }, []);
+  }, [gridRef]);
 
   useEffect(() => {
     const onScroll = () => show();

@@ -259,6 +259,28 @@ const spec = {
         responses: { "200": { description: "OK" } },
       },
     },
+    "/api/firmware/upload": {
+      put: {
+        tags: ["games"],
+        summary: "Upload one BIOS or firmware file as the raw body (editors; streamed, up to 1 GB): BIOS files are matched by checksum then name, firmware packages (PUPs, keys, Switch firmware) are kept as uploaded, other .zip files are opened as BIOS packs",
+        parameters: [
+          { name: "name", in: "query", required: true, schema: { type: "string" } },
+          { name: "platform", in: "query", schema: { type: "string" } },
+        ],
+        requestBody: { content: { "application/octet-stream": { schema: { type: "string", format: "binary" } } } },
+        responses: { "200": { description: "{ ok, outcome } or, for a BIOS pack, { ok, zip, imported, alreadyVerified, skipped }" } },
+      },
+    },
+    "/api/firmware/scan": {
+      get: { tags: ["games"], summary: "Status of the firmware folder scan (admins)", responses: { "200": { description: "OK" } } },
+      post: {
+        tags: ["games"],
+        summary: "Scan a folder on the server and file every BIOS and firmware file it recognizes (admins)",
+        requestBody: { content: { "application/json": { schema: { type: "object", required: ["path"], properties: { path: { type: "string" } } } } } },
+        responses: { "200": { description: "Scan status" } },
+      },
+      delete: { tags: ["games"], summary: "Stop the scan", responses: { "200": { description: "OK" } } },
+    },
     "/api/emulators": {
       get: {
         tags: ["games"],

@@ -745,13 +745,9 @@
       "remove": "Удалить",
       "extra": "Дополнительно",
       "uploading": "Загрузка {count}…",
-      "uploadItemFailed": "ошибка",
       "zipImported": "zip: +{imported}",
       "zipKept": ", сохранено {kept} проверенных",
-      "zipSkipped": ", пропущено {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: уже проверено — сохранено",
-      "outcomeUnverified": "{filename}: принято (непроверено)",
-      "outcomeRejected": "✗ {filename}: имя не является ожидаемым BIOS — пропущено"
+      "zipSkipped": ", пропущено {skipped}"
     },
     "romUpload": {
       "title": "Загрузить ROM — {name}",
@@ -2337,13 +2333,9 @@
     },
     "firmware": {
       "uploadingFiles": "Загрузка {count, plural, one {# файла} other {# файлов}}…",
-      "failed": "ошибка",
       "zipImported": "Импортировано {count}",
       "zipKept": ", сохранено {count} проверенных",
       "zipSkipped": ", пропущено {count}",
-      "alreadyVerifiedKept": "уже проверено — сохранено",
-      "acceptedUnverified": "принято (непроверено — хеш не совпадает)",
-      "notExpectedBios": "имя не является ожидаемым BIOS — пропущено",
       "optionalSuffix": " (необязательно)",
       "addBios": "Добавить BIOS",
       "uploadIndividualLabel": "Загрузить отдельные файлы",
@@ -3138,8 +3130,66 @@
       "redream": "Папка Redream (Android/data/io.recompiled.redream/files): dc_boot.bin и dc_flash.bin.",
       "citra": "Папка sysdata внутри пользовательской папки эмулятора.",
       "saturn": "Папка BIOS, заданная в настройках Yaba Sanshiro (yabause/bios).",
-      "switch": "Папка, из которой затем устанавливаются ключи и прошивка в эмуляторе (Настройки › Установить ключи / Установить прошивку).",
-      "dolphin": "Необязательно. Пользовательская папка Dolphin › GC › USA, EUR или JAP как IPL.bin (для анимации загрузки GameCube)."
+      "switch": "Папка Eden (или любая папка): prod.keys и title.keys, а также .zip с прошивкой или папка Firmware. Затем в эмуляторе выберите Install keys и Install firmware.",
+      "dolphin": "Необязательно. Пользовательская папка Dolphin › GC › USA, EUR или JAP как IPL.bin (для анимации загрузки GameCube).",
+      "vita3k": "Любая папка (например, BIOS/VITA). Затем в Vita3K выберите Install firmware и укажите PSVUPDAT.PUP, затем PSP2UPDAT.PUP.",
+      "ps3": "Любая папка (например, BIOS/PS3_BIOS). Затем установите PS3UPDAT.PUP через пункт прошивки в эмуляторе.",
+      "cemu": "Пользовательская папка Cemu (keys.txt кладётся рядом с настройками)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Прошивки системы и ключи",
+    "intro": "Сохраняются ровно в том виде, в каком были загружены. Установите их из эмулятора (например, Vita3K, RPCS3 или Eden › Установить прошивку) или разрешите GameHub Downloader скопировать их в папку эмулятора на вашем устройстве.",
+    "required": "Обязательно",
+    "optional": "Необязательно",
+    "missing": "не загружено",
+    "files": "{count, plural, one {# файл} few {# файла} many {# файлов} other {# файла}} · {size}",
+    "download": "Скачать",
+    "remove": "Удалить",
+    "uploadFile": "Загрузить файл",
+    "uploadFolder": "Загрузить папку",
+    "uploading": "Загрузка {name} ({n} из {total})… {pct}%",
+    "folderDone": "Загружено файлов: {ok} из {total}",
+    "uploadedPackage": "✓ {name} → прошивка {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (проверено)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (принято, контрольная сумма не совпадает)",
+    "already": "✓ {name}: уже есть в GameHub",
+    "zipFiled": "{name}: сохранено файлов BIOS: {count, plural, one {# файл} few {# файла} many {# файлов} other {# файла}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Прошивка системы (PSVUPDAT.PUP)",
+        "fonts": "Пакет шрифтов (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Прошивка системы (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Производственные ключи (prod.keys)",
+        "titlekeys": "Ключи названий (title.keys)",
+        "firmware": "Прошивка системы (.zip или папка файлов .nca)"
+      },
+      "3ds": {
+        "aeskeys": "Ключи AES (aes_keys.txt)",
+        "seeddb": "База seed-данных (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Ключи дисков (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Сканирование папки на сервере",
+      "desc": "Укажите GameHub коллекцию BIOS и прошивок на сервере. Всё распознанное будет скопировано: файлы BIOS по контрольной сумме или имени (в том числе внутри архивов .zip), а также прошивки и ключи для PS Vita, PS3, Switch, 3DS и Wii U. Сама папка не изменяется. В Docker сначала подключите папку к контейнеру.",
+      "placeholder": "/path/to/bios",
+      "start": "Сканировать",
+      "stop": "Остановить",
+      "failed": "Не удалось запустить сканирование",
+      "progress": "Сканирование: {done} из {total}…",
+      "stopped": "Остановлено.",
+      "summary": "Добавлено файлов BIOS: {bios, plural, one {# файл BIOS} few {# файла BIOS} many {# файлов BIOS} other {# файла BIOS}} и файлов прошивки: {packages, plural, one {# файл} few {# файла} many {# файлов} other {# файла}} · {already} уже есть в GameHub",
+      "problems": "{count, plural, one {# проблема} few {# проблемы} many {# проблем} other {# проблемы}}",
+      "showFound": "Показать найденное ({count})",
+      "hideFound": "Скрыть"
     }
   }
 }

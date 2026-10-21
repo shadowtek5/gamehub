@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-20",
+    title: "Firmware for PS Vita, PS3 and Switch, and a firmware folder scanner",
+    body: "Firmware settings now handle the consoles whose emulators install a system firmware rather than reading a BIOS: the PS Vita firmware and font package (PSVUPDAT.PUP, PSP2UPDAT.PUP), the PS3 firmware (PS3UPDAT.PUP), Switch keys (prod.keys, title.keys) and firmware (a .zip, or a whole folder of .nca files), and 3DS and Wii U keys. They're kept exactly as uploaded, big files upload in the background with progress (up to 1 GB each), and each shows under its system as System firmware & keys. Got a BIOS collection already? Settings › Firmware › Scan a folder on the server walks it and copies in everything it recognizes — BIOS files by checksum even when renamed, BIOS packs inside .zip files, and all of the firmware above — without touching the folder. GameHub Downloader 1.3.1 copies it all to the right emulators on your handheld (Vita3K, aPS3e, Eden, Azahar…). On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-20",
     title: "Playtime from your handheld, and BIOS files for every emulator",
     body: "Games you start from GameHub Downloader 1.3 on a handheld now count toward your playtime here, just like games played in the browser: while you play, friends see you as playing it, and when you come back to the app the session is added to the game's playtime, your stats and the activity heatmap. With Android's usage access turned on, the time is how long the emulator was actually on screen. Firmware settings now show, for each system, the Android emulators that play it and where each one reads its BIOS files — the list comes from Cocoon FE and is refreshed daily — and the Downloader uses it to start games in any installed emulator and to copy the BIOS files stored in Settings › Firmware into RetroArch and standalone emulators like DuckStation, AetherSX2, melonDS, Azahar and Eden. The Downloader can also browse your favorites and collections (and download a whole collection at once). On desktop/TV and the mobile app.",
     art: "automation",

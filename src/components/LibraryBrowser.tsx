@@ -517,6 +517,8 @@ export default function LibraryBrowser({
       : null;
   const letters = useLetterIndex(letterParams);
   const jumpRef = useRef<((index: number) => void) | null>(null);
+  /** The grid, so the A–Z strip stays out of the page header (system ⚙ menu). */
+  const railGridRef = useRef<HTMLDivElement>(null);
   // Index to scroll to once the rows loaded for a jump have rendered.
   const pendingJump = useRef<number | null>(null);
 
@@ -909,13 +911,15 @@ export default function LibraryBrowser({
             </p>
           ) : (
             <>
-              <VirtualGrid
-                roms={displayed}
-                sizeMode={platformLock ? "natural" : "uniform"}
-                systemIcons={systemIcons}
-                jumpRef={jumpRef}
-              />
-              <LetterRail letters={letters} onJump={jumpToLetter} />
+              <div ref={railGridRef}>
+                <VirtualGrid
+                  roms={displayed}
+                  sizeMode={platformLock ? "natural" : "uniform"}
+                  systemIcons={systemIcons}
+                  jumpRef={jumpRef}
+                />
+              </div>
+              <LetterRail letters={letters} onJump={jumpToLetter} gridRef={railGridRef} />
               {hasMore && (
                 <div ref={sentinelRef} className="py-8 text-center text-xs text-dim">
                   {t("showingCount", {

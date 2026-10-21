@@ -1606,13 +1606,9 @@
     },
     "firmware": {
       "uploadingFiles": "Lähetetään {count, plural, one {# tiedosto} other {# tiedostoa}}…",
-      "failed": "epäonnistui",
       "zipImported": "tuotu {count}",
       "zipKept": ", pidetty {count} varmennettu",
       "zipSkipped": ", ohitettu {count}",
-      "alreadyVerifiedKept": "jo varmennettu — pidetty",
-      "acceptedUnverified": "hyväksytty (varmentamaton)",
-      "notExpectedBios": "nimi ei ole odotettu BIOS — ohitettu",
       "optionalSuffix": " (valinnainen)",
       "addBios": "Lisää BIOS",
       "uploadIndividualLabel": "Lataa yksittäisiä tiedostoja",
@@ -2466,13 +2462,9 @@
       "remove": "Poista",
       "extra": "Lisä",
       "uploading": "Lähetetään {count}…",
-      "uploadItemFailed": "epäonnistui",
       "zipImported": "zip: +{imported}",
       "zipKept": ", pidetty {kept} varmennettu",
-      "zipSkipped": ", ohitettu {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: jo varmennettu — pidetty",
-      "outcomeUnverified": "{filename}: hyväksytty (varmentamaton)",
-      "outcomeRejected": "✗ {filename}: nimi ei ole odotettu BIOS — ohitettu"
+      "zipSkipped": ", ohitettu {skipped}"
     },
     "romUpload": {
       "title": "Lataa ROMit — {name}",
@@ -3138,8 +3130,66 @@
       "redream": "Redreamin kansio (Android/data/io.recompiled.redream/files): dc_boot.bin ja dc_flash.bin.",
       "citra": "Sysdata-kansio emulaattorin käyttäjäkansion sisällä.",
       "saturn": "BIOS-kansio, joka on asetettu Yaba Sanshiron asetuksissa (yabause/bios).",
-      "switch": "Kansio, josta asennat myöhemmin avaimet ja laiteohjelmiston emulaattoriin (Asetukset › Install keys / Install firmware).",
-      "dolphin": "Valinnainen. Dolphinin käyttäjäkansio › GC › USA, EUR tai JAP IPL.bin-tiedostona (GameCuben käynnistysanimaatiota varten)."
+      "switch": "Eden-kansio (tai mikä tahansa kansio): prod.keys ja title.keys sekä firmware-.zip tai Firmware-kansio. Valitse sitten emulaattorissa Install keys ja Install firmware.",
+      "dolphin": "Valinnainen. Dolphinin käyttäjäkansio › GC › USA, EUR tai JAP IPL.bin-tiedostona (GameCuben käynnistysanimaatiota varten).",
+      "vita3k": "Mikä tahansa kansio (esim. BIOS/VITA). Valitse sitten Vita3K:ssa Install firmware ja valitse PSVUPDAT.PUP, sitten PSP2UPDAT.PUP.",
+      "ps3": "Mikä tahansa kansio (esim. BIOS/PS3_BIOS). Asenna sitten PS3UPDAT.PUP emulaattorin firmware-valinnasta.",
+      "cemu": "Cemun käyttäjäkansio (keys.txt menee asetusten viereen)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Järjestelmän laiteohjelmisto ja avaimet",
+    "intro": "Tallennetaan juuri sellaisena kuin ladattiin. Asenna ne emulaattorista (esim. Vita3K, RPCS3 tai Eden › Asenna laiteohjelmisto) tai anna GameHub Downloaderin kopioida ne emulaattorin kansioon kämmenlaitteellasi.",
+    "required": "Pakollinen",
+    "optional": "Valinnainen",
+    "missing": "ei ladattu",
+    "files": "{count, plural, one {# tiedosto} other {# tiedostoa}} · {size}",
+    "download": "Lataa",
+    "remove": "Poista",
+    "uploadFile": "Lataa tiedosto",
+    "uploadFolder": "Lataa kansio",
+    "uploading": "Ladataan {name} ({n} / {total})… {pct}%",
+    "folderDone": "Ladattu {ok} / {total} tiedostoa",
+    "uploadedPackage": "✓ {name} → {slug}-laiteohjelmisto",
+    "uploadedBios": "✓ {name} → {slug} · {file} (vahvistettu)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (hyväksytty, tarkistussumma ei täsmää)",
+    "already": "✓ {name}: on jo GameHubissa",
+    "zipFiled": "{name}: lisättiin {count, plural, one {# BIOS-tiedosto} other {# BIOS-tiedostoa}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Järjestelmän laiteohjelmisto (PSVUPDAT.PUP)",
+        "fonts": "Fonttipaketti (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Järjestelmän laiteohjelmisto (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Tuoteavaimet (prod.keys)",
+        "titlekeys": "Nimikeavaimet (title.keys)",
+        "firmware": "Järjestelmän laiteohjelmisto (.zip tai kansio, jossa on .nca-tiedostoja)"
+      },
+      "3ds": {
+        "aeskeys": "AES-avaimet (aes_keys.txt)",
+        "seeddb": "Siemenkanta (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Levyavaimet (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Skannaa kansio palvelimella",
+      "desc": "Osoita GameHub palvelimella olevaan BIOS- ja laiteohjelmistokokoelmaan. Kaikki, minkä se tunnistaa, kopioidaan: BIOS-tiedostot tarkistussumman tai nimen perusteella (myös .zip-paketeista) sekä PS Vita-, PS3-, Switch-, 3DS- ja Wii U -laiteohjelmistot ja -avaimet. Kansiota itseään ei muuteta. Dockerissa liitä kansio ensin konttiin.",
+      "placeholder": "/path/to/bios",
+      "start": "Skannaa",
+      "stop": "Pysäytä",
+      "failed": "Skannausta ei voitu käynnistää",
+      "progress": "Skannataan {done} / {total}…",
+      "stopped": "Pysäytetty.",
+      "summary": "Lisättiin {bios, plural, one {# BIOS-tiedosto} other {# BIOS-tiedostoa}} ja {packages, plural, one {# laiteohjelmistotiedosto} other {# laiteohjelmistotiedostoa}} · {already} on jo GameHubissa",
+      "problems": "{count, plural, one {# ongelma} other {# ongelmaa}}",
+      "showFound": "Näytä löydetyt ({count})",
+      "hideFound": "Piilota"
     }
   }
 }

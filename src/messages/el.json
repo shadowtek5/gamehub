@@ -1606,13 +1606,9 @@
     },
     "firmware": {
       "uploadingFiles": "Μεταφόρτωσηing {count, plural, one {# file} other {# files}}…",
-      "failed": "failed",
       "zipImported": "imported {count}",
       "zipKept": ", kept {count} verified",
       "zipSkipped": ", skipped {count}",
-      "alreadyVerifiedKept": "already verified — kept",
-      "acceptedUnverified": "accepted (unverified — hash doesn't match)",
-      "notExpectedBios": "name not an expected BIOS — skipped",
       "optionalSuffix": " (optional)",
       "addBios": "Add BIOS",
       "uploadIndividualLabel": "Μεταφόρτωση individual files",
@@ -2291,13 +2287,9 @@
       "remove": "Αφαίρεση",
       "extra": "Επιπλέον",
       "uploading": "Μεταφόρτωση {count}…",
-      "uploadItemFailed": "απέτυχε",
       "zipImported": "zip: +{imported}",
       "zipKept": ", διατηρήθηκαν {kept} επαληθευμένα",
-      "zipSkipped": ", παραλείφθηκαν {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: ήδη επαληθευμένο — διατηρήθηκε",
-      "outcomeUnverified": "{filename}: αποδεκτό (μη επαληθευμένο)",
-      "outcomeRejected": "✗ {filename}: όνομα δεν είναι αναμενόμενο BIOS — παραλείφθηκε"
+      "zipSkipped": ", παραλείφθηκαν {skipped}"
     },
     "romUpload": {
       "title": "Μεταφόρτωση ROM — {name}",
@@ -3138,8 +3130,66 @@
       "redream": "Ο φάκελος του Redream (Android/data/io.recompiled.redream/files): dc_boot.bin και dc_flash.bin.",
       "citra": "Ο φάκελος sysdata μέσα στον φάκελο χρήστη του εξομοιωτή.",
       "saturn": "Ο φάκελος BIOS που ορίζεται στις ρυθμίσεις του Yaba Sanshiro (yabause/bios).",
-      "switch": "Ένας φάκελος από τον οποίο θα εγκαταστήσετε αργότερα κλειδιά και firmware στον εξομοιωτή (Ρυθμίσεις › Install keys / Install firmware).",
-      "dolphin": "Προαιρετικό. Φάκελος χρήστη του Dolphin › GC › USA, EUR ή JAP ως IPL.bin (για την εκκινησιακή animation του GameCube)."
+      "switch": "Ο φάκελος του Eden (ή οποιοσδήποτε φάκελος): prod.keys και title.keys, και το αρχείο firmware .zip ή ο φάκελος Firmware. Μετά στον εξομοιωτή επίλεξε Install keys και Install firmware.",
+      "dolphin": "Προαιρετικό. Φάκελος χρήστη του Dolphin › GC › USA, EUR ή JAP ως IPL.bin (για την εκκινησιακή animation του GameCube).",
+      "vita3k": "Οποιοσδήποτε φάκελος (π.χ. BIOS/VITA). Μετά, στο Vita3K, επίλεξε Install firmware και διάλεξε PSVUPDAT.PUP, και μετά PSP2UPDAT.PUP.",
+      "ps3": "Οποιοσδήποτε φάκελος (π.χ. BIOS/PS3_BIOS). Μετά εγκατάστησε το PS3UPDAT.PUP από την επιλογή firmware του εξομοιωτή.",
+      "cemu": "Ο φάκελος χρήστη του Cemu (το keys.txt πάει δίπλα στις ρυθμίσεις)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Firmware συστήματος & κλειδιά",
+    "intro": "Αποθηκεύονται ακριβώς όπως ανέβηκαν. Εγκαταστήστε τα από τον εξομοιωτή (π.χ. Vita3K, RPCS3 ή Eden › Εγκατάσταση firmware) ή αφήστε το GameHub Downloader να τα αντιγράψει στον φάκελο του εξομοιωτή στη φορητή συσκευή σας.",
+    "required": "Απαιτείται",
+    "optional": "Προαιρετικό",
+    "missing": "δεν έχει ανέβει",
+    "files": "{count, plural, one {# αρχείο} other {# αρχεία}} · {size}",
+    "download": "Λήψη",
+    "remove": "Κατάργηση",
+    "uploadFile": "Μεταφόρτωση αρχείου",
+    "uploadFolder": "Μεταφόρτωση φακέλου",
+    "uploading": "Μεταφόρτωση {name} ({n} από {total})… {pct}%",
+    "folderDone": "Μεταφορτώθηκαν {ok} από {total} αρχεία",
+    "uploadedPackage": "✓ {name} → firmware {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (επαληθεύτηκε)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (έγινε αποδεκτό, το checksum δεν ταιριάζει)",
+    "already": "✓ {name}: ήδη στο GameHub",
+    "zipFiled": "{name}: αποθηκεύτηκαν {count, plural, one {# αρχείο BIOS} other {# αρχεία BIOS}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Firmware συστήματος (PSVUPDAT.PUP)",
+        "fonts": "Πακέτο γραμματοσειρών (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Firmware συστήματος (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Κλειδιά προϊόντων (prod.keys)",
+        "titlekeys": "Κλειδιά τίτλων (title.keys)",
+        "firmware": "Firmware συστήματος (ένα .zip ή ένας φάκελος με αρχεία .nca)"
+      },
+      "3ds": {
+        "aeskeys": "Κλειδιά AES (aes_keys.txt)",
+        "seeddb": "Βάση δεδομένων seed (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Κλειδιά δίσκων (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Σάρωση φακέλου στον διακομιστή",
+      "desc": "Δείξτε στο GameHub μια συλλογή αρχείων BIOS και firmware στον διακομιστή. Ό,τι αναγνωρίζει αντιγράφεται: αρχεία BIOS με βάση το checksum ή το όνομα (και μέσα σε πακέτα .zip), και firmware και κλειδιά για PS Vita, PS3, Switch, 3DS και Wii U. Ο ίδιος ο φάκελος δεν αλλάζει. Στο Docker, κάντε πρώτα mount τον φάκελο στο container.",
+      "placeholder": "/path/to/bios",
+      "start": "Σάρωση",
+      "stop": "Διακοπή",
+      "failed": "Δεν ήταν δυνατή η έναρξη της σάρωσης",
+      "progress": "Σάρωση {done} από {total}…",
+      "stopped": "Διακόπηκε.",
+      "summary": "Προστέθηκαν {bios, plural, one {# αρχείο BIOS} other {# αρχεία BIOS}} και {packages, plural, one {# αρχείο firmware} other {# αρχεία firmware}} · {already} ήδη στο GameHub",
+      "problems": "{count, plural, one {# πρόβλημα} other {# προβλήματα}}",
+      "showFound": "Εμφάνιση όσων βρέθηκαν ({count})",
+      "hideFound": "Απόκρυψη"
     }
   }
 }

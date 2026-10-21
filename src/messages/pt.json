@@ -1843,13 +1843,10 @@
       "importZipDesc": "Um .zip contendo BIOS para vários sistemas — detectados automaticamente por nome de arquivo.",
       "chooseZip": "Escolher .zip",
       "requiredLabel": "Obrigatório",
-      "failed": "Falhou",
-      "acceptedUnverified": "{filename}: aceito (não verificado)",
       "chooseSystem": "Escolher sistema",
       "addBios": "Adicionar BIOS",
       "filesCount": "{count} arquivos",
       "verifiedStatus": "✓ Verificado",
-      "alreadyVerifiedKept": "✓ {filename}: já verificado — mantido",
       "optionalSuffix": " (opcional)",
       "zipSkipped": ", pulei {skipped}",
       "zipImported": "zip: +{imported}",
@@ -1870,8 +1867,7 @@
       "missing": "Ausente",
       "noBiosYet": "{name} não usa BIOS — nada a enviar.",
       "extraNotBios": "(extra — não é um BIOS esperado)",
-      "showOptional": "Mostrar opcionais",
-      "notExpectedBios": "✗ {filename}: nome não é um BIOS esperado — pulado"
+      "showOptional": "Mostrar opcionais"
     },
     "internet": {
       "networkError": "Erro de rede",
@@ -2531,16 +2527,12 @@
       "extra": "Extra",
       "missing": "Faltante",
       "noBios": "{name} não usa BIOS - nada para enviar.",
-      "outcomeAlreadyVerified": "✓ {filename}: já verificado - mantido",
-      "outcomeRejected": "✗ {filename}: nome não é um BIOS esperado - ignorado",
-      "outcomeUnverified": "{filename}: aceito (não verificado)",
       "remove": "Remover",
       "title": "BIOS — {name}",
       "unverified": "Não verificado",
       "unverifiedTitle": "Nome de arquivo correto, mas o hash de conteúdo não corresponde ao BIOS conhecido - pode funcionar mesmo assim",
       "uploadBios": "Enviar BIOS / .zip…",
       "uploading": "Enviando {count}…",
-      "uploadItemFailed": "falhou",
       "verified": "✓ Verificado",
       "zipImported": "zip: +{imported}",
       "zipKept": ", mantidos {kept} verificados",
@@ -3138,8 +3130,66 @@
       "redream": "A pasta do Redream (Android/data/io.recompiled.redream/files): dc_boot.bin e dc_flash.bin.",
       "citra": "A pasta sysdata dentro da pasta de usuário do emulador.",
       "saturn": "A pasta de BIOS definida nas configurações do Yaba Sanshiro (yabause/bios).",
-      "switch": "Uma pasta de onde você depois instala as chaves e o firmware no emulador (Configurações › Instalar chaves / Instalar firmware).",
-      "dolphin": "Opcional. Pasta de usuário do Dolphin › GC › USA, EUR ou JAP como IPL.bin (para a animação de inicialização do GameCube)."
+      "switch": "A pasta do Eden (ou qualquer pasta): prod.keys e title.keys, e o .zip do firmware ou a pasta Firmware. Depois, no emulador, escolha Install keys e Install firmware.",
+      "dolphin": "Opcional. Pasta de usuário do Dolphin › GC › USA, EUR ou JAP como IPL.bin (para a animação de inicialização do GameCube).",
+      "vita3k": "Qualquer pasta (ex.: BIOS/VITA). Depois, no Vita3K, escolha Install firmware e selecione PSVUPDAT.PUP e depois PSP2UPDAT.PUP.",
+      "ps3": "Qualquer pasta (ex.: BIOS/PS3_BIOS). Depois instale o PS3UPDAT.PUP pela opção de firmware do emulador.",
+      "cemu": "A pasta de usuário do Cemu (keys.txt fica ao lado das configurações)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "Firmware do sistema e chaves",
+    "intro": "Mantidos exatamente como foram enviados. Instale-os pelo emulador (ex.: Vita3K, RPCS3 ou Eden › Instalar firmware) ou deixe o GameHub Downloader copiá-los para a pasta do emulador no seu aparelho.",
+    "required": "Obrigatório",
+    "optional": "Opcional",
+    "missing": "não enviado",
+    "files": "{count, plural, one {# arquivo} other {# arquivos}} · {size}",
+    "download": "Baixar",
+    "remove": "Remover",
+    "uploadFile": "Enviar arquivo",
+    "uploadFolder": "Enviar pasta",
+    "uploading": "Enviando {name} ({n} de {total})… {pct}%",
+    "folderDone": "{ok} de {total} arquivos enviados",
+    "uploadedPackage": "✓ {name} → firmware {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (verificado)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (aceito, a soma de verificação não confere)",
+    "already": "✓ {name}: já está no GameHub",
+    "zipFiled": "{name}: {count, plural, one {# arquivo BIOS salvo} other {# arquivos BIOS salvos}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "Firmware do sistema (PSVUPDAT.PUP)",
+        "fonts": "Pacote de fontes (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "Firmware do sistema (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Chaves de produto (prod.keys)",
+        "titlekeys": "Chaves de título (title.keys)",
+        "firmware": "Firmware do sistema (.zip ou pasta de arquivos .nca)"
+      },
+      "3ds": {
+        "aeskeys": "Chaves AES (aes_keys.txt)",
+        "seeddb": "Banco de seeds (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Chaves de disco (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Escanear uma pasta no servidor",
+      "desc": "Aponte o GameHub para uma coleção de BIOS e firmware no servidor. Tudo o que for reconhecido será copiado: arquivos de BIOS por soma de verificação ou nome (inclusive dentro de pacotes .zip), além de firmware e chaves de PS Vita, PS3, Switch, 3DS e Wii U. A pasta em si não é alterada. No Docker, monte a pasta no contêiner antes.",
+      "placeholder": "/path/to/bios",
+      "start": "Escanear",
+      "stop": "Parar",
+      "failed": "Não foi possível iniciar o escaneamento",
+      "progress": "Escaneando {done} de {total}…",
+      "stopped": "Interrompido.",
+      "summary": "Adicionados {bios, plural, one {# arquivo BIOS} other {# arquivos BIOS}} e {packages, plural, one {# arquivo de firmware} other {# arquivos de firmware}} · {already} já no GameHub",
+      "problems": "{count, plural, one {# problema} other {# problemas}}",
+      "showFound": "Mostrar o que foi encontrado ({count})",
+      "hideFound": "Ocultar"
     }
   }
 }

@@ -9,6 +9,8 @@ import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpModal, GpButton } from "@/components/bpm/primitives";
 import AndroidEmulatorsPanel from "@/components/AndroidEmulatorsPanel";
+import FirmwarePackagesPanel, { describeUpload, type PackageStatus } from "@/components/FirmwarePackagesPanel";
+import { uploadFirmwareFile } from "@/lib/firmwareUpload";
 
 type BiosRegion = "World" | "USA" | "Japan" | "Europe" | "Asia" | "Other";
 interface FileStatus {
@@ -26,6 +28,7 @@ interface SystemStatus {
   required: boolean;
   files: FileStatus[];
   extras: Extra[];
+  packages: PackageStatus[];
 }
 
 const REGION_COLOR: Record<BiosRegion, string> = {
@@ -45,6 +48,7 @@ export default function FirmwareModal({
   onClose: () => void;
 }) {
   const t = useTranslations("fileModals");
+  const tp = useTranslations("firmwarePackages");
   const [sys, setSys] = useState<SystemStatus | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [msg, setMsg] = useState("");
@@ -74,28 +78,19 @@ export default function FirmwareModal({
       const notes: string[] = [];
       let ok = 0;
       for (const file of Array.from(files)) {
-        const form = new FormData();
-        form.append("platform", slug);
-        form.append("file", file);
-        const res = await fetch("/api/firmware", { method: "POST", body: form });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          notes.push(`${file.name}: ${data.error ?? t("firmware.uploadItemFailed")}`);
-          continue;
-        }
-        ok++;
-        if (data.zip) {
-          const kept = data.alreadyVerified?.length ?? 0;
+        // Streamed upload: BIOS files, BIOS .zip packs and big firmware packages alike.
+        const r = await uploadFirmwareFile(file, slug, (pct) => setMsg(tp("uploading", { name: file.name, pct, n: 1, total: 1 })));
+        if (r.ok) ok++;
+        if (r.ok && r.zip) {
+          const kept = r.alreadyVerified?.length ?? 0;
           notes.push(
-            t("firmware.zipImported", { imported: data.imported?.length ?? 0 }) +
+            t("firmware.zipImported", { imported: r.imported?.length ?? 0 }) +
               (kept ? t("firmware.zipKept", { kept }) : "") +
-              t("firmware.zipSkipped", { skipped: data.skipped?.length ?? 0 })
+              t("firmware.zipSkipped", { skipped: r.skipped?.length ?? 0 })
           );
+        } else {
+          notes.push(describeUpload(tp, file.name, r));
         }
-        else if (data.outcome?.status === "verified") notes.push(`✓ ${data.outcome.filename} · ${data.outcome.region}`);
-        else if (data.outcome?.status === "already-verified") notes.push(t("firmware.outcomeAlreadyVerified", { filename: data.outcome.filename }));
-        else if (data.outcome?.status === "unverified") notes.push(t("firmware.outcomeUnverified", { filename: data.outcome.filename }));
-        else if (data.outcome?.status === "rejected") notes.push(t("firmware.outcomeRejected", { filename: data.outcome.filename }));
       }
       playSound(ok > 0 ? "confirm" : "bumperEnd");
       setMsg(notes.join(" · "));
@@ -201,6 +196,7 @@ export default function FirmwareModal({
                 <button onClick={() => remove(e.id)} className="shrink-0 cursor-pointer text-xs text-dim hover:text-bright" title={t("firmware.remove")}>✕</button>
               </div>
             ))}
+            {sys && <FirmwarePackagesPanel slug={slug} packages={sys.packages ?? []} canEdit onChanged={() => void reload()} />}
             <AndroidEmulatorsPanel slug={slug} />
       </div>
     </GpModal>

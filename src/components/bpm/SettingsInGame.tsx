@@ -11,6 +11,9 @@ import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sounds";
 import { GpRow, GpSubHeader, GpDropdown, GpButton, GpCheck } from "./primitives";
 import AndroidEmulatorsPanel from "@/components/AndroidEmulatorsPanel";
+import FirmwarePackagesPanel, { describeUpload, type PackageStatus } from "@/components/FirmwarePackagesPanel";
+import FirmwareScanPanel from "@/components/FirmwareScanPanel";
+import { uploadFirmwareFile } from "@/lib/firmwareUpload";
 
 type BiosRegion = "World" | "USA" | "Japan" | "Europe" | "Asia" | "Other";
 interface FileStatus {
@@ -29,6 +32,7 @@ interface SystemStatus {
   required: boolean;
   files: FileStatus[];
   extras: Extra[];
+  packages: PackageStatus[];
 }
 
 const REGION_COLOR: Record<BiosRegion, string> = {
@@ -56,6 +60,7 @@ function RegionPill({ region }: { region: BiosRegion }) {
 
 export default function SettingsInGame() {
   const t = useTranslations("settingsProviders.firmware");
+  const tp = useTranslations("firmwarePackages");
   const [systems, setSystems] = useState<SystemStatus[] | null>(null);
   const [filePlatform, setFilePlatform] = useState(""); // system for individual uploads
   const [zipScope, setZipScope] = useState(""); // "" = all systems, else limit zip to one
@@ -95,35 +100,21 @@ export default function SettingsInGame() {
       const notes: string[] = [];
       let ok = 0;
       for (const file of Array.from(files)) {
-        const form = new FormData();
-        if (targetSlug) form.append("platform", targetSlug);
-        form.append("file", file);
-        const res = await fetch("/api/firmware", { method: "POST", body: form });
-        const data = await res.json().catch(() => ({}));
-        if (!res.ok) {
-          notes.push(`${file.name}: ${data.error ?? t("failed")}`);
-          continue;
-        }
-        ok++;
-        if (data.zip) {
-          const kept = data.alreadyVerified?.length ?? 0;
+        // Streamed upload: BIOS files, BIOS .zip packs and big firmware packages alike.
+        const r = await uploadFirmwareFile(file, targetSlug, (pct) =>
+          setMsg(tp("uploading", { name: file.name, pct, n: 1, total: 1 }))
+        );
+        if (r.ok) ok++;
+        if (r.ok && r.zip) {
+          const kept = r.alreadyVerified?.length ?? 0;
           notes.push(
             `${file.name}: ` +
-              t("zipImported", { count: data.imported?.length ?? 0 }) +
+              t("zipImported", { count: r.imported?.length ?? 0 }) +
               (kept ? t("zipKept", { count: kept }) : "") +
-              t("zipSkipped", { count: data.skipped?.length ?? 0 })
+              t("zipSkipped", { count: r.skipped?.length ?? 0 })
           );
-        } else if (data.outcome) {
-          const o = data.outcome;
-          notes.push(
-            o.status === "verified"
-              ? `✓ ${o.filename} · ${o.region} · ${o.slug}`
-              : o.status === "already-verified"
-                ? `✓ ${o.filename}: ${t("alreadyVerifiedKept")}`
-                : o.status === "unverified"
-                  ? `${o.filename}: ${t("acceptedUnverified")}`
-                  : `✗ ${o.filename}: ${t("notExpectedBios")}`
-          );
+        } else {
+          notes.push(describeUpload(tp, file.name, r));
         }
       }
       playSound(ok > 0 ? "confirm" : "bumperEnd");
@@ -150,7 +141,8 @@ export default function SettingsInGame() {
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase();
     return (systems ?? []).filter((s) => {
-      const keep = showOptional || s.required || s.files.some((f) => f.have) || s.extras.length > 0;
+      const keep =
+        showOptional || s.required || s.files.some((f) => f.have) || s.extras.length > 0 || s.packages.some((p) => p.files.length > 0);
       if (!keep) return false;
       return !q || s.name.toLowerCase().includes(q) || s.slug.includes(q);
     });
@@ -221,6 +213,8 @@ export default function SettingsInGame() {
           </div>
         </GpRow>
 
+        <FirmwareScanPanel onFinished={() => void reload()} />
+
         {msg && <div className="px-1 text-[13px] text-accent">{msg}</div>}
       </div>
 
@@ -240,8 +234,9 @@ export default function SettingsInGame() {
 
         <div className="flex flex-col gap-1">
           {visible.map((s) => {
-            const have = s.files.filter((f) => f.have).length;
-            const total = s.files.length;
+            // BIOS files and firmware packages count alike in the summary.
+            const have = s.files.filter((f) => f.have).length + s.packages.filter((p) => p.files.length > 0).length;
+            const total = s.files.length + s.packages.length;
             const open = expanded.has(s.slug);
             const dot = have === 0 ? "#67707b" : have >= total ? "#8ce05f" : "#e8c268";
             return (
@@ -318,6 +313,7 @@ export default function SettingsInGame() {
                         </div>
                       </div>
                     ))}
+                    <FirmwarePackagesPanel slug={s.slug} packages={s.packages} canEdit onChanged={() => void reload()} />
                     <AndroidEmulatorsPanel slug={s.slug} />
                   </div>
                 )}

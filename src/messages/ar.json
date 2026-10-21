@@ -1899,24 +1899,20 @@
       "uploadFailed": "فشل الرفع"
     },
     "firmware": {
-      "acceptedUnverified": "مقبولة (غير مُتحقَّق منها)",
       "addBios": "إضافة BIOS",
       "allSystems": "جميع الأنظمة",
-      "alreadyVerifiedKept": "محقق منها بالفعل — محفوظ",
       "chooseFiles": "اختيار ملفات…",
       "chooseSystem": "اختيار نظام…",
       "chooseZip": "اختيار .zip…",
       "download": "تنزيل",
       "extraNotBios": "إضافي (ليس BIOS المتوقع)",
       "extraSuffix": " · إضافي",
-      "failed": "فشل",
       "filesCount": "{count, plural, zero {# ملف} one {ملف واحد} two {ملفان} few {# ملفات} many {# ملفًا} other {# ملف}}",
       "importZipDesc": "استيراد ملفات BIOS من .zip",
       "importZipLabel": "استيراد ملفات",
       "missing": "مفقود",
       "noBiosYet": "لا يوجد BIOS بعد",
       "noSystemsMatch": "لا توجد أنظمة متطابقة",
-      "notExpectedBios": "ليس BIOS المتوقع — تم التخطي",
       "optionalLabel": "اختياري",
       "optionalSuffix": " · اختياري",
       "presentHashDiffers": "الموجود — التجزئة مختلفة",
@@ -2196,13 +2192,9 @@
       "remove": "إزالة",
       "extra": "إضافي",
       "uploading": "جارٍ الرفع {count}…",
-      "uploadItemFailed": "فشل",
       "zipImported": "zip: +{imported}",
       "zipKept": "، احتُفظ بـ {kept} مُتحقَّق منها",
-      "zipSkipped": "، تخطٍّ {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: محقق منه بالفعل — محفوظ",
-      "outcomeUnverified": "{filename}: مقبول (غير مُتحقَّق منه)",
-      "outcomeRejected": "✗ {filename}: اسم ليس BIOS متوقعًا — تم التخطي"
+      "zipSkipped": "، تخطٍّ {skipped}"
     },
     "romUpload": {
       "title": "رفع ROMs — {name}",
@@ -3138,8 +3130,66 @@
       "redream": "مجلد Redream (Android/data/io.recompiled.redream/files): ملفا dc_boot.bin و dc_flash.bin.",
       "citra": "مجلد sysdata داخل مجلد المستخدم الخاص بالمحاكي.",
       "saturn": "مجلد BIOS المحدد في إعدادات Yaba Sanshiro (yabause/bios).",
-      "switch": "مجلد تثبّت منه المفاتيح والبرامج الثابتة لاحقاً في المحاكي (الإعدادات › Install keys / Install firmware).",
-      "dolphin": "اختياري. مجلد المستخدم في Dolphin › GC › USA أو EUR أو JAP كملف IPL.bin (لتأثير بدء تشغيل GameCube)."
+      "switch": "مجلد Eden (أو أي مجلد): prod.keys وtitle.keys، وملف البرنامج الثابت .zip أو مجلد Firmware. ثم في المحاكي اختر تثبيت المفاتيح (Install keys) وتثبيت البرنامج الثابت (Install firmware).",
+      "dolphin": "اختياري. مجلد المستخدم في Dolphin › GC › USA أو EUR أو JAP كملف IPL.bin (لتأثير بدء تشغيل GameCube).",
+      "vita3k": "أي مجلد (مثلاً BIOS/VITA). ثم في Vita3K اختر تثبيت البرنامج الثابت (Install firmware)، واختر PSVUPDAT.PUP، ثم PSP2UPDAT.PUP.",
+      "ps3": "أي مجلد (مثلاً BIOS/PS3_BIOS). ثم ثبّت PS3UPDAT.PUP من خيار البرنامج الثابت في المحاكي.",
+      "cemu": "مجلد المستخدم في Cemu (يُوضع keys.txt بجوار ملف الإعدادات)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "البرامج الثابتة للنظام والمفاتيح",
+    "intro": "تُحفظ كما رُفعت تماماً. ثبّتها من المحاكي (مثل Vita3K أو RPCS3 أو Eden › تثبيت البرامج الثابتة)، أو اسمح لـ GameHub Downloader بنسخها إلى مجلد المحاكي على جهازك المحمول.",
+    "required": "مطلوب",
+    "optional": "اختياري",
+    "missing": "لم يتم الرفع",
+    "files": "{count, plural, one {ملف #} two {ملفان #} few {# ملفات} many {# ملفًا} other {# ملف}} · {size}",
+    "download": "تنزيل",
+    "remove": "إزالة",
+    "uploadFile": "رفع ملف",
+    "uploadFolder": "رفع مجلد",
+    "uploading": "جارٍ رفع {name} ({n} من {total})… {pct}%",
+    "folderDone": "تم رفع {ok} من {total} ملفات",
+    "uploadedPackage": "✓ {name} → البرنامج الثابت {slug}",
+    "uploadedBios": "✓ {name} → {slug} · {file} (تم التحقق)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (مقبول، المجموع الاختباري غير متطابق)",
+    "already": "✓ {name}: موجود بالفعل في GameHub",
+    "zipFiled": "{name}: تمت إضافة {count, plural, one {# ملف BIOS} two {# ملفا BIOS} few {# ملفات BIOS} many {# ملف BIOS} other {# ملف BIOS}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "البرنامج الثابت للنظام (PSVUPDAT.PUP)",
+        "fonts": "حزمة الخطوط (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "البرنامج الثابت للنظام (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "مفاتيح الإنتاج (prod.keys)",
+        "titlekeys": "مفاتيح العناوين (title.keys)",
+        "firmware": "البرنامج الثابت للنظام (ملف .zip، أو مجلد يحتوي على ملفات .nca)"
+      },
+      "3ds": {
+        "aeskeys": "مفاتيح AES (aes_keys.txt)",
+        "seeddb": "قاعدة بيانات البذور (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "مفاتيح الأقراص (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "فحص مجلد على الخادم",
+      "desc": "وجّه GameHub إلى مجموعة ملفات BIOS والبرامج الثابتة على الخادم. يُنسخ كل ما يتعرف عليه: ملفات BIOS حسب المجموع الاختباري أو الاسم (وكذلك داخل حزم .zip)، والبرامج الثابتة والمفاتيح لأجهزة PS Vita وPS3 وSwitch وWii U و3DS. لا يتم تغيير المجلد نفسه. في Docker، اربط المجلد بالحاوية أولاً.",
+      "placeholder": "/path/to/bios",
+      "start": "فحص",
+      "stop": "إيقاف",
+      "failed": "تعذّر بدء الفحص",
+      "progress": "جارٍ الفحص {done} من {total}…",
+      "stopped": "تم الإيقاف.",
+      "summary": "تمت إضافة {bios, plural, one {# ملف BIOS} two {# ملفا BIOS} few {# ملفات BIOS} many {# ملف BIOS} other {# ملف BIOS}} و{packages, plural, one {# ملف برنامج ثابت} two {# ملفا برنامج ثابت} few {# ملفات برنامج ثابت} many {# ملف برنامج ثابت} other {# ملف برنامج ثابت}} · {already} موجود بالفعل في GameHub",
+      "problems": "{count, plural, one {# مشكلة} two {# مشكلتان} few {# مشكلات} many {# مشكلة} other {# مشكلة}}",
+      "showFound": "عرض ما تم العثور عليه ({count})",
+      "hideFound": "إخفاء"
     }
   }
 }

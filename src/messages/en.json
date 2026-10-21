@@ -745,13 +745,9 @@
       "remove": "Remove",
       "extra": "Extra",
       "uploading": "Uploading {count}…",
-      "uploadItemFailed": "failed",
       "zipImported": "zip: +{imported}",
       "zipKept": ", kept {kept} verified",
-      "zipSkipped": ", skipped {skipped}",
-      "outcomeAlreadyVerified": "✓ {filename}: already verified — kept",
-      "outcomeUnverified": "{filename}: accepted (unverified)",
-      "outcomeRejected": "✗ {filename}: name not an expected BIOS — skipped"
+      "zipSkipped": ", skipped {skipped}"
     },
     "romUpload": {
       "title": "Upload ROMs — {name}",
@@ -2535,13 +2531,9 @@
     },
     "firmware": {
       "uploadingFiles": "Uploading {count, plural, one {# file} other {# files}}…",
-      "failed": "failed",
       "zipImported": "imported {count}",
       "zipKept": ", kept {count} verified",
       "zipSkipped": ", skipped {count}",
-      "alreadyVerifiedKept": "already verified — kept",
-      "acceptedUnverified": "accepted (unverified — hash doesn't match)",
-      "notExpectedBios": "name not an expected BIOS — skipped",
       "optionalSuffix": " (optional)",
       "addBios": "Add BIOS",
       "uploadIndividualLabel": "Upload individual files",
@@ -3139,8 +3131,66 @@
       "redream": "Redream's folder (Android/data/io.recompiled.redream/files): dc_boot.bin and dc_flash.bin.",
       "citra": "The sysdata folder inside the emulator's user folder.",
       "saturn": "The BIOS folder set in Yaba Sanshiro's settings (yabause/bios).",
-      "switch": "A folder you then install keys and firmware from in the emulator (Settings › Install keys / Install firmware).",
-      "dolphin": "Optional. Dolphin's user folder › GC › USA, EUR or JAP as IPL.bin (for the GameCube boot animation)."
+      "switch": "Eden's folder (or any folder): prod.keys and title.keys, and the firmware .zip or Firmware folder. Then in the emulator choose Install keys and Install firmware.",
+      "dolphin": "Optional. Dolphin's user folder › GC › USA, EUR or JAP as IPL.bin (for the GameCube boot animation).",
+      "vita3k": "Any folder (e.g. BIOS/VITA). Then in Vita3K choose Install firmware and pick PSVUPDAT.PUP, then PSP2UPDAT.PUP.",
+      "ps3": "Any folder (e.g. BIOS/PS3_BIOS). Then install PS3UPDAT.PUP from the emulator's firmware option.",
+      "cemu": "Cemu's user folder (keys.txt goes next to the settings)."
+    }
+  },
+  "firmwarePackages": {
+    "title": "System firmware & keys",
+    "intro": "Kept exactly as uploaded. Install them from the emulator (e.g. Vita3K, RPCS3 or Eden › Install firmware), or let GameHub Downloader copy them to the emulator's folder on your handheld.",
+    "required": "Required",
+    "optional": "Optional",
+    "missing": "not uploaded",
+    "files": "{count, plural, one {# file} other {# files}} · {size}",
+    "download": "Download",
+    "remove": "Remove",
+    "uploadFile": "Upload file",
+    "uploadFolder": "Upload folder",
+    "uploading": "Uploading {name} ({n} of {total})… {pct}%",
+    "folderDone": "Uploaded {ok} of {total} files",
+    "uploadedPackage": "✓ {name} → {slug} firmware",
+    "uploadedBios": "✓ {name} → {slug} · {file} (verified)",
+    "uploadedBiosUnverified": "{name} → {slug} · {file} (accepted, checksum doesn't match)",
+    "already": "✓ {name}: already in GameHub",
+    "zipFiled": "{name}: filed {count, plural, one {# BIOS file} other {# BIOS files}}",
+    "rejected": "✗ {name}: {error}",
+    "label": {
+      "vita": {
+        "firmware": "System firmware (PSVUPDAT.PUP)",
+        "fonts": "Font package (PSP2UPDAT.PUP)"
+      },
+      "ps3": {
+        "firmware": "System firmware (PS3UPDAT.PUP)"
+      },
+      "switch": {
+        "prodkeys": "Product keys (prod.keys)",
+        "titlekeys": "Title keys (title.keys)",
+        "firmware": "System firmware (a .zip, or a folder of .nca files)"
+      },
+      "3ds": {
+        "aeskeys": "AES keys (aes_keys.txt)",
+        "seeddb": "Seed database (seeddb.bin)"
+      },
+      "wiiu": {
+        "keys": "Disc keys (keys.txt)"
+      }
+    },
+    "scan": {
+      "title": "Scan a folder on the server",
+      "desc": "Point GameHub at a BIOS and firmware collection on the server. Everything it recognizes is copied in: BIOS files by checksum or name (also inside .zip packs), and PS Vita, PS3, Switch, 3DS and Wii U firmware and keys. The folder itself isn't changed. In Docker, mount the folder into the container first.",
+      "placeholder": "/path/to/bios",
+      "start": "Scan",
+      "stop": "Stop",
+      "failed": "Couldn't start the scan",
+      "progress": "Scanning {done} of {total}…",
+      "stopped": "Stopped.",
+      "summary": "Added {bios, plural, one {# BIOS file} other {# BIOS files}} and {packages, plural, one {# firmware file} other {# firmware files}} · {already} already in GameHub",
+      "problems": "{count, plural, one {# problem} other {# problems}}",
+      "showFound": "Show what was found ({count})",
+      "hideFound": "Hide"
     }
   }
 }
