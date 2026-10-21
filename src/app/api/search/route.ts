@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
   const metaName = new Map(getAllSystems().map((s) => [s.slug, s.name]));
   const counts = db
     .prepare(
-      "SELECT platform_slug AS slug, COUNT(*) AS count FROM roms WHERE missing = 0 GROUP BY platform_slug"
+      "SELECT platform_slug AS slug, COUNT(*) AS count FROM roms WHERE missing = 0 AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = roms.id AND ra.parent_id IS NOT NULL) GROUP BY platform_slug"
     )
     .all() as { slug: string; count: number }[];
   const systems = counts

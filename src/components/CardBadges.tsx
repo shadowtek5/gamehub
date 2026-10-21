@@ -74,6 +74,22 @@ export function VariantRibbon({ variant, small = false }: { variant?: string | n
   );
 }
 
+/** "+3 DLC" (or "Update") in a card's bottom-left corner when the game has add-ons. */
+export function AddonTag({ dlc, updates, small = false }: { dlc?: number; updates?: number; small?: boolean }) {
+  const t = useTranslations("cardBadges");
+  if (!dlc && !updates) return null;
+  const label = dlc ? t("addons.dlc", { count: dlc }) : t("addons.update");
+  return (
+    <span
+      className={`pointer-events-none absolute z-[1] flex items-center rounded-full bg-black/70 font-bold uppercase leading-none tracking-wide text-[#d4b0ff] shadow-[0_1px_3px_rgba(0,0,0,0.6)] ring-1 ring-white/10 backdrop-blur-sm ${
+        small ? "bottom-1 left-1 h-[18px] px-1.5 text-[9px]" : "bottom-1.5 left-1.5 h-[22px] px-2 text-[10px]"
+      }`}
+    >
+      {label}
+    </span>
+  );
+}
+
 /** The ribbon's text for screen readers (the ribbon itself is decorative). */
 export function useVariantLabel(variant?: string | null): string | null {
   const t = useTranslations("cardBadges");

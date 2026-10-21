@@ -3236,6 +3236,31 @@
     "statLabel": "兼容性",
     "fromDevice": "{device} 上的 {emulator}",
     "fromList": "{emulator} 兼容性列表",
-    "fromBrowser": "浏览器内"
+    "fromBrowser": "浏览器内",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "更新"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC 与更新",
+    "kind": {
+      "update": "更新",
+      "dlc": "DLC",
+      "license": "许可证",
+      "base": "游戏"
+    },
+    "download": "下载",
+    "downloadAll": "全部下载 (.zip)",
+    "partOf": "<game></game>的{kind}",
+    "install": {
+      "switch": "请在 Eden（或其他 Switch 模拟器）中使用 Install files to NAND 安装。",
+      "vita": "GameHub Downloader 会将它们安装到 Vita3K。原始 NoNpDRM 转储会先解密（Settings › Maintenance）。",
+      "ps3": "使用模拟器的 Install packages 选项安装 .pkg 文件。需要许可证的 DLC 还需要其 .rap 文件（RPCS3：Install licenses）。",
+      "3ds": "在 Azahar（或 Citra）中使用 Install CIA 安装。",
+      "xbox360": "从模拟器的内容菜单安装（Xenia：File › Install Content）。",
+      "wiiu": "在 Cemu 中使用 File › Install game title, update or DLC 安装。"
+    },
+    "pack": "DLC 合集 · {count}"
   }
 }

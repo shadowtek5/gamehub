@@ -3,6 +3,7 @@ import { getSessionUser } from "@/lib/auth";
 import { getSetting } from "@/lib/db";
 import { scanLibrary } from "@/lib/scanner";
 import { runCleanup } from "@/lib/cleanup";
+import { scheduleAddonScan } from "@/lib/addons";
 
 export async function POST(req: NextRequest) {
   const user = await getSessionUser();
@@ -14,6 +15,8 @@ export async function POST(req: NextRequest) {
     ? body.systems.filter((s: unknown) => typeof s === "string")
     : undefined;
   const result = scanLibrary({ systems });
+  // New DLC / update files: find out what they are and link them to their games.
+  scheduleAddonScan(true);
 
   // Auto cleanup: immediately remove whatever this scan marked missing
   // (scoped to the scanned systems on a partial scan)

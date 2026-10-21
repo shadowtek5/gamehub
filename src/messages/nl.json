@@ -3236,6 +3236,31 @@
     "statLabel": "Compatibiliteit",
     "fromDevice": "{emulator} op {device}",
     "fromList": "{emulator}-compatibiliteitslijst",
-    "fromBrowser": "In de browser"
+    "fromBrowser": "In de browser",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Update"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC en updates",
+    "kind": {
+      "update": "Update",
+      "dlc": "DLC",
+      "license": "Licentie",
+      "base": "Spel"
+    },
+    "download": "Downloaden",
+    "downloadAll": "Alles downloaden (.zip)",
+    "partOf": "{kind} voor <game></game>",
+    "install": {
+      "switch": "Installeer ze in Eden (of een andere Switch-emulator) met Install files to NAND.",
+      "vita": "GameHub Downloader installeert ze in Vita3K. Ruwe NoNpDRM-dumps worden eerst ontsleuteld (Settings › Maintenance).",
+      "ps3": "Installeer de .pkg-bestanden met de optie Install packages van de emulator. DLC die een licentie nodig heeft, heeft ook het .rap-bestand nodig (RPCS3: Install licenses).",
+      "3ds": "Installeer ze in Azahar (of Citra) met Install CIA.",
+      "xbox360": "Installeer ze via het contentmenu van de emulator (Xenia: File › Install Content).",
+      "wiiu": "Installeer ze in Cemu met File › Install game title, update or DLC."
+    },
+    "pack": "DLC-pakket · {count}"
   }
 }

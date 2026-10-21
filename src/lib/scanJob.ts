@@ -4,6 +4,7 @@
 
 import { getDb, getSystemFolders, getHiddenSystems, getSetting } from "./db";
 import { scanLibrary } from "./scanner";
+import { scheduleAddonScan } from "./addons";
 import { runCleanup } from "./cleanup";
 import { refreshDriftedThumbs } from "./systemThumb";
 import { hashRoms } from "./hashJob";
@@ -274,6 +275,8 @@ export function startScanJob(
         await refreshDriftedThumbs(wholeLibrary ? undefined : scannedSlugs).catch(() => {});
       }
     } finally {
+      // New files on DLC / update systems: find out what they are and link them to their games.
+      scheduleAddonScan(true);
       s.running = false;
       s.finalizing = false;
       s.currentSystem = "";

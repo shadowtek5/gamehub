@@ -6,6 +6,7 @@ import { getDb, getLibraryRom, RomRow } from "@/lib/db";
 import { platformBySlug, platformPlayable } from "@/lib/platforms";
 import { sortTitle } from "@/lib/scanner";
 import { getDataDir } from "../../../../lib/dataDir";
+import { addonParent, gameAddons } from "@/lib/addons";
 
 /** Read one game, including the caller's personal data */
 export async function GET(
@@ -24,6 +25,8 @@ export async function GET(
       playable: platform ? platformPlayable(platform) : false,
       platform_name: platform?.name ?? rom.platform_slug,
       file_url: `/api/roms/${rom.id}/file`,
+      addons: gameAddons(rom.id),
+      addon_of: addonParent(rom.id),
     },
   });
 }

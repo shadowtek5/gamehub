@@ -3236,6 +3236,31 @@
     "statLabel": "Совместимость",
     "fromDevice": "{emulator} на {device}",
     "fromList": "Список совместимости {emulator}",
-    "fromBrowser": "В браузере"
+    "fromBrowser": "В браузере",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Обновление"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC и обновления",
+    "kind": {
+      "update": "Обновление",
+      "dlc": "DLC",
+      "license": "Лицензия",
+      "base": "Игра"
+    },
+    "download": "Скачать",
+    "downloadAll": "Скачать все (.zip)",
+    "partOf": "{kind} для <game></game>",
+    "install": {
+      "switch": "Установите их в Eden (или другом эмуляторе Switch) через Install files to NAND.",
+      "vita": "GameHub Downloader устанавливает их в Vita3K. Необработанные дампы NoNpDRM сначала расшифровываются (Settings › Maintenance).",
+      "ps3": "Установите файлы .pkg через пункт Install packages эмулятора. DLC, которому нужна лицензия, также требует файл .rap (RPCS3: Install licenses).",
+      "3ds": "Установите их в Azahar (или Citra) через Install CIA.",
+      "xbox360": "Установите их из меню содержимого эмулятора (Xenia: File › Install Content).",
+      "wiiu": "Установите их в Cemu через File › Install game title, update or DLC."
+    },
+    "pack": "Набор DLC · {count}"
   }
 }

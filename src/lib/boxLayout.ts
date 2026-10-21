@@ -21,6 +21,8 @@ export interface CardRom {
   playtime_seconds: number;
   /** compatibility at a glance: playable | runs | broken (cards show an icon) */
   compat_level?: string | null;
+  dlc_count?: number;
+  update_count?: number;
 }
 
 export type CardSizeMode = "natural" | "row" | "uniform";

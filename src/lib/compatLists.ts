@@ -345,7 +345,7 @@ function ps3FolderSerial(dir: string): string | null {
 }
 
 /** Reads a string value from a PlayStation param.sfo. */
-function sfoString(b: Buffer, wanted: string): string | null {
+export function sfoString(b: Buffer, wanted: string): string | null {
   if (b.length < 20 || b.toString("latin1", 1, 4) !== "PSF") return null;
   const keyTable = b.readUInt32LE(8);
   const dataTable = b.readUInt32LE(12);
@@ -365,7 +365,7 @@ function sfoString(b: Buffer, wanted: string): string | null {
   return null;
 }
 
-interface RomLite {
+export interface RomLite {
   id: number;
   title: string;
   path: string;
@@ -375,7 +375,7 @@ interface RomLite {
 }
 
 /** The game's serial for its system's list, found once and remembered ('' = none found). */
-async function serialFor(rom: RomLite): Promise<string> {
+export async function serialFor(rom: RomLite): Promise<string> {
   const db = getDb();
   const known = db.prepare("SELECT serial FROM rom_serials WHERE rom_id = ?").get(rom.id) as { serial: string } | undefined;
   if (known) return known.serial;

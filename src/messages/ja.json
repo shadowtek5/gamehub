@@ -3236,6 +3236,31 @@
     "statLabel": "互換性",
     "fromDevice": "{device}上の{emulator}",
     "fromList": "{emulator}互換性リスト",
-    "fromBrowser": "ブラウザ内"
+    "fromBrowser": "ブラウザ内",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "アップデート"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC・アップデート",
+    "kind": {
+      "update": "アップデート",
+      "dlc": "DLC",
+      "license": "ライセンス",
+      "base": "ゲーム"
+    },
+    "download": "ダウンロード",
+    "downloadAll": "すべてダウンロード (.zip)",
+    "partOf": "<game></game>の{kind}",
+    "install": {
+      "switch": "Eden（または他のSwitchエミュレーター）で Install files to NAND を使ってインストールしてください。",
+      "vita": "GameHub Downloader が Vita3K にインストールします。未処理の NoNpDRM ダンプは先に復号されます（Settings › Maintenance）。",
+      "ps3": ".pkg ファイルはエミュレーターの Install packages でインストールしてください。ライセンスが必要な DLC には .rap ファイルも必要です（RPCS3: Install licenses）。",
+      "3ds": "Azahar（または Citra）で Install CIA を使ってインストールしてください。",
+      "xbox360": "エミュレーターのコンテンツメニューからインストールしてください（Xenia: File › Install Content）。",
+      "wiiu": "Cemu で File › Install game title, update or DLC を使ってインストールしてください。"
+    },
+    "pack": "DLCパック · {count}"
   }
 }

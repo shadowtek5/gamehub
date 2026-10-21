@@ -620,6 +620,20 @@ function migrate(db: Database.Database) {
       serial TEXT NOT NULL,
       checked_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
+    -- DLC, updates and licenses (src/lib/addons.ts): what each game file is and, for add-ons, the
+    -- game they belong to. Linked add-ons are left out of the library grids, like extra discs.
+    CREATE TABLE IF NOT EXISTS rom_addons (
+      rom_id INTEGER PRIMARY KEY REFERENCES roms(id) ON DELETE CASCADE,
+      kind TEXT NOT NULL,          -- 'base' | 'update' | 'dlc' | 'license' | '' (nothing to tell)
+      base_key TEXT NOT NULL DEFAULT '',  -- the base game's id on its system (title id, serial)
+      addon_id TEXT,               -- the add-on's own id (DLC title id / content id)
+      version TEXT,
+      name TEXT,
+      items TEXT,                  -- JSON [{id, name}]: what a package of several holds (a Vita DLC pack)
+      parent_id INTEGER REFERENCES roms(id) ON DELETE SET NULL,
+      checked_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_rom_addons_parent ON rom_addons(parent_id);
   `);
 
   // updated_at: bumps whenever ANYTHING about a ROM changes (scrape, art pick,
@@ -1598,7 +1612,8 @@ export function getSystemStats(
        FROM roms r
        LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
        WHERE r.platform_slug = ? AND r.missing = 0
-         AND (r.disc_number IS NULL OR r.disc_number = 1)`
+         AND (r.disc_number IS NULL OR r.disc_number = 1)
+         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)`
     )
     .get(userId, slug) as {
     total: number;
@@ -1673,6 +1688,7 @@ function hiddenFilter(personal = false, userId?: number): { sql: string; params:
     }
   }
   sql += " AND (r.disc_number IS NULL OR r.disc_number = 1)";
+  sql += ` AND ${ADDON_HIDDEN_SQL}`;
   if (personal) sql += " AND COALESCE(ur.hidden, 0) = 0";
   return { sql, params };
 }
@@ -1845,6 +1861,8 @@ export interface BrowseRomRow {
   box_layout?: string | null;
   /** compatibility at a glance: playable | runs | broken | null (see COMPAT_LEVEL_SQL) */
   compat_level?: string | null;
+  dlc_count?: number;
+  update_count?: number;
 }
 
 /** How well a game runs, at a glance (card icon, game page stat): playable | runs | broken | NULL.
@@ -1864,9 +1882,19 @@ const COMPAT_LEVEL_SQL = `COALESCE(
       LIMIT 1)
   )`;
 
+/** An add-on (DLC / update / license) linked to its game: shown with the game, not in grids. */
+const ADDON_HIDDEN_SQL = "NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)";
+/** How many DLC and updates a game has (game cards' "+3 DLC" tag). */
+const ADDON_COUNTS_SQL = `
+  (SELECT COALESCE(SUM(COALESCE(json_array_length(ra.items), 1)), 0) FROM rom_addons ra JOIN roms ar ON ar.id = ra.rom_id
+    WHERE ra.parent_id = r.id AND ra.kind = 'dlc' AND ar.missing = 0) AS dlc_count,
+  (SELECT COUNT(*) FROM rom_addons ra JOIN roms ar ON ar.id = ra.rom_id
+    WHERE ra.parent_id = r.id AND ra.kind = 'update' AND ar.missing = 0) AS update_count`;
+
 const BROWSE_SELECT = `
   SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,
          ${COMPAT_LEVEL_SQL} AS compat_level,
+         ${ADDON_COUNTS_SQL},
          COALESCE(ur.favorite, 0) AS favorite,
          COALESCE(ur.play_status, 'none') AS play_status,
          COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
@@ -2102,6 +2130,7 @@ export function searchLibraryBrowse(
       `SELECT * FROM (
          SELECT r.id, r.title, r.boxart_url, r.video_url, r.platform_slug, r.variant, r.language, r.added_at,
                 ${COMPAT_LEVEL_SQL} AS compat_level,
+                ${ADDON_COUNTS_SQL},
                 COALESCE(ur.favorite, 0) AS favorite,
                 COALESCE(ur.play_status, 'none') AS play_status,
                 COALESCE(ur.playtime_seconds, 0) AS playtime_seconds,
@@ -2204,8 +2233,9 @@ export function gameVariants(romId: number): GameVariant[] {
   const all = getDb()
     .prepare(
       `SELECT id, title, filename, region, language, variant, boxart_url, disc_number, revision
-       FROM roms
+       FROM roms r
        WHERE platform_slug = ? AND sort_title = ? AND missing = 0
+         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)
        ORDER BY (variant IS NULL) DESC, region, disc_number, id`
     )
     .all(base.platform_slug, base.sort_title) as GameVariant[];
@@ -2269,7 +2299,7 @@ export function resolveRelatedLibrary(
   // Build a title → romId index over playable library entries (first wins).
   const rows = getDb()
     .prepare(
-      "SELECT id, title FROM roms WHERE missing = 0 AND (disc_number IS NULL OR disc_number = 1)"
+      "SELECT id, title FROM roms r WHERE missing = 0 AND (disc_number IS NULL OR disc_number = 1) AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)"
     )
     .all() as { id: number; title: string }[];
   const index = new Map<string, number>();

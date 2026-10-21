@@ -3236,6 +3236,31 @@
     "statLabel": "التوافق",
     "fromDevice": "{emulator} على {device}",
     "fromList": "قائمة توافق {emulator}",
-    "fromBrowser": "في المتصفح"
+    "fromBrowser": "في المتصفح",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "تحديث"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC والتحديثات",
+    "kind": {
+      "update": "تحديث",
+      "dlc": "DLC",
+      "license": "ترخيص",
+      "base": "اللعبة"
+    },
+    "download": "تنزيل",
+    "downloadAll": "تنزيل الكل (.zip)",
+    "partOf": "{kind} لـ <game></game>",
+    "install": {
+      "switch": "ثبّتها في Eden (أو أي محاكي Switch آخر) باستخدام Install files to NAND.",
+      "vita": "يثبّتها GameHub Downloader في Vita3K. تُفكّ تشفير ملفات NoNpDRM الخام أولاً (Settings › Maintenance).",
+      "ps3": "ثبّت ملفات .pkg بخيار Install packages في المحاكي. يحتاج DLC الذي يتطلب ترخيصاً إلى ملف .rap أيضاً (RPCS3: Install licenses).",
+      "3ds": "ثبّتها في Azahar (أو Citra) باستخدام Install CIA.",
+      "xbox360": "ثبّتها من قائمة المحتوى في المحاكي (Xenia: File › Install Content).",
+      "wiiu": "ثبّتها في Cemu باستخدام File › Install game title, update or DLC."
+    },
+    "pack": "حزمة DLC · {count}"
   }
 }

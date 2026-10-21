@@ -3236,6 +3236,31 @@
     "statLabel": "Kompatibilitet",
     "fromDevice": "{emulator} på {device}",
     "fromList": "{emulator}s kompatibilitetslista",
-    "fromBrowser": "I webbläsaren"
+    "fromBrowser": "I webbläsaren",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Uppdatering"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC och uppdateringar",
+    "kind": {
+      "update": "Uppdatering",
+      "dlc": "DLC",
+      "license": "Licens",
+      "base": "Spel"
+    },
+    "download": "Hämta",
+    "downloadAll": "Hämta alla (.zip)",
+    "partOf": "{kind} till <game></game>",
+    "install": {
+      "switch": "Installera dem i Eden (eller en annan Switch-emulator) med Install files to NAND.",
+      "vita": "GameHub Downloader installerar dem i Vita3K. Råa NoNpDRM-dumpar avkrypteras först (Settings › Maintenance).",
+      "ps3": "Installera .pkg-filerna med emulatorns Install packages-alternativ. DLC som kräver licens behöver också sin .rap-fil (RPCS3: Install licenses).",
+      "3ds": "Installera dem i Azahar (eller Citra) med Install CIA.",
+      "xbox360": "Installera dem från emulatorns innehållsmeny (Xenia: File › Install Content).",
+      "wiiu": "Installera dem i Cemu med File › Install game title, update or DLC."
+    },
+    "pack": "DLC-paket · {count}"
   }
 }

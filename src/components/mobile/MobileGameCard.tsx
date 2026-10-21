@@ -2,7 +2,7 @@ import Link from "next/link";
 import GameCover from "@/components/GameCover";
 import { platformBySlug } from "@/lib/platforms";
 import { DEFAULT_COVER_ASPECT } from "@/lib/boxLayout";
-import { CompatCornerIcon, VariantRibbon } from "@/components/CardBadges";
+import { AddonTag, CompatCornerIcon, VariantRibbon } from "@/components/CardBadges";
 
 /** Width of the mobile grid cover thumbnail — the aspect sampler requests the
  *  same width so it reuses the derivative the cards already fetch. */
@@ -20,6 +20,8 @@ export default function MobileGameCard({
   className = "",
   compatLevel,
   variant,
+  dlcCount,
+  updateCount,
 }: {
   id: number;
   title: string;
@@ -32,6 +34,9 @@ export default function MobileGameCard({
   compatLevel?: string | null;
   /** translations / hacks / homebrew… get a corner ribbon */
   variant?: string | null;
+  /** DLC / updates linked to the game ("+3 DLC") */
+  dlcCount?: number;
+  updateCount?: number;
 }) {
   const platform = platformBySlug(platformSlug);
   return (
@@ -42,6 +47,7 @@ export default function MobileGameCard({
       >
         <CompatCornerIcon level={compatLevel} className="left-1 top-1" />
         <VariantRibbon variant={variant} small />
+        <AddonTag dlc={dlcCount} updates={updateCount} small />
         <GameCover
           title={title}
           boxartUrl={boxartUrl}

@@ -327,6 +327,8 @@ export default function MobileLibrary({
             coverAspect={coverAspect}
             compatLevel={r.compat_level}
             variant={r.variant}
+            dlcCount={r.dlc_count}
+            updateCount={r.update_count}
           />
         ))}
       </div>

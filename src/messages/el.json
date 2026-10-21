@@ -3236,6 +3236,31 @@
     "statLabel": "Συμβατότητα",
     "fromDevice": "{emulator} σε {device}",
     "fromList": "Λίστα συμβατότητας {emulator}",
-    "fromBrowser": "Στο πρόγραμμα περιήγησης"
+    "fromBrowser": "Στο πρόγραμμα περιήγησης",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Ενημέρωση"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC και ενημερώσεις",
+    "kind": {
+      "update": "Ενημέρωση",
+      "dlc": "DLC",
+      "license": "Άδεια",
+      "base": "Παιχνίδι"
+    },
+    "download": "Λήψη",
+    "downloadAll": "Λήψη όλων (.zip)",
+    "partOf": "{kind} για <game></game>",
+    "install": {
+      "switch": "Εγκαταστήστε τα στο Eden (ή σε άλλο emulator του Switch) με Install files to NAND.",
+      "vita": "Το GameHub Downloader τα εγκαθιστά στο Vita3K. Τα ακατέργαστα αρχεία NoNpDRM αποκρυπτογραφούνται πρώτα (Settings › Maintenance).",
+      "ps3": "Εγκαταστήστε τα .pkg με την επιλογή Install packages του emulator. Το DLC που χρειάζεται άδεια χρειάζεται και το αρχείο .rap του (RPCS3: Install licenses).",
+      "3ds": "Εγκαταστήστε τα στο Azahar (ή στο Citra) με Install CIA.",
+      "xbox360": "Εγκαταστήστε τα από το μενού περιεχομένου του emulator (Xenia: File › Install Content).",
+      "wiiu": "Εγκαταστήστε τα στο Cemu με File › Install game title, update or DLC."
+    },
+    "pack": "Πακέτο DLC · {count}"
   }
 }

@@ -3236,6 +3236,31 @@
     "statLabel": "Yhteensopivuus",
     "fromDevice": "{emulator} laitteella {device}",
     "fromList": "{emulator}-yhteensopivuuslista",
-    "fromBrowser": "Selaimessa"
+    "fromBrowser": "Selaimessa",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Päivitys"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC ja päivitykset",
+    "kind": {
+      "update": "Päivitys",
+      "dlc": "DLC",
+      "license": "Lisenssi",
+      "base": "Peli"
+    },
+    "download": "Lataa",
+    "downloadAll": "Lataa kaikki (.zip)",
+    "partOf": "{kind} pelille <game></game>",
+    "install": {
+      "switch": "Asenna ne Eden-emulaattoriin (tai muuhun Switch-emulaattoriin) valinnalla Install files to NAND.",
+      "vita": "GameHub Downloader asentaa ne Vita3K:hon. Raakadumpit NoNpDRM:llä puretaan ensin (Settings › Maintenance).",
+      "ps3": "Asenna .pkg-tiedostot emulaattorin Install packages -valinnalla. Lisenssiä vaativa DLC tarvitsee myös .rap-tiedostonsa (RPCS3: Install licenses).",
+      "3ds": "Asenna ne Azahariin (tai Citraan) valinnalla Install CIA.",
+      "xbox360": "Asenna ne emulaattorin sisältövalikosta (Xenia: File › Install Content).",
+      "wiiu": "Asenna ne Cemuun valinnalla File › Install game title, update or DLC."
+    },
+    "pack": "DLC-paketti · {count}"
   }
 }

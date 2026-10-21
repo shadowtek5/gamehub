@@ -7,7 +7,40 @@ import fs from "fs";
 import path from "path";
 import { getDb, getSetting } from "./db";
 import { dataPath } from "./dataDir";
-import { decryptNoNpDrmZip, detectNoNpDrm, findPfsdec, zipEntryNames } from "./vitaPfs";
+import { decryptNoNpDrmZip, detectNoNpDrm, findPfsdec, readSfos, readZipEntries, zipEntryNames } from "./vitaPfs";
+import { forgetAddons, scheduleAddonScan } from "./addons";
+
+/**
+ * A game's license, for decrypting its update: the work.bin (raw or decrypted game zips keep it)
+ * or license/<TITLE_ID>/*.rif (installed layout) of a PS Vita zip holding that game.
+ */
+async function gameLicense(titleId: string, exceptId: number): Promise<Buffer | null> {
+  const rows = getDb()
+    .prepare(
+      `SELECT r.id, r.path FROM roms r LEFT JOIN rom_addons ra ON ra.rom_id = r.id
+        WHERE r.platform_slug = ? AND r.missing = 0 AND r.id != ? AND lower(r.path) LIKE '%.zip'
+          AND ((ra.kind = 'base' AND ra.base_key = ?) OR upper(r.path) LIKE ?)
+          AND COALESCE(ra.kind, '') NOT IN ('update', 'dlc', 'license')
+        ORDER BY (ra.kind = 'base') DESC`
+    )
+    .all(VITA_SLUG, exceptId, titleId, `%${titleId}%`) as { id: number; path: string }[];
+  for (const row of rows) {
+    try {
+      const found = await readZipEntries(
+        row.path,
+        (n) => /(?:^|\/)sce_sys\/package\/work\.bin$/i.test(n) || new RegExp(`(?:^|/)license/${titleId}/[^/]+\\.rif$`, "i").test(n),
+        64 * 1024
+      );
+      for (const rif of found.values()) {
+        // The license must be for this game: its content id names the title ("UP0001-PCSE00120_00-…").
+        if (rif.length >= 0x34 && rif.toString("latin1", 0x17, 0x20).toUpperCase() === titleId) return rif;
+      }
+    } catch {
+      /* unreadable */
+    }
+  }
+  return null;
+}
 
 export const VITA_SLUG = "vita";
 export const AUTO_DECRYPT_SETTING = "vita_auto_decrypt";
@@ -144,7 +177,8 @@ export function startVitaDecryptJob(ids?: number[], onComplete?: () => void): bo
         s.current = row.title;
         s.phase = "";
         try {
-          const layout = detectNoNpDrm(await zipEntryNames(row.path));
+          const names = await zipEntryNames(row.path);
+          const layout = detectNoNpDrm(names, await readSfos(row.path, names).catch(() => undefined));
           if (!layout) {
             s.skipped++;
           } else {
@@ -156,9 +190,17 @@ export function startVitaDecryptJob(ids?: number[], onComplete?: () => void): bo
             }
             // Written next to the original (same filesystem) so the swap is an atomic rename.
             const tmp = path.join(dir, `.${path.basename(row.path)}.decrypting`);
+            // An update is decrypted with its game's license.
+            const licenseFile = path.join(dir, `.${path.basename(row.path)}.license`);
+            if (layout.needsGameLicense) {
+              const rif = await gameLicense(layout.needsGameLicense, row.id);
+              if (!rif) throw new Error(`update for ${layout.needsGameLicense}: its game (with its license) isn't in the library, so it can't be decrypted yet`);
+              fs.writeFileSync(licenseFile, rif);
+            }
             try {
               await decryptNoNpDrmZip(row.path, layout, tmp, dataPath("tmp", "vita-decrypt", String(row.id)), {
                 tool,
+                license: layout.needsGameLicense ? licenseFile : undefined,
                 isCancelled: () => s.cancelRequested,
                 signal: s.signal,
                 onPhase: (phase, pct) => {
@@ -168,7 +210,9 @@ export function startVitaDecryptJob(ids?: number[], onComplete?: () => void): bo
               fs.renameSync(tmp, row.path);
             } finally {
               fs.rmSync(tmp, { force: true });
+              fs.rmSync(licenseFile, { force: true });
             }
+            forgetAddons([row.id]);
             update.run(fs.statSync(row.path).size, row.id);
             s.decrypted++;
             console.log(`[vita-decrypt] decrypted ${row.title} (${row.path})`);
@@ -182,6 +226,8 @@ export function startVitaDecryptJob(ids?: number[], onComplete?: () => void): bo
       }
       if (s.cancelRequested) s.cancelled = true;
     } finally {
+      // The rewritten zips are looked at again (what's inside, which game they belong to).
+      if (s.decrypted) scheduleAddonScan(true);
       s.running = false;
       s.current = "";
       s.phase = "";

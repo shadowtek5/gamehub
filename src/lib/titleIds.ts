@@ -18,13 +18,18 @@ const hex = (n: bigint | number, width: number) => n.toString(16).toUpperCase().
 // ---------- Nintendo 3DS ----------
 
 async function n3dsTitleId(file: string): Promise<string | null> {
+  return (await n3dsInfo(file))?.id ?? null;
+}
+
+/** A 3DS file's title id and, for CIAs, its title version (e.g. "1.1.0"). */
+export async function n3dsInfo(file: string): Promise<{ id: string; version: string | null } | null> {
   const fh = await fs.promises.open(file, "r");
   try {
     const head = await readAt(fh, 0, 0x200);
     if (head.length >= 0x120) {
       const magic = head.toString("latin1", 0x100, 0x104);
-      if (magic === "NCSD") return hex(head.readBigUInt64LE(0x108), 16);
-      if (magic === "NCCH") return hex(head.readBigUInt64LE(0x118), 16);
+      if (magic === "NCSD") return { id: hex(head.readBigUInt64LE(0x108), 16), version: null };
+      if (magic === "NCCH") return { id: hex(head.readBigUInt64LE(0x118), 16), version: null };
     }
     // CIA: header, certificate chain, ticket, then the TMD (each 64-byte aligned).
     if (head.length >= 0x20 && head.readUInt32LE(0) === 0x2020) {
@@ -33,8 +38,10 @@ async function n3dsTitleId(file: string): Promise<string | null> {
       const sigType = (await readAt(fh, tmd, 4)).readUInt32BE(0);
       const sigLen = ({ 0x10003: 0x200 + 0x3c, 0x10004: 0x100 + 0x3c, 0x10005: 0x3c + 0x40 } as Record<number, number>)[sigType];
       if (!sigLen) return null;
-      const id = await readAt(fh, tmd + 4 + sigLen + 0x4c, 8);
-      return id.length === 8 ? hex(id.readBigUInt64BE(0), 16) : null;
+      const hdr = await readAt(fh, tmd + 4 + sigLen, 0x9e);
+      if (hdr.length < 0x9e) return null;
+      const v = hdr.readUInt16BE(0x9c);
+      return { id: hex(hdr.readBigUInt64BE(0x4c), 16), version: `${v >> 10}.${(v >> 4) & 0x3f}.${v & 0xf}` };
     }
     return null;
   } finally {
@@ -126,6 +133,27 @@ async function xboxTitleId(file: string, x360: boolean): Promise<string | null> 
     }
     const hit = await xdvdfsFind(fh, exe);
     return hit ? parse(await readAt(fh, hit.pos, Math.min(hit.size, EXE_HEAD))) : null;
+  } finally {
+    await fh.close();
+  }
+}
+
+/** STFS content types (Xbox 360 packages). */
+export const STFS_TYPES = { titleUpdate: 0x000b0000, marketplace: 0x00000002, gamesOnDemand: 0x00007000, arcade: 0x000d0000, installedGame: 0x00004000 };
+
+/** An Xbox 360 STFS package (CON / LIVE / PIRS): title id, content type and display name. */
+export async function stfsInfo(file: string): Promise<{ titleId: string; contentType: number; name: string } | null> {
+  const fh = await fs.promises.open(file, "r");
+  try {
+    const b = await readAt(fh, 0, 0x492);
+    if (b.length < 0x492) return null;
+    const magic = b.toString("latin1", 0, 4);
+    if (magic !== "CON " && magic !== "LIVE" && magic !== "PIRS") return null;
+    // Display name: UTF-16BE at 0x411, NUL-terminated.
+    const raw = Buffer.from(b.subarray(0x411, 0x491));
+    raw.swap16();
+    const name = raw.toString("utf16le").replace(/\0[\s\S]*$/, "").trim();
+    return { titleId: hex(b.readUInt32BE(0x360), 8), contentType: b.readUInt32BE(0x344), name };
   } finally {
     await fh.close();
   }

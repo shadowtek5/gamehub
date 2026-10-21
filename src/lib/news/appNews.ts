@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-21",
+    title: "DLC and updates live with their game",
+    body: "DLC, updates and licenses for Switch, PS Vita, PS3, 3DS, Xbox 360 and Wii U no longer show up as games of their own. GameHub reads which game each one belongs to from the file itself (title ids, serials, package headers) — or matches it by title — and lists them on the game's page under DLC & updates, with a download for each and Download all (.zip). Game cards show how many DLC a game has. A PS Vita DLC pack (several DLC in one zip) lists every DLC inside by name. Decrypt PS Vita dumps (Settings › Maintenance) now handles DLC and updates too — each DLC with its own license, an update with its game's — so Vita3K can use them. Scans now pick up PS3 .pkg and .rap files and Xbox 360 title updates and DLC. GameHub Downloader 1.3.4 downloads them from the game's page and installs Vita DLC and updates into Vita3K. On desktop/TV and the mobile app.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-21",
     title: "3DS, Xbox and Xbox 360 compatibility, and Xbox BIOS",
     body: "Three more official compatibility lists: Azahar for 3DS (also Citra and its forks), xemu for the original Xbox (also X1 BOX and hakuX on Android) and Xenia Canary for Xbox 360 (also aX360e). GameHub reads each game's title id from its own file — .3ds, .cci, .cxi and .cia files, Xbox and Xbox 360 disc images, extracted folders and GOD/XBLA packages — or matches it by title, so the card icons and game pages show how it runs. Settings › Firmware now keeps the original Xbox's MCPX boot ROM, flash BIOS and hard disk image too (also found by the folder scanner), and GameHub Downloader 1.3.3 copies them to a folder X1 BOX or hakuX can pick them from. On desktop/TV and the mobile app.",
     art: "automation",

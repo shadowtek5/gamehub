@@ -15,6 +15,8 @@ import { getRaCreds } from "@/lib/userRa";
 import GameCover from "@/components/GameCover";
 import GameTabs from "@/components/GameTabs";
 import GameVariants from "@/components/GameVariants";
+import GameAddons, { AddonOf } from "@/components/GameAddons";
+import { addonParent, gameAddons } from "@/lib/addons";
 import GameOptionsModal from "@/components/GameOptionsModal";
 import GameNotes from "@/components/GameNotes";
 import GameRating from "@/components/GameRating";
@@ -60,6 +62,9 @@ export default async function GamePage({
 
   // Other versions of this game on the same system (regional/hacks/translations)
   const variants = gameVariants(rom.id);
+  // DLC, updates and licenses linked to this game — or, on an add-on's page, its game.
+  const addons = gameAddons(rom.id);
+  const addonOf = addonParent(rom.id);
 
   // Friends' play history for this game (other users, most recent first) — read
   // from user_roms, not the activity feed.
@@ -821,6 +826,9 @@ export default async function GamePage({
           ))}
         </div>
       )}
+
+      {addonOf && <AddonOf parent={addonOf} />}
+      <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} />
 
       <GameTabs
         tabs={[

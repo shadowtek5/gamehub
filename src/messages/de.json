@@ -3236,6 +3236,31 @@
     "statLabel": "Kompatibilität",
     "fromDevice": "{emulator} auf {device}",
     "fromList": "{emulator}-Kompatibilitätsliste",
-    "fromBrowser": "Im Browser"
+    "fromBrowser": "Im Browser",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Update"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC & Updates",
+    "kind": {
+      "update": "Update",
+      "dlc": "DLC",
+      "license": "Lizenz",
+      "base": "Spiel"
+    },
+    "download": "Herunterladen",
+    "downloadAll": "Alle herunterladen (.zip)",
+    "partOf": "{kind} für <game></game>",
+    "install": {
+      "switch": "Installiere sie in Eden (oder einem anderen Switch-Emulator) mit Install files to NAND.",
+      "vita": "GameHub Downloader installiert sie in Vita3K. Rohe NoNpDRM-Dumps werden zuvor entschlüsselt (Settings › Maintenance).",
+      "ps3": "Installiere die .pkg-Dateien über die Option Install packages des Emulators. DLC, der eine Lizenz benötigt, braucht zusätzlich seine .rap-Datei (RPCS3: Install licenses).",
+      "3ds": "Installiere sie in Azahar (oder Citra) mit Install CIA.",
+      "xbox360": "Installiere sie über das Inhaltsmenü des Emulators (Xenia: File › Install Content).",
+      "wiiu": "Installiere sie in Cemu mit File › Install game title, update or DLC."
+    },
+    "pack": "DLC-Paket · {count}"
   }
 }

@@ -3236,6 +3236,31 @@
     "statLabel": "Kompatibilitet",
     "fromDevice": "{emulator} på {device}",
     "fromList": "{emulator}-kompatibilitetsliste",
-    "fromBrowser": "I browseren"
+    "fromBrowser": "I browseren",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Opdatering"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC og opdateringer",
+    "kind": {
+      "update": "Opdatering",
+      "dlc": "DLC",
+      "license": "Licens",
+      "base": "Spil"
+    },
+    "download": "Download",
+    "downloadAll": "Download alle (.zip)",
+    "partOf": "{kind} til <game></game>",
+    "install": {
+      "switch": "Installer dem i Eden (eller en anden Switch-emulator) med Install files to NAND.",
+      "vita": "GameHub Downloader installerer dem i Vita3K. Rå NoNpDRM-dumps dekrypteres først (Settings › Maintenance).",
+      "ps3": "Installer .pkg-filerne med emulatorens Install packages-valg. DLC, der kræver en licens, kræver også sin .rap-fil (RPCS3: Install licenses).",
+      "3ds": "Installer dem i Azahar (eller Citra) med Install CIA.",
+      "xbox360": "Installer dem fra emulatorens indholdsmenu (Xenia: File › Install Content).",
+      "wiiu": "Installer dem i Cemu med File › Install game title, update or DLC."
+    },
+    "pack": "DLC-pakke · {count}"
   }
 }

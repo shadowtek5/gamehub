@@ -3236,6 +3236,31 @@
     "statLabel": "호환성",
     "fromDevice": "{device}의 {emulator}",
     "fromList": "{emulator} 호환성 목록",
-    "fromBrowser": "브라우저에서"
+    "fromBrowser": "브라우저에서",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "업데이트"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC 및 업데이트",
+    "kind": {
+      "update": "업데이트",
+      "dlc": "DLC",
+      "license": "라이선스",
+      "base": "게임"
+    },
+    "download": "다운로드",
+    "downloadAll": "모두 다운로드 (.zip)",
+    "partOf": "<game></game>의 {kind}",
+    "install": {
+      "switch": "Eden(또는 다른 Switch 에뮬레이터)에서 Install files to NAND로 설치하세요.",
+      "vita": "GameHub Downloader가 Vita3K에 설치합니다. 원본 NoNpDRM 덤프는 먼저 복호화됩니다(Settings › Maintenance).",
+      "ps3": ".pkg 파일은 에뮬레이터의 Install packages 옵션으로 설치하세요. 라이선스가 필요한 DLC는 .rap 파일도 필요합니다(RPCS3: Install licenses).",
+      "3ds": "Azahar(또는 Citra)에서 Install CIA로 설치하세요.",
+      "xbox360": "에뮬레이터의 콘텐츠 메뉴에서 설치하세요(Xenia: File › Install Content).",
+      "wiiu": "Cemu에서 File › Install game title, update or DLC로 설치하세요."
+    },
+    "pack": "DLC 팩 · {count}"
   }
 }

@@ -3236,6 +3236,31 @@
     "statLabel": "Kompatibilnost",
     "fromDevice": "{emulator} na {device}",
     "fromList": "Lista kompatibilnosti: {emulator}",
-    "fromBrowser": "U pregledaču"
+    "fromBrowser": "U pregledaču",
+    "addons": {
+      "dlc": "+{count} DLC",
+      "update": "Ažuriranje"
+    }
+  },
+  "gameAddons": {
+    "title": "DLC i ažuriranja",
+    "kind": {
+      "update": "Ažuriranje",
+      "dlc": "DLC",
+      "license": "Licenca",
+      "base": "Igra"
+    },
+    "download": "Preuzmi",
+    "downloadAll": "Preuzmi sve (.zip)",
+    "partOf": "{kind} za <game></game>",
+    "install": {
+      "switch": "Instalirajte ih u Eden (ili drugom Switch emulatoru) pomoću opcije Install files to NAND.",
+      "vita": "GameHub Downloader ih instalira u Vita3K. Neobrađeni NoNpDRM dumpovi se prvo dešifruju (Settings › Maintenance).",
+      "ps3": "Instalirajte .pkg fajlove opcijom Install packages u emulatoru. DLC kojem je potrebna licenca takođe zahteva svoj .rap fajl (RPCS3: Install licenses).",
+      "3ds": "Instalirajte ih u Azahar (ili Citra) pomoću opcije Install CIA.",
+      "xbox360": "Instalirajte ih iz menija sadržaja emulatora (Xenia: File › Install Content).",
+      "wiiu": "Instalirajte ih u Cemu pomoću File › Install game title, update or DLC."
+    },
+    "pack": "DLC paket · {count}"
   }
 }

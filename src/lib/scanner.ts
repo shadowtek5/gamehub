@@ -209,6 +209,30 @@ interface FileHit {
   filePath: string;
   platform: Platform;
   variant: string | null;
+  /** A title read from the file itself (Xbox 360 packages are named by a hash). */
+  title?: string;
+}
+
+/** An Xbox 360 STFS package (XBLA game, title update, DLC): its display name, else null. */
+function stfsTitle(file: string): string | null {
+  let fd: number | null = null;
+  try {
+    fd = fs.openSync(file, "r");
+    const b = Buffer.alloc(0x492);
+    if (fs.readSync(fd, b, 0, b.length, 0) < b.length) return null;
+    const magic = b.toString("latin1", 0, 4);
+    if (magic !== "CON " && magic !== "LIVE" && magic !== "PIRS") return null;
+    // Single-file packages only: title updates, DLC (marketplace content) and Xbox Live Arcade games.
+    // A Games on Demand game is this header plus a .data folder, which a file download can't carry.
+    if (![0x000b0000, 0x00000002, 0x000d0000].includes(b.readUInt32BE(0x344))) return null;
+    const raw = Buffer.from(b.subarray(0x411, 0x491));
+    raw.swap16();
+    return raw.toString("utf16le").replace(/\0[\s\S]*$/, "").trim() || path.basename(file);
+  } catch {
+    return null;
+  } finally {
+    if (fd !== null) fs.closeSync(fd);
+  }
 }
 
 function scanMappedFolder(
@@ -236,8 +260,14 @@ function scanMappedFolder(
     // a unique extension from another system (stray file) still wins.
     const extPlatform = platformByExtension(ext);
     const acceptable =
-      !!extPlatform || AMBIGUOUS_EXTENSIONS.includes(ext) || ext === ".zip" || ext === ".7z";
-    if (!acceptable) continue;
+      !!extPlatform || AMBIGUOUS_EXTENSIONS.includes(ext) || ext === ".zip" || ext === ".7z" ||
+      !!mapped.mappedExtensions?.includes(ext);
+    if (!acceptable) {
+      // Xbox 360 packages usually have no extension: take them by their header.
+      const stfs = mapped.slug === "xbox360" ? stfsTitle(filePath) : null;
+      if (stfs) hits.push({ filePath, platform: mapped, variant: mappedVariant ?? variantFromSubpath(path.relative(root, filePath)), title: stfs });
+      continue;
+    }
     if (ext === ".bin" && fs.existsSync(filePath.replace(/\.bin$/i, ".cue"))) continue;
 
     const rel = path.relative(root, filePath);
@@ -383,7 +413,7 @@ export function scanLibrary(options: ScanOptions = {}): ScanResult {
       if (seen.has(hit.filePath)) continue;
       result.scanned++;
       const filename = path.basename(hit.filePath);
-      const { title, region } = cleanTitle(filename);
+      const { title, region } = hit.title ? cleanTitle(hit.title) : cleanTitle(filename);
       let size = 0;
       try {
         const st = fs.statSync(hit.filePath);

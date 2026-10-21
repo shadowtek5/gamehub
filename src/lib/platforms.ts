@@ -22,6 +22,8 @@ export interface Platform {
    * scanner records the folder itself and does not descend into it.
    */
   folderRom?: { requires: string[] };
+  /** Extensions taken only from folders mapped to this system (shared with others, e.g. .pkg). */
+  mappedExtensions?: string[];
 }
 
 export const PLATFORMS: Platform[] = [
@@ -212,13 +214,13 @@ export const PLATFORMS: Platform[] = [
     libretroName: "Nintendo - Wii U",
     color: "#26a9e0",
     // Extracted Wii U titles are a folder with code/ content/ meta/ inside.
-    folderRom: { requires: ["code", "content", "meta"] },
+    folderRom: { requires: ["content", "meta"] },
   },
   {
     slug: "switch",
     name: "Nintendo Switch",
     shortName: "Switch",
-    extensions: [".nsp", ".xci"],
+    extensions: [".nsp", ".xci", ".nsz", ".xcz"],
     folderAliases: ["switch", "nintendo switch", "nsw"],
     ejsCore: null,
     libretroName: "Nintendo - Nintendo Switch",
@@ -479,6 +481,7 @@ export const PLATFORMS: Platform[] = [
     name: "PlayStation 3",
     shortName: "PS3",
     extensions: [],
+    mappedExtensions: [".pkg", ".rap"],
     folderAliases: ["ps3", "playstation 3", "sony playstation 3"],
     ejsCore: null,
     libretroName: "Sony - PlayStation 3",

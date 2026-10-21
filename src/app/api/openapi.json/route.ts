@@ -470,6 +470,14 @@ const spec = {
         responses: { "200": { description: "Saved" } },
       },
     },
+    "/api/roms/{id}/addons": {
+      get: {
+        tags: ["games"],
+        summary: "A game's DLC, updates and licenses ({ addons, addon_of }); ?zip=1 downloads them all as one zip",
+        parameters: [{ name: "id", in: "path", required: true, schema: { type: "integer" } }],
+        responses: { "200": { description: "OK" } },
+      },
+    },
     "/api/roms/{id}/discs": {
       get: {
         tags: ["games"],

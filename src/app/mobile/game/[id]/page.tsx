@@ -24,6 +24,8 @@ import ScreenshotGallery from "@/components/ScreenshotGallery";
 import Reviews from "@/components/Reviews";
 import Compatibility from "@/components/Compatibility";
 import { CompatStat } from "@/components/CardBadges";
+import GameAddons, { AddonOf } from "@/components/GameAddons";
+import { addonParent, gameAddons } from "@/lib/addons";
 import VideoFilterPicker from "@/components/VideoFilterPicker";
 import CheatsManager from "@/components/CheatsManager";
 import Guides from "@/components/Guides";
@@ -74,6 +76,8 @@ export default async function MobileGamePage({
   const playable = !!platform && platformPlayable(platform);
   const hero = rom.hero_url || rom.screenshot_url || null;
   const variants = gameVariants(rom.id);
+  const addons = gameAddons(rom.id);
+  const addonOf = addonParent(rom.id);
   const friendPlays = friendsWhoPlayed(rom.id, user.id);
 
   const languages = (rom.language ?? "")
@@ -276,6 +280,13 @@ export default async function MobileGamePage({
           ))}
           {compatAtGlance && <CompatStat {...compatAtGlance} mobile />}
         </div>
+
+        {(addonOf || addons.length > 0) && (
+          <div className="mt-4 space-y-3">
+            {addonOf && <AddonOf parent={addonOf} mobile />}
+            <GameAddons romId={rom.id} gameTitle={rom.title} platformSlug={rom.platform_slug} addons={addons} mobile />
+          </div>
+        )}
 
         {hltbRows.length > 0 && (
           <Section title={t("sectionHltb")}>
