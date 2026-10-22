@@ -1613,7 +1613,7 @@ export function getSystemStats(
        LEFT JOIN user_roms ur ON ur.rom_id = r.id AND ur.user_id = ?
        WHERE r.platform_slug = ? AND r.missing = 0
          AND (r.disc_number IS NULL OR r.disc_number = 1)
-         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)`
+         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.kind IN ('update', 'dlc', 'license'))`
     )
     .get(userId, slug) as {
     total: number;
@@ -1882,8 +1882,9 @@ const COMPAT_LEVEL_SQL = `COALESCE(
       LIMIT 1)
   )`;
 
-/** An add-on (DLC / update / license) linked to its game: shown with the game, not in grids. */
-const ADDON_HIDDEN_SQL = "NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)";
+/** A DLC / update / license is never a game of its own: shown with its game, and left out of the
+ *  grids even when no game in the library matches it. */
+const ADDON_HIDDEN_SQL = "NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.kind IN ('update', 'dlc', 'license'))";
 /** How many DLC and updates a game has (game cards' "+3 DLC" tag). Driven by rom_addons' parent
  *  index with EXISTS for the file check: as a JOIN, SQLite scanned every game per card. */
 const ADDON_COUNTS_SQL = `
@@ -2238,7 +2239,7 @@ export function gameVariants(romId: number): GameVariant[] {
       `SELECT id, title, filename, region, language, variant, boxart_url, disc_number, revision
        FROM roms r
        WHERE platform_slug = ? AND sort_title = ? AND missing = 0
-         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)
+         AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.kind IN ('update', 'dlc', 'license'))
        ORDER BY (variant IS NULL) DESC, region, disc_number, id`
     )
     .all(base.platform_slug, base.sort_title) as GameVariant[];
@@ -2302,7 +2303,7 @@ export function resolveRelatedLibrary(
   // Build a title → romId index over playable library entries (first wins).
   const rows = getDb()
     .prepare(
-      "SELECT id, title FROM roms r WHERE missing = 0 AND (disc_number IS NULL OR disc_number = 1) AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.parent_id IS NOT NULL)"
+      "SELECT id, title FROM roms r WHERE missing = 0 AND (disc_number IS NULL OR disc_number = 1) AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = r.id AND ra.kind IN ('update', 'dlc', 'license'))"
     )
     .all() as { id: number; title: string }[];
   const index = new Map<string, number>();

@@ -11,7 +11,7 @@ export async function GET() {
   const counts = new Map<string, number>();
   for (const row of getDb()
     // DLC / updates linked to their game count with the game, not as games of their own.
-    .prepare(`SELECT platform_slug s, COUNT(*) c FROM roms WHERE missing = 0 AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = roms.id AND ra.parent_id IS NOT NULL) GROUP BY platform_slug`)
+    .prepare(`SELECT platform_slug s, COUNT(*) c FROM roms WHERE missing = 0 AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = roms.id AND ra.kind IN ('update', 'dlc', 'license')) GROUP BY platform_slug`)
     .all() as { s: string; c: number }[]) {
     counts.set(row.s, row.c);
   }

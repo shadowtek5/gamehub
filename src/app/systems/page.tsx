@@ -18,7 +18,7 @@ export default async function SystemsPage() {
   const counts = getDb()
     .prepare(
       `SELECT platform_slug,
-              SUM(CASE WHEN missing = 0 AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = roms.id AND ra.parent_id IS NOT NULL) THEN 1 ELSE 0 END) AS count,
+              SUM(CASE WHEN missing = 0 AND NOT EXISTS (SELECT 1 FROM rom_addons ra WHERE ra.rom_id = roms.id AND ra.kind IN ('update', 'dlc', 'license')) THEN 1 ELSE 0 END) AS count,
               SUM(CASE WHEN missing = 0 AND scraped_at IS NULL THEN 1 ELSE 0 END) AS unscanned,
               SUM(CASE WHEN missing = 1 THEN 1 ELSE 0 END) AS not_found
        FROM roms

@@ -16,6 +16,12 @@ interface AppNewsEntry {
 const ENTRIES: AppNewsEntry[] = [
   {
     date: "2026-10-21",
+    title: "DLC without its game stays out of the library",
+    body: "A DLC, update or license whose game isn't in your library no longer shows up as a game of its own. Once the game is added, it appears on that game's DLC & Updates tab.",
+    art: "automation",
+  },
+  {
+    date: "2026-10-21",
     title: "A DLC & Updates tab, and a fast library again",
     body: "A game's DLC, updates and licenses now have their own DLC & Updates tab on the game page (a section on the mobile app): updates by version, each DLC with its id, and a DLC pack shows every DLC inside it as its own row — one download for the pack, or Download all (.zip) for everything. Also fixes 0.1.16 making the library very slow on big libraries (counting each game's DLC looked at every game in the library), which could make the server stop responding.",
     art: "automation",
